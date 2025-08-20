@@ -1,0 +1,1908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit AI Service - SyftBox Service Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&family=Roboto:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 40;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-tab {
+            background: none;
+            border: none;
+            padding: 8px 12px;
+            font-weight: 400;
+            font-size: 14px;
+            color: #64748b;
+            cursor: pointer;
+            transition: color 0.2s;
+            text-decoration: none;
+        }
+
+        .nav-tab:hover {
+            color: #3b82f6;
+        }
+
+        .nav-tab.active {
+            color: #1e293b;
+            font-weight: 500;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background-image: url('./syftbox-logo.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .logo-text h1 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 2px;
+            color: #1e293b;
+            font-family: 'Rubik', -apple-system, system-ui, sans-serif;
+        }
+
+        .logo-text p {
+            font-size: 12px;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            background: white;
+            color: #374151;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: #f9fafb;
+            border-color: #9ca3af;
+        }
+
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+
+        .btn-primary:hover {
+            background: #2563eb;
+        }
+
+        .btn-success {
+            background: #10b981;
+            color: white;
+            border-color: #10b981;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        .btn-large {
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        /* Service Edit Layout */
+        .service-edit-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .service-header {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .service-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1e293b;
+            font-family: 'Rubik', -apple-system, system-ui, sans-serif;
+        }
+
+        .service-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        /* Tabs */
+        .tab-navigation {
+            display: flex;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 0;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 16px 24px;
+            background: none;
+            border: none;
+            color: #6b7280;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-bottom: 2px solid transparent;
+            font-weight: 500;
+        }
+
+        .tab-button:first-child {
+            border-radius: 8px 0 0 0;
+        }
+
+        .tab-button:last-child {
+            border-radius: 0 8px 0 0;
+        }
+
+        .tab-button.active {
+            color: #3b82f6;
+            border-bottom-color: #3b82f6;
+            background: #f8fafc;
+        }
+
+        .tab-button:hover:not(.active) {
+            color: #374151;
+            background: #f9fafb;
+        }
+
+        .tab-content {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            padding: 24px;
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 6px;
+        }
+
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-help {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+
+        /* Tags Input */
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .tag {
+            background: #e0e7ff;
+            color: #3730a3;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .tag-remove {
+            background: none;
+            border: none;
+            color: #6366f1;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .tag-suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .tag-suggestion {
+            background: #f1f5f9;
+            color: #475569;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tag-suggestion:hover {
+            background: #e2e8f0;
+        }
+
+        /* Service Type Selection */
+        .service-type-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .service-type-card {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .service-type-card:hover {
+            border-color: #cbd5e1;
+        }
+
+        .service-type-card.selected {
+            border-color: #3b82f6;
+            background: #3b82f6;
+            color: white;
+        }
+
+        .service-type-card.selected .service-type-title {
+            color: white;
+        }
+
+        .service-type-card.selected .service-type-description {
+            color: #e0f2fe;
+        }
+
+        .service-type-title {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+
+        .service-type-description {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .selected-type-indicator {
+            margin-top: 12px;
+            padding: 8px 12px;
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 6px;
+            color: #0c4a6e;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .synthesizer-info-card {
+            display: flex;
+            gap: 12px;
+            padding: 16px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+
+        .info-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .info-content h4 {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+
+        .info-content p {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Options Grid */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 20px 0;
+        }
+
+        .option-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .option-card.selected {
+            border-color: #3b82f6;
+            background: #f0f9ff;
+        }
+
+        .option-title {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .option-description {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 12px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* LLM Filters */
+        .llm-filters {
+            display: none;
+            margin-top: 20px;
+            padding: 16px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .llm-filters.active {
+            display: block;
+        }
+
+        .filter-item {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            padding: 12px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            margin-bottom: 12px;
+        }
+
+        .filter-input {
+            flex: 1;
+        }
+
+        .filter-remove {
+            background: #fee2e2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+            padding: 6px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Access Control */
+        .access-control-section {
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 16px;
+            font-family: 'Rubik', -apple-system, system-ui, sans-serif;
+        }
+
+        .policy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .policy-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+        }
+
+        .file-path-list {
+            margin: 16px 0;
+        }
+
+        .file-path-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        .file-path {
+            font-family: monospace;
+            color: #374151;
+        }
+
+        .user-list {
+            margin: 16px 0;
+        }
+
+        .user-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        .user-email {
+            color: #374151;
+        }
+
+        /* File Access Styles */
+        .file-access-item {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            background: white;
+        }
+
+        .file-access-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid #f1f5f9;
+            background: #f8fafc;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .file-path-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .file-type-badge {
+            background: #dbeafe;
+            color: #1d4ed8;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .file-type-badge.file-badge {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .file-access-body {
+            padding: 16px;
+        }
+
+        .access-label {
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .user-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .user-tag {
+            background: #e0e7ff;
+            color: #3730a3;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .user-tag.public-access {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .user-tag-remove {
+            background: none;
+            border: none;
+            color: #6366f1;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .add-user-to-file {
+            display: flex;
+            gap: 8px;
+        }
+
+        .add-file-section {
+            padding: 16px;
+            background: #f8fafc;
+            border: 1px dashed #cbd5e1;
+            border-radius: 8px;
+            margin-top: 16px;
+        }
+
+        /* Collective Policies */
+        .collective-policies {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 16px;
+        }
+
+        .policies-header h4 {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+
+        .policy-status {
+            font-size: 12px;
+            color: #6b7280;
+            font-style: italic;
+        }
+
+        /* Generate Code Section */
+        .generate-code-section {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 8px;
+            padding: 24px;
+            margin-top: 32px;
+            text-align: center;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            width: 600px;
+            max-width: 90vw;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            flex: 1;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #6b7280;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-body {
+            flex: 1;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-footer {
+            padding: 16px 20px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* File Picker Styles */
+        .file-picker-nav {
+            padding: 12px 20px;
+            border-bottom: 1px solid #f1f5f9;
+            background: #f8fafc;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .breadcrumb-item {
+            color: #3b82f6;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .breadcrumb-item:hover {
+            background: #e0f2fe;
+        }
+
+        .breadcrumb-item:after {
+            content: "/";
+            margin-left: 8px;
+            color: #6b7280;
+        }
+
+        .breadcrumb-item:last-child:after {
+            display: none;
+        }
+
+        .file-picker-toolbar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .current-path {
+            font-family: monospace;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .file-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .file-item:hover {
+            background: #f1f5f9;
+        }
+
+        .file-item.selected {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .file-icon {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .file-name {
+            flex: 1;
+            font-size: 14px;
+        }
+
+        .file-type {
+            font-size: 12px;
+            color: #6b7280;
+            font-style: italic;
+        }
+
+        .selected-path-display {
+            font-size: 14px;
+            color: #374151;
+        }
+
+        .selected-path-display span {
+            font-family: monospace;
+            color: #1d4ed8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+            
+            .service-edit-container {
+                padding: 0 16px;
+            }
+
+            .service-header {
+                flex-direction: column;
+                gap: 16px;
+                align-items: stretch;
+            }
+
+            .service-type-grid,
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tab-navigation {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                border-radius: 0 !important;
+                border-bottom: 1px solid #e2e8f0;
+                border-right: none;
+            }
+
+            .tab-button:last-child {
+                border-bottom: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="logo">
+                        <div class="logo-icon"></div>
+                        <div class="logo-text">
+                            <h1>SyftBox AI Service Hub</h1>
+                            <p>The network for federated knowledge</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="header-right">
+                    <nav class="main-nav">
+                        <a href="Index.html" class="nav-tab">Discover</a>
+                        <a href="compose.html" class="nav-tab">Compose</a>
+                        <a href="build.html" class="nav-tab active">Build</a>
+                    </nav>
+                
+                <div class="header-controls">
+                    <button class="btn user-icon">👤</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Service Edit Content -->
+    <div class="service-edit-container">
+        <!-- Service Header -->
+        <div class="service-header">
+            <div>
+                <h1 class="service-title" id="serviceTitle">irina@openmined.org/legal_document_analyzer</h1>
+                <div style="color: #6b7280; font-size: 14px;">Draft • Created 2 hours ago</div>
+            </div>
+            <div class="service-actions">
+                <button class="btn" onclick="goBack()">← Back to Services</button>
+                <button class="btn btn-success" onclick="publishService()">📤 Publish Service</button>
+            </div>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="tab-navigation">
+            <button class="tab-button active" onclick="showTab('metadata')">📝 Metadata</button>
+            <button class="tab-button" onclick="showTab('code-generation')">⚙️ Code Generation</button>
+            <button class="tab-button" onclick="showTab('access-control')">🔐 Access Control</button>
+        </div>
+
+        <!-- Metadata Tab -->
+        <div class="tab-content active" id="metadata-tab">
+            <div class="form-group">
+                <label class="form-label">Service Name</label>
+                <input type="text" class="form-input" value="irina@openmined.org/legal_document_analyzer" placeholder="Enter service name">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Summary</label>
+                <input type="text" class="form-input" placeholder="Brief description of your service">
+                <div class="form-help">A short one-line summary that appears in service listings</div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Description</label>
+                <textarea class="form-textarea" placeholder="Detailed description of your service functionality, use cases, and capabilities..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Tags</label>
+                <div class="tags-container" id="tagsContainer">
+                    <div class="tag">
+                        legal
+                        <button class="tag-remove" onclick="removeTag(this)">×</button>
+                    </div>
+                </div>
+                <input type="text" class="form-input" id="tagInput" placeholder="Add tags..." onkeypress="handleTagInput(event)">
+                <div class="form-help">Press Enter to add tags. Tags help users discover your service.</div>
+                <div class="tag-suggestions">
+                    <div class="tag-suggestion" onclick="addSuggestionTag('language:english')">language:english</div>
+                    <div class="tag-suggestion" onclick="addSuggestionTag('language:spanish')">language:spanish</div>
+                    <div class="tag-suggestion" onclick="addSuggestionTag('language:french')">language:french</div>
+                    <div class="tag-suggestion" onclick="addSuggestionTag('domain:legal')">domain:legal</div>
+                    <div class="tag-suggestion" onclick="addSuggestionTag('domain:medical')">domain:medical</div>
+                    <div class="tag-suggestion" onclick="addSuggestionTag('type:chat')">type:chat</div>
+                    <div class="tag-suggestion" onclick="addSuggestionTag('type:search')">type:search</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Code Generation Tab -->
+        <div class="tab-content" id="code-generation-tab">
+            <div class="form-group">
+                <label class="form-label">Service Type</label>
+                <div class="service-type-grid">
+                    <div class="service-type-card" onclick="selectServiceType('datasource')" id="datasource-card">
+                        <div class="service-type-title">🗄️ Data Source</div>
+                        <div class="service-type-description">Provides access to your data through chat or search interfaces</div>
+                    </div>
+                    <div class="service-type-card" onclick="selectServiceType('synthesizer')" id="synthesizer-card">
+                        <div class="service-type-title">🧠 Synthesizer</div>
+                        <div class="service-type-description">Combines federated inputs using an AI model or custom logic. We expect you to plug in your custom model.</div>
+                    </div>
+                </div>
+                <div class="selected-type-indicator" id="selectedTypeIndicator" style="display: none;">
+                    <span id="selectedTypeName"></span> selected
+                </div>
+            </div>
+
+            <!-- Data Source Options -->
+            <div id="datasource-options" style="display: none;">
+                <div class="form-group">
+                    <label class="form-label">Interface Types</label>
+                    <div class="options-grid">
+                        <div class="option-card" onclick="toggleOption('chat')">
+                            <div class="option-title">
+                                <input type="checkbox" id="chat-option">
+                                💬 Chat Interface
+                            </div>
+                            <div class="option-description">
+                                Ideal for nuanced responses to user queries. Allows custom LLM filters and conversation-style interactions with your data.
+                            </div>
+                        </div>
+                        <div class="option-card" onclick="toggleOption('search')">
+                            <div class="option-title">
+                                <input type="checkbox" id="search-option">
+                                🔍 Search Interface
+                            </div>
+                            <div class="option-description">
+                                Most factual responses. Returns exact quotations from your data sources without AI interpretation.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Common Configuration Section (shown for both Chat and Search) -->
+                <div class="common-config-section" id="common-config-section" style="display: none;">
+                    <div class="section-title">Configuration</div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Embedding Model</label>
+                        <select class="form-select">
+                            <option value="all-minilm">all-MiniLM-L6-v2 (Default)</option>
+                            <option value="instructor">instructor-xl</option>
+                            <option value="e5-large">E5-large-v2</option>
+                            <option value="bge-large">BGE-large-en</option>
+                        </select>
+                        <div class="form-help">Embedding model used to convert text into vector representations for similarity search.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Chunk Size</label>
+                        <div style="display: flex; gap: 12px; align-items: center;">
+                            <input type="range" id="common-chunk-size" min="128" max="2048" value="512" style="flex: 1;" oninput="updateCommonChunkSize()">
+                            <span id="common-chunk-size-value">512</span>
+                            <span style="color: #6b7280; font-size: 14px;">tokens</span>
+                        </div>
+                        <div class="form-help">Smaller chunks provide more precise retrieval, larger chunks provide more context.</div>
+                    </div>
+                </div>
+
+                <!-- RAG Model Selection -->
+                <div class="rag-model-selection" id="rag-model-selection" style="display: none;">
+                    <div class="section-title">RAG Model Configuration</div>
+                    <div class="form-group">
+                        <label class="form-label">Model Type</label>
+                        <div class="options-grid">
+                            <div class="option-card" onclick="selectRAGType('custom')">
+                                <div class="option-title">
+                                    <input type="radio" name="rag-type" id="custom-rag">
+                                    🛠️ Custom RAG Model
+                                </div>
+                                <div class="option-description">
+                                    Generate template code for your own RAG implementation. Provides scaffolding and integration points.
+                                </div>
+                            </div>
+                            <div class="option-card" onclick="selectRAGType('default')">
+                                <div class="option-title">
+                                    <input type="radio" name="rag-type" id="default-rag">
+                                    🚀 Default Setup
+                                </div>
+                                <div class="option-description">
+                                    Use pre-configured RAG with Ollama models. Quick setup with proven configurations.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Default Setup Options -->
+                    <div class="default-rag-options" id="default-rag-options" style="display: none;">
+                        <div class="form-group">
+                            <label class="form-label">Ollama Model</label>
+                            <select class="form-select" id="ollama-model">
+                                <option value="">Select a model...</option>
+                                <option value="llama3.2:3b">Llama 3.2 3B (Fast, efficient)</option>
+                                <option value="llama3.2:7b">Llama 3.2 7B (Balanced)</option>
+                                <option value="llama3.1:8b">Llama 3.1 8B (High quality)</option>
+                                <option value="mistral:7b">Mistral 7B (Code-friendly)</option>
+                                <option value="codellama:7b">Code Llama 7B (Code specialist)</option>
+                                <option value="phi3:mini">Phi-3 Mini (Lightweight)</option>
+                                <option value="gemma2:2b">Gemma 2 2B (Fast inference)</option>
+                                <option value="qwen2:7b">Qwen 2 7B (Multilingual)</option>
+                            </select>
+                            <div class="form-help">Choose an Ollama model for your RAG implementation. Models will be automatically downloaded if not available locally.</div>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+
+                <!-- LLM Filters Section -->
+                <div class="llm-filters" id="llm-filters">
+                    <div class="section-title">LLM Filters</div>
+                    <div class="form-help" style="margin-bottom: 16px;">
+                        Define filters to control what information the LLM can include in responses.
+                    </div>
+                    
+                    <div id="filters-list">
+                        <div class="filter-item">
+                            <input type="text" class="form-input filter-input" placeholder="e.g., Remove employees PII data if found in the response" value="Remove employees PII data if found in the response">
+                            <button class="filter-remove" onclick="removeFilter(this)">Remove</button>
+                        </div>
+                    </div>
+                    
+                    <button class="btn" onclick="addFilter()">+ Add Filter</button>
+                </div>
+
+            </div>
+
+            <!-- Synthesizer Options -->
+            <div id="synthesizer-options" style="display: none;">
+                <div class="form-group">
+                    <div class="synthesizer-info-card">
+                        <div class="info-icon">ℹ️</div>
+                        <div class="info-content">
+                            <h4>Custom Model Integration</h4>
+                            <p>For synthesizers, you'll need to integrate your own AI model or custom logic. The generated code will provide the framework and federated data handling, while you implement the specific synthesis logic.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Generate Code Section -->
+            <div class="generate-code-section">
+                <div class="section-title">Generate Service Code</div>
+                <div class="form-help" style="margin-bottom: 16px;">
+                    Generate the complete service implementation based on your configuration above.
+                </div>
+                <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                    <button class="btn btn-primary btn-large" onclick="generateServiceCode()">
+                        🚀 Generate Code
+                    </button>
+                    <button class="btn btn-large" onclick="generateMCPTool()">
+                        🔧 Generate MCP Tool
+                    </button>
+                </div>
+                <div class="form-help" style="margin-top: 12px; text-align: left;">
+                    <strong>Generate Code:</strong> Creates the complete service implementation<br>
+                    <strong>Generate MCP Tool:</strong> Creates a Model Context Protocol tool for external integrations
+                </div>
+            </div>
+        </div>
+
+        <!-- Access Control Tab -->
+        <div class="tab-content" id="access-control-tab">
+            <div class="access-control-section">
+                <div class="section-title">Watched Files/Folders</div>
+                <div class="form-help" style="margin-bottom: 16px;">
+                    Configure which files and folders this service can access, and who can query each resource.
+                </div>
+                
+                <div class="file-access-list" id="file-access-list">
+                    <!-- Legal Documents -->
+                    <div class="file-access-item">
+                        <div class="file-access-header">
+                            <div class="file-path-info">
+                                <span class="file-path">/data/legal-documents/</span>
+                                <span class="file-type-badge">Folder</span>
+                            </div>
+                            <button class="btn btn-sm" onclick="removeFilePath(this)" style="color: #dc2626;">Remove</button>
+                        </div>
+                        <div class="file-access-body">
+                            <div class="access-users">
+                                <label class="access-label">Who can query this resource:</label>
+                                <div class="user-tags">
+                                    <div class="user-tag">
+                                        admin@lexfirm.eu
+                                        <button class="user-tag-remove" onclick="removeUserFromFile(this)">×</button>
+                                    </div>
+                                    <div class="user-tag">
+                                        analyst@lexfirm.eu
+                                        <button class="user-tag-remove" onclick="removeUserFromFile(this)">×</button>
+                                    </div>
+                                    <div class="user-tag">
+                                        lawyer@lexfirm.eu
+                                        <button class="user-tag-remove" onclick="removeUserFromFile(this)">×</button>
+                                    </div>
+                                </div>
+                                <div class="add-user-to-file">
+                                    <input type="email" class="form-input" placeholder="Add user email..." style="flex: 1;">
+                                    <button class="btn btn-sm" onclick="addUserToFile(this)">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contracts -->
+                    <div class="file-access-item">
+                        <div class="file-access-header">
+                            <div class="file-path-info">
+                                <span class="file-path">/data/contracts/</span>
+                                <span class="file-type-badge">Folder</span>
+                            </div>
+                            <button class="btn btn-sm" onclick="removeFilePath(this)" style="color: #dc2626;">Remove</button>
+                        </div>
+                        <div class="file-access-body">
+                            <div class="access-users">
+                                <label class="access-label">Who can query this resource:</label>
+                                <div class="user-tags">
+                                    <div class="user-tag">
+                                        admin@lexfirm.eu
+                                        <button class="user-tag-remove" onclick="removeUserFromFile(this)">×</button>
+                                    </div>
+                                    <div class="user-tag">
+                                        senior-partner@lexfirm.eu
+                                        <button class="user-tag-remove" onclick="removeUserFromFile(this)">×</button>
+                                    </div>
+                                </div>
+                                <div class="add-user-to-file">
+                                    <input type="email" class="form-input" placeholder="Add user email..." style="flex: 1;">
+                                    <button class="btn btn-sm" onclick="addUserToFile(this)">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Public Documentation -->
+                    <div class="file-access-item">
+                        <div class="file-access-header">
+                            <div class="file-path-info">
+                                <span class="file-path">/docs/public-guidelines.pdf</span>
+                                <span class="file-type-badge file-badge">File</span>
+                            </div>
+                            <button class="btn btn-sm" onclick="removeFilePath(this)" style="color: #dc2626;">Remove</button>
+                        </div>
+                        <div class="file-access-body">
+                            <div class="access-users">
+                                <label class="access-label">Who can query this resource:</label>
+                                <div class="user-tags">
+                                    <div class="user-tag public-access">
+                                        🌐 Public Access
+                                    </div>
+                                </div>
+                                <div class="add-user-to-file">
+                                    <input type="email" class="form-input" placeholder="Add user email..." style="flex: 1;">
+                                    <button class="btn btn-sm" onclick="addUserToFile(this)">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="add-file-section">
+                    <div style="display: flex; gap: 8px;">
+                        <input type="text" class="form-input" id="new-file-path" placeholder="Select file or folder..." style="flex: 1;" readonly>
+                        <button class="btn" onclick="openFilePickerModal()">Browse...</button>
+                        <button class="btn btn-primary" onclick="addFilePath()" id="add-path-btn" disabled>Add Path</button>
+                    </div>
+                </div>
+
+                <!-- File Picker Modal -->
+                <div class="modal-overlay" id="filePickerModal" style="display: none;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>Select File or Folder</h3>
+                            <button class="modal-close" onclick="closeFilePickerModal()">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="file-picker-nav">
+                                <div class="breadcrumb" id="breadcrumb">
+                                    <span class="breadcrumb-item" onclick="navigateToPath('/')">🏠 Home</span>
+                                </div>
+                            </div>
+                            <div class="file-picker-content">
+                                <div class="file-picker-toolbar">
+                                    <button class="btn btn-sm" onclick="navigateUp()">⬆️ Up</button>
+                                    <span class="current-path" id="currentPath">/Users/irina</span>
+                                </div>
+                                <div class="file-list" id="fileList">
+                                    <!-- Files and folders will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="selected-path-display">
+                                <label>Selected: <span id="selectedPath">None</span></label>
+                            </div>
+                            <div class="modal-actions">
+                                <button class="btn" onclick="closeFilePickerModal()">Cancel</button>
+                                <button class="btn btn-primary" onclick="confirmPathSelection()" id="confirmBtn" disabled>Select</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="access-control-section">
+                <div class="section-title">Collective Membership</div>
+                <div class="form-help" style="margin-bottom: 16px;">
+                    Join a collective to inherit shared policies and gain access to collective resources.
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Select Collective</label>
+                    <select class="form-select" id="collective-select" onchange="updateCollectivePolicies()">
+                        <option value="">Independent (No collective)</option>
+                        <option value="legal-ai">Legal AI Collective</option>
+                        <option value="healthcare">Healthcare Data Network</option>
+                        <option value="research">Research Consortium</option>
+                        <option value="create-new">+ Create New Collective</option>
+                    </select>
+                </div>
+
+                <!-- Collective Policies -->
+                <div class="collective-policies" id="collective-policies" style="display: none;">
+                    <div class="policies-header">
+                        <h4>Collective Policies</h4>
+                        <div class="form-help">These policies are managed by the collective and apply to all members.</div>
+                    </div>
+                    
+                    <div class="policy-grid">
+                        <div class="policy-item">
+                            <input type="checkbox" id="unified-routing" disabled>
+                            <label for="unified-routing">Unified Routing</label>
+                            <span class="policy-status">Enabled by collective</span>
+                        </div>
+                        <div class="policy-item">
+                            <input type="checkbox" id="pricing-delegation" disabled>
+                            <label for="pricing-delegation">Pricing Delegation</label>
+                            <span class="policy-status">Enabled by collective</span>
+                        </div>
+                        <div class="policy-item">
+                            <input type="checkbox" id="access-delegation" disabled>
+                            <label for="access-delegation">Access Control Delegation</label>
+                            <span class="policy-status">Disabled by collective</span>
+                        </div>
+                        <div class="policy-item">
+                            <input type="checkbox" id="paywall-disabled">
+                            <label for="paywall-disabled">Disable Paywall</label>
+                            <span class="policy-status">User configurable</span>
+                        </div>
+                        <div class="policy-item">
+                            <input type="checkbox" id="human-approval">
+                            <label for="human-approval">Human in the Loop Approval</label>
+                            <span class="policy-status">User configurable</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab Management
+        function showTab(tabName) {
+            // Remove active class from all tabs and contents
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            // Add active class to selected tab and content
+            event.target.classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        // Service Type Selection
+        function selectServiceType(type) {
+            // Remove selected class from all cards
+            document.querySelectorAll('.service-type-card').forEach(card => card.classList.remove('selected'));
+            
+            // Add selected class to clicked card
+            event.target.classList.add('selected');
+            
+            // Show selection indicator
+            const indicator = document.getElementById('selectedTypeIndicator');
+            const typeName = document.getElementById('selectedTypeName');
+            const typeDisplayName = type === 'datasource' ? '🗄️ Data Source' : '🧠 Synthesizer';
+            
+            typeName.textContent = typeDisplayName;
+            indicator.style.display = 'block';
+            
+            // Show/hide options based on type
+            document.getElementById('datasource-options').style.display = type === 'datasource' ? 'block' : 'none';
+            document.getElementById('synthesizer-options').style.display = type === 'synthesizer' ? 'block' : 'none';
+            
+            // Reset any previous selections when switching types
+            if (type === 'datasource') {
+                // Reset chat/search selections
+                document.querySelectorAll('#datasource-options .option-card').forEach(card => {
+                    card.classList.remove('selected');
+                    const checkbox = card.querySelector('input[type="checkbox"]');
+                    if (checkbox) checkbox.checked = false;
+                });
+                // Hide all configuration sections
+                document.getElementById('common-config-section').style.display = 'none';
+                document.getElementById('rag-model-selection').style.display = 'none';
+                document.getElementById('llm-filters').classList.remove('active');
+            }
+        }
+
+        // Option Toggle
+        function toggleOption(optionType) {
+            const card = event.currentTarget;
+            const checkbox = card.querySelector('input[type="checkbox"]');
+            
+            checkbox.checked = !checkbox.checked;
+            card.classList.toggle('selected', checkbox.checked);
+            
+            // Check if any interface is selected
+            const chatSelected = document.getElementById('chat-option')?.checked || false;
+            const searchSelected = document.getElementById('search-option')?.checked || false;
+            
+            // Show common configuration if either chat or search is selected
+            const commonConfigSection = document.getElementById('common-config-section');
+            commonConfigSection.style.display = (chatSelected || searchSelected) ? 'block' : 'none';
+            
+            // Show RAG model selection and LLM filters only if chat is selected
+            if (optionType === 'chat') {
+                const ragSection = document.getElementById('rag-model-selection');
+                const filtersSection = document.getElementById('llm-filters');
+                
+                if (checkbox.checked) {
+                    ragSection.style.display = 'block';
+                    filtersSection.classList.add('active');
+                } else {
+                    ragSection.style.display = 'none';
+                    filtersSection.classList.remove('active');
+                    // Also hide default RAG options
+                    document.getElementById('default-rag-options').style.display = 'none';
+                }
+            }
+        }
+
+        // RAG Type Selection
+        function selectRAGType(type) {
+            // Update radio buttons
+            document.getElementById('custom-rag').checked = (type === 'custom');
+            document.getElementById('default-rag').checked = (type === 'default');
+            
+            // Update card selection
+            document.querySelectorAll('#rag-model-selection .option-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+            
+            // Show/hide default setup options
+            const defaultOptions = document.getElementById('default-rag-options');
+            defaultOptions.style.display = (type === 'default') ? 'block' : 'none';
+        }
+
+        // Update chunk size value display for common section
+        function updateCommonChunkSize() {
+            const slider = document.getElementById('common-chunk-size');
+            const display = document.getElementById('common-chunk-size-value');
+            display.textContent = slider.value;
+        }
+
+        // Tag Management
+        function handleTagInput(event) {
+            if (event.key === 'Enter') {
+                const input = event.target;
+                const tagText = input.value.trim();
+                if (tagText) {
+                    addTag(tagText);
+                    input.value = '';
+                }
+            }
+        }
+
+        function addTag(tagText) {
+            const container = document.getElementById('tagsContainer');
+            const tagElement = document.createElement('div');
+            tagElement.className = 'tag';
+            tagElement.innerHTML = `
+                ${tagText}
+                <button class="tag-remove" onclick="removeTag(this)">×</button>
+            `;
+            container.appendChild(tagElement);
+        }
+
+        function addSuggestionTag(tagText) {
+            addTag(tagText);
+        }
+
+        function removeTag(button) {
+            button.parentElement.remove();
+        }
+
+        // LLM Filters
+        function addFilter() {
+            const filtersList = document.getElementById('filters-list');
+            const filterElement = document.createElement('div');
+            filterElement.className = 'filter-item';
+            filterElement.innerHTML = `
+                <input type="text" class="form-input filter-input" placeholder="e.g., Remove personal information from responses">
+                <button class="filter-remove" onclick="removeFilter(this)">Remove</button>
+            `;
+            filtersList.appendChild(filterElement);
+        }
+
+        function removeFilter(button) {
+            button.parentElement.remove();
+        }
+
+        // MCP Tool Generation
+        function generateMCPTool() {
+            const button = event.target;
+            const originalText = button.innerHTML;
+            
+            // Show loading state
+            button.innerHTML = '⏳ Generating...';
+            button.disabled = true;
+            
+            // Simulate MCP tool generation process
+            setTimeout(() => {
+                const serviceName = document.querySelector('#metadata-tab .form-input').value || 'untitled_service';
+                const sanitizedName = serviceName.replace(/[^a-zA-Z0-9@._-]/g, '_').toLowerCase();
+                
+                // Success state
+                button.innerHTML = '✅ Generated!';
+                button.style.background = '#10b981';
+                button.style.borderColor = '#10b981';
+                
+                // Show success message
+                setTimeout(() => {
+                    alert(`🔧 MCP Tool generated successfully!\n\n` +
+                          `Service: ${serviceName}\n` +
+                          `Type: Model Context Protocol Tool\n\n` +
+                          `📁 Generated files location:\n~/syftbox/mcp-tools/${sanitizedName}/\n\n` +
+                          `Files created:\n` +
+                          `• mcp_server.py - MCP server implementation\n` +
+                          `• manifest.json - Tool manifest and capabilities\n` +
+                          `• schema.json - Input/output schemas\n` +
+                          `• README.md - Integration instructions\n` +
+                          `• requirements.txt - Python dependencies\n\n` +
+                          `Integration:\n` +
+                          `This MCP tool can be integrated with Claude Desktop, ` +
+                          `VS Code, or any MCP-compatible application to provide ` +
+                          `external access to your data source.`);
+                    
+                    // Reset button after showing message
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                    button.style.background = '';
+                    button.style.borderColor = '';
+                }, 1000);
+            }, 1500);
+        }
+
+        // Generate Service Code
+        function generateServiceCode() {
+            const button = event.target;
+            const originalText = button.innerHTML;
+            
+            // Show loading state
+            button.innerHTML = '⏳ Generating...';
+            button.disabled = true;
+            
+            // Simulate code generation process
+            setTimeout(() => {
+                // Determine service type and configuration
+                const isDataSource = document.getElementById('datasource-options').style.display === 'block';
+                const isSynthesizer = document.getElementById('synthesizer-options').style.display === 'block';
+                const serviceName = document.querySelector('#metadata-tab .form-input').value || 'untitled_service';
+                const sanitizedName = serviceName.replace(/[^a-zA-Z0-9@._-]/g, '_').toLowerCase();
+                
+                let serviceType = 'unknown';
+                let configDetails = '';
+                let generatedPath = '';
+                
+                if (isDataSource) {
+                    serviceType = 'Data Source';
+                    const chatEnabled = document.getElementById('chat-option')?.checked;
+                    const searchEnabled = document.getElementById('search-option')?.checked;
+                    const customRAG = document.getElementById('custom-rag')?.checked;
+                    const defaultRAG = document.getElementById('default-rag')?.checked;
+                    
+                    if (chatEnabled && defaultRAG) {
+                        const selectedModel = document.getElementById('ollama-model')?.value || 'llama3.2:3b';
+                        configDetails = `with Chat interface using ${selectedModel} RAG setup`;
+                    } else if (chatEnabled && customRAG) {
+                        configDetails = 'with Chat interface using custom RAG template';
+                    } else if (searchEnabled) {
+                        configDetails = 'with Search interface';
+                    } else {
+                        configDetails = 'with basic configuration';
+                    }
+                    
+                    generatedPath = `~/syftbox/services/${sanitizedName}/`;
+                } else if (isSynthesizer) {
+                    serviceType = 'Synthesizer';
+                    configDetails = 'with federated data handling framework';
+                    generatedPath = `~/syftbox/synthesizers/${sanitizedName}/`;
+                } else {
+                    serviceType = 'Service';
+                    configDetails = 'with basic template';
+                    generatedPath = `~/syftbox/services/${sanitizedName}/`;
+                }
+                
+                // Success state
+                button.innerHTML = '✅ Generated!';
+                button.style.background = '#10b981';
+                button.style.borderColor = '#10b981';
+                
+                // Show success message
+                setTimeout(() => {
+                    alert(`🎉 ${serviceType} code generated successfully!\n\n` +
+                          `Service: ${serviceName}\n` +
+                          `Type: ${serviceType} ${configDetails}\n\n` +
+                          `📁 Generated files location:\n${generatedPath}\n\n` +
+                          `Files created:\n` +
+                          `• main.py - Service entry point\n` +
+                          `• config.yaml - Service configuration\n` +
+                          `• requirements.txt - Python dependencies\n` +
+                          `• README.md - Setup instructions\n` +
+                          `• api/ - API endpoint handlers\n` +
+                          `• utils/ - Helper utilities\n\n` +
+                          `Next steps:\n` +
+                          `1. Navigate to the generated directory\n` +
+                          `2. Review the configuration files\n` +
+                          `3. Install dependencies: pip install -r requirements.txt\n` +
+                          `4. Start the service: python main.py`);
+                    
+                    // Reset button after showing message
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                    button.style.background = '';
+                    button.style.borderColor = '';
+                }, 1000);
+            }, 2000);
+        }
+
+        // File Path Management
+        let currentPath = '/Users/irina';
+        let selectedFilePath = '';
+
+        function addFilePath() {
+            const input = document.getElementById('new-file-path');
+            const path = input.value.trim();
+            if (path) {
+                const container = document.getElementById('file-access-list');
+                const isFile = path.includes('.') && !path.endsWith('/');
+                const badgeClass = isFile ? 'file-badge' : '';
+                const badgeText = isFile ? 'File' : 'Folder';
+                
+                const pathElement = document.createElement('div');
+                pathElement.className = 'file-access-item';
+                pathElement.innerHTML = `
+                    <div class="file-access-header">
+                        <div class="file-path-info">
+                            <span class="file-path">${path}</span>
+                            <span class="file-type-badge ${badgeClass}">${badgeText}</span>
+                        </div>
+                        <button class="btn btn-sm" onclick="removeFilePath(this)" style="color: #dc2626;">Remove</button>
+                    </div>
+                    <div class="file-access-body">
+                        <div class="access-users">
+                            <label class="access-label">Who can query this resource:</label>
+                            <div class="user-tags">
+                                <!-- Users will be added here -->
+                            </div>
+                            <div class="add-user-to-file">
+                                <input type="email" class="form-input" placeholder="Add user email..." style="flex: 1;">
+                                <button class="btn btn-sm" onclick="addUserToFile(this)">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(pathElement);
+                input.value = '';
+                document.getElementById('add-path-btn').disabled = true;
+            }
+        }
+
+        // File Picker Modal Functions
+        function openFilePickerModal() {
+            document.getElementById('filePickerModal').style.display = 'flex';
+            currentPath = '/Users/irina';
+            populateFileList();
+            updateBreadcrumb();
+        }
+
+        function closeFilePickerModal() {
+            document.getElementById('filePickerModal').style.display = 'none';
+            selectedFilePath = '';
+            document.getElementById('selectedPath').textContent = 'None';
+            document.getElementById('confirmBtn').disabled = true;
+        }
+
+        function populateFileList() {
+            const fileList = document.getElementById('fileList');
+            document.getElementById('currentPath').textContent = currentPath;
+            
+            // Mock file system data
+            const mockFiles = {
+                '/Users/irina': [
+                    { name: 'Documents', type: 'folder', icon: '📁' },
+                    { name: 'Desktop', type: 'folder', icon: '📁' },
+                    { name: 'Downloads', type: 'folder', icon: '📁' },
+                    { name: 'data', type: 'folder', icon: '📁' },
+                    { name: 'projects', type: 'folder', icon: '📁' },
+                    { name: 'config.yaml', type: 'file', icon: '📄' }
+                ],
+                '/Users/irina/Documents': [
+                    { name: 'legal-documents', type: 'folder', icon: '📁' },
+                    { name: 'contracts', type: 'folder', icon: '📁' },
+                    { name: 'reports', type: 'folder', icon: '📁' },
+                    { name: 'notes.txt', type: 'file', icon: '📄' }
+                ],
+                '/Users/irina/data': [
+                    { name: 'legal-documents', type: 'folder', icon: '📁' },
+                    { name: 'contracts', type: 'folder', icon: '📁' },
+                    { name: 'medical-records', type: 'folder', icon: '📁' },
+                    { name: 'research-papers', type: 'folder', icon: '📁' },
+                    { name: 'database.db', type: 'file', icon: '🗃️' },
+                    { name: 'config.json', type: 'file', icon: '📄' }
+                ],
+                '/Users/irina/Documents/legal-documents': [
+                    { name: 'contracts', type: 'folder', icon: '📁' },
+                    { name: 'patents', type: 'folder', icon: '📁' },
+                    { name: 'compliance', type: 'folder', icon: '📁' },
+                    { name: 'legal_brief.pdf', type: 'file', icon: '📄' },
+                    { name: 'case_study.docx', type: 'file', icon: '📄' }
+                ]
+            };
+            
+            const files = mockFiles[currentPath] || [];
+            
+            fileList.innerHTML = files.map(file => `
+                <div class="file-item" onclick="selectFile('${file.name}', '${file.type}')">
+                    <span class="file-icon">${file.icon}</span>
+                    <span class="file-name">${file.name}</span>
+                    <span class="file-type">${file.type}</span>
+                </div>
+            `).join('');
+        }
+
+        function selectFile(fileName, fileType) {
+            // Remove previous selection
+            document.querySelectorAll('.file-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            
+            // Add selection to clicked item
+            event.currentTarget.classList.add('selected');
+            
+            // Update selected path
+            selectedFilePath = currentPath.endsWith('/') ? currentPath + fileName : currentPath + '/' + fileName;
+            document.getElementById('selectedPath').textContent = selectedFilePath;
+            document.getElementById('confirmBtn').disabled = false;
+            
+            // If it's a folder, allow double-click to navigate
+            if (fileType === 'folder') {
+                // Set up double-click navigation
+                setTimeout(() => {
+                    event.currentTarget.ondblclick = () => navigateToPath(selectedFilePath);
+                }, 100);
+            }
+        }
+
+        function navigateToPath(path) {
+            currentPath = path;
+            selectedFilePath = '';
+            document.getElementById('selectedPath').textContent = 'None';
+            document.getElementById('confirmBtn').disabled = true;
+            populateFileList();
+            updateBreadcrumb();
+        }
+
+        function navigateUp() {
+            const pathParts = currentPath.split('/').filter(part => part !== '');
+            if (pathParts.length > 2) { // Don't go above /Users/irina
+                pathParts.pop();
+                currentPath = '/' + pathParts.join('/');
+                navigateToPath(currentPath);
+            }
+        }
+
+        function updateBreadcrumb() {
+            const breadcrumb = document.getElementById('breadcrumb');
+            const pathParts = currentPath.split('/').filter(part => part !== '');
+            
+            let breadcrumbHTML = '<span class="breadcrumb-item" onclick="navigateToPath(\'/Users/irina\')">🏠 Home</span>';
+            
+            if (pathParts.length > 2) {
+                let buildPath = '/' + pathParts[0] + '/' + pathParts[1]; // /Users/irina
+                for (let i = 2; i < pathParts.length; i++) {
+                    buildPath += '/' + pathParts[i];
+                    breadcrumbHTML += `<span class="breadcrumb-item" onclick="navigateToPath('${buildPath}')">${pathParts[i]}</span>`;
+                }
+            }
+            
+            breadcrumb.innerHTML = breadcrumbHTML;
+        }
+
+        function confirmPathSelection() {
+            if (selectedFilePath) {
+                document.getElementById('new-file-path').value = selectedFilePath;
+                document.getElementById('add-path-btn').disabled = false;
+                closeFilePickerModal();
+            }
+        }
+
+        function removeFilePath(button) {
+            button.closest('.file-access-item').remove();
+        }
+
+        // User to File Management
+        function addUserToFile(button) {
+            const input = button.previousElementSibling;
+            const email = input.value.trim();
+            if (email && email.includes('@')) {
+                const userTags = button.closest('.access-users').querySelector('.user-tags');
+                const userTag = document.createElement('div');
+                userTag.className = 'user-tag';
+                userTag.innerHTML = `
+                    ${email}
+                    <button class="user-tag-remove" onclick="removeUserFromFile(this)">×</button>
+                `;
+                userTags.appendChild(userTag);
+                input.value = '';
+            } else {
+                alert('Please enter a valid email address.');
+            }
+        }
+
+        function removeUserFromFile(button) {
+            button.parentElement.remove();
+        }
+
+        // Collective Management
+        function updateCollectivePolicies() {
+            const select = document.getElementById('collective-select');
+            const policiesSection = document.getElementById('collective-policies');
+            
+            if (select.value && select.value !== 'create-new') {
+                policiesSection.style.display = 'block';
+                
+                // Update policy checkboxes based on collective
+                const collectiveSettings = {
+                    'legal-ai': {
+                        'unified-routing': { checked: true, disabled: true, status: 'Enabled by collective' },
+                        'pricing-delegation': { checked: true, disabled: true, status: 'Enabled by collective' },
+                        'access-delegation': { checked: false, disabled: true, status: 'Disabled by collective' },
+                        'paywall-disabled': { checked: false, disabled: false, status: 'User configurable' },
+                        'human-approval': { checked: true, disabled: false, status: 'User configurable' }
+                    },
+                    'healthcare': {
+                        'unified-routing': { checked: true, disabled: true, status: 'Enabled by collective' },
+                        'pricing-delegation': { checked: false, disabled: true, status: 'Disabled by collective' },
+                        'access-delegation': { checked: true, disabled: true, status: 'Enabled by collective' },
+                        'paywall-disabled': { checked: true, disabled: true, status: 'Enabled by collective' },
+                        'human-approval': { checked: true, disabled: true, status: 'Required by collective' }
+                    },
+                    'research': {
+                        'unified-routing': { checked: false, disabled: true, status: 'Disabled by collective' },
+                        'pricing-delegation': { checked: false, disabled: true, status: 'Disabled by collective' },
+                        'access-delegation': { checked: false, disabled: true, status: 'Disabled by collective' },
+                        'paywall-disabled': { checked: true, disabled: true, status: 'Enabled by collective' },
+                        'human-approval': { checked: false, disabled: false, status: 'User configurable' }
+                    }
+                };
+                
+                const settings = collectiveSettings[select.value];
+                if (settings) {
+                    Object.keys(settings).forEach(policyId => {
+                        const checkbox = document.getElementById(policyId);
+                        const statusSpan = checkbox.closest('.policy-item').querySelector('.policy-status');
+                        const setting = settings[policyId];
+                        
+                        checkbox.checked = setting.checked;
+                        checkbox.disabled = setting.disabled;
+                        statusSpan.textContent = setting.status;
+                    });
+                }
+            } else if (select.value === 'create-new') {
+                alert('Creating a new collective would open a collective setup wizard.');
+                select.value = '';
+                policiesSection.style.display = 'none';
+            } else {
+                policiesSection.style.display = 'none';
+            }
+        }
+
+        // Navigation
+        function goBack() {
+            window.location.href = 'build.html';
+        }
+
+        function publishService() {
+            if (confirm('Publish this service? It will be available to authorized users.')) {
+                alert('🎉 Service published successfully!\n\nYour service is now live and accessible to authorized users.');
+            }
+        }
+    </script>
+</body>
+</html>

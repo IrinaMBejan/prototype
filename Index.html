@@ -1,0 +1,4223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syft Service Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&family=Roboto:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 40;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-tab {
+            background: none;
+            border: none;
+            padding: 8px 12px;
+            font-weight: 400;
+            font-size: 14px;
+            color: #64748b;
+            cursor: pointer;
+            transition: color 0.2s;
+            text-decoration: none;
+        }
+
+        .nav-tab:hover {
+            color: #3b82f6;
+        }
+
+        .nav-tab.active {
+            color: #1e293b;
+            font-weight: 500;
+        }
+
+        /* Sub-navigation */
+        .sub-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .sub-nav-left {
+            display: flex;
+            gap: 0;
+        }
+
+        .sub-nav-right {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Sorting Controls */
+        .sorting-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sorting-controls label {
+            font-size: 13px;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .sorting-controls select {
+            padding: 6px 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 13px;
+            background: #f8fafc;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .sorting-controls select:hover {
+            background: white;
+            border-color: #cbd5e1;
+        }
+
+        .sorting-controls select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            background: white;
+        }
+
+        .sub-tab {
+            padding: 12px 16px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            color: #64748b;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .sub-tab.active {
+            color: #3b82f6;
+            border-bottom-color: #3b82f6;
+        }
+
+        .sub-tab:hover {
+            color: #3b82f6;
+        }
+
+        .sub-tab:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .main-tab-content {
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .main-tab-content.hidden {
+            display: none;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background-image: url('./syftbox-logo.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .logo-text h1 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 2px;
+            color: #1e293b;
+            font-family: 'Rubik', -apple-system, system-ui, sans-serif;
+        }
+
+        .logo-text p {
+            font-size: 12px;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .control-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+        }
+
+        .switch {
+            width: 40px;
+            height: 20px;
+            background: #cbd5e1;
+            border-radius: 10px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .switch.active {
+            background: #3b82f6;
+        }
+
+        .switch::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s;
+        }
+
+        .switch.active::after {
+            transform: translateX(20px);
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            background: white;
+            color: #374151;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: #f9fafb;
+            border-color: #9ca3af;
+        }
+
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+
+        .btn-primary:hover {
+            background: #2563eb;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        /* Tabs */
+        .tabs {
+            margin-top: 24px;
+        }
+
+        .tab-list {
+            display: flex;
+            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 12px 16px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            color: #64748b;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab.active {
+            color: #3b82f6;
+            border-bottom-color: #3b82f6;
+        }
+
+        .tab:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .tab-content {
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        .grid-cols-12 { 
+            grid-template-columns: repeat(12, 1fr); 
+        }
+
+        .col-span-3 { 
+            grid-column: span 3; 
+        }
+
+        .col-span-9 { 
+            grid-column: span 9; 
+        }
+
+        .col-span-2 { 
+            grid-column: span 2; 
+        }
+
+        .services-grid {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: 1fr;
+        }
+
+        .collectives-grid {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        }
+
+        .compose-grid {
+            display: grid;
+            gap: 24px;
+            grid-template-columns: 2fr 1fr;
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Rubik', -apple-system, system-ui, sans-serif;
+        }
+
+        .card-content {
+            padding: 12px 16px;
+        }
+
+        .card-footer {
+            padding: 12px 16px;
+            border-top: 1px solid #f1f5f9;
+            background: #fafbfc;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: #374151;
+        }
+
+        .input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            background: white;
+            color: #374151;
+        }
+
+        .input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            background: white;
+            color: #374151;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .badge-secondary {
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        .badge-outline {
+            background: transparent;
+            color: #64748b;
+            border: 1px solid #cbd5e1;
+        }
+
+        .badge-default {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .badge-data {
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        .badge-model {
+            background: #3b82f6;
+            color: white;
+        }
+
+        /* Service Cards */
+        .service-card {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s, box-shadow 0.2s;
+            max-width: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Clickable service cards */
+        .service-card[data-type="data"],
+        .service-card[data-type="model"] {
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+        }
+
+        .service-card[data-type="data"]:hover,
+        .service-card[data-type="model"]:hover {
+            border-color: #3b82f6;
+            transform: translateY(-4px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.15);
+        }
+
+        .service-card[data-type="data"]:hover .service-title,
+        .service-card[data-type="model"]:hover .service-title {
+            color: #3b82f6;
+        }
+
+        .service-card .card-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .service-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .service-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: 'Rubik', -apple-system, system-ui, sans-serif;
+            line-height: 1.3;
+        }
+
+        /* Soft colors for synthesizer card titles */
+        .service-card[data-type="model"] .service-title {
+            color: #1e293b;
+        }
+
+        .service-card[data-type="model"] .service-title .badge {
+            background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+            color: white;
+        }
+
+        .service-owner {
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 4px;
+        }
+
+        .service-stats {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+        }
+
+        .service-summary {
+            color: #64748b;
+            line-height: 1.4;
+            flex: 1;
+            font-size: 13px;
+        }
+
+        .service-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .service-metrics {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            padding: 8px 0;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .service-metrics .label {
+            color: #64748b;
+            margin: 0;
+        }
+
+        .service-footer {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .service-pricing {
+            font-size: 12px;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .service-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* Filters Sidebar */
+        .filters-sidebar {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            height: fit-content;
+            position: sticky;
+            top: 80px;
+        }
+
+        .quick-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .quick-tags .badge {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quick-tags .badge:hover {
+            background: #3b82f6;
+            color: white;
+        }
+
+        /* Filter Pills */
+        .filter-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: flex-start;
+        }
+
+        .filter-pill {
+            padding: 4px 8px;
+            border: none;
+            border-radius: 16px;
+            background: transparent;
+            color: #64748b;
+            font-size: 12px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .filter-pill:hover {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+        }
+
+        .filter-pill.active {
+            background: rgba(59, 130, 246, 0.15);
+            color: #2563eb;
+            font-weight: 400;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-family: 'Rubik', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #64748b;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .modal-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .config-section, .chat-section {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .section-title {
+            font-family: 'Rubik', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 12px;
+            color: #374151;
+        }
+
+        .config-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .config-label {
+            min-width: 60px;
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .config-input {
+            flex: 1;
+            padding: 6px 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .chat-input {
+            width: 100%;
+            min-height: 80px;
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 13px;
+            resize: vertical;
+            margin-bottom: 12px;
+        }
+
+        .chat-button {
+            width: 100%;
+            padding: 8px 16px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .chat-button:hover {
+            background: #2563eb;
+        }
+
+        .code-section {
+            margin-top: 20px;
+        }
+
+        .code-tabs {
+            display: flex;
+            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 12px;
+        }
+
+        .code-tab {
+            padding: 8px 16px;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .code-tab.active {
+            color: #3b82f6;
+            border-bottom-color: #3b82f6;
+        }
+
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 12px;
+            line-height: 1.5;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-block.hidden {
+            display: none;
+        }
+
+        .code-copy-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #334155;
+            border: 1px solid #475569;
+            color: #e2e8f0;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: -apple-system, system-ui, sans-serif;
+        }
+
+        .code-copy-btn:hover {
+            background: #475569;
+            border-color: #64748b;
+        }
+
+        .code-copy-btn.copied {
+            background: #059669;
+            border-color: #10b981;
+        }
+
+        /* MCP Install Styles */
+        .mcp-install-container {
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+
+        .mcp-install-container h2 {
+            color: #f8fafc;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #475569;
+            text-align: center;
+        }
+
+        .mcp-install-container h3 {
+            color: #f1f5f9;
+            font-size: 16px;
+            font-weight: 500;
+            margin: 24px 0 12px 0;
+            padding-top: 16px;
+            border-top: 1px solid #334155;
+        }
+
+        .mcp-install-container h4 {
+            color: #e2e8f0;
+            font-size: 14px;
+            font-weight: 500;
+            margin: 16px 0 8px 0;
+        }
+
+        .mcp-install-container p {
+            margin-bottom: 12px;
+            color: #94a3b8;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        /* MCP Tabs */
+        .mcp-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid #475569;
+            padding-bottom: 16px;
+        }
+
+        .mcp-tab-btn {
+            background: transparent;
+            border: 1px solid #475569;
+            color: #94a3b8;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .mcp-tab-btn:hover {
+            background: rgba(71, 85, 101, 0.3);
+            border-color: #64748b;
+        }
+
+        .mcp-tab-btn.active {
+            background: #475569;
+            border-color: #64748b;
+            color: #f8fafc;
+        }
+
+        .mcp-tab-content {
+            display: none;
+        }
+
+        .mcp-tab-content.active {
+            display: block;
+        }
+
+        .mcp-option {
+            margin-bottom: 32px;
+        }
+
+        .mcp-step {
+            margin-bottom: 24px;
+            padding-left: 20px;
+            border-left: 2px solid #475569;
+        }
+
+        .mcp-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .code-block-inline {
+            background: #1e293b;
+            border: 1px solid #475569;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .code-block-inline code {
+            flex: 1;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 13px;
+            color: #e2e8f0;
+            white-space: pre-wrap;
+            word-break: break-all;
+            line-height: 1.4;
+        }
+
+        .code-block-inline pre {
+            margin: 0;
+            flex: 1;
+        }
+
+        .copy-btn-inline {
+            background: #475569;
+            border: 1px solid #64748b;
+            color: #e2e8f0;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .copy-btn-inline:hover {
+            background: #64748b;
+            border-color: #94a3b8;
+        }
+
+        .copy-btn-inline.copied {
+            background: #059669;
+            border-color: #10b981;
+        }
+
+        .config-paths {
+            background: #334155;
+            border: 1px solid #475569;
+            border-radius: 6px;
+            padding: 12px;
+            margin: 12px 0;
+        }
+
+        .config-paths div {
+            margin-bottom: 8px;
+            color: #94a3b8;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .config-paths div:last-child {
+            margin-bottom: 0;
+        }
+
+        .config-paths strong {
+            color: #e2e8f0;
+            font-weight: 600;
+        }
+
+        .config-paths code {
+            background: #1e293b;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 11px;
+            color: #94a3b8;
+        }
+
+        .mcp-content {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: -apple-system, system-ui, sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .mcp-content * {
+            font-family: inherit;
+            white-space: normal;
+        }
+
+        .mcp-content pre {
+            white-space: pre-wrap;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        }
+
+        .mcp-content code {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            white-space: pre-wrap;
+        }
+
+        .mcp-content h2, .mcp-content h3, .mcp-content h4 {
+            font-family: 'Rubik', -apple-system, system-ui, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .mcp-content p {
+            margin: 0 0 12px 0;
+            padding: 0;
+            color: #94a3b8;
+            font-weight: 400;
+        }
+
+        /* MCP Install Styles */
+        .mcp-install {
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+
+        .mcp-install h2 {
+            color: #f8fafc;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #475569;
+            font-family: 'Rubik', -apple-system, system-ui, sans-serif;
+        }
+
+        .mcp-install h3 {
+            color: #f1f5f9;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 28px 0 16px 0;
+            padding-top: 20px;
+            border-top: 1px solid #334155;
+            font-family: 'Rubik', -apple-system, system-ui, sans-serif;
+        }
+
+        .mcp-install h4 {
+            color: #e2e8f0;
+            font-size: 15px;
+            font-weight: 600;
+            margin: 24px 0 16px 0;
+            font-family: 'Rubik', -apple-system, system-ui, sans-serif;
+        }
+
+        .mcp-install p {
+            margin-bottom: 16px;
+            color: #94a3b8;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .mcp-section {
+            margin-bottom: 32px;
+        }
+
+        .mcp-step {
+            margin-bottom: 24px;
+            padding-left: 0;
+            border-left: none;
+        }
+
+        .mcp-command {
+            background: #334155;
+            border: 1px solid #475569;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .mcp-command code {
+            flex: 1;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 13px;
+            color: #e2e8f0;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .mcp-command pre {
+            margin: 0;
+            flex: 1;
+        }
+
+        .mcp-copy-btn {
+            background: #475569;
+            border: 1px solid #64748b;
+            color: #e2e8f0;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+            flex-shrink: 0;
+            font-weight: 500;
+        }
+
+        .mcp-copy-btn:hover {
+            background: #64748b;
+            border-color: #94a3b8;
+            transform: translateY(-1px);
+        }
+
+        .mcp-copy-btn.copied {
+            background: #059669;
+            border-color: #10b981;
+        }
+
+        .mcp-paths {
+            background: #334155;
+            border: 1px solid #475569;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+        }
+
+        .mcp-paths div {
+            margin-bottom: 12px;
+            color: #94a3b8;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .mcp-paths div:last-child {
+            margin-bottom: 0;
+        }
+
+        .mcp-paths strong {
+            color: #e2e8f0;
+            font-weight: 600;
+        }
+
+        .mcp-paths code {
+            background: #1e293b;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        /* Python Syntax Highlighting */
+        .python-keyword {
+            color: #8b5cf6;
+            font-weight: 600;
+        }
+
+        .python-string {
+            color: #10b981;
+        }
+
+        .python-comment {
+            color: #64748b;
+            font-style: italic;
+        }
+
+        .python-function {
+            color: #3b82f6;
+        }
+
+        .python-number {
+            color: #f59e0b;
+        }
+
+        .python-operator {
+            color: #ec4899;
+        }
+
+        .python-builtin {
+            color: #06b6d4;
+        }
+
+        .python-docstring {
+            color: #10b981;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .modal-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 20px;
+            }
+        }
+
+        /* Settings Tooltip */
+        .settings-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .settings-tooltip {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px;
+            min-width: 200px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: all 0.2s ease;
+            z-index: 100;
+            margin-top: 8px;
+        }
+
+        .settings-container:hover .settings-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .tooltip-section {
+            margin-bottom: 8px;
+            font-size: 12px;
+        }
+
+        .tooltip-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .tooltip-label {
+            color: #64748b;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .tooltip-value {
+            color: #1e293b;
+            font-weight: 500;
+        }
+
+        .tooltip-guest {
+            color: #64748b;
+            font-style: italic;
+        }
+
+        .tooltip-balance {
+            color: #059669;
+            font-weight: 600;
+        }
+
+        /* Compose Panel */
+        .selected-services {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .selected-service {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+        }
+
+        .selected-service .remove-btn {
+            background: none;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            padding: 2px;
+            font-size: 12px;
+        }
+
+        /* Floating Composition Popup */
+        .composition-popup {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 320px;
+            max-height: 400px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            font-size: 14px;
+        }
+
+        .composition-popup.minimized .popup-content {
+            display: none;
+        }
+
+        .composition-popup.minimized {
+            height: auto;
+        }
+
+        .popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid #e2e8f0;
+            background: #f8fafc;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .popup-header h4 {
+            margin: 0;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .popup-actions {
+            display: flex;
+            gap: 4px;
+        }
+
+        .popup-minimize, .popup-close {
+            background: none;
+            border: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: #64748b;
+            transition: all 0.2s;
+        }
+
+        .popup-minimize:hover, .popup-close:hover {
+            background: #e2e8f0;
+            color: #1e293b;
+        }
+
+        .popup-content {
+            padding: 16px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .selected-services-popup {
+            margin-bottom: 12px;
+        }
+
+        .popup-service {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 8px;
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            font-size: 12px;
+        }
+
+        .popup-service:last-child {
+            margin-bottom: 0;
+        }
+
+        .popup-service .remove-btn {
+            background: none;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            padding: 2px;
+            font-size: 11px;
+            margin-left: auto;
+        }
+
+        .popup-footer {
+            border-top: 1px solid #e2e8f0;
+            padding: 12px 0 0 0;
+        }
+
+        .popup-footer .btn {
+            width: 100%;
+        }
+
+        /* Composition Tab Styles */
+        .selected-sources, .selected-synthesizer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+            min-height: 40px;
+            align-items: center;
+        }
+
+        .selected-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .selected-item .remove-btn {
+            background: none;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            padding: 2px;
+            font-size: 12px;
+            border-radius: 3px;
+        }
+
+        .selected-item .remove-btn:hover {
+            background: #fee2e2;
+        }
+
+        .add-source-container, .add-synthesizer-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .source-dropdown, .synthesizer-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 100;
+            margin-top: 4px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .dropdown-search {
+            padding: 12px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .dropdown-search input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .dropdown-content {
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .no-results-message {
+            padding: 24px 16px;
+            text-align: center;
+            color: #9ca3af;
+        }
+
+        .no-results-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .no-results-icon {
+            font-size: 24px;
+            opacity: 0.6;
+        }
+
+        .no-results-text {
+            font-size: 14px;
+            font-weight: 500;
+            color: #6b7280;
+        }
+
+        .no-results-hint {
+            font-size: 12px;
+            color: #9ca3af;
+            font-style: italic;
+        }
+
+        .dropdown-item {
+            padding: 12px;
+            cursor: pointer;
+            border-bottom: 1px solid #f1f5f9;
+            transition: background-color 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background: #f8fafc;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 4px;
+        }
+
+        .dropdown-item-name {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .dropdown-item-owner {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .dropdown-item-summary {
+            font-size: 12px;
+            color: #64748b;
+            line-height: 1.4;
+        }
+
+        .dropdown-item-capabilities {
+            display: flex;
+            gap: 4px;
+            margin-top: 6px;
+        }
+
+        .dropdown-item-capabilities .badge {
+            font-size: 10px;
+            padding: 2px 6px;
+        }
+
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .toggle-container .toggle-label {
+            font-size: 13px;
+            color: #64748b;
+            line-height: 1.4;
+            flex: 1;
+        }
+
+        .llm-filters {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-item {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .filter-input {
+            flex: 1;
+        }
+
+        .remove-filter-btn {
+            background: #fee2e2;
+            border-color: #fecaca;
+            color: #dc2626;
+            padding: 6px 10px;
+            font-size: 12px;
+        }
+
+        .remove-filter-btn:hover {
+            background: #fecaca;
+            border-color: #fca5a5;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        /* Execution Flow Diagram Styles */
+        .execution-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .flow-row {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .flow-section {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px;
+            min-width: 200px;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .flow-section:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+        }
+
+        .flow-section.data-sources {
+            border-color: #10b981;
+            background: #f0fdf4;
+        }
+
+        .flow-section.synthesizers {
+            border-color: #8b5cf6;
+            background: #faf5ff;
+        }
+
+        .flow-section.final-response {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+
+        .flow-title {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 12px;
+            color: #374151;
+            font-family: 'Rubik', sans-serif;
+        }
+
+        .flow-content {
+            min-height: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .empty-state {
+            color: #9ca3af;
+            font-size: 12px;
+            font-style: italic;
+        }
+
+        .flow-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 12px;
+            max-width: 180px;
+        }
+
+        .flow-item .badge {
+            font-size: 10px;
+            padding: 2px 4px;
+        }
+
+        .flow-item .item-name {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            flex: 1;
+        }
+
+        .flow-capabilities {
+            display: flex;
+            gap: 2px;
+        }
+
+        .flow-capabilities .badge {
+            font-size: 8px;
+            padding: 1px 3px;
+            min-width: 16px;
+            text-align: center;
+        }
+
+        .flow-arrows {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .arrow-down {
+            font-size: 20px;
+            color: #64748b;
+            font-weight: bold;
+        }
+
+        .arrow-label {
+            font-size: 11px;
+            color: #9ca3af;
+            text-align: center;
+            max-width: 120px;
+            line-height: 1.3;
+        }
+
+        .response-info {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .response-mode, .response-filters {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .response-mode strong, .response-filters strong {
+            color: #374151;
+        }
+
+        .execution-plan {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .plan-step {
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background: #fafbfc;
+        }
+
+        .plan-step-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .plan-step-desc {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        /* Utilities */
+        .space-y-4 > * + * { margin-top: 16px; }
+        .space-y-3 > * + * { margin-top: 12px; }
+        .space-y-2 > * + * { margin-top: 8px; }
+
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .justify-center { justify-content: center; }
+        .flex-wrap { flex-wrap: wrap; }
+        .gap-2 { gap: 8px; }
+        .gap-3 { gap: 12px; }
+        .gap-4 { gap: 16px; }
+
+        .text-sm { font-size: 14px; }
+        .text-xs { font-size: 12px; }
+        .text-muted { color: #64748b; }
+        .text-center { text-align: center; }
+
+        .mt-2 { margin-top: 8px; }
+        .mt-3 { margin-top: 12px; }
+        .mt-4 { margin-top: 16px; }
+        .mt-6 { margin-top: 24px; }
+
+        .mb-1 { margin-bottom: 4px; }
+        .mb-2 { margin-bottom: 8px; }
+
+        .p-3 { padding: 12px; }
+        .p-4 { padding: 16px; }
+        .p-8 { padding: 32px; }
+
+        .rounded-lg { border-radius: 8px; }
+        .border { border: 1px solid #e2e8f0; }
+        .hidden { display: none; }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid #e2e8f0;
+            padding: 24px 0;
+            text-align: center;
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 48px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .grid-cols-12 {
+                grid-template-columns: 1fr;
+            }
+            
+            .col-span-3,
+            .col-span-9,
+            .col-span-2 {
+                grid-column: span 1;
+            }
+            
+            .compose-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 16px;
+                align-items: stretch;
+            }
+            
+            .header-controls {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .tab-list {
+                flex-wrap: wrap;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .collectives-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sub-nav {
+                flex-direction: column;
+                gap: 16px;
+                align-items: stretch;
+            }
+
+            .sub-nav-right {
+                justify-content: flex-start;
+            }
+
+            .sorting-controls {
+                width: 100%;
+            }
+
+            .sorting-controls select {
+                width: 100%;
+            }
+        }
+
+        /* Footer and Mode Toggle Styles */
+        footer {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid #e2e8f0;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-text {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .mode-toggle {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .toggle-label {
+            font-size: 14px;
+            color: #64748b;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #cbd5e1;
+            transition: 0.3s;
+            border-radius: 34px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        input:checked + .toggle-slider {
+            background-color: #3b82f6;
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(26px);
+        }
+
+        .toggle-slider:hover {
+            background-color: #94a3b8;
+        }
+
+        input:checked + .toggle-slider:hover {
+            background-color: #2563eb;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="logo">
+                        <div class="logo-icon"></div>
+                        <div class="logo-text">
+                            <h1>SyftBox AI Service Hub</h1>
+                            <p>The network for federated knowledge</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="header-right">
+                    <nav class="main-nav">
+                        <button class="nav-tab active" onclick="showMainTab('discover')">Discover</button>
+                        <a href="compose.html" class="nav-tab">Compose</a>
+                        <a href="build.html" class="nav-tab">Build</a>
+                    </nav>
+                
+                <div class="header-controls">
+                    <div class="settings-container">
+                        <button class="btn user-icon">👤</button>
+                        <div class="settings-tooltip">
+                            <div class="tooltip-section">
+                                <span class="tooltip-label">Email</span>
+                                <span class="tooltip-value" id="userEmail">guest@syft.org</span>
+                            </div>
+                            <div class="tooltip-section">
+                                <span class="tooltip-label">Balance</span>
+                                <span class="tooltip-balance" id="userBalance">$20</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <div class="main-content">
+            <!-- Discover Tab -->
+            <div id="discover" class="main-tab-content">
+                <!-- Sub-navigation for Discover -->
+                <div class="sub-nav">
+                    <div class="sub-nav-left">
+                        <button class="sub-tab active" onclick="showDiscoverTab('data-sources')">🗄️ Data Sources</button>
+                        <button class="sub-tab" onclick="showDiscoverTab('synthesizers')">🧠 Synthesizers</button>
+                        <button class="sub-tab" onclick="showDiscoverTab('collectives')">🏢 Collectives</button>
+                    </div>
+                    <div class="sub-nav-right">
+                        <div class="sorting-controls">
+                            <label for="sortSelect">Sort by:</label>
+                            <select id="sortSelect" onchange="sortServices()">
+                                <option value="relevance">Relevance</option>
+                                <option value="name">Name A-Z</option>
+                                <option value="name-desc">Name Z-A</option>
+                                <option value="downloads">Downloads</option>
+                                <option value="recent">Recently Updated</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="price-high">Price: High to Low</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-12">
+                    <!-- Sidebar Filters -->
+                    <aside class="col-span-3 filters-sidebar">
+                        <div class="space-y-4">
+                            <div class="form-group">
+                                <label class="label">Search</label>
+                                <input type="text" class="input" placeholder="Find services, tags, owners…" id="searchInput">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="label">Type</label>
+                                <div class="filter-pills" data-filter="category">
+                                    <span class="filter-pill" data-value="data">🗄️ Data Sources</span>
+                                    <span class="filter-pill" data-value="model">🧠 Synthesizers</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="label">Supported Service</label>
+                                <div class="filter-pills" data-filter="mode">
+                                    <span class="filter-pill" data-value="search">🔍 Search</span>
+                                    <span class="filter-pill" data-value="chat">💬 Chat</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="label">Language</label>
+                                <div class="filter-pills" data-filter="language">
+                                    <span class="filter-pill" data-value="en">🇺🇸 English</span>
+                                    <span class="filter-pill" data-value="de">🇩🇪 German</span>
+                                    <span class="filter-pill" data-value="fr">🇫🇷 French</span>
+                                    <span class="filter-pill" data-value="es">🇪🇸 Spanish</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="label">Domain</label>
+                                <div class="filter-pills" data-filter="domain">
+                                    <span class="filter-pill" data-value="legal">⚖️ Legal</span>
+                                    <span class="filter-pill" data-value="wildlife">🦁 Wildlife</span>
+                                    <span class="filter-pill" data-value="healthcare">🏥 Healthcare</span>
+                                    <span class="filter-pill" data-value="finance">💰 Finance</span>
+                                    <span class="filter-pill" data-value="education">📚 Education</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="label">MCP Compatible</label>
+                                <div class="filter-pills" data-filter="mcp">
+                                    <span class="filter-pill" data-value="mcp">🔗 MCP Only</span>
+                                    <span class="filter-pill" data-value="non-mcp">❌ Non-MCP</span>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <div class="form-group">
+                                <label class="label">Quick tags</label>
+                                <div class="quick-tags">
+                                    <span class="badge badge-outline" onclick="addTag('domain:legal')">domain:legal</span>
+                                    <span class="badge badge-outline" onclick="addTag('domain:wildlife')">domain:wildlife</span>
+                                    <span class="badge badge-outline" onclick="addTag('task:summarization')">task:summarization</span>
+                                    <span class="badge badge-outline" onclick="addTag('task:retrieval')">task:retrieval</span>
+                                    <span class="badge badge-outline" onclick="addTag('language:de')">language:de</span>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <!-- Results -->
+                    <section class="col-span-9">
+                        <div class="services-grid" id="servicesGrid">
+                            <!-- Services will be populated by JavaScript -->
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+
+
+
+
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-text">Prototype UI.</div>
+                <div class="mode-toggle">
+                    <span class="toggle-label">Local</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="modeToggle" checked onchange="toggleMode()">
+                        <span class="toggle-slider"></span>
+                    </label>
+                    <span class="toggle-label">Internet</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Try Service Modal -->
+    <div id="tryModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">Try Service</h3>
+                <button class="modal-close" onclick="closeTryModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-grid">
+                    <!-- Configuration Section -->
+                    <div class="config-section">
+                        <div class="section-title">Configuration</div>
+                        
+                        <div class="config-row">
+                            <label class="config-label">Mode:</label>
+                            <select class="config-input" id="modalMode" onchange="updateModalConfig()">
+                                <option value="search">Search</option>
+                                <option value="chat">Chat</option>
+                                <option value="mcp">MCP</option>
+                            </select>
+                        </div>
+
+                        <div class="config-row" id="topKRow">
+                            <label class="config-label">Top-K:</label>
+                            <input type="number" class="config-input" id="topKInput" value="3" min="1" max="10" onchange="updateCode()">
+                        </div>
+
+                        <div class="config-row hidden" id="tempRow">
+                            <label class="config-label">Temp:</label>
+                            <input type="number" class="config-input" id="tempInput" value="0.7" min="0" max="2" step="0.1" onchange="updateCode()">
+                        </div>
+                    </div>
+
+                    <!-- Chat Section -->
+                    <div class="chat-section">
+                        <div class="section-title">Test Query</div>
+                        <textarea class="chat-input" id="chatInput" placeholder="Enter your message or query here..."></textarea>
+                        <button class="chat-button" onclick="runQuery()">Run Query</button>
+                    </div>
+                </div>
+
+                <!-- Code Examples Section -->
+                <div class="code-section" id="codeSection">
+                    <div class="section-title">Integration Code</div>
+                    
+                    <div class="code-tabs">
+                        <button class="code-tab active" onclick="showCodeTab('python')">Python</button>
+                        <button class="code-tab" onclick="showCodeTab('http')">HTTP</button>
+                        <button class="code-tab" onclick="showCodeTab('mcp')" id="mcpTab" style="display: none;">MCP Install</button>
+                    </div>
+
+                    <div id="pythonCode" class="code-block">
+                        <button class="code-copy-btn" onclick="copyCode('pythonCode')">Copy</button>
+                    </div>
+                    <div id="httpCode" class="code-block hidden">
+                        <button class="code-copy-btn" onclick="copyCode('httpCode')">Copy</button>
+                    </div>
+                </div>
+
+                <!-- MCP Install Section (Separate from code section) -->
+                <div class="mcp-section hidden" id="mcpSection">
+                    <div class="section-title">Installation Options</div>
+                    <div id="mcpCode" class="mcp-install-wrapper">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Composition Code Modal -->
+    <div id="compositionCodeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Composition Code</h3>
+                <button class="modal-close" onclick="closeCompositionCodeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="code-section">
+                    <div class="section-title">Integration Code</div>
+                    
+                    <div class="code-tabs">
+                        <button class="code-tab active" onclick="showCompositionCodeTab('python')">Python</button>
+                        <button class="code-tab" onclick="showCompositionCodeTab('http')">HTTP</button>
+                    </div>
+
+                    <div id="compositionPythonCode" class="code-block">
+                        <button class="code-copy-btn" onclick="copyCompositionCode('compositionPythonCode')">Copy</button>
+                    </div>
+                    <div id="compositionHttpCode" class="code-block hidden">
+                        <button class="code-copy-btn" onclick="copyCompositionCode('compositionHttpCode')">Copy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Composition Popup -->
+    <div id="compositionPopup" class="composition-popup hidden">
+        <div class="popup-header">
+            <h4>📋 Your Composition</h4>
+            <div class="popup-actions">
+                <button class="popup-minimize" onclick="minimizePopup()" title="Minimize">−</button>
+                <button class="popup-close" onclick="closePopup()" title="Close">×</button>
+            </div>
+        </div>
+        <div class="popup-content" id="popupContent">
+            <div class="selected-services-popup" id="selectedServicesPopup">
+                <div class="text-sm text-muted">Add sources/synthesizers from Discover to begin.</div>
+            </div>
+            <div class="popup-footer">
+                <a href="compose.html" class="btn btn-sm btn-primary" onclick="transferComposition()">Go to Compose →</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mode toggle functionality
+        function toggleMode() {
+            const toggle = document.getElementById('modeToggle');
+            const isLocal = toggle.checked;
+            
+            // Save the current state to localStorage
+            localStorage.setItem('modeToggle', isLocal ? 'local' : 'internet');
+            
+            // Update UI based on mode
+            if (isLocal) {
+                console.log('Switched to Local mode');
+                // You can add local mode specific logic here
+                // For example, show local services, disable internet features, etc.
+            } else {
+                console.log('Switched to Internet mode');
+                // You can add internet mode specific logic here
+                // For example, show all services, enable internet features, etc.
+            }
+            
+            // You can also update the page content or service availability based on the mode
+            // This is where you'd implement the actual prototype logic
+        }
+
+        // Initialize mode on page load - restore saved state or default to Local mode
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggle = document.getElementById('modeToggle');
+            
+            // Try to restore the saved state from localStorage
+            const savedMode = localStorage.getItem('modeToggle');
+            if (savedMode === 'internet') {
+                toggle.checked = false;
+            } else {
+                // Default to Local mode (checked) if no saved state or if saved state is 'local'
+                toggle.checked = true;
+            }
+            
+            // Trigger initial mode setup
+            toggleMode();
+        });
+
+        // Sample data
+        const SERVICES = [
+  {
+    id: "sa-animals",
+    name: "Animals of South Africa",
+                owner: "research@safari-lab.org",
+    type: "data",
+    hub: "wildlife",
+    summary: "Species records, park reports, conservation notes.",
+                description: "Curated wildlife corpus with ranger logs, conservation bulletins, and biodiversity surveys (2010–2025).",
+    pricing: "$0.005 / request",
+    endpoints: ["search", "chat"],
+    tags: ["domain:wildlife", "language:en", "task:retrieval", "task:rag-generation"],
+                mcp: true,
+  },
+  {
+    id: "lex-civil",
+    name: "Lex Civil Law",
+                owner: "data@lexfirm.eu",
+    type: "data",
+    hub: "civil-law",
+    summary: "Civil code, case law digests, firm memos (EU focus).",
+    description: "Continuously indexed civil law materials with internal commentary and citations.",
+    pricing: "$0.010 / request",
+    endpoints: ["search", "chat"],
+    tags: ["domain:legal", "language:en", "language:de", "task:retrieval", "task:rag-generation"],
+                mcp: false,
+  },
+  {
+    id: "med-devices",
+    name: "MedDevice Records",
+                owner: "admin@st-marys-hospital.com",
+    type: "data",
+    hub: "devices",
+    summary: "Hospital device logs, maintenance + UDI registry links.",
+                description: "Operational records, alerts, and manufacturer bulletins. PHI masked at source via Sifbox policies.",
+    pricing: "$0.02 / request",
+    endpoints: ["search"],
+    tags: ["domain:healthcare", "task:retrieval"],
+                mcp: false,
+  },
+              {
+                id: "lex-moe",
+                name: "lex_moe",
+                owner: "models@lexfirm.eu",
+                type: "model",
+                summary: "Mixture-of-experts tuned for EU legal reasoning.",
+                description: "Routes between extractive QA, citation generator, and argumentation experts; strong on multilingual statutes.",
+                pricing: "$0.06 / 1k tok",
+                endpoints: ["chat"],
+                tags: ["domain:legal", "task:summarization", "task:qa", "model:moe"],
+                mcp: true,
+            },
+            {
+                id: "gpt-4-turbo",
+                name: "gpt-4-turbo",
+                owner: "api@openai.com",
+                type: "model",
+                summary: "Latest GPT-4 model with improved speed and accuracy.",
+                description: "Advanced language model with 128k context window, multimodal capabilities, and enhanced reasoning.",
+                pricing: "$0.01 / 1k tok",
+                endpoints: ["chat"],
+                tags: ["model:gpt", "task:summarization", "task:qa", "task:reasoning"],
+                mcp: true,
+            },
+            {
+                id: "claude-3-opus",
+                name: "claude-3-opus",
+                owner: "api@anthropic.com",
+                type: "model",
+                summary: "Most capable Claude model for complex reasoning tasks.",
+                description: "Anthropic's flagship model with exceptional performance on analysis, math, coding, and creative writing.",
+                pricing: "$0.015 / 1k tok",
+                endpoints: ["chat"],
+                tags: ["model:claude", "task:reasoning", "task:summarization", "task:qa"],
+                mcp: true,
+            },
+            {
+                id: "gemini-pro",
+                name: "gemini-pro",
+                owner: "ai@google.com",
+                type: "model",
+                summary: "Google's most capable multimodal AI model.",
+                description: "Advanced reasoning across text, code, images, audio and video with long context understanding.",
+                pricing: "$0.0005 / 1k tok",
+                endpoints: ["chat"],
+                tags: ["model:gemini", "task:multimodal", "task:reasoning", "task:qa"],
+                mcp: false,
+            },
+            {
+                id: "llama-3-70b",
+                name: "llama-3-70b",
+                owner: "research@meta.com",
+                type: "model",
+                summary: "Meta's open-source large language model.",
+                description: "High-performance open model with strong reasoning and code generation capabilities.",
+                pricing: "Free (open source)",
+                endpoints: ["chat"],
+                tags: ["model:llama", "task:reasoning", "task:qa", "model:open-source"],
+                mcp: true,
+            },
+            {
+                id: "mistral-large",
+                name: "mistral-large",
+                owner: "api@mistral.ai",
+                type: "model",
+                summary: "European flagship model with multilingual excellence.",
+                description: "Advanced reasoning model with strong performance in French, German, Spanish, and Italian.",
+                pricing: "$0.008 / 1k tok",
+                endpoints: ["chat"],
+                tags: ["model:mistral", "task:reasoning", "task:qa", "language:multilingual"],
+                mcp: false,
+            },
+            {
+                id: "med-llm-stanford",
+                name: "med_llm_stanford",
+                owner: "research@stanford.edu",
+                type: "model",
+                summary: "Medical reasoning model trained on clinical data.",
+                description: "Specialized language model for medical diagnosis, treatment recommendations, and clinical decision support. PHI-compliant.",
+                pricing: "$0.25 / request",
+                endpoints: ["chat"],
+                tags: ["domain:healthcare", "task:diagnosis", "task:qa", "model:specialized"],
+                mcp: false,
+            },
+            {
+                id: "biobert-clinical",
+                name: "biobert_clinical",
+                owner: "nlp@mayo.edu",
+                type: "model",
+                summary: "Biomedical text understanding and entity extraction.",
+                description: "Pre-trained on PubMed abstracts and clinical notes for biomedical NLP tasks and drug discovery.",
+                pricing: "$0.05 / request",
+                endpoints: ["search", "chat"],
+                tags: ["domain:healthcare", "task:extraction", "task:retrieval", "model:bert"],
+                mcp: true,
+            },
+            {
+                id: "finance-gpt",
+                name: "finance_gpt",
+                owner: "quant@goldmansachs.com",
+                type: "model",
+                summary: "Financial analysis and risk assessment model.",
+                description: "Proprietary model trained on financial documents, market data, and regulatory filings for investment analysis.",
+                pricing: "$1.00 / request",
+                endpoints: ["chat"],
+                tags: ["domain:finance", "task:analysis", "task:risk-assessment", "model:proprietary"],
+                mcp: false,
+            },
+            {
+                id: "code-llama-34b",
+                name: "code_llama_34b",
+                owner: "research@meta.com",
+                type: "model",
+                summary: "Specialized coding assistant based on Llama 2.",
+                description: "Code generation, completion, and debugging across multiple programming languages with 100k context.",
+                pricing: "Free (open source)",
+                endpoints: ["chat"],
+                tags: ["task:coding", "task:debugging", "model:llama", "model:open-source"],
+                mcp: true,
+            },
+            {
+                id: "legal-bert-harvard",
+                name: "legal_bert_harvard",
+                owner: "law@harvard.edu",
+                type: "model",
+                summary: "Legal document analysis and case law reasoning.",
+                description: "Academic model trained on legal corpus for contract analysis, case outcome prediction, and legal research.",
+                pricing: "$0.15 / request",
+                endpoints: ["search", "chat"],
+                tags: ["domain:legal", "task:analysis", "task:research", "model:academic"],
+                mcp: false,
+            },
+        ];
+
+        let selectedServices = [];
+        let currentTab = 'discover';
+        let providerToolsEnabled = false;
+
+        // User state (simulate different login states)
+        const USER_STATES = {
+            guest: {
+                email: "Guest",
+                balance: "Sign in to view",
+                usage: "N/A",
+                isGuest: true
+            },
+            user: {
+                email: "john.doe@example.com",
+                balance: "$24.50",
+                usage: "156 requests",
+                isGuest: false
+            },
+            premium: {
+                email: "jane.smith@company.com",
+                balance: "$156.80",
+                usage: "1,247 requests",
+                isGuest: false
+            }
+        };
+
+        let currentUserState = 'user'; // Change this to test different states
+
+        // Update user info display
+        function updateUserInfo() {
+            const userState = USER_STATES[currentUserState];
+            const emailElement = document.getElementById('userEmail');
+            const balanceElement = document.getElementById('userBalance');
+            const usageElement = document.getElementById('monthlyUsage');
+            
+            emailElement.textContent = userState.email;
+            balanceElement.textContent = userState.balance;
+            usageElement.textContent = userState.usage;
+            
+            // Apply guest styling if needed
+            if (userState.isGuest) {
+                emailElement.className = 'tooltip-guest';
+                balanceElement.className = 'tooltip-guest';
+                usageElement.className = 'tooltip-guest';
+            } else {
+                emailElement.className = 'tooltip-value';
+                balanceElement.className = 'tooltip-balance';
+                usageElement.className = 'tooltip-value';
+            }
+        }
+
+        // Collectives data
+        const COLLECTIVES = [
+            {
+                id: "bio-rag-collective",
+                name: "🏢 Bio RAG Collective",
+                type: "collective",
+                summary: "Query this collective → routes only within members meeting policy today.",
+                tags: ["Verified", "Routing policy", "Eval thresholds"],
+                description: "Biomedical research collective with verified data sources and smart routing.",
+                pricing: "Free tier available",
+                members: 15
+            },
+            {
+                id: "pii-safe-collective",
+                name: "🏢 PII-Safe Collective",
+                type: "collective",
+                summary: "All services in this collective are PII-safe and GDPR compliant.",
+                tags: ["Verified", "Privacy focused", "GDPR compliant"],
+                description: "Privacy-focused collective ensuring data protection compliance.",
+                pricing: "$0.002 / request",
+                members: 8
+            },
+            {
+                id: "swiss-public-sector",
+                name: "🏢 Swiss Public Sector",
+                type: "collective",
+                summary: "Swiss government services and public sector data sources.",
+                tags: ["Government", "Local data", "Verified"],
+                description: "Official Swiss government and public sector data collective.",
+                pricing: "Public access",
+                members: 23
+            }
+        ];
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            renderServices();
+            setupEventListeners();
+            updateExecutionPlan();
+            updateUserInfo();
+            populateCompositionDropdowns();
+        });
+
+        // Setup event listeners
+        function setupEventListeners() {
+            document.getElementById('searchInput').addEventListener('input', filterServices);
+            
+            // Setup filter pill listeners for multi-selection
+            document.querySelectorAll('.filter-pills').forEach(pillGroup => {
+                pillGroup.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('filter-pill')) {
+                        // Toggle active state (multi-select)
+                        e.target.classList.toggle('active');
+                        // Trigger filter update
+                        filterServices();
+                    }
+                });
+            });
+        }
+
+        // Show main tab
+        function showMainTab(tabName) {
+            // Hide all main tab contents
+            document.querySelectorAll('.main-tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            // Remove active class from all main nav tabs
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected main tab content
+            const tabContent = document.getElementById(tabName);
+            if (tabContent) {
+                tabContent.classList.remove('hidden');
+            }
+            
+            // Add active class to selected main nav tab
+            event.target.classList.add('active');
+            
+            currentTab = tabName;
+
+
+        }
+
+        // Show discover sub-tab
+        function showDiscoverTab(subTabName) {
+            // Remove active class from all sub-tabs
+            document.querySelectorAll('.sub-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Add active class to selected sub-tab
+            event.target.classList.add('active');
+            
+            // Filter services based on sub-tab selection
+            filterServicesByType(subTabName);
+        }
+
+        // Filter services by type (for sub-tabs)
+        function filterServicesByType(type) {
+            let filteredServices = SERVICES;
+            
+            if (type === 'data-sources') {
+                filteredServices = SERVICES.filter(s => s.type === 'data');
+            } else if (type === 'synthesizers') {
+                filteredServices = SERVICES.filter(s => s.type === 'model');
+            } else if (type === 'collectives') {
+                // Show collectives data
+                filteredServices = COLLECTIVES;
+            }
+            
+            renderServices(filteredServices);
+        }
+
+        // Toggle switch
+        function toggleSwitch(element) {
+            element.classList.toggle('active');
+        }
+
+        // Toggle provider tools
+        function toggleProviderTools(element) {
+            element.classList.toggle('active');
+            providerToolsEnabled = element.classList.contains('active');
+            
+            // Provider tools toggle functionality preserved for future use
+        }
+
+        // Show tab
+        function showTab(tabName) {
+            // Don't allow build tab if provider tools not enabled
+            if (tabName === 'build' && !providerToolsEnabled) {
+                return;
+            }
+
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected tab content
+            document.getElementById(tabName).classList.remove('hidden');
+            
+            // Add active class to selected tab
+            event.target.classList.add('active');
+            
+            currentTab = tabName;
+        }
+
+        // Render services
+        function renderServices(services = SERVICES) {
+            const grid = document.getElementById('servicesGrid');
+            grid.innerHTML = '';
+
+            services.forEach(service => {
+                const card = createServiceCard(service);
+                grid.appendChild(card);
+            });
+        }
+
+        // Create service card
+        function createServiceCard(service) {
+            const card = document.createElement('div');
+            card.className = 'card service-card';
+            card.setAttribute('data-type', service.type);
+            
+            const typeIcon = service.type === 'data' ? '🗄️' : '🧠';
+            const typeName = service.type === 'data' ? 'Data' : 'Synthesizer';
+            const badgeClass = service.type === 'data' ? 'badge-data' : 'badge-model';
+            
+            // Make the card clickable for both data sources and synthesizers
+            const isClickable = true;
+            const clickHandler = `onclick="openServicePage('${service.id}', '${service.type}')"`;
+            const cursorStyle = 'cursor: pointer;';
+            
+            // Create full path for services
+            let displayName = service.name;
+            if (service.type === 'data') {
+                const domain = service.owner.split('@')[1];
+                const urlTitle = service.name
+                    .toLowerCase()
+                    .replace(/[^a-z0-9\s]/g, '')
+                    .replace(/\s+/g, '_');
+                displayName = `${service.owner}/${urlTitle}`;
+            } else if (service.type === 'model') {
+                // For synthesizers, show the owner/name format
+                displayName = `${service.owner}/${service.name}`;
+            } else if (service.type === 'collective') {
+                // For collectives, use name as-is
+                displayName = service.name;
+            }
+            
+            card.innerHTML = `
+                <div class="card-header" ${clickHandler} style="${cursorStyle}">
+                    <div class="service-header">
+          <div>
+                            <div class="service-title">
+                                <span class="badge ${badgeClass}">
+                                    ${typeIcon} ${typeName}
+                                </span>
+                                <span>${displayName}</span>
+          </div>
+        </div>
+        </div>
+                <div class="card-content" ${clickHandler} style="${cursorStyle}">
+                    <div class="service-summary">${service.summary}</div>
+                    <div class="service-tags">
+                        ${service.type === 'collective' ? 
+                            service.tags.map(tag => `<span class="badge badge-outline">${tag}</span>`).join('') :
+                            `${service.endpoints.includes('search') ? '<span class="badge badge-outline">🔍 Search</span>' : ''}
+                             ${service.endpoints.includes('chat') ? '<span class="badge badge-outline">💬 Chat</span>' : ''}
+                             ${service.mcp ? '<span class="badge badge-default">🔗 MCP</span>' : ''}`
+                        }
+        </div>
+        </div>
+                <div class="card-footer">
+                    <div class="service-footer">
+                        <div class="service-pricing">${service.pricing}</div>
+                        <div class="service-actions">
+                            ${service.type === 'collective' ? 
+                                `<button class="btn btn-primary btn-sm" onclick="event.stopPropagation(); openCollective('${service.id}')">Open</button>
+                                 <span class="text-xs text-muted">${service.members} members</span>` :
+                                `<button class="btn btn-sm" onclick="event.stopPropagation(); tryService('${service.id}')">Try</button>
+                                 <button class="btn btn-primary btn-sm" onclick="event.stopPropagation(); addService('${service.id}')">➕ Add</button>`
+                            }
+              </div>
+        </div>
+                              </div>
+            `;
+            
+            return card;
+        }
+
+        // Get active filter values from pills (multi-select)
+        function getActiveFilterValues(filterName) {
+            const pillGroup = document.querySelector(`[data-filter="${filterName}"]`);
+            const activePills = pillGroup?.querySelectorAll('.filter-pill.active');
+            return Array.from(activePills || []).map(pill => pill.dataset.value);
+        }
+
+        // Filter services
+        function filterServices() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const categories = getActiveFilterValues('category');
+            const modes = getActiveFilterValues('mode');
+            const languages = getActiveFilterValues('language');
+            const domains = getActiveFilterValues('domain');
+            const mcpFilters = getActiveFilterValues('mcp');
+            
+            const filtered = SERVICES.filter(service => {
+                // Text search
+                const matchesQuery = service.name.toLowerCase().includes(query) || 
+                                   service.summary.toLowerCase().includes(query) ||
+                                   service.tags.join(' ').toLowerCase().includes(query);
+                
+                // Category filter (if any selected)
+                const matchesCategory = categories.length === 0 || categories.includes(service.type);
+                
+                // Mode filter (if any selected)
+                const matchesMode = modes.length === 0 || 
+                                  modes.some(mode => 
+                                      (mode === 'search' && service.endpoints.includes('search')) ||
+                                      (mode === 'chat' && service.endpoints.includes('chat'))
+                                  );
+                
+                // Language filter (if any selected)
+                const matchesLanguage = languages.length === 0 || 
+                                      languages.some(lang => 
+                                          service.tags.some(tag => tag.includes(`language:${lang}`))
+                                      );
+                
+                // Domain filter (if any selected)
+                const matchesDomain = domains.length === 0 || 
+                                    domains.some(domain => 
+                                        service.tags.some(tag => tag.includes(`domain:${domain}`))
+                                    );
+                
+                // MCP filter (if any selected)
+                const matchesMcp = mcpFilters.length === 0 || 
+                                 mcpFilters.some(filter => 
+                                     (filter === 'mcp' && service.mcp === true) ||
+                                     (filter === 'non-mcp' && service.mcp === false)
+                                 );
+                
+                return matchesQuery && matchesCategory && matchesMode && matchesLanguage && matchesDomain && matchesMcp;
+            });
+            
+            renderServices(filtered);
+        }
+
+        // Add tag to search
+        function addTag(tag) {
+            const searchInput = document.getElementById('searchInput');
+            const currentValue = searchInput.value;
+            searchInput.value = currentValue ? currentValue + ' ' + tag : tag;
+            filterServices();
+        }
+
+        let currentService = null;
+
+        // Try service
+        function tryService(serviceId) {
+            currentService = SERVICES.find(s => s.id === serviceId);
+            if (!currentService) return;
+
+            // Update modal title
+            document.getElementById('modalTitle').textContent = `Try: ${currentService.name}`;
+            
+            // Set available modes based on service endpoints
+            const modeSelect = document.getElementById('modalMode');
+            modeSelect.innerHTML = '';
+            
+            if (currentService.endpoints.includes('search')) {
+                modeSelect.innerHTML += '<option value="search">Search</option>';
+            }
+            if (currentService.endpoints.includes('chat')) {
+                modeSelect.innerHTML += '<option value="chat">Chat</option>';
+            }
+            if (currentService.mcp) {
+                modeSelect.innerHTML += '<option value="mcp">MCP</option>';
+            }
+            
+            // Set default mode
+            modeSelect.value = currentService.endpoints.includes('search') ? 'search' : 'chat';
+            
+            updateModalConfig();
+            updateCode();
+            
+            // Show modal
+            document.getElementById('tryModal').classList.add('show');
+        }
+
+        // Close modal
+        function closeTryModal() {
+            document.getElementById('tryModal').classList.remove('show');
+            currentService = null;
+        }
+
+        // Update modal configuration based on selected mode
+        function updateModalConfig() {
+            const mode = document.getElementById('modalMode').value;
+            const topKRow = document.getElementById('topKRow');
+            const tempRow = document.getElementById('tempRow');
+            const mcpTab = document.getElementById('mcpTab');
+            const pythonTab = document.querySelector('[onclick="showCodeTab(\'python\')"]');
+            const httpTab = document.querySelector('[onclick="showCodeTab(\'http\')"]');
+            const chatSection = document.querySelector('.chat-section');
+            const codeSection = document.getElementById('codeSection');
+            const mcpSection = document.getElementById('mcpSection');
+            
+            if (mode === 'search') {
+                topKRow.classList.remove('hidden');
+                tempRow.classList.add('hidden');
+                mcpTab.style.display = 'none';
+                pythonTab.style.display = 'block';
+                httpTab.style.display = 'block';
+                chatSection.style.display = 'block';
+                codeSection.style.display = 'block';
+                mcpSection.style.display = 'none';
+                // Show Python tab by default
+                showCodeTab('python');
+            } else if (mode === 'chat') {
+                topKRow.classList.add('hidden');
+                tempRow.classList.remove('hidden');
+                mcpTab.style.display = 'none';
+                pythonTab.style.display = 'block';
+                httpTab.style.display = 'block';
+                chatSection.style.display = 'block';
+                codeSection.style.display = 'block';
+                mcpSection.style.display = 'none';
+                // Show Python tab by default
+                showCodeTab('python');
+            } else if (mode === 'mcp') {
+                topKRow.classList.add('hidden');
+                tempRow.classList.add('hidden');
+                mcpTab.style.display = 'block';
+                pythonTab.style.display = 'none';
+                httpTab.style.display = 'none';
+                chatSection.style.display = 'none';
+                codeSection.style.display = 'none';
+                mcpSection.style.display = 'block';
+                // Show MCP section
+                updateCode();
+            }
+            
+            if (mode !== 'mcp') {
+                updateCode();
+            }
+        }
+
+        // Show code tab
+        function showCodeTab(tab) {
+            // Update tab buttons
+            document.querySelectorAll('.code-tab').forEach(t => t.classList.remove('active'));
+            document.querySelector(`[onclick="showCodeTab('${tab}')"]`).classList.add('active');
+            
+            // Show selected code block
+            document.querySelectorAll('.code-block').forEach(block => block.classList.add('hidden'));
+            if (tab !== 'mcp') {
+                document.getElementById(`${tab}Code`).classList.remove('hidden');
+            }
+        }
+
+        // Copy code to clipboard
+        function copyCode(codeBlockId) {
+            const codeBlock = document.getElementById(codeBlockId);
+            const rawCode = codeBlock.dataset.rawCode;
+            
+            navigator.clipboard.writeText(rawCode).then(() => {
+                const copyBtn = codeBlock.querySelector('.code-copy-btn');
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = 'Copied!';
+                copyBtn.classList.add('copied');
+                
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                    copyBtn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        // Copy to clipboard for inline code blocks
+        function copyToClipboard(button) {
+            const text = button.getAttribute('data-text');
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+
+        // Copy MCP command to clipboard
+        function copyMcpCommand(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Find the button that was clicked and update it
+                const buttons = document.querySelectorAll('.mcp-copy-btn');
+                buttons.forEach(btn => {
+                    if (btn.onclick.toString().includes(text.replace(/"/g, '\\"'))) {
+                        const originalText = btn.textContent;
+                        btn.textContent = 'Copied!';
+                        btn.classList.add('copied');
+                        
+                        setTimeout(() => {
+                            btn.textContent = originalText;
+                            btn.classList.remove('copied');
+                        }, 2000);
+                    }
+                });
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+
+        // Apply Python syntax highlighting
+        function highlightPython(code) {
+            // Split code into lines and process each line
+            return code.split('\n').map(line => {
+                // Escape HTML first
+                let escapedLine = line
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;');
+                
+                // Track if we're inside a string to avoid highlighting inside strings
+                let result = '';
+                let i = 0;
+                
+                while (i < escapedLine.length) {
+                    let char = escapedLine[i];
+                    
+                    // Handle comments - everything after # is a comment
+                    if (char === '#') {
+                        result += '<span class="python-comment">' + escapedLine.substring(i) + '</span>';
+                        break;
+                    }
+                    
+                    // Handle strings
+                    if (char === '"' || char === "'") {
+                        let quote = char;
+                        let stringStart = i;
+                        i++; // Skip opening quote
+                        
+                        // Check for triple quotes
+                        if (i < escapedLine.length - 1 && escapedLine[i] === quote && escapedLine[i + 1] === quote) {
+                            // Triple quoted string
+                            let stringEnd = escapedLine.indexOf(quote + quote + quote, i + 1);
+                            if (stringEnd === -1) stringEnd = escapedLine.length;
+                            else stringEnd += 3;
+                            
+                            let stringContent = escapedLine.substring(stringStart, stringEnd);
+                            result += '<span class="python-docstring">' + stringContent + '</span>';
+                            i = stringEnd;
+                            continue;
+                        } else {
+                            // Regular string
+                            while (i < escapedLine.length && escapedLine[i] !== quote) {
+                                if (escapedLine[i] === '\\') i++; // Skip escaped character
+                                i++;
+                            }
+                            if (i < escapedLine.length) i++; // Skip closing quote
+                            
+                            let stringContent = escapedLine.substring(stringStart, i);
+                            result += '<span class="python-string">' + stringContent + '</span>';
+                            continue;
+                        }
+                    }
+                    
+                    // Handle keywords and identifiers
+                    if (/[a-zA-Z_]/.test(char)) {
+                        let wordStart = i;
+                        while (i < escapedLine.length && /[a-zA-Z0-9_]/.test(escapedLine[i])) {
+                            i++;
+                        }
+                        let word = escapedLine.substring(wordStart, i);
+                        
+                        // Check if it's a keyword
+                        if (/^(def|class|import|from|if|else|elif|for|while|try|except|finally|with|as|return|yield|break|continue|pass|raise|lambda|global|nonlocal|assert|del|and|or|not|in|is|True|False|None|__name__|__main__)$/.test(word)) {
+                            result += '<span class="python-keyword">' + word + '</span>';
+                        }
+                        // Check if it's a function call
+                        else if (/^(print|len|str|int|float|list|dict|set|tuple|range|enumerate|zip|open|type|isinstance|hasattr|getattr|setattr|delattr|get|get_client|get_service|search|main)$/.test(word) && 
+                                i < escapedLine.length && escapedLine[i] === '(') {
+                            result += '<span class="python-builtin">' + word + '</span>';
+                        }
+                        else {
+                            result += word;
+                        }
+                        continue;
+                    }
+                    
+                    // Handle numbers
+                    if (/\d/.test(char)) {
+                        let numStart = i;
+                        while (i < escapedLine.length && /[\d.]/.test(escapedLine[i])) {
+                            i++;
+                        }
+                        let number = escapedLine.substring(numStart, i);
+                        result += '<span class="python-number">' + number + '</span>';
+                        continue;
+                    }
+                    
+                    // Handle operators
+                    if (/[=+\-*/%<>!&|^~]/.test(char)) {
+                        result += '<span class="python-operator">' + char + '</span>';
+                        i++;
+                        continue;
+                    }
+                    
+                    // Regular character
+                    result += char;
+                    i++;
+                }
+                
+                return result;
+            }).join('\n');
+        }
+
+        // Update code examples
+        function updateCode() {
+            if (!currentService) return;
+            
+            const mode = document.getElementById('modalMode').value;
+            const topK = document.getElementById('topKInput').value;
+            const temp = document.getElementById('tempInput').value;
+            const message = document.getElementById('chatInput').value || 'Your query here';
+            
+            const pythonCode = generatePythonCode(mode, topK, temp, message);
+            const httpCode = generateHttpCode(mode, topK, temp, message);
+            const mcpCode = generateMcpCode();
+            
+                        // Apply syntax highlighting to Python code
+            const pythonBlock = document.getElementById('pythonCode');
+            pythonBlock.innerHTML = '<button class="code-copy-btn" onclick="copyCode(\'pythonCode\')">Copy</button><pre>' + highlightPython(pythonCode) + '</pre>';
+            pythonBlock.dataset.rawCode = pythonCode; // Store raw code for copying
+            
+            // Plain text for HTTP and MCP
+            const httpBlock = document.getElementById('httpCode');
+            httpBlock.innerHTML = '<button class="code-copy-btn" onclick="copyCode(\'httpCode\')">Copy</button><pre>' + httpCode + '</pre>';
+            httpBlock.dataset.rawCode = httpCode; // Store raw code for copying
+
+            const mcpBlock = document.getElementById('mcpCode');
+            // Clear any existing content and insert the HTML directly
+            mcpBlock.innerHTML = '';
+            mcpBlock.insertAdjacentHTML('beforeend', mcpCode);
+        }
+
+        // Generate Python code
+        function generatePythonCode(mode, topK, temp, message) {
+            const serviceName = currentService.name.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
+            const owner = currentService.owner.split('@')[1] || 'datasite';
+            
+            if (mode === 'search') {
+                return `#!/usr/bin/env python3
+"""
+Search example for ${currentService.name}
+"""
+import syft_hub as sh
+
+def main():
+    # Initialize the SyftBox client
+    client = sh.get_client()
+    
+    # Connect to the specific service
+    service = client.get_service(
+        datasite="${owner}",
+        name="${serviceName}"
+    )
+    
+    # Perform search query
+    results = service.search(
+        query="${message}",
+        top_k=${topK}
+    )
+    
+    # Process results
+    for i, result in enumerate(results, 1):
+        print(f"Result {i}:")
+        print(f"  Score: {result.get('score', 'N/A')}")
+        print(f"  Content: {result.get('content', '')[:100]}...")
+        print()
+
+if __name__ == "__main__":
+    main()`;
+            } else if (mode === 'chat') {
+                return `#!/usr/bin/env python3
+"""
+Chat example for ${currentService.name}
+"""
+import syft_hub as sh
+
+def main():
+    # Initialize the SyftBox client
+    client = sh.get_client()
+    
+    # Connect to the specific service
+    service = client.get_service(
+        datasite="${owner}",
+        name="${serviceName}"
+    )
+    
+    # Send chat message
+    response = service.chat(
+        message="${message}",
+        temperature=${temp}
+    )
+    
+    # Display response
+    print("Assistant Response:")
+    print("-" * 40)
+    print(response.get('content', ''))
+    print()
+    print(f"Tokens used: {response.get('usage', {}).get('total_tokens', 'N/A')}")
+
+if __name__ == "__main__":
+    main()`;
+            } else {
+                return `# MCP Integration - Not applicable for Python
+# Please use the MCP Install tab for Claude Desktop integration`;
+            }
+        }
+
+        // Generate HTTP code
+        function generateHttpCode(mode, topK, temp, message) {
+            const baseUrl = `https://api.syftbox.net/v1/services/${currentService.id}`;
+            
+            if (mode === 'search') {
+                return `# Search API Example for ${currentService.name}
+curl -X POST "${baseUrl}/search" \\
+  -H "Content-Type: application/json" \\
+  -H "Authorization: Bearer YOUR_API_KEY" \\
+  -d '{
+    "query": "${message}",
+    "top_k": ${topK},
+    "include_metadata": true
+  }'
+
+Response:
+{
+  "results": [
+    {
+      "content": "Detailed information about wildlife species...",
+      "score": 0.95,
+      "metadata": {
+        "source": "wildlife_database",
+        "timestamp": "2024-01-15T10:30:00Z",
+        "category": "mammals"
+      }
+    },
+    {
+      "content": "Conservation status and habitat information...",
+      "score": 0.87,
+      "metadata": {
+        "source": "conservation_reports",
+        "timestamp": "2024-01-10T14:20:00Z",
+        "category": "conservation"
+      }
+    }
+  ],
+  "total": ${topK},
+  "query_time_ms": 145
+}`;
+            } else if (mode === 'chat') {
+                return `# Chat API Example for ${currentService.name}
+curl -X POST "${baseUrl}/chat" \\
+  -H "Content-Type: application/json" \\
+  -H "Authorization: Bearer YOUR_API_KEY" \\
+  -d '{
+    "message": "${message}",
+    "temperature": ${temp},
+    "max_tokens": 1000,
+    "stream": false
+  }'
+
+Response:
+{
+  "content": "Based on the data available, I can provide you with comprehensive information about your query. The analysis shows relevant patterns and insights from the dataset...",
+  "usage": {
+    "prompt_tokens": 45,
+    "completion_tokens": 156,
+    "total_tokens": 201
+  },
+  "model": "${currentService.name}",
+  "created": 1705320600
+}`;
+            } else {
+                return `# MCP HTTP Integration for ${currentService.name}
+
+# Get MCP server manifest
+curl -X GET "${baseUrl}/mcp/manifest" \\
+  -H "Authorization: Bearer YOUR_API_KEY"
+
+Response:
+{
+  "capabilities": {
+    "tools": ["search", "analyze", "summarize"],
+    "resources": ["datasets", "models"],
+    "prompts": ["search_template", "analysis_template"]
+  },
+  "server_info": {
+    "name": "${currentService.name}",
+    "version": "1.0.0"
+  }
+}`;
+            }
+        }
+
+        // Generate MCP installation code
+        function generateMcpCode() {
+            const serviceName = currentService.name.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
+            const datasite = currentService.owner.split('@')[1] || 'datasite';
+            
+            return `<div class="mcp-install-container">
+                <h2>Installation Options</h2>
+                
+                <div class="mcp-tabs">
+                    <button class="mcp-tab-btn active" onclick="showMcpTab('cli')">Claude MCP CLI</button>
+                    <button class="mcp-tab-btn" onclick="showMcpTab('manual')">Manual Installation</button>
+                </div>
+                
+                <div id="mcp-cli-tab" class="mcp-tab-content active">
+                    <h3>Claude MCP CLI (Recommended)</h3>
+                    <p>Install using the Claude MCP command line interface:</p>
+                    <div class="code-block-inline">
+                        <code>claude mcp add --transport http syftbox_${currentService.id} https://mcp.syftbox.net/${currentService.id}</code>
+                        <button class="copy-btn-inline" data-text="claude mcp add --transport http syftbox_${currentService.id} https://mcp.syftbox.net/${currentService.id}" onclick="copyToClipboard(this)">Copy</button>
+                    </div>
+                    
+                    <h3>Usage</h3>
+                    <p>Once installed, the ${currentService.name} service will be available as an MCP tool in Claude Desktop conversations.</p>
+                    <p><strong>Example usage in Claude:</strong></p>
+                    <div class="code-block-inline">
+                        <code>"Use the ${serviceName} tool to search for information about..."</code>
+                        <button class="copy-btn-inline" data-text="Use the ${serviceName} tool to search for information about..." onclick="copyToClipboard(this)">Copy</button>
+                    </div>
+                    
+                    <h3>Verification</h3>
+                    <p>After installation, you should see "${currentService.name}" listed in your Claude Desktop MCP tools list.</p>
+                </div>
+                
+                <div id="mcp-manual-tab" class="mcp-tab-content">
+                    <h3>Manual Installation</h3>
+                    
+                    <div class="mcp-step">
+                        <h4>Step 1: Install the MCP server package</h4>
+                        <div class="code-block-inline">
+                            <code>npm install -g @syftbox/mcp-${serviceName}</code>
+                            <button class="copy-btn-inline" data-text="npm install -g @syftbox/mcp-${serviceName}" onclick="copyToClipboard(this)">Copy</button>
+                        </div>
+                    </div>
+                    
+                    <div class="mcp-step">
+                        <h4>Step 2: Add to Claude Desktop config</h4>
+                        <p>Edit your Claude Desktop configuration file:</p>
+                        <div class="config-paths">
+                            <div><strong>macOS/Linux:</strong> <code>~/.config/claude/claude_desktop_config.json</code></div>
+                            <div><strong>Windows:</strong> <code>%APPDATA%\\Claude\\claude_desktop_config.json</code></div>
+                        </div>
+                        <p>Add this configuration:</p>
+                        <div class="code-block-inline">
+                            <pre><code>{
+  "mcpServers": {
+    "${serviceName}": {
+      "command": "mcp-${serviceName}",
+      "args": [
+        "--api-key", "YOUR_API_KEY",
+        "--endpoint", "https://api.syftbox.net"
+      ],
+      "env": {
+        "SYFTBOX_SERVICE_ID": "${currentService.id}",
+        "SYFTBOX_DATASITE": "${datasite}"
+      }
+    }
+  }
+}</code></pre>
+                            <button class="copy-btn-inline" data-text='{\n  "mcpServers": {\n    "${serviceName}": {\n      "command": "mcp-${serviceName}",\n      "args": [\n        "--api-key", "YOUR_API_KEY",\n        "--endpoint", "https://api.syftbox.net"\n      ],\n      "env": {\n        "SYFTBOX_SERVICE_ID": "${currentService.id}",\n        "SYFTBOX_DATASITE": "${datasite}"\n      }\n    }\n  }\n}' onclick="copyToClipboard(this)">Copy</button>
+                        </div>
+                    </div>
+                    
+                    <div class="mcp-step">
+                        <h4>Step 3: Restart Claude Desktop</h4>
+                        <p>After saving the configuration, restart Claude Desktop for the changes to take effect.</p>
+                    </div>
+                </div>
+            </div>`;
+        }
+
+        // Run query (placeholder)
+        function runQuery() {
+            const message = document.getElementById('chatInput').value;
+            if (!message.trim()) {
+                alert('Please enter a message or query');
+                return;
+            }
+            
+            // Update code examples with the new message
+            updateCode();
+            
+            // Simulate API call (placeholder)
+            alert(`Query sent to ${currentService.name}: "${message}"\n\nIn a real implementation, this would call the service API and display results.`);
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('tryModal').addEventListener('click', (e) => {
+            if (e.target.id === 'tryModal') {
+                closeTryModal();
+            }
+        });
+
+        // Update code when chat input changes
+        document.getElementById('chatInput').addEventListener('input', updateCode);
+
+        // Open service page (for both datasets and synthesizers)
+        function openServicePage(serviceId, serviceType) {
+            const service = SERVICES.find(s => s.id === serviceId);
+            if (!service) return;
+            
+            if (serviceType === 'data') {
+                openDatasetPage(serviceId);
+            } else if (serviceType === 'model') {
+                openSynthesizerPage(serviceId);
+            }
+        }
+
+        // Open dataset page
+        function openDatasetPage(datasetId) {
+            const dataset = SERVICES.find(s => s.id === datasetId && s.type === 'data');
+            if (!dataset) return;
+            
+            const domain = dataset.owner.split('@')[1];
+            const urlTitle = dataset.name
+                .toLowerCase()
+                .replace(/[^a-z0-9\s]/g, '')
+                .replace(/\s+/g, '_');
+            
+            const url = `datasets/${domain}/${urlTitle}.html`;
+            window.open(url, '_blank');
+        }
+
+        // Open synthesizer page
+        function openSynthesizerPage(synthesizerId) {
+            const synthesizer = SERVICES.find(s => s.id === synthesizerId && s.type === 'model');
+            if (!synthesizer) return;
+            
+            // Use the name as-is since our filenames preserve hyphens
+            const url = `synthesizers/${synthesizer.owner}/${synthesizer.name}.html`;
+            window.open(url, '_blank');
+        }
+
+        // Open collective page
+        function openCollective(collectiveId) {
+            const collective = COLLECTIVES.find(c => c.id === collectiveId);
+            if (!collective) return;
+            
+            // For demo purposes, show info about the collective
+            alert(`Opening ${collective.name}\n\nMembers: ${collective.members}\nDescription: ${collective.description}\n\nThis would normally open the collective interface where you can:\n• Browse member services\n• View routing policies\n• Join the collective`);
+        }
+
+        // Add service to selection
+        function addService(serviceId) {
+            const service = SERVICES.find(s => s.id === serviceId);
+            if (service && !selectedServices.find(s => s.id === serviceId)) {
+                selectedServices.push(service);
+                updateSelectedServicesDisplay();
+                updateExecutionPlan();
+                
+                // Show success feedback
+                const button = event.target;
+                const originalText = button.innerHTML;
+                button.innerHTML = '✅ Added';
+                button.style.background = '#10b981';
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.style.background = '';
+                }, 1000);
+            }
+        }
+
+        // Remove service from selection
+        function removeService(serviceId) {
+            selectedServices = selectedServices.filter(s => s.id !== serviceId);
+            updateSelectedServicesDisplay();
+            updateExecutionPlan();
+        }
+
+        // Update selected services display in popup
+        function updateSelectedServicesDisplay() {
+            const container = document.getElementById('selectedServicesPopup');
+            const popup = document.getElementById('compositionPopup');
+            
+            if (selectedServices.length === 0) {
+                container.innerHTML = '<div class="text-sm text-muted">Add sources/synthesizers from Discover to begin.</div>';
+                popup.classList.add('hidden');
+                return;
+            }
+            
+            // Show popup when services are selected
+            popup.classList.remove('hidden');
+            
+            container.innerHTML = selectedServices.map(service => {
+                const typeIcon = service.type === 'data' ? '🗄️' : '🧠';
+                return `
+                    <div class="popup-service">
+                        <span class="badge ${service.type === 'data' ? 'badge-data' : 'badge-model'}">
+                            ${typeIcon}
+                        </span>
+                        <span>${service.name}</span>
+                        <button class="remove-btn" onclick="removeService('${service.id}')" title="Remove">✕</button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Update execution plan
+        function updateExecutionPlan() {
+            const dataHubs = selectedServices.filter(s => s.type === 'data').length;
+            const synthesizers = selectedServices.filter(s => s.type === 'model').length;
+            
+            document.getElementById('dataHubCount').textContent = dataHubs;
+            document.getElementById('synthCount').textContent = synthesizers;
+        }
+
+        // Popup management functions
+        function minimizePopup() {
+            const popup = document.getElementById('compositionPopup');
+            popup.classList.toggle('minimized');
+        }
+
+        function closePopup() {
+            const popup = document.getElementById('compositionPopup');
+            popup.classList.add('hidden');
+        }
+
+        // Transfer composition to compose.html
+        function transferComposition() {
+            // Save current composition to localStorage
+            const composition = {
+                sources: selectedSources,
+                synthesizer: selectedSynthesizer,
+                timestamp: Date.now()
+            };
+            
+            localStorage.setItem('syftbox_composition', JSON.stringify(composition));
+        }
+
+
+
+        // Open dataset detail page
+        function openDatasetPage(serviceId) {
+            const service = SERVICES.find(s => s.id === serviceId);
+            if (!service) return;
+            
+            // Extract domain from owner email
+            const domain = service.owner.split('@')[1];
+            
+            // Create URL-friendly title (replace spaces with underscores, remove special chars)
+            const urlTitle = service.name
+                .toLowerCase()
+                .replace(/[^a-z0-9\s]/g, '')
+                .replace(/\s+/g, '_');
+            
+            // Construct URL in format: domain/title
+            const pagePath = `datasets/${domain}/${urlTitle}.html`;
+            
+            // Check if the page exists, otherwise show a message
+            const datasetPages = {
+                'sa-animals': 'datasets/safari-lab.org/animals_of_south_africa.html',
+                'lex-civil': 'datasets/lexfirm.eu/lex_civil_law.html',
+                'med-devices': 'datasets/st-marys-hospital.com/meddevice_records.html'
+            };
+            
+            const existingPage = datasetPages[serviceId];
+            if (existingPage) {
+                window.open(existingPage, '_blank');
+            } else {
+                // For datasets without dedicated pages, show a message
+                alert(`Dataset details for ${service.name} coming soon!\n\nURL would be: ${pagePath}\n\nThis would open a dedicated page similar to the HuggingFace dataset pages.`);
+            }
+        }
+
+        // Composition Tab Functions
+        let selectedSources = [];
+        let selectedSynthesizer = null;
+        let filterCounter = 1;
+
+        // Populate composition dropdowns
+        function populateCompositionDropdowns() {
+            populateSourceDropdown();
+            populateSynthesizerDropdown();
+        }
+
+        // Populate source dropdown
+        function populateSourceDropdown() {
+            const content = document.getElementById('sourceDropdownContent');
+            if (!content) return;
+            
+            const dataServices = SERVICES.filter(s => s.type === 'data');
+            
+            content.innerHTML = dataServices.map(service => `
+                <div class="dropdown-item" onclick="addSource('${service.id}')">
+                    <div class="dropdown-item-header">
+                        <div class="dropdown-item-name">${service.name}</div>
+                        <div class="dropdown-item-owner">${service.owner}</div>
+                    </div>
+                    <div class="dropdown-item-summary">${service.summary}</div>
+                    <div class="dropdown-item-capabilities">
+                        ${service.endpoints.includes('search') ? '<span class="badge badge-outline">🔍 Search</span>' : ''}
+                        ${service.endpoints.includes('chat') ? '<span class="badge badge-outline">💬 Chat</span>' : ''}
+                        ${service.mcp ? '<span class="badge badge-default">🔗 MCP</span>' : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Populate synthesizer dropdown
+        function populateSynthesizerDropdown() {
+            const content = document.getElementById('synthesizerDropdownContent');
+            const modelServices = SERVICES.filter(s => s.type === 'model');
+            
+            content.innerHTML = modelServices.map(service => `
+                <div class="dropdown-item" onclick="addSynthesizer('${service.id}')">
+                    <div class="dropdown-item-header">
+                        <div class="dropdown-item-name">${service.name}</div>
+                        <div class="dropdown-item-owner">${service.owner}</div>
+                    </div>
+                    <div class="dropdown-item-summary">${service.summary}</div>
+                    <div class="dropdown-item-capabilities">
+                        ${service.endpoints.includes('chat') ? '<span class="badge badge-outline">💬 Chat</span>' : ''}
+                        ${service.mcp ? '<span class="badge badge-default">🔗 MCP</span>' : ''}
+                        <span class="badge badge-outline">🌡️ Temp: 0.7</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Toggle source dropdown
+        function toggleSourceDropdown() {
+            const dropdown = document.getElementById('sourceDropdown');
+            const icon = document.getElementById('addSourceIcon');
+            const btnText = document.getElementById('addSourceBtnText');
+            
+            if (dropdown.classList.contains('hidden')) {
+                dropdown.classList.remove('hidden');
+                icon.textContent = '▲';
+                btnText.textContent = 'Hide Sources';
+            } else {
+                dropdown.classList.add('hidden');
+                icon.textContent = '▼';
+                btnText.textContent = '+ Add Source';
+            }
+        }
+
+        // Toggle synthesizer dropdown
+        function toggleSynthesizerDropdown() {
+            const dropdown = document.getElementById('synthesizerDropdown');
+            const icon = document.getElementById('addSynthesizerIcon');
+            const btnText = document.getElementById('addSynthesizerBtnText');
+            
+            if (dropdown.classList.contains('hidden')) {
+                dropdown.classList.remove('hidden');
+                icon.textContent = '▲';
+                btnText.textContent = 'Hide Synthesizers';
+            } else {
+                dropdown.classList.add('hidden');
+                icon.textContent = '▼';
+                btnText.textContent = '+ Add Synthesizer';
+            }
+        }
+
+        // Filter source dropdown
+        function filterSourceDropdown() {
+            const searchInput = document.getElementById('sourceSearchInput');
+            if (!searchInput) return;
+            
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            const items = document.querySelectorAll('#sourceDropdownContent .dropdown-item');
+            let hasResults = false;
+            
+            // If search is empty, show all items
+            if (searchTerm === '') {
+                items.forEach(item => {
+                    item.style.display = 'block';
+                });
+                removeNoResultsMessage('sourceDropdownContent');
+                return;
+            }
+            
+            items.forEach(item => {
+                // Get text content from the entire item as fallback
+                const itemText = item.textContent.toLowerCase();
+                
+                // Try to get specific elements
+                const nameElement = item.querySelector('.dropdown-item-name');
+                const summaryElement = item.querySelector('.dropdown-item-summary');
+                const ownerElement = item.querySelector('.dropdown-item-owner');
+                
+                let matches = false;
+                
+                // Check if we can find the specific elements
+                if (nameElement && summaryElement && ownerElement) {
+                    const name = nameElement.textContent.toLowerCase();
+                    const summary = summaryElement.textContent.toLowerCase();
+                    const owner = ownerElement.textContent.toLowerCase();
+                    matches = name.includes(searchTerm) || summary.includes(searchTerm) || owner.includes(searchTerm);
+                } else {
+                    // Fallback: search in the entire item text
+                    matches = itemText.includes(searchTerm);
+                }
+                
+                if (matches) {
+                    item.style.display = 'block';
+                    hasResults = true;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            // Show/hide no results message
+            if (!hasResults) {
+                showNoResultsMessage('sourceDropdownContent', searchTerm);
+            } else {
+                removeNoResultsMessage('sourceDropdownContent');
+            }
+        }
+
+        // Filter synthesizer dropdown
+        function filterSynthesizerDropdown() {
+            const searchInput = document.getElementById('synthesizerSearchInput');
+            if (!searchInput) return;
+            
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            const items = document.querySelectorAll('#synthesizerDropdownContent .dropdown-item');
+            let hasResults = false;
+            
+            // If search is empty, show all items
+            if (searchTerm === '') {
+                items.forEach(item => {
+                    item.style.display = 'block';
+                });
+                removeNoResultsMessage('synthesizerDropdownContent');
+                return;
+            }
+            
+            items.forEach(item => {
+                // Get text content from the entire item as fallback
+                const itemText = item.textContent.toLowerCase();
+                
+                // Try to get specific elements
+                const nameElement = item.querySelector('.dropdown-item-name');
+                const summaryElement = item.querySelector('.dropdown-item-summary');
+                const ownerElement = item.querySelector('.dropdown-item-owner');
+                
+                let matches = false;
+                
+                // Check if we can find the specific elements
+                if (nameElement && summaryElement && ownerElement) {
+                    const name = nameElement.textContent.toLowerCase();
+                    const summary = summaryElement.textContent.toLowerCase();
+                    const owner = ownerElement.textContent.toLowerCase();
+                    matches = name.includes(searchTerm) || summary.includes(searchTerm) || owner.includes(searchTerm);
+                } else {
+                    // Fallback: search in the entire item text
+                    matches = itemText.includes(searchTerm);
+                }
+                
+                if (matches) {
+                    item.style.display = 'block';
+                    hasResults = true;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            // Show/hide no results message
+            if (!hasResults) {
+                showNoResultsMessage('synthesizerDropdownContent', searchTerm);
+            } else {
+                removeNoResultsMessage('synthesizerDropdownContent');
+            }
+        }
+
+        // Add source
+        function addSource(serviceId) {
+            const service = SERVICES.find(s => s.id === serviceId);
+            if (service && !selectedSources.find(s => s.id === serviceId)) {
+                selectedSources.push(service);
+                updateSelectedSourcesDisplay();
+                updateCompositionExecutionPlan();
+                toggleSourceDropdown();
+            }
+        }
+
+        // Remove source
+        function removeSource(serviceId) {
+            selectedSources = selectedSources.filter(s => s.id !== serviceId);
+            updateSelectedSourcesDisplay();
+            updateCompositionExecutionPlan();
+        }
+
+        // Add synthesizer
+        function addSynthesizer(serviceId) {
+            const service = SERVICES.find(s => s.id === serviceId);
+            if (service) {
+                selectedSynthesizer = service;
+                updateSelectedSynthesizerDisplay();
+                updateCompositionExecutionPlan();
+                toggleSynthesizerDropdown();
+            }
+        }
+
+        // Remove synthesizer
+        function removeSynthesizer() {
+            selectedSynthesizer = null;
+            updateSelectedSynthesizerDisplay();
+            updateCompositionExecutionPlan();
+        }
+
+        // Update selected sources display
+        function updateSelectedSourcesDisplay() {
+            const container = document.getElementById('selectedSources');
+            
+            if (selectedSources.length === 0) {
+                container.innerHTML = '<div class="text-sm text-muted">No sources selected</div>';
+                return;
+            }
+            
+            container.innerHTML = selectedSources.map(source => `
+                <div class="selected-item">
+                    <span class="badge badge-data">🗄️</span>
+                    <span>${source.name}</span>
+                    <button class="remove-btn" onclick="removeSource('${source.id}')" title="Remove">✕</button>
+                </div>
+            `).join('');
+        }
+
+        // Update selected synthesizer display
+        function updateSelectedSynthesizerDisplay() {
+            const container = document.getElementById('selectedSynthesizer');
+            
+            if (!selectedSynthesizer) {
+                container.innerHTML = '<div class="text-sm text-muted">No synthesizer selected</div>';
+                return;
+            }
+            
+            container.innerHTML = `
+                <div class="selected-item">
+                    <span class="badge badge-model">🧠</span>
+                    <span>${selectedSynthesizer.name}</span>
+                    <button class="remove-btn" onclick="removeSynthesizer()" title="Remove">✕</button>
+                </div>
+            `;
+        }
+
+        // Update response preference
+        function updateResponsePreference() {
+            const isFactual = document.getElementById('factualToggle').checked;
+            const responseMode = document.getElementById('responseMode');
+            responseMode.textContent = isFactual ? 'factual' : 'nuanced';
+            
+            // Update arrow labels based on preference
+            const searchChatLabel = document.getElementById('searchChatLabel');
+            if (searchChatLabel) {
+                searchChatLabel.textContent = isFactual ? '/search (factual)' : '/chat (nuanced)';
+            }
+        }
+
+        // Add filter
+        function addFilter() {
+            filterCounter++;
+            const filtersContainer = document.getElementById('llmFilters');
+            const newFilter = document.createElement('div');
+            newFilter.className = 'filter-item';
+            newFilter.innerHTML = `
+                <input type="text" class="input filter-input" placeholder="e.g., Remove any information that relates to internal employees." id="filterInput${filterCounter}">
+                <button class="btn btn-sm remove-filter-btn" onclick="removeFilter(this)">✕</button>
+            `;
+            filtersContainer.appendChild(newFilter);
+            updateCompositionExecutionPlan();
+        }
+
+        // Remove filter
+        function removeFilter(button) {
+            button.parentElement.remove();
+            updateCompositionExecutionPlan();
+        }
+
+        // Update composition execution plan
+        function updateCompositionExecutionPlan() {
+            const dataHubs = selectedSources.length;
+            const synthesizers = selectedSynthesizer ? 1 : 0;
+            const filters = document.querySelectorAll('.filter-input').length;
+            
+            // Update flow diagram
+            updateFlowDataSources();
+            updateFlowSynthesizers();
+            
+            // Update counters
+            document.getElementById('filterCount').textContent = filters;
+        }
+
+        // Update flow data sources
+        function updateFlowDataSources() {
+            const container = document.getElementById('flowDataSources');
+            
+            if (selectedSources.length === 0) {
+                container.innerHTML = '<div class="empty-state">No sources selected</div>';
+                return;
+            }
+            
+            container.innerHTML = selectedSources.map(source => `
+                <div class="flow-item">
+                    <span class="badge badge-data">🗄️</span>
+                    <span class="item-name">${source.name}</span>
+                    <div class="flow-capabilities">
+                        ${source.endpoints.includes('search') ? '<span class="badge badge-outline">🔍</span>' : ''}
+                        ${source.endpoints.includes('chat') ? '<span class="badge badge-outline">💬</span>' : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Update flow synthesizers
+        function updateFlowSynthesizers() {
+            const container = document.getElementById('flowSynthesizers');
+            
+            if (!selectedSynthesizer) {
+                container.innerHTML = '<div class="empty-state">No synthesizer selected</div>';
+                return;
+            }
+            
+            container.innerHTML = `
+                <div class="flow-item">
+                    <span class="badge badge-model">🧠</span>
+                    <span class="item-name">${selectedSynthesizer.name}</span>
+                    <div class="flow-capabilities">
+                        <span class="badge badge-outline">🌡️ 0.7</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Run composition
+        function runComposition() {
+            const query = document.getElementById('testQuery').value;
+            if (!query.trim()) {
+                alert('Please enter a test query');
+                return;
+            }
+            
+            if (selectedSources.length === 0) {
+                alert('Please select at least one data source');
+                return;
+            }
+            
+            if (!selectedSynthesizer) {
+                alert('Please select a synthesizer');
+                return;
+            }
+            
+            // Simulate composition execution
+            alert(`Composition executed successfully!\n\nQuery: "${query}"\nSources: ${selectedSources.length}\nSynthesizer: ${selectedSynthesizer.name}\n\nIn a real implementation, this would execute the composition and display results.`);
+        }
+
+        // Show code modal
+        function showCodeModal() {
+            if (selectedSources.length === 0 || !selectedSynthesizer) {
+                alert('Please select at least one source and one synthesizer to generate code');
+                return;
+            }
+            
+            generateCompositionCode();
+            document.getElementById('compositionCodeModal').classList.add('show');
+        }
+
+        // Close composition code modal
+        function closeCompositionCodeModal() {
+            document.getElementById('compositionCodeModal').classList.remove('show');
+        }
+
+        // Show composition code tab
+        function showCompositionCodeTab(tab) {
+            // Update tab buttons
+            document.querySelectorAll('#compositionCodeModal .code-tab').forEach(t => t.classList.remove('active'));
+            document.querySelector(`#compositionCodeModal [onclick="showCompositionCodeTab('${tab}')"]`).classList.add('active');
+            
+            // Show selected code block
+            document.querySelectorAll('#compositionCodeModal .code-block').forEach(block => block.classList.add('hidden'));
+            document.getElementById(`composition${tab.charAt(0).toUpperCase() + tab.slice(1)}Code`).classList.remove('hidden');
+        }
+
+        // Copy composition code
+        function copyCompositionCode(codeBlockId) {
+            const codeBlock = document.getElementById(codeBlockId);
+            const rawCode = codeBlock.dataset.rawCode;
+            
+            navigator.clipboard.writeText(rawCode).then(() => {
+                const copyBtn = codeBlock.querySelector('.code-copy-btn');
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = 'Copied!';
+                copyBtn.classList.add('copied');
+                
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                    copyBtn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        // Generate composition code
+        function generateCompositionCode() {
+            const pythonCode = generateCompositionPythonCode();
+            const httpCode = generateCompositionHttpCode();
+            
+            const pythonBlock = document.getElementById('compositionPythonCode');
+            pythonBlock.innerHTML = '<button class="code-copy-btn" onclick="copyCompositionCode(\'compositionPythonCode\')">Copy</button><pre>' + highlightPython(pythonCode) + '</pre>';
+            pythonBlock.dataset.rawCode = pythonCode;
+            
+            const httpBlock = document.getElementById('compositionHttpCode');
+            httpBlock.innerHTML = '<button class="code-copy-btn" onclick="copyCompositionCode(\'compositionHttpCode\')">Copy</button><pre>' + httpCode + '</pre>';
+            httpBlock.dataset.rawCode = httpCode;
+        }
+
+        // Generate composition Python code
+        function generateCompositionPythonCode() {
+            const sources = selectedSources.map(s => `"${s.id}"`).join(', ');
+            const synthesizer = selectedSynthesizer.id;
+            const isFactual = document.getElementById('factualToggle').checked;
+            const filters = Array.from(document.querySelectorAll('.filter-input'))
+                .map(input => input.value.trim())
+                .filter(value => value.length > 0);
+            
+            return `#!/usr/bin/env python3
+"""
+Composition example using SyftBox services
+"""
+import syft_hub as sh
+
+def main():
+    # Initialize the SyftBox client
+    client = sh.get_client()
+    
+    # Create composition
+    composition = client.create_composition(
+        sources=[${sources}],
+        synthesizer="${synthesizer}",
+        response_preference="${isFactual ? 'factual' : 'nuanced'}",
+        llm_filters=${JSON.stringify(filters, null, 2)}
+    )
+    
+    # Execute composition
+    query = "Compare civil code updates in 2024 across DE and FR; cite sources."
+    results = composition.execute(query)
+    
+    # Display results
+    print("Composition Results:")
+    print("-" * 40)
+    print(results.get('content', ''))
+    print()
+    print(f"Sources used: ${selectedSources.length}")
+    print(f"Synthesizer: ${selectedSynthesizer.name}")
+    print(f"Response preference: ${isFactual ? 'factual' : 'nuanced'}")
+
+if __name__ == "__main__":
+    main()`;
+        }
+
+        // Generate composition HTTP code
+        function generateCompositionHttpCode() {
+            const sources = selectedSources.map(s => s.id);
+            const synthesizer = selectedSynthesizer.id;
+            const isFactual = document.getElementById('factualToggle').checked;
+            const filters = Array.from(document.querySelectorAll('.filter-input'))
+                .map(input => input.value.trim())
+                .filter(value => value.length > 0);
+            
+            return `# Composition API Example
+curl -X POST "https://api.syftbox.net/v1/compositions" \\
+  -H "Content-Type: application/json" \\
+  -H "Authorization: Bearer YOUR_API_KEY" \\
+  -d '{
+    "sources": ${JSON.stringify(sources, null, 2)},
+    "synthesizer": "${synthesizer}",
+    "response_preference": "${isFactual ? 'factual' : 'nuanced'}",
+    "llm_filters": ${JSON.stringify(filters, null, 2)},
+    "query": "Compare civil code updates in 2024 across DE and FR; cite sources."
+  }'
+
+Response:
+{
+  "composition_id": "comp_12345",
+  "status": "completed",
+  "results": {
+    "content": "Based on the analysis of civil code updates across Germany and France in 2024...",
+    "sources_cited": [
+      "lex-civil: Article 1234, Civil Code Section 5",
+      "lex-civil: Case Law 2024-FR-001"
+    ],
+    "synthesizer_used": "${selectedSynthesizer.name}",
+    "execution_time_ms": 2450
+  },
+  "metadata": {
+    "sources_count": ${sources.length},
+    "response_preference": "${isFactual ? 'factual' : 'nuanced'}",
+    "filters_applied": ${filters.length}
+  }
+}`;
+        }
+
+        // Generate MCP tool
+        function generateMcpTool() {
+            if (selectedSources.length === 0 || !selectedSynthesizer) {
+                alert('Please select at least one source and one synthesizer to generate MCP tool');
+                return;
+            }
+            
+            const sources = selectedSources.map(s => s.name).join(', ');
+            const synthesizer = selectedSynthesizer.name;
+            
+            alert(`MCP Tool Generated!\n\nTool Name: syftbox_composition\nSources: ${sources}\nSynthesizer: ${synthesizer}\n\nIn a real implementation, this would generate and download an MCP tool configuration file.`);
+        }
+
+        // Show no results message
+        function showNoResultsMessage(containerId, searchTerm) {
+            const container = document.getElementById(containerId);
+            removeNoResultsMessage(containerId); // Remove existing message first
+            
+            const noResultsElement = document.createElement('div');
+            noResultsElement.className = 'no-results-message';
+            noResultsElement.innerHTML = `
+                <div class="no-results-content">
+                    <div class="no-results-icon">🔍</div>
+                    <div class="no-results-text">No results found for "${searchTerm}"</div>
+                    <div class="no-results-hint">Try different keywords</div>
+                </div>
+            `;
+            container.appendChild(noResultsElement);
+        }
+
+        // Remove no results message
+        function removeNoResultsMessage(containerId) {
+            const container = document.getElementById(containerId);
+            const noResultsElement = container.querySelector('.no-results-message');
+            if (noResultsElement) {
+                noResultsElement.remove();
+            }
+        }
+
+        // Close composition code modal when clicking outside
+        document.getElementById('compositionCodeModal').addEventListener('click', (e) => {
+            if (e.target.id === 'compositionCodeModal') {
+                closeCompositionCodeModal();
+            }
+        });
+
+
+
+        // Copy to clipboard function for installation code
+        function copyToClipboard(elementId, button) {
+            const element = document.getElementById(elementId);
+            if (!element) return;
+            
+            const text = element.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.innerHTML;
+                button.innerHTML = '✅ Copied!';
+                button.style.background = 'rgba(16, 185, 129, 0.8)';
+                
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.style.background = 'rgba(55, 65, 81, 0.8)';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+                button.innerHTML = '❌ Failed';
+                button.style.background = 'rgba(239, 68, 68, 0.8)';
+                
+                setTimeout(() => {
+                    button.innerHTML = '📋';
+                    button.style.background = 'rgba(55, 65, 81, 0.8)';
+                }, 2000);
+            });
+        }
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,2797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compose - Syft Service Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&family=Roboto:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 30px auto 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 40;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-tab {
+            background: none;
+            border: none;
+            padding: 8px 12px;
+            font-weight: 400;
+            font-size: 14px;
+            color: #64748b;
+            cursor: pointer;
+            transition: color 0.2s;
+            text-decoration: none;
+        }
+
+        .nav-tab:hover {
+            color: #3b82f6;
+        }
+
+        .nav-tab.active {
+            color: #1e293b;
+            font-weight: 500;
+        }
+
+        /* Logo & Header Controls (match Index.html) */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background-image: url('./syftbox-logo.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .logo-text h1 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 2px;
+            color: #1e293b;
+            font-family: 'Rubik', -apple-system, system-ui, sans-serif;
+        }
+
+        .logo-text p {
+            font-size: 12px;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        /* Settings Tooltip */
+        .settings-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .settings-tooltip {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px;
+            min-width: 200px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: all 0.2s ease;
+            z-index: 100;
+            margin-top: 8px;
+        }
+
+        .settings-container:hover .settings-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .tooltip-section {
+            margin-bottom: 8px;
+            font-size: 12px;
+        }
+
+        .tooltip-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .tooltip-label {
+            color: #64748b;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .tooltip-value {
+            color: #1e293b;
+            font-weight: 500;
+        }
+
+        .tooltip-guest {
+            color: #64748b;
+            font-style: italic;
+        }
+
+        .tooltip-balance {
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        /* Card Styles */
+        .card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #f1f5f9;
+            background: #fafbfc;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        .card-content {
+            padding: 24px;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #374151;
+        }
+
+        .input, .textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .input:focus, .textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border: 1px solid transparent;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #f8fafc;
+            color: #374151;
+        }
+
+        .btn:hover {
+            background: #f1f5f9;
+            border-color: #d1d5db;
+        }
+
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+
+        .btn-primary:hover {
+            background: #2563eb;
+            border-color: #2563eb;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        /* Compose Grid */
+        .compose-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+        }
+
+        /* Selected Items */
+        .selected-sources, .selected-synthesizer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+            min-height: 40px;
+            align-items: center;
+        }
+
+        .selected-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .selected-item .remove-btn {
+            background: none;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            padding: 2px;
+            font-size: 12px;
+            border-radius: 3px;
+        }
+
+        .selected-item .remove-btn:hover {
+            background: #fee2e2;
+        }
+
+        /* Dropdowns */
+        .add-source-container, .add-synthesizer-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .add-source-container button, .add-synthesizer-container button {
+            cursor: pointer;
+            pointer-events: auto;
+        }
+
+        .source-dropdown, .synthesizer-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1001;
+            margin-top: 4px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .dropdown-search {
+            padding: 12px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .dropdown-search input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .dropdown-content {
+            max-height: 420px;
+            overflow-y: auto;
+        }
+
+        .dropdown-item {
+            padding: 12px;
+            cursor: pointer;
+            border-bottom: 1px solid #f1f5f9;
+            transition: background-color 0.2s;
+            pointer-events: auto;
+        }
+
+        .dropdown-item:hover {
+            background: #f8fafc;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 4px;
+        }
+
+        .dropdown-item-name {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .dropdown-item-owner {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .dropdown-item-summary {
+            font-size: 12px;
+            color: #64748b;
+            line-height: 1.4;
+        }
+
+        .dropdown-item-capabilities {
+            display: flex;
+            gap: 4px;
+            margin-top: 6px;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .badge-outline {
+            background: transparent;
+            border: 1px solid #d1d5db;
+            color: #6b7280;
+        }
+
+        .badge-default {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .badge-data {
+            background: #10b981;
+            color: white;
+        }
+
+        .badge-model {
+            background: #8b5cf6;
+            color: white;
+        }
+
+        /* Toggle Switch */
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .toggle-container .toggle-label {
+            font-size: 13px;
+            color: #64748b;
+            line-height: 1.4;
+            flex: 1;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .toggle-slider {
+            background-color: #3b82f6;
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(20px);
+        }
+
+
+
+        /* Execution Flow */
+        .execution-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .flow-row {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .flow-section {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px;
+            min-width: 200px;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .flow-section:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+        }
+
+        .flow-section.data-sources {
+            border-color: #10b981;
+            background: #f0fdf4;
+        }
+
+        .flow-section.synthesizers {
+            border-color: #8b5cf6;
+            background: #faf5ff;
+        }
+
+        .flow-section.final-response {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+
+        .flow-title {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 12px;
+            color: #374151;
+            font-family: 'Rubik', sans-serif;
+        }
+
+        .flow-content {
+            min-height: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .empty-state {
+            color: #9ca3af;
+            font-size: 12px;
+            font-style: italic;
+        }
+
+        .flow-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 12px;
+            max-width: 180px;
+        }
+
+        .flow-item .item-name {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            flex: 1;
+        }
+
+        .flow-arrows {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .arrow-down {
+            font-size: 20px;
+            color: #64748b;
+            font-weight: bold;
+        }
+
+        .arrow-label {
+            font-size: 11px;
+            color: #9ca3af;
+            text-align: center;
+            max-width: 120px;
+            line-height: 1.3;
+        }
+
+        .response-info {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .response-mode {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .response-mode strong {
+            color: #374151;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: stretch;
+        }
+
+        .action-buttons .btn {
+            width: 100%;
+            justify-content: center;
+            padding: 14px 20px;
+            font-size: 15px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .action-buttons .btn span {
+            font-size: 16px;
+        }
+
+        /* Transfer Notification */
+        .transfer-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            background: #dcfce7;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            animation: slideInRight 0.3s ease-out;
+        }
+
+        .notification-content {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            gap: 8px;
+            color: #166534;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .notification-icon {
+            font-size: 16px;
+        }
+
+        .notification-close {
+            background: none;
+            border: none;
+            color: #166534;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 0 4px;
+            margin-left: 8px;
+        }
+
+        .notification-close:hover {
+            color: #15803d;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Response Section */
+        .response-container {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background: white;
+            overflow: hidden;
+        }
+
+        .response-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .response-status {
+            color: #10b981;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .response-time {
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        .response-content {
+            padding: 16px;
+            background: #fafbfc;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .response-content h3 {
+            color: #1e293b;
+            font-weight: 600;
+            margin: 16px 0 8px 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .response-content h3:first-child {
+            margin-top: 0;
+        }
+
+        .response-content p {
+            margin: 8px 0;
+            color: #374151;
+        }
+
+        .response-content ul {
+            margin: 8px 0;
+            padding-left: 20px;
+        }
+
+        .response-content li {
+            margin: 4px 0;
+            color: #374151;
+        }
+
+        .response-content code {
+            background: #e2e8f0;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+
+        .response-content .source-citation {
+            background: #eff6ff;
+            border-left: 3px solid #3b82f6;
+            padding: 8px 12px;
+            margin: 8px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        /* Query Container */
+        .query-container {
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .query-container .textarea {
+            border: none;
+            border-radius: 0;
+            border-bottom: 1px solid #e2e8f0;
+            margin: 0;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .query-container .textarea:focus {
+            box-shadow: none;
+            border-color: #e2e8f0;
+        }
+
+        /* File Upload Container */
+        .file-upload-container {
+            padding: 12px 16px;
+            background: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .file-upload-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .file-upload-icon {
+            font-size: 16px;
+        }
+
+        .file-upload-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .file-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px dashed #d1d5db;
+            border-radius: 6px;
+            background: white;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .file-input:hover {
+            border-color: #3b82f6;
+            background: #f0f9ff;
+        }
+
+        .file-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .file-upload-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 6px;
+            font-size: 11px;
+            color: #64748b;
+        }
+
+        .supported-formats {
+            font-weight: 500;
+        }
+
+        .file-limit {
+            color: #9ca3af;
+        }
+
+        .file-list {
+            margin-top: 8px;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 8px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            margin-bottom: 4px;
+            font-size: 12px;
+        }
+
+        .file-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .file-name {
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .file-size {
+            color: #64748b;
+            margin-left: 8px;
+        }
+
+        .file-remove {
+            background: none;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            padding: 2px;
+            font-size: 12px;
+            border-radius: 2px;
+        }
+
+        .file-remove:hover {
+            background: #fee2e2;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid #e2e8f0;
+            background: #fafbfc;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #64748b;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .selected-sources-preview,
+        .selected-synthesizer-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 12px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            min-height: 44px;
+            align-items: center;
+        }
+
+        .preview-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .preview-empty {
+            color: #9ca3af;
+            font-size: 13px;
+            font-style: italic;
+        }
+
+        .mcp-note {
+            background: #fef3cd;
+            border: 1px solid #fbbf24;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 16px;
+        }
+
+        .mcp-note-title {
+            font-weight: 600;
+            color: #92400e;
+            margin-bottom: 4px;
+            font-size: 14px;
+        }
+
+        .mcp-note-text {
+            color: #a16207;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        /* MCP Success Message */
+        .mcp-success-message {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-top: 16px;
+            text-align: center;
+        }
+
+        .success-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .success-title {
+            color: #166534;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0 0 8px 0;
+        }
+
+        .success-text {
+            color: #15803d;
+            font-size: 14px;
+            margin: 0 0 16px 0;
+        }
+
+        .success-url {
+            background: white;
+            border: 1px solid #d1fae5;
+            border-radius: 6px;
+            padding: 12px;
+            margin: 16px 0;
+            font-size: 13px;
+            color: #166534;
+        }
+
+        .success-url code {
+            background: #dcfce7;
+            color: #166534;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            margin-left: 8px;
+            word-break: break-all;
+        }
+
+        /* Code Modal Styles */
+        .code-tabs {
+            display: flex;
+            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 16px;
+        }
+
+        .code-tab {
+            background: none;
+            border: none;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #64748b;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .code-tab:hover {
+            color: #3b82f6;
+            background: #f8fafc;
+        }
+
+        .code-tab.active {
+            color: #3b82f6;
+            border-bottom-color: #3b82f6;
+        }
+
+        .code-content {
+            position: relative;
+        }
+
+        .code-content pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .code-content code {
+            background: none;
+            color: inherit;
+            padding: 0;
+            font-size: inherit;
+        }
+
+        .code-copy-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(59, 130, 246, 0.8);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .code-copy-btn:hover {
+            background: rgba(59, 130, 246, 1);
+        }
+
+        /* Utilities */
+        .space-y-4 > * + * { margin-top: 16px; }
+        .space-y-3 > * + * { margin-top: 12px; }
+        .space-y-2 > * + * { margin-top: 8px; }
+
+        .text-sm { font-size: 14px; }
+        .text-muted { color: #64748b; }
+        .mt-2 { margin-top: 8px; }
+        .mt-4 { margin-top: 16px; }
+        .mb-4 { margin-bottom: 16px; }
+        .hidden { display: none; }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .compose-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+        }
+
+        /* Make compose search dropdowns half the width of configuration panel */
+        .add-source-container .source-dropdown,
+        .add-synthesizer-container .synthesizer-dropdown {
+            right: auto;
+            width: 50%;
+            min-width: 400px;
+            max-width: 500px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="logo">
+                        <div class="logo-icon"></div>
+                        <div class="logo-text">
+                            <h1>SyftBox AI Service Hub</h1>
+                            <p>The network for federated knowledge</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="header-right">
+                    <nav class="main-nav">
+                        <a href="Index.html" class="nav-tab">Discover</a>
+                        <a href="compose.html" class="nav-tab active">Compose</a>
+                        <a href="Index.html" class="nav-tab">Build</a>
+                    </nav>
+                
+                    <div class="header-controls">
+                        <div class="settings-container">
+                            <button class="btn user-icon">👤</button>
+                            <div class="settings-tooltip">
+                                <div class="tooltip-section">
+                                    <span class="tooltip-label">Email</span>
+                                    <span class="tooltip-value">guest@syft.org</span>
+                                </div>
+                                <div class="tooltip-section">
+                                    <span class="tooltip-label">Balance</span>
+                                    <span class="tooltip-balance">$20</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="compose-grid">
+            <!-- Sources and Configuration -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">⚙️ Composition Configuration</h3>
+                </div>
+                <div class="card-content space-y-4">
+                    <!-- Sources Section -->
+                    <div class="form-group">
+                        <label class="label">Data Sources</label>
+                        <div class="selected-sources" id="selectedSources">
+                            <div class="text-sm text-muted">No sources selected</div>
+                        </div>
+                        <div class="add-source-container">
+                            <button class="btn btn-sm" onclick="toggleSourceDropdown()">
+                                <span id="addSourceBtnText">+ Add Source</span>
+                                <span id="addSourceIcon">▼</span>
+                            </button>
+                            <div class="source-dropdown hidden" id="sourceDropdown">
+                                <div class="dropdown-search">
+                                    <input type="text" placeholder="Search by name, description, or owner..." id="sourceSearchInput" oninput="filterSourceDropdown()">
+                                </div>
+                                <div class="dropdown-content" id="sourceDropdownContent">
+                                    <!-- Sources will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Synthesizer Section -->
+                    <div class="form-group">
+                        <label class="label">Synthesizer</label>
+                        <div class="selected-synthesizer" id="selectedSynthesizer">
+                            <div class="text-sm text-muted">No synthesizer selected</div>
+                        </div>
+                        <div class="add-synthesizer-container">
+                            <button class="btn btn-sm" onclick="toggleSynthesizerDropdown()">
+                                <span id="addSynthesizerBtnText">+ Add Synthesizer</span>
+                                <span id="addSynthesizerIcon">▼</span>
+                            </button>
+                            <div class="synthesizer-dropdown hidden" id="synthesizerDropdown">
+                                <div class="dropdown-search">
+                                    <input type="text" placeholder="Search by name, description, or owner..." id="synthesizerSearchInput" oninput="filterSynthesizerDropdown()">
+                                </div>
+                                <div class="dropdown-content" id="synthesizerDropdownContent">
+                                    <!-- Synthesizers will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Settings Section -->
+                    <div class="form-group">
+                        <label class="label">Response Preference</label>
+                        <div class="toggle-container">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="factualToggle" onchange="updateResponsePreference()">
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <span class="toggle-label">Prioritize factual answers when possible (search mode) over conversational responses (chat mode)</span>
+                        </div>
+                    </div>
+
+
+
+                    <!-- Test Query Section -->
+                    <div class="form-group">
+                        <label class="label">Test Query & Files</label>
+                        <div class="query-container">
+                        <textarea class="textarea" id="testQuery" placeholder="e.g., Compare civil code updates in 2024 across DE and FR; cite sources."></textarea>
+                            
+                            <div class="file-upload-container">
+                                <div class="file-upload-header">
+                                    <span class="file-upload-icon">📎</span>
+                                    <span class="file-upload-label">Attach Files (Optional)</span>
+                                </div>
+                                <input type="file" class="file-input" id="fileUpload" accept=".pdf,.doc,.docx,.txt,.csv,.xlsx" multiple>
+                                <div class="file-upload-info">
+                                    <span class="supported-formats">PDF, DOC, DOCX, TXT, CSV, XLSX</span>
+                                    <span class="file-limit">Max 10MB per file</span>
+                                </div>
+                                <div class="file-list" id="fileList"></div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary mt-2" onclick="runComposition()">🚀 Run Composition</button>
+                    </div>
+
+                    <!-- Response Section (initially hidden) -->
+                    <div class="form-group hidden" id="responseSection">
+                        <label class="label">Response</label>
+                        <div class="response-container">
+                            <div class="response-header">
+                                <div class="response-status">✅ Composition Complete</div>
+                                <div class="response-time">Generated in 2.3s</div>
+                            </div>
+                            <div class="response-content" id="responseContent">
+                                <!-- Response will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Plan Preview and Actions -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">📊 Execution Plan</h3>
+                </div>
+                <div class="card-content">
+                    <!-- Visual Flow Diagram -->
+                    <div class="execution-flow">
+                        <div class="flow-row">
+                            <div class="flow-section data-sources">
+                                <div class="flow-title">Data Sources</div>
+                                <div class="flow-content" id="flowDataSources">
+                                    <div class="empty-state">No sources selected</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flow-arrows">
+                            <div class="arrow-down">↓</div>
+                            <div class="arrow-label" id="searchChatLabel">/search or /chat</div>
+                        </div>
+                        
+                        <div class="flow-row">
+                            <div class="flow-section synthesizers">
+                                <div class="flow-title">Synthesizers</div>
+                                <div class="flow-content" id="flowSynthesizers">
+                                    <div class="empty-state">No synthesizer selected</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flow-arrows">
+                            <div class="arrow-down">↓</div>
+                            <div class="arrow-label">Process & Combine</div>
+                        </div>
+                        
+                        <div class="flow-row">
+                            <div class="flow-section final-response">
+                                <div class="flow-title">Final Response</div>
+                                <div class="flow-content">
+                                    <div class="response-info">
+                                        <div class="response-mode">
+                                            Mode: <strong id="responseMode">auto</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="mt-4 mb-4">
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="showCodeModal()">
+                            <span>📋</span>
+                            Show me the code
+                        </button>
+                        <button class="btn" onclick="showMcpModal()">
+                            <span>🛠️</span>
+                            Generate custom MCP tool from data sources
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Code Modal -->
+    <div id="codeModal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Composition Code</h3>
+                <button class="modal-close" onclick="closeCodeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="code-tabs">
+                    <button class="code-tab active" onclick="showCodeTab('python')">Python</button>
+                    <button class="code-tab" onclick="showCodeTab('javascript')">JavaScript</button>
+                </div>
+                
+                <div id="pythonCodeContent" class="code-content">
+                    <pre><code id="pythonCode"></code></pre>
+                    <button class="code-copy-btn" onclick="copyCode('pythonCode')">📋 Copy</button>
+                </div>
+                
+                <div id="javascriptCodeContent" class="code-content hidden">
+                    <pre><code id="javascriptCode"></code></pre>
+                    <button class="code-copy-btn" onclick="copyCode('javascriptCode')">📋 Copy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MCP Tool Generation Modal -->
+    <div id="mcpModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Generate MCP Tool</h3>
+                <button class="modal-close" onclick="closeMcpModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="mcp-note">
+                    <div class="mcp-note-title">ℹ️ MCP Tool Bundling</div>
+                    <div class="mcp-note-text">Only data sources will be bundled into the MCP tool. The synthesizer is ignored as MCP tools provide data access, not AI processing capabilities.</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="label">Tool Name</label>
+                    <input type="text" class="input" id="mcpToolName" placeholder="e.g., legal-research-tool" maxlength="50">
+                    <div class="text-xs text-muted mt-1">Use lowercase letters, numbers, and hyphens only</div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="label">Description (Optional)</label>
+                    <textarea class="textarea" id="mcpToolDescription" placeholder="Brief description of what this MCP tool does..." rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="label">Data Sources to Bundle</label>
+                    <div class="selected-sources-preview" id="mcpSelectedSources">
+                        <!-- Will be populated with selected sources -->
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="label">Synthesizer (Not Included)</label>
+                    <div class="selected-synthesizer-preview" id="mcpSelectedSynthesizer">
+                        <!-- Will be populated with selected synthesizer -->
+                    </div>
+                    <div class="text-xs text-muted mt-1">The synthesizer will not be included in the MCP tool bundle</div>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="btn" onclick="closeMcpModal()">Cancel</button>
+                    <button class="btn btn-primary" onclick="generateMcpTool()">Generate MCP Tool</button>
+                </div>
+                
+                <!-- Success Message -->
+                <div id="mcpSuccessMessage" class="mcp-success-message hidden">
+                    <div class="success-icon">🎉</div>
+                    <h4 class="success-title">MCP Tool Generated Successfully!</h4>
+                    <p class="success-text">Your custom MCP tool has been generated and is ready to use.</p>
+                    <div class="success-url">
+                        <strong>Tool URL:</strong>
+                        <code id="mcpToolUrl"></code>
+                    </div>
+                    <button class="btn btn-primary" onclick="closeMcpModal()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample data - this would normally come from the main Index.html
+        const SERVICES = [
+            {
+                id: "sa-animals",
+                name: "Animals of South Africa",
+                owner: "research@safari-lab.org",
+                type: "data",
+                hub: "wildlife",
+                summary: "Species records, park reports, conservation notes.",
+                description: "Curated wildlife corpus with ranger logs, conservation bulletins, and biodiversity surveys (2010–2025).",
+                pricing: "$0.005 / request",
+                endpoints: ["search", "chat"],
+                tags: ["domain:wildlife", "language:en", "task:retrieval", "task:rag-generation"],
+                mcp: true,
+                lastActive: "2 hours ago",
+            },
+            {
+                id: "lex-civil",
+                name: "Lex Civil Law",
+                owner: "data@lexfirm.eu",
+                type: "data",
+                hub: "civil-law",
+                summary: "Civil code, case law digests, firm memos (EU focus).",
+                description: "Continuously indexed civil law materials with internal commentary and citations.",
+                pricing: "$0.010 / request",
+                endpoints: ["search", "chat"],
+                tags: ["domain:legal", "language:en", "language:de", "task:retrieval", "task:rag-generation"],
+                mcp: false,
+                lastActive: "5 minutes ago",
+            },
+            {
+                id: "med-devices",
+                name: "MedDevice Records",
+                owner: "admin@st-marys-hospital.com",
+                type: "data",
+                hub: "devices",
+                summary: "Hospital device logs, maintenance + UDI registry links.",
+                description: "Operational records, alerts, and manufacturer bulletins. PHI masked at source via Sifbox policies.",
+                pricing: "$0.02 / request",
+                endpoints: ["search"],
+                tags: ["domain:healthcare", "task:retrieval"],
+                mcp: false,
+                lastActive: "1 day ago",
+            },
+            {
+                id: "lex-moe",
+                name: "lex_moe",
+                owner: "models@lexfirm.eu",
+                type: "model",
+                summary: "Mixture-of-experts tuned for EU legal reasoning.",
+                description: "Routes between extractive QA, citation generator, and argumentation experts; strong on multilingual statutes.",
+                pricing: "$0.06 / 1k tok",
+                endpoints: ["chat"],
+                tags: ["domain:legal", "task:summarization", "task:qa", "model:moe"],
+                mcp: true,
+                lastActive: "30 minutes ago",
+            },
+            {
+                id: "gpt-4-turbo",
+                name: "gpt-4-turbo",
+                owner: "api@openai.com",
+                type: "model",
+                summary: "Latest GPT-4 model with improved speed and accuracy.",
+                description: "Advanced language model with 128k context window, multimodal capabilities, and enhanced reasoning.",
+                pricing: "$0.01 / 1k tok",
+                endpoints: ["chat"],
+                tags: ["model:gpt", "task:summarization", "task:qa", "task:reasoning"],
+                mcp: true,
+                lastActive: "1 hour ago",
+            },
+            {
+                id: "claude-3-opus",
+                name: "claude-3-opus",
+                owner: "api@anthropic.com",
+                type: "model",
+                summary: "Most capable Claude model for complex reasoning tasks.",
+                description: "Anthropic's flagship model with exceptional performance on analysis, math, coding, and creative writing.",
+                pricing: "$0.015 / 1k tok",
+                endpoints: ["chat"],
+                tags: ["model:claude", "task:reasoning", "task:summarization", "task:qa"],
+                mcp: true,
+                lastActive: "15 minutes ago",
+            },
+            {
+                id: "gemini-pro",
+                name: "gemini-pro",
+                owner: "ai@google.com",
+                type: "model",
+                summary: "Google's most capable multimodal AI model.",
+                description: "Advanced reasoning across text, code, images, audio and video with long context understanding.",
+                pricing: "$0.0005 / 1k tok",
+                endpoints: ["chat"],
+                tags: ["model:gemini", "task:multimodal", "task:reasoning", "task:qa"],
+                mcp: false,
+                lastActive: "3 hours ago",
+            },
+            {
+                id: "llama-3-70b",
+                name: "llama-3-70b",
+                owner: "research@meta.com",
+                type: "model",
+                summary: "Meta's open-source large language model.",
+                description: "High-performance open model with strong reasoning and code generation capabilities.",
+                pricing: "Free (open source)",
+                endpoints: ["chat"],
+                tags: ["model:llama", "task:reasoning", "task:qa", "model:open-source"],
+                mcp: true,
+                lastActive: "45 minutes ago",
+            },
+            {
+                id: "mistral-large",
+                name: "mistral-large",
+                owner: "api@mistral.ai",
+                type: "model",
+                summary: "European flagship model with multilingual excellence.",
+                description: "Advanced reasoning model with strong performance in French, German, Spanish, and Italian.",
+                pricing: "$0.008 / 1k tok",
+                endpoints: ["chat"],
+                tags: ["model:mistral", "task:reasoning", "task:qa", "language:multilingual"],
+                mcp: false,
+                lastActive: "20 minutes ago",
+            },
+            {
+                id: "med-llm-stanford",
+                name: "med_llm_stanford",
+                owner: "research@stanford.edu",
+                type: "model",
+                summary: "Medical reasoning model trained on clinical data.",
+                description: "Specialized language model for medical diagnosis, treatment recommendations, and clinical decision support. PHI-compliant.",
+                pricing: "$0.25 / request",
+                endpoints: ["chat"],
+                tags: ["domain:healthcare", "task:diagnosis", "task:qa", "model:specialized"],
+                mcp: false,
+                lastActive: "6 hours ago",
+            },
+            {
+                id: "biobert-clinical",
+                name: "biobert_clinical",
+                owner: "nlp@mayo.edu",
+                type: "model",
+                summary: "Biomedical text understanding and entity extraction.",
+                description: "Pre-trained on PubMed abstracts and clinical notes for biomedical NLP tasks and drug discovery.",
+                pricing: "$0.05 / request",
+                endpoints: ["search", "chat"],
+                tags: ["domain:healthcare", "task:extraction", "task:retrieval", "model:bert"],
+                mcp: true,
+                lastActive: "2 hours ago",
+            },
+            {
+                id: "finance-gpt",
+                name: "finance_gpt",
+                owner: "quant@goldmansachs.com",
+                type: "model",
+                summary: "Financial analysis and risk assessment model.",
+                description: "Proprietary model trained on financial documents, market data, and regulatory filings for investment analysis.",
+                pricing: "$1.00 / request",
+                endpoints: ["chat"],
+                tags: ["domain:finance", "task:analysis", "task:risk-assessment", "model:proprietary"],
+                mcp: false,
+                lastActive: "12 hours ago",
+            },
+            {
+                id: "code-llama-34b",
+                name: "code_llama_34b",
+                owner: "research@meta.com",
+                type: "model",
+                summary: "Specialized coding assistant based on Llama 2.",
+                description: "Code generation, completion, and debugging across multiple programming languages with 100k context.",
+                pricing: "Free (open source)",
+                endpoints: ["chat"],
+                tags: ["task:coding", "task:debugging", "model:llama", "model:open-source"],
+                mcp: true,
+                lastActive: "4 hours ago",
+            },
+            {
+                id: "legal-bert-harvard",
+                name: "legal_bert_harvard",
+                owner: "law@harvard.edu",
+                type: "model",
+                summary: "Legal document analysis and case law reasoning.",
+                description: "Academic model trained on legal corpus for contract analysis, case outcome prediction, and legal research.",
+                pricing: "$0.15 / request",
+                endpoints: ["search", "chat"],
+                tags: ["domain:legal", "task:analysis", "task:research", "model:academic"],
+                mcp: false,
+                lastActive: "8 hours ago",
+            },
+        ];
+
+        // Composition Tab Variables
+        let selectedSources = [];
+        let selectedSynthesizer = null;
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            populateCompositionDropdowns();
+            setupFileUpload();
+            loadTransferredComposition();
+        });
+
+        // Load transferred composition from discover page
+        function loadTransferredComposition() {
+            try {
+                const savedComposition = localStorage.getItem('syftbox_composition');
+                if (!savedComposition) return;
+                
+                const composition = JSON.parse(savedComposition);
+                const now = Date.now();
+                const maxAge = 24 * 60 * 60 * 1000; // 24 hours
+                
+                // Check if composition is not too old
+                if (composition.timestamp && (now - composition.timestamp) < maxAge) {
+                    // Restore sources
+                    if (composition.sources && Array.isArray(composition.sources)) {
+                        selectedSources = composition.sources.filter(source => 
+                            SERVICES.find(s => s.id === source.id && s.type === 'data')
+                        );
+                    }
+                    
+                    // Restore synthesizer
+                    if (composition.synthesizer) {
+                        const synthesizer = SERVICES.find(s => 
+                            s.id === composition.synthesizer.id && s.type === 'llm'
+                        );
+                        if (synthesizer) {
+                            selectedSynthesizer = composition.synthesizer;
+                        }
+                    }
+                    
+                    // Update displays
+                    updateSelectedSourcesDisplay();
+                    updateSelectedSynthesizerDisplay();
+                    updateCompositionExecutionPlan();
+                    
+                    // Show notification
+                    if (selectedSources.length > 0 || selectedSynthesizer) {
+                        showTransferNotification();
+                    }
+                    
+                    // Clear the stored composition after successful load
+                    localStorage.removeItem('syftbox_composition');
+                }
+            } catch (error) {
+                console.error('Error loading transferred composition:', error);
+                localStorage.removeItem('syftbox_composition');
+            }
+        }
+
+        // Show notification about transferred composition
+        function showTransferNotification() {
+            const notification = document.createElement('div');
+            notification.className = 'transfer-notification';
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <span class="notification-icon">✅</span>
+                    <span>Composition transferred from Discover!</span>
+                    <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 5000);
+        }
+
+        // Simple markdown renderer for response content
+        function renderMarkdown(markdown) {
+            // Split into sections by double newlines
+            const sections = markdown.split('\n\n');
+            let html = '';
+            
+            for (let section of sections) {
+                section = section.trim();
+                if (!section) continue;
+                
+                // Headers
+                if (section.startsWith('### ')) {
+                    html += `<h3>${section.substring(4)}</h3>`;
+                } else if (section.startsWith('## ')) {
+                    html += `<h2>${section.substring(3)}</h2>`;
+                } else if (section.startsWith('# ')) {
+                    html += `<h1>${section.substring(2)}</h1>`;
+                }
+                // Horizontal rules
+                else if (section === '---') {
+                    html += '<hr>';
+                }
+                // Lists (numbered or bullet)
+                else if (section.includes('\n') && (section.includes('- ') || /^\d+\./.test(section))) {
+                    const lines = section.split('\n');
+                    let listHtml = '';
+                    let inList = false;
+                    let listType = '';
+                    
+                    for (let line of lines) {
+                        line = line.trim();
+                        if (line.startsWith('- ') || line.startsWith('• ')) {
+                            if (!inList || listType !== 'ul') {
+                                if (inList) listHtml += `</${listType}>`;
+                                listHtml += '<ul>';
+                                listType = 'ul';
+                                inList = true;
+                            }
+                            listHtml += `<li>${formatInlineMarkdown(line.substring(2))}</li>`;
+                        } else if (/^\d+\./.test(line)) {
+                            if (!inList || listType !== 'ol') {
+                                if (inList) listHtml += `</${listType}>`;
+                                listHtml += '<ol>';
+                                listType = 'ol';
+                                inList = true;
+                            }
+                            listHtml += `<li>${formatInlineMarkdown(line.replace(/^\d+\.\s*/, ''))}</li>`;
+                        } else if (line) {
+                            if (inList) {
+                                listHtml += `</${listType}>`;
+                                inList = false;
+                            }
+                            listHtml += `<p>${formatInlineMarkdown(line)}</p>`;
+                        }
+                    }
+                    
+                    if (inList) {
+                        listHtml += `</${listType}>`;
+                    }
+                    
+                    html += listHtml;
+                }
+                // Regular paragraphs
+                else {
+                    html += `<p>${formatInlineMarkdown(section)}</p>`;
+                }
+            }
+            
+            return html;
+        }
+        
+        // Format inline markdown (bold, code, etc.)
+        function formatInlineMarkdown(text) {
+            return text
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/`([^`]+)`/g, '<code>$1</code>');
+        }
+
+        // File upload functionality
+        function setupFileUpload() {
+            const fileInput = document.getElementById('fileUpload');
+            const fileList = document.getElementById('fileList');
+            let selectedFiles = [];
+
+            fileInput.addEventListener('change', function(e) {
+                const files = Array.from(e.target.files);
+                
+                files.forEach(file => {
+                    // Check file size (10MB limit)
+                    if (file.size > 10 * 1024 * 1024) {
+                        alert(`File "${file.name}" is too large. Maximum size is 10MB.`);
+                        return;
+                    }
+                    
+                    // Check if file already exists
+                    if (selectedFiles.find(f => f.name === file.name && f.size === file.size)) {
+                        return;
+                    }
+                    
+                    selectedFiles.push(file);
+                });
+                
+                updateFileList();
+                // Clear the input so the same file can be selected again if removed
+                fileInput.value = '';
+            });
+
+            function updateFileList() {
+                if (selectedFiles.length === 0) {
+                    fileList.innerHTML = '';
+                    return;
+                }
+
+                fileList.innerHTML = selectedFiles.map((file, index) => `
+                    <div class="file-item">
+                        <div>
+                            <span class="file-name">${file.name}</span>
+                            <span class="file-size">(${(file.size / 1024).toFixed(1)}KB)</span>
+                        </div>
+                        <button class="file-remove" onclick="removeFile(${index})" title="Remove file">✕</button>
+                    </div>
+                `).join('');
+            }
+
+            // Make removeFile globally accessible
+            window.removeFile = function(index) {
+                selectedFiles.splice(index, 1);
+                updateFileList();
+            };
+
+            // Make getSelectedFiles globally accessible for the composition
+            window.getSelectedFiles = function() {
+                return selectedFiles;
+            };
+        }
+
+        // --- Search utilities ---
+        function normalize(text) {
+            return (text || '')
+                .toString()
+                .toLowerCase()
+                .normalize('NFKD')
+                .replace(/[\u0300-\u036f]/g, '') // remove diacritics
+                .replace(/[^a-z0-9\s]/g, ' ') // strip punctuation/quotes
+                .replace(/\s+/g, ' ')
+                .trim();
+        }
+
+        function buildHaystack(service) {
+            const combined = [
+                service.name,
+                service.summary,
+                service.description,
+                service.owner,
+                ...(service.tags || []),
+                ...(service.endpoints || [])
+            ].join(' ');
+            return normalize(combined);
+        }
+
+        function escapeHtml(str) {
+            return (str || '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function termVariants(term) {
+            const variants = new Set();
+            variants.add(term);
+            if (!term.endsWith('s')) variants.add(term + 's');
+            if (term.endsWith('s')) variants.add(term.slice(0, -1));
+            if (term.endsWith('ies')) variants.add(term.slice(0, -3) + 'y');
+            if (term.endsWith('y')) variants.add(term.slice(0, -1) + 'ies');
+            return Array.from(variants);
+        }
+
+        function matchesSearch(service, rawSearch) {
+            const search = normalize(rawSearch);
+            if (!search) return true;
+            const haystack = buildHaystack(service);
+            const terms = search.split(' ').filter(Boolean);
+            return terms.every(term => termVariants(term).some(v => haystack.includes(v)));
+        }
+
+        // Populate composition dropdowns
+        function populateCompositionDropdowns() {
+            populateSourceDropdown();
+            populateSynthesizerDropdown();
+        }
+
+        // Populate source dropdown
+        function populateSourceDropdown() {
+            const content = document.getElementById('sourceDropdownContent');
+            if (!content) return;
+            const searchTerm = (document.getElementById('sourceSearchInput')?.value || '').trim();
+            const dataServices = SERVICES.filter(s => s.type === 'data');
+            const filtered = searchTerm ? dataServices.filter(service => matchesSearch(service, searchTerm)) : dataServices;
+
+            if (filtered.length === 0) {
+                const q = escapeHtml(searchTerm);
+                content.innerHTML = `<div class="dropdown-item" style="cursor:default">No results found for "${q}"<div class="dropdown-item-summary" style="margin-top:4px;color:#9ca3af">Try different keywords</div></div>`;
+                return;
+            }
+
+            content.innerHTML = filtered.map(service => `
+                <div class="dropdown-item" onclick="addSource('${service.id}')">
+                    <div class="dropdown-item-header">
+                        <div class="dropdown-item-name">${service.name}</div>
+                        <div class="dropdown-item-owner">${service.owner}</div>
+                    </div>
+                    <div class="dropdown-item-summary">${service.summary}</div>
+                    <div class="dropdown-item-lastactive" style="font-size: 11px; color: #9ca3af; margin-top: 4px;">Last active: ${service.lastActive}</div>
+                    <div class="dropdown-item-capabilities">
+                        ${service.endpoints.includes('search') ? '<span class="badge badge-outline">🔍 Search</span>' : ''}
+                        ${service.endpoints.includes('chat') ? '<span class="badge badge-outline">💬 Chat</span>' : ''}
+                        ${service.mcp ? '<span class="badge badge-default">🔗 MCP</span>' : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Populate synthesizer dropdown
+        function populateSynthesizerDropdown() {
+            const content = document.getElementById('synthesizerDropdownContent');
+            if (!content) return;
+            const searchTerm = (document.getElementById('synthesizerSearchInput')?.value || '').trim();
+            const modelServices = SERVICES.filter(s => s.type === 'model');
+            const filtered = searchTerm ? modelServices.filter(service => matchesSearch(service, searchTerm)) : modelServices;
+
+            if (filtered.length === 0) {
+                const q = escapeHtml(searchTerm);
+                content.innerHTML = `<div class="dropdown-item" style="cursor:default">No results found for "${q}"<div class="dropdown-item-summary" style="margin-top:4px;color:#9ca3af">Try different keywords</div></div>`;
+                return;
+            }
+
+            content.innerHTML = filtered.map(service => `
+                <div class="dropdown-item" onclick="addSynthesizer('${service.id}')">
+                    <div class="dropdown-item-header">
+                        <div class="dropdown-item-name">${service.name}</div>
+                        <div class="dropdown-item-owner">${service.owner}</div>
+                    </div>
+                    <div class="dropdown-item-summary">${service.summary}</div>
+                    <div class="dropdown-item-capabilities">
+                        ${service.endpoints.includes('chat') ? '<span class="badge badge-outline">💬 Chat</span>' : ''}
+                        ${service.mcp ? '<span class="badge badge-default">🔗 MCP</span>' : ''}
+                        <span class="badge badge-outline">🌡️ Temp: 0.7</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Toggle source dropdown
+        function toggleSourceDropdown() {
+            const dropdown = document.getElementById('sourceDropdown');
+            const icon = document.getElementById('addSourceIcon');
+            const btnText = document.getElementById('addSourceBtnText');
+            
+            if (!dropdown || !icon || !btnText) {
+                console.error('Missing dropdown elements:', { dropdown, icon, btnText });
+                return;
+            }
+            
+            if (dropdown.classList.contains('hidden')) {
+                dropdown.classList.remove('hidden');
+                icon.textContent = '▲';
+                btnText.textContent = 'Hide Sources';
+                // Repopulate and focus input when opening
+                populateSourceDropdown();
+                requestAnimationFrame(() => {
+                    const input = document.getElementById('sourceSearchInput');
+                    if (input) {
+                        input.focus();
+                        // Place cursor at end
+                        const val = input.value;
+                        input.value = '';
+                        input.value = val;
+                    }
+                });
+            } else {
+                dropdown.classList.add('hidden');
+                icon.textContent = '▼';
+                btnText.textContent = '+ Add Source';
+            }
+        }
+
+        // Toggle synthesizer dropdown
+        function toggleSynthesizerDropdown() {
+            const dropdown = document.getElementById('synthesizerDropdown');
+            const icon = document.getElementById('addSynthesizerIcon');
+            const btnText = document.getElementById('addSynthesizerBtnText');
+            
+            if (dropdown.classList.contains('hidden')) {
+                dropdown.classList.remove('hidden');
+                icon.textContent = '▲';
+                btnText.textContent = 'Hide Synthesizers';
+                // Repopulate and focus input when opening
+                populateSynthesizerDropdown();
+                requestAnimationFrame(() => {
+                    const input = document.getElementById('synthesizerSearchInput');
+                    if (input) {
+                        input.focus();
+                        const val = input.value;
+                        input.value = '';
+                        input.value = val;
+                    }
+                });
+            } else {
+                dropdown.classList.add('hidden');
+                icon.textContent = '▼';
+                btnText.textContent = '+ Add Synthesizer';
+            }
+        }
+
+        // Filter source dropdown
+        function filterSourceDropdown() {
+            populateSourceDropdown();
+        }
+
+        // Filter synthesizer dropdown
+        function filterSynthesizerDropdown() {
+            populateSynthesizerDropdown();
+        }
+
+        // Add source
+        function addSource(serviceId) {
+            const service = SERVICES.find(s => s.id === serviceId);
+            if (service && !selectedSources.find(s => s.id === serviceId)) {
+                selectedSources.push(service);
+                updateSelectedSourcesDisplay();
+                updateCompositionExecutionPlan();
+                toggleSourceDropdown();
+            }
+        }
+
+        // Remove source
+        function removeSource(serviceId) {
+            selectedSources = selectedSources.filter(s => s.id !== serviceId);
+            updateSelectedSourcesDisplay();
+            updateCompositionExecutionPlan();
+        }
+
+        // Add synthesizer
+        function addSynthesizer(serviceId) {
+            const service = SERVICES.find(s => s.id === serviceId);
+            if (service) {
+                selectedSynthesizer = service;
+                updateSelectedSynthesizerDisplay();
+                updateCompositionExecutionPlan();
+                toggleSynthesizerDropdown();
+            }
+        }
+
+        // Remove synthesizer
+        function removeSynthesizer() {
+            selectedSynthesizer = null;
+            updateSelectedSynthesizerDisplay();
+            updateCompositionExecutionPlan();
+        }
+
+        // Update selected sources display
+        function updateSelectedSourcesDisplay() {
+            const container = document.getElementById('selectedSources');
+            
+            if (selectedSources.length === 0) {
+                container.innerHTML = '<div class="text-sm text-muted">No sources selected</div>';
+                return;
+            }
+            
+            container.innerHTML = selectedSources.map(source => `
+                <div class="selected-item">
+                    <span class="badge badge-data">🗄️</span>
+                    <span>${source.name}</span>
+                    <button class="remove-btn" onclick="removeSource('${source.id}')" title="Remove">✕</button>
+                </div>
+            `).join('');
+        }
+
+        // Update selected synthesizer display
+        function updateSelectedSynthesizerDisplay() {
+            const container = document.getElementById('selectedSynthesizer');
+            
+            if (!selectedSynthesizer) {
+                container.innerHTML = '<div class="text-sm text-muted">No synthesizer selected</div>';
+                return;
+            }
+            
+            container.innerHTML = `
+                <div class="selected-item">
+                    <span class="badge badge-model">🧠</span>
+                    <span>${selectedSynthesizer.name}</span>
+                    <button class="remove-btn" onclick="removeSynthesizer()" title="Remove">✕</button>
+                </div>
+            `;
+        }
+
+        // Update response preference
+        function updateResponsePreference() {
+            const isFactual = document.getElementById('factualToggle').checked;
+            const responseMode = document.getElementById('responseMode');
+            responseMode.textContent = isFactual ? 'factual' : 'nuanced';
+            
+            // Update arrow labels based on preference
+            const searchChatLabel = document.getElementById('searchChatLabel');
+            if (searchChatLabel) {
+                searchChatLabel.textContent = isFactual ? '/search (factual)' : '/chat (nuanced)';
+            }
+        }
+
+
+
+        // Update composition execution plan
+        function updateCompositionExecutionPlan() {
+            // Update flow diagram
+            updateFlowDataSources();
+            updateFlowSynthesizers();
+        }
+
+        // Update flow data sources
+        function updateFlowDataSources() {
+            const container = document.getElementById('flowDataSources');
+            
+            if (selectedSources.length === 0) {
+                container.innerHTML = '<div class="empty-state">No sources selected</div>';
+                return;
+            }
+            
+            container.innerHTML = selectedSources.map(source => `
+                <div class="flow-item">
+                    <span class="badge badge-data">🗄️</span>
+                    <span class="item-name">${source.name}</span>
+                    <div class="flow-capabilities">
+                        ${source.endpoints.includes('search') ? '<span class="badge badge-outline">🔍</span>' : ''}
+                        ${source.endpoints.includes('chat') ? '<span class="badge badge-outline">💬</span>' : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Update flow synthesizers
+        function updateFlowSynthesizers() {
+            const container = document.getElementById('flowSynthesizers');
+            
+            if (!selectedSynthesizer) {
+                container.innerHTML = '<div class="empty-state">No synthesizer selected</div>';
+                return;
+            }
+            
+            container.innerHTML = `
+                <div class="flow-item">
+                    <span class="badge badge-model">🧠</span>
+                    <span class="item-name">${selectedSynthesizer.name}</span>
+                    <div class="flow-capabilities">
+                        <span class="badge badge-outline">🌡️ 0.7</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Run composition
+        function runComposition() {
+            const query = document.getElementById('testQuery').value;
+            if (!query.trim()) {
+                alert('Please enter a test query');
+                return;
+            }
+            
+            if (selectedSources.length === 0) {
+                alert('Please select at least one data source');
+                return;
+            }
+            
+            if (!selectedSynthesizer) {
+                alert('Please select a synthesizer');
+                return;
+            }
+            
+            // Show loading state
+            const button = document.querySelector('button[onclick="runComposition()"]');
+            const originalText = button.innerHTML;
+            button.innerHTML = '⏳ Processing...';
+            button.disabled = true;
+            
+            // Simulate processing time
+            setTimeout(() => {
+                // Reset button
+                button.innerHTML = originalText;
+                button.disabled = false;
+                
+                // Show response section
+                const responseSection = document.getElementById('responseSection');
+                const responseContent = document.getElementById('responseContent');
+                
+                // Generate fake markdown response
+                const selectedFiles = window.getSelectedFiles();
+                const fileInfo = selectedFiles.length > 0 ? `\n\n**📎 File Analysis:** ${selectedFiles.length} file(s) processed and integrated into the analysis:\n${selectedFiles.map(f => `- ${f.name} (${(f.size / 1024).toFixed(1)}KB)`).join('\n')}` : '';
+                
+                const fakeResponse = `
+### 🎭 Demo Response - Federated AI Composition
+
+**⚠️ This is a simulated response for demonstration purposes.**
+
+**Query:** "${query}"
+
+**Sources Used:** ${selectedSources.map(s => s.name).join(', ')} (${selectedSources.length} data sources)
+
+**Synthesizer:** ${selectedSynthesizer.name}${fileInfo}
+
+---
+
+### 📊 Analysis Summary
+
+Based on the federated query across multiple data sources, here's what we found:
+
+- **Coverage:** Successfully queried ${selectedSources.length} distributed data source(s)
+- **Processing Mode:** ${document.getElementById('factualToggle').checked ? 'Factual (search-based)' : 'Nuanced (chat-based)'}
+- **Response Quality:** High confidence synthesis
+
+### 🔍 Key Findings
+
+1. **Data Integration:** Successfully federated information from:
+   ${selectedSources.map(s => `   - ${s.name} (${s.owner})`).join('\n')}
+
+2. **Processing Pipeline:**
+   - Data retrieval from distributed sources ✅
+   - Content synthesis via ${selectedSynthesizer.name} ✅
+   - Cross-source validation and citation ✅
+
+3. **Result Validation:** All sources were accessible and provided relevant data
+
+<div class="source-citation">
+<strong>📚 Source Citations:</strong><br>
+${selectedSources.map(s => `• <code>${s.name}</code> - Last active: ${s.lastActive || 'Recently'}`).join('<br>')}
+</div>
+
+### 🚀 Next Steps
+
+In a production environment, this would return:
+- Detailed analysis based on your specific query
+- Source citations with confidence scores
+- Interactive follow-up suggestions
+- Export options (PDF, markdown, etc.)
+
+**💡 Note:** This demo showcases SyftBox's federated AI composition capabilities. Real queries would process actual data and provide substantive insights.
+                `.trim();
+                
+                responseContent.innerHTML = renderMarkdown(fakeResponse);
+                responseSection.classList.remove('hidden');
+                
+                // Scroll to response
+                responseSection.scrollIntoView({ behavior: 'smooth' });
+            }, 2000);
+        }
+
+        // Show code modal
+        function showCodeModal() {
+            if (selectedSources.length === 0 || !selectedSynthesizer) {
+                alert('Please select at least one source and one synthesizer to generate code');
+                return;
+            }
+            
+            // Generate code for both languages
+            generateCompositionCode();
+            
+            // Show the modal
+            document.getElementById('codeModal').classList.add('show');
+        }
+
+        // Close code modal
+        function closeCodeModal() {
+            document.getElementById('codeModal').classList.remove('show');
+        }
+
+        // Show code tab
+        function showCodeTab(language) {
+            // Remove active class from all tabs
+            document.querySelectorAll('.code-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Hide all code content
+            document.querySelectorAll('.code-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            
+            // Show selected tab content
+            document.getElementById(`${language}CodeContent`).classList.remove('hidden');
+            
+            // Add active class to selected tab
+            event.target.classList.add('active');
+        }
+
+        // Generate composition code
+        function generateCompositionCode() {
+            const pythonCode = generatePythonCompositionCode();
+            const javascriptCode = generateJavaScriptCompositionCode();
+            
+            document.getElementById('pythonCode').textContent = pythonCode;
+            document.getElementById('javascriptCode').textContent = javascriptCode;
+        }
+
+        // Generate Python composition code
+        function generatePythonCompositionCode() {
+            const query = document.getElementById('testQuery').value || 'Your query here';
+            const isFactual = document.getElementById('factualToggle').checked;
+            const mode = isFactual ? 'search' : 'chat';
+            
+            return `# SyftBox Federated AI Composition
+import requests
+import json
+from typing import List, Dict, Any
+
+# Configuration
+SYFT_BASE_URL = "https://api.syftbox.org"
+API_KEY = "your-api-key-here"
+
+def query_composition(query: str) -> Dict[str, Any]:
+    """
+    Execute a federated AI composition across multiple data sources
+    """
+    
+    # Step 1: Query all data sources in parallel
+    data_sources = [${selectedSources.map(s => '"' + s.id + '"').join(', ')}]
+    source_results = []
+    
+    for source_id in data_sources:
+        try:
+            response = requests.post(
+                f"{SYFT_BASE_URL}/services/{source_id}/${mode}",
+                headers={
+                    "Authorization": f"Bearer {API_KEY}",
+                    "Content-Type": "application/json"
+                },
+                json={
+                    "query": query,
+                    ${mode === 'search' ? '"top_k": 5' : '"temperature": 0.7'}
+                },
+                timeout=30
+            )
+            response.raise_for_status()
+            
+            result = response.json()
+            source_results.append({
+                "source": source_id,
+                "data": result
+            })
+            
+        except requests.RequestException as e:
+            print(f"Error querying {source_id}: {e}")
+            continue
+    
+    # Step 2: Synthesize results using the selected LLM
+    synthesizer_id = "${selectedSynthesizer.id}"
+    
+    # Prepare context for synthesis
+    context = {
+        "query": query,
+        "source_results": source_results,
+        "num_sources": len(source_results)
+    }
+    
+    synthesis_prompt = f"""
+    Query: {query}
+    
+    Based on the following federated search results from {len(source_results)} data sources:
+    
+    {json.dumps(source_results, indent=2)}
+    
+    Provide a comprehensive synthesis that:
+    1. Combines information from all sources
+    2. Cites specific sources where relevant
+    3. Highlights any conflicting information
+    4. Provides a confidence assessment
+    """
+    
+    try:
+        synthesis_response = requests.post(
+            f"{SYFT_BASE_URL}/services/{synthesizer_id}/chat",
+            headers={
+                "Authorization": f"Bearer {API_KEY}",
+                "Content-Type": "application/json"
+            },
+            json={
+                "messages": [
+                    {"role": "system", "content": "You are an expert at synthesizing information from multiple federated data sources."},
+                    {"role": "user", "content": synthesis_prompt}
+                ],
+                "temperature": 0.7
+            },
+            timeout=60
+        )
+        synthesis_response.raise_for_status()
+        
+        final_result = synthesis_response.json()
+        
+        return {
+            "query": query,
+            "sources_queried": len(data_sources),
+            "sources_responded": len(source_results),
+            "synthesizer": synthesizer_id,
+            "raw_results": source_results,
+            "synthesis": final_result,
+            "mode": "${mode}"
+        }
+        
+    except requests.RequestException as e:
+        return {
+            "error": f"Synthesis failed: {e}",
+            "raw_results": source_results
+        }
+
+# Example usage
+if __name__ == "__main__":
+    query = "${query.replace(/"/g, '\\"')}"
+    result = query_composition(query)
+    
+    if "error" not in result:
+        print("=== Federated AI Composition Result ===")
+        print(f"Query: {result['query']}")
+        print(f"Sources: {result['sources_responded']}/{result['sources_queried']}")
+        print(f"Synthesizer: {result['synthesizer']}")
+        print(f"Mode: {result['mode']}")
+        print("\\n=== Synthesis ===")
+        print(result['synthesis']['choices'][0]['message']['content'])
+    else:
+        print(f"Error: {result['error']}")`;
+        }
+
+        // Generate JavaScript composition code
+        function generateJavaScriptCompositionCode() {
+            const query = document.getElementById('testQuery').value || 'Your query here';
+            const isFactual = document.getElementById('factualToggle').checked;
+            const mode = isFactual ? 'search' : 'chat';
+            
+            const dataSourceIds = selectedSources.map(s => "'" + s.id + "'").join(', ');
+            const synthesizerId = selectedSynthesizer.id;
+            const queryParam = mode === 'search' ? 'top_k: 5' : 'temperature: 0.7';
+            const cleanQuery = query.replace(/"/g, '\\"');
+            
+            return `// SyftBox Federated AI Composition
+const SYFT_BASE_URL = 'https://api.syftbox.org';
+const API_KEY = 'your-api-key-here';
+
+async function queryComposition(query) {
+    try {
+        // Step 1: Query all data sources in parallel
+        const dataSources = [${dataSourceIds}];
+        
+        const sourcePromises = dataSources.map(async (sourceId) => {
+            try {
+                const response = await fetch(\`\${SYFT_BASE_URL}/services/\${sourceId}/${mode}\`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': \`Bearer \${API_KEY}\`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        query: query,
+                        ${queryParam}
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(\`HTTP \${response.status}: \${response.statusText}\`);
+                }
+                
+                const result = await response.json();
+                return {
+                    source: sourceId,
+                    data: result
+                };
+            } catch (error) {
+                console.error(\`Error querying \${sourceId}:\`, error);
+                return null;
+            }
+        });
+        
+        const sourceResults = (await Promise.all(sourcePromises))
+            .filter(result => result !== null);
+        
+        // Step 2: Synthesize results using the selected LLM
+        const synthesizerId = '${synthesizerId}';
+        
+        const synthesisPrompt = \`
+Query: \${query}
+
+Based on the following federated search results from \${sourceResults.length} data sources:
+
+\${JSON.stringify(sourceResults, null, 2)}
+
+Provide a comprehensive synthesis that:
+1. Combines information from all sources
+2. Cites specific sources where relevant  
+3. Highlights any conflicting information
+4. Provides a confidence assessment
+        \`;
+        
+        const synthesisResponse = await fetch(\`\${SYFT_BASE_URL}/services/\${synthesizerId}/chat\`, {
+            method: 'POST',
+            headers: {
+                'Authorization': \`Bearer \${API_KEY}\`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                messages: [
+                    {
+                        role: 'system', 
+                        content: 'You are an expert at synthesizing information from multiple federated data sources.'
+                    },
+                    {
+                        role: 'user', 
+                        content: synthesisPrompt
+                    }
+                ],
+                temperature: 0.7
+            })
+        });
+        
+        if (!synthesisResponse.ok) {
+            throw new Error(\`Synthesis failed: HTTP \${synthesisResponse.status}\`);
+        }
+        
+        const finalResult = await synthesisResponse.json();
+        
+        return {
+            query: query,
+            sources_queried: dataSources.length,
+            sources_responded: sourceResults.length,
+            synthesizer: synthesizerId,
+            raw_results: sourceResults,
+            synthesis: finalResult,
+            mode: '${mode}'
+        };
+        
+    } catch (error) {
+        console.error('Composition failed:', error);
+        return {
+            error: error.message,
+            raw_results: sourceResults || []
+        };
+    }
+}
+
+// Example usage
+async function runExample() {
+    const query = "${cleanQuery}";
+    const result = await queryComposition(query);
+    
+    if (!result.error) {
+        console.log('=== Federated AI Composition Result ===');
+        console.log(\`Query: \${result.query}\`);
+        console.log(\`Sources: \${result.sources_responded}/\${result.sources_queried}\`);
+        console.log(\`Synthesizer: \${result.synthesizer}\`);
+        console.log(\`Mode: \${result.mode}\`);
+        console.log('\\n=== Synthesis ===');
+        console.log(result.synthesis.choices[0].message.content);
+    } else {
+        console.error(\`Error: \${result.error}\`);
+    }
+}
+
+// Run the example
+runExample();`;
+        }
+
+        // Copy code to clipboard
+        function copyCode(elementId) {
+            const codeElement = document.getElementById(elementId);
+            const text = codeElement.textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const button = document.querySelector(`#${elementId}`).parentElement.querySelector('.code-copy-btn');
+                const originalText = button.textContent;
+                button.textContent = '✅ Copied!';
+                button.style.background = 'rgba(16, 185, 129, 0.8)';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = 'rgba(59, 130, 246, 0.8)';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                alert('Failed to copy code to clipboard');
+            });
+        }
+
+        // Close code modal when clicking outside
+        document.getElementById('codeModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeCodeModal();
+            }
+        });
+
+        // Show MCP modal
+        function showMcpModal() {
+            if (selectedSources.length === 0) {
+                alert('Please select at least one data source to generate an MCP tool');
+                return;
+            }
+            
+            // Populate the modal with current selections
+            updateMcpModalContent();
+            
+            // Show the modal
+            document.getElementById('mcpModal').classList.add('show');
+        }
+
+        // Close MCP modal
+        function closeMcpModal() {
+            document.getElementById('mcpModal').classList.remove('show');
+            
+            // Reset modal state - show form content and hide success message
+            const formElements = document.querySelectorAll('#mcpModal .form-group, #mcpModal .mcp-note');
+            formElements.forEach(el => {
+                el.style.display = '';
+            });
+            document.querySelector('#mcpModal .modal-actions').style.display = '';
+            document.getElementById('mcpSuccessMessage').classList.add('hidden');
+        }
+
+        // Update MCP modal content
+        function updateMcpModalContent() {
+            const sourcesContainer = document.getElementById('mcpSelectedSources');
+            const synthesizerContainer = document.getElementById('mcpSelectedSynthesizer');
+            
+            // Populate data sources
+            if (selectedSources.length === 0) {
+                sourcesContainer.innerHTML = '<div class="preview-empty">No data sources selected</div>';
+            } else {
+                sourcesContainer.innerHTML = selectedSources.map(source => `
+                    <div class="preview-item">
+                        <span class="badge badge-data">🗄️</span>
+                        <span>${source.name}</span>
+                    </div>
+                `).join('');
+            }
+            
+            // Populate synthesizer (shown but marked as not included)
+            if (!selectedSynthesizer) {
+                synthesizerContainer.innerHTML = '<div class="preview-empty">No synthesizer selected</div>';
+            } else {
+                synthesizerContainer.innerHTML = `
+                    <div class="preview-item" style="opacity: 0.5;">
+                        <span class="badge badge-model">🧠</span>
+                        <span>${selectedSynthesizer.name}</span>
+                        <span style="color: #ef4444; font-size: 11px; margin-left: 4px;">(excluded)</span>
+                    </div>
+                `;
+            }
+        }
+
+        // Generate MCP tool
+        function generateMcpTool() {
+            const toolName = document.getElementById('mcpToolName').value.trim();
+            const toolDescription = document.getElementById('mcpToolDescription').value.trim();
+            
+            if (!toolName) {
+                alert('Please enter a tool name');
+                return;
+            }
+            
+            // Validate tool name format
+            if (!/^[a-z0-9-]+$/.test(toolName)) {
+                alert('Tool name must contain only lowercase letters, numbers, and hyphens');
+                return;
+            }
+            
+            if (selectedSources.length === 0) {
+                alert('Please select at least one data source');
+                return;
+            }
+            
+            // Show loading state
+            const button = document.querySelector('#mcpModal .btn-primary');
+            const originalText = button.innerHTML;
+            button.innerHTML = '⏳ Generating...';
+            button.disabled = true;
+            
+            // Simulate generation time
+            setTimeout(() => {
+                // Reset button
+                button.innerHTML = originalText;
+                button.disabled = false;
+                
+                // Hide the modal form content and show success message
+                const formElements = document.querySelectorAll('#mcpModal .form-group, #mcpModal .mcp-note');
+                formElements.forEach(el => {
+                    el.style.display = 'none';
+                });
+                document.querySelector('#mcpModal .modal-actions').style.display = 'none';
+                
+                // Update and show success message
+                const userEmail = 'guest@syft.org'; // In real app, this would come from auth
+                const mcpUrl = `mcp.syftbox.net/${userEmail}/${toolName}`;
+                
+                console.log('Setting MCP URL:', mcpUrl); // Debug log
+                const urlElement = document.getElementById('mcpToolUrl');
+                console.log('URL element found:', urlElement); // Debug log
+                
+                if (urlElement) {
+                    urlElement.textContent = mcpUrl;
+                } else {
+                    console.error('mcpToolUrl element not found');
+                }
+                
+                document.getElementById('mcpSuccessMessage').classList.remove('hidden');
+                
+                // Clear the form for next use
+                document.getElementById('mcpToolName').value = '';
+                document.getElementById('mcpToolDescription').value = '';
+            }, 2000);
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('mcpModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeMcpModal();
+            }
+        });
+    </script>
+</body>
+</html>
