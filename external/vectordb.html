@@ -1,0 +1,2555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SyftBox Local VectorDB</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&family=Roboto:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0px auto 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 40;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-tab {
+            background: none;
+            border: none;
+            padding: 8px 12px;
+            font-weight: 400;
+            font-size: 14px;
+            color: #64748b;
+            cursor: pointer;
+            transition: color 0.2s;
+            text-decoration: none;
+        }
+
+        .nav-tab:hover {
+            color: #4A6FB3;
+        }
+
+        .nav-tab.active {
+            color: #1e293b;
+            font-weight: 500;
+        }
+
+        /* Logo & Header Controls */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background-image: url('../syftbox-logo.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .logo-text h1 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 2px;
+            color: #1e293b;
+            font-family: 'Rubik', -apple-system, system-ui, sans-serif;
+        }
+
+        .logo-text p {
+            font-size: 12px;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        /* Card Styles */
+        .card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .card-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #f1f5f9;
+            background: #fafbfc;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        .card-content {
+            padding: 24px;
+        }
+
+        /* Status Indicators */
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .status-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .status-card.clickable {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .status-card.clickable:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border-color: #4A6FB3;
+        }
+
+        .status-card.active {
+            border-color: #4A6FB3;
+            background: #f0f9ff;
+        }
+
+        .status-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .status-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .status-icon.queue {
+            background: #f59e0b;
+        }
+
+        .status-icon.processing {
+            background: #4A6FB3;
+        }
+
+        .status-icon.completed {
+            background: #53BEA9;
+        }
+
+        .status-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .status-count {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+
+        .status-description {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        /* Logs */
+        .logs-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-top: 32px;
+            margin-bottom: 24px;
+        }
+        .logs-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #f1f5f9;
+            background: #fafbfc;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .logs-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0;
+        }
+        .logs-controls { display: flex; gap: 8px; align-items: center; }
+        .logs-list { padding: 8px 0; }
+        .log-item {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            padding: 12px 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .log-item:last-child { border-bottom: none; }
+        .log-time { font-size: 12px; color: #94a3b8; min-width: 160px; }
+        .log-body { flex: 1; }
+        .log-line { display: flex; align-items: center; gap: 8px; }
+        .log-level {
+            font-size: 11px; font-weight: 600; letter-spacing: .3px; text-transform: uppercase;
+            padding: 2px 6px; border-radius: 6px; border: 1px solid transparent;
+        }
+        .log-level.info { background: #e0f2fe; color: #075985; border-color: #bae6fd; }
+        .log-level.success { background: #dcfce7; color: #166534; border-color: #bbf7d0; }
+        .log-level.warning { background: #fef3c7; color: #92400e; border-color: #fde68a; }
+        .log-level.error { background: #fee2e2; color: #991b1b; border-color: #fecaca; }
+        .log-message { font-size: 13px; color: #334155; }
+        .log-source { font-size: 12px; color: #64748b; }
+
+        /* Sub-tabs for minimal navigation */
+        .vdb-subnav {
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid #e2e8f0;
+            margin: 8px 0 16px 0;
+        }
+        .vdb-subnav .subtab {
+            padding: 10px 12px;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: #64748b;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .vdb-subnav .subtab:hover { color: #4A6FB3; }
+        .vdb-subnav .subtab.active {
+            color: #1e293b;
+            border-bottom-color: #4A6FB3;
+            font-weight: 600;
+        }
+        .hidden { display: none; }
+
+        /* File List */
+        .file-list {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .file-list-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #f1f5f9;
+            background: #fafbfc;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .file-list-header-left {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .file-list-header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .sort-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .file-list-body {
+            display: flex;
+            gap: 24px;
+        }
+
+        .filters-sidebar {
+            width: 260px;
+            flex-shrink: 0;
+            border-right: 1px solid #f1f5f9;
+            padding: 16px 16px;
+            background: #fbfdff;
+        }
+
+        .file-list-content-area {
+            flex: 1;
+            min-width: 0;
+            padding: 8px 0;
+        }
+
+        .file-list-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        .file-filters {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .filter-main-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .filter-search-section {
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .filter-search-main {
+            width: 100%;
+            padding: 10px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+            color: #374151;
+            transition: all 0.2s ease;
+        }
+
+        .filter-search-main:focus {
+            outline: none;
+            border-color: #4A6FB3;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .filter-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .filter-toggle-btn {
+            background: #f1f5f9;
+            color: #475569;
+            border: 1px solid #e2e8f0;
+        }
+
+        .filter-toggle-btn:hover {
+            background: #e2e8f0;
+        }
+
+        .filter-advanced {
+            border-top: 1px solid #f1f5f9;
+            padding-top: 16px;
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            align-items: end;
+        }
+
+        .filter-group.compact {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .filter-group.compact .filter-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .filter-select.compact {
+            padding: 6px 8px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 12px;
+            background: white;
+            color: #374151;
+            cursor: pointer;
+            min-width: 80px;
+        }
+
+        .filter-select {
+            padding: 8px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 14px;
+            background: white;
+            color: #374151;
+            cursor: pointer;
+            min-width: 120px;
+        }
+
+        .filter-info {
+            font-size: 12px;
+            color: #64748b;
+            font-style: italic;
+        }
+
+        .file-list-pagination {
+            padding: 20px 24px;
+            border-top: 1px solid #f1f5f9;
+            background: #fafbfc;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .pagination-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pagination-bottom {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .per-page-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .per-page-label {
+            font-size: 12px;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .per-page-option {
+            padding: 4px 8px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            color: #64748b;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .per-page-option:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+        }
+
+        .per-page-option.active {
+            background: #4A6FB3;
+            color: white;
+            border-color: #4A6FB3;
+        }
+
+        .pagination-controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .pagination-btn {
+            padding: 6px 12px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            color: #64748b;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pagination-btn.active {
+            background: #4A6FB3;
+            color: white;
+            border-color: #4A6FB3;
+        }
+
+        .pagination-info {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .file-item {
+            padding: 20px 24px;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+
+        .file-item:hover {
+            background-color: #f8fafc;
+        }
+
+        .file-item:last-child {
+            border-bottom: none;
+        }
+
+        .file-info {
+            flex: 1;
+        }
+
+        .file-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .file-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .access-pill {
+            background: #eef2ff;
+            color: #3730a3;
+            border: 1px solid #c7d2fe;
+            padding: 4px 8px;
+            border-radius: 999px;
+            font-size: 11px;
+        }
+
+        .file-access-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .file-access-badge.access-full_read {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .file-access-badge.access-query_access {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .file-path {
+            font-size: 14px;
+            font-weight: 500;
+            color: #1e293b;
+            margin-bottom: 8px;
+            word-break: break-all;
+            color: #64748b;
+        }
+
+        .file-meta {
+            display: flex;
+            gap: 16px;
+            font-size: 12px;
+            color: #64748b;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .meta-label {
+            font-weight: 500;
+            color: #94a3b8;
+        }
+
+        .meta-link { cursor: pointer; color: #0369a1; }
+        .meta-link .meta-label { color: #0369a1; }
+        .meta-link:hover { text-decoration: underline; }
+        .access-inline { margin-top: 6px; display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+        .more-link { font-size: 12px; color: #0369a1; cursor: pointer; }
+
+        .file-access-list {
+            margin-top: 12px;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .access-list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .access-preview {
+            font-size: 12px;
+            color: #64748b;
+            line-height: 1.4;
+        }
+
+        .access-user {
+            display: inline-block;
+            background: #e2e8f0;
+            color: #475569;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin: 2px;
+            font-size: 11px;
+        }
+
+        .access-user.full-read {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .access-user.query-access {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .file-status {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .file-status.queue {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .file-status.processing {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .file-status.completed {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        .btn:hover {
+            background: #e2e8f0;
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4A6FB3, #6366f1);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #2563eb, #5b21b6);
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        /* Search Space */
+        .search-space {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            margin-bottom: 32px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #f1f5f9;
+            background: #fafbfc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        .search-controls {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .search-type-select {
+            padding: 8px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 14px;
+            background: white;
+            color: #374151;
+            cursor: pointer;
+        }
+
+        .search-input-section {
+            padding: 24px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .search-input-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.2s ease;
+            background: #f8fafc;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #4A6FB3;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .search-options {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .search-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #64748b;
+            cursor: pointer;
+        }
+
+        .search-option input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #4A6FB3;
+        }
+
+        .search-results {
+            padding: 24px;
+        }
+
+        .search-results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-results-header h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        .results-info {
+            display: flex;
+            gap: 16px;
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .results-container {
+            min-height: 100px;
+        }
+
+        .result-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .result-item:hover {
+            background: white;
+            border-color: #4A6FB3;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .result-file {
+            font-size: 14px;
+            font-weight: 500;
+            color: #4A6FB3;
+            margin-bottom: 4px;
+        }
+
+        .result-chunk {
+            font-size: 12px;
+            color: #64748b;
+            background: #e2e8f0;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .result-similarity {
+            font-size: 12px;
+            color: #53BEA9;
+            font-weight: 500;
+        }
+
+        .result-content {
+            font-size: 14px;
+            color: #374151;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .result-actions .btn {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        /* Permissions Section */
+        .permissions-section {
+            margin-top: 32px;
+        }
+
+        .permissions-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .permission-search {
+            padding: 8px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 13px;
+            background: white;
+            color: #374151;
+            min-width: 240px;
+        }
+
+        .permission-search:focus {
+            outline: none;
+            border-color: #4A6FB3;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .permissions-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .add-permission-btn {
+            background: linear-gradient(135deg, #53BEA9, #059669);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .add-permission-btn:hover {
+            background: linear-gradient(135deg, #059669, #047857);
+            transform: translateY(-1px);
+        }
+
+        .permissions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+        }
+
+        .permission-item {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .permission-info {
+            flex: 1;
+        }
+
+        .permission-email {
+            font-size: 14px;
+            font-weight: 500;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+
+        .permission-path {
+            font-size: 12px;
+            color: #4A6FB3;
+            font-family: monospace;
+            margin-bottom: 4px;
+            word-break: break-all;
+        }
+
+        .permission-access {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .remove-permission-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .remove-permission-btn:hover {
+            background: #dc2626;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .status-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .file-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .file-actions {
+                align-self: flex-end;
+            }
+
+            .permissions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-main-row {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+
+            .filter-search-section {
+                max-width: none;
+            }
+
+            .filter-controls {
+                justify-content: space-between;
+            }
+
+            .filter-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                gap: 8px;
+            }
+
+            .pagination-bottom {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .per-page-controls {
+                justify-content: center;
+            }
+        }
+
+        /* Chunks Modal */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(15, 23, 42, 0.5);
+            display: none; align-items: center; justify-content: center; z-index: 1000;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-content {
+            width: min(1000px, 92vw); max-height: 88vh; background: white; border-radius: 12px;
+            border: 1px solid #e2e8f0; box-shadow: 0 10px 30px rgba(0,0,0,0.2); display: flex; flex-direction: column;
+        }
+        .modal-header { padding: 14px 18px; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; background:#fafbfc; }
+        .modal-title { font-size: 16px; font-weight: 600; color:#1e293b; }
+        .modal-actions { display:flex; gap:8px; align-items:center; }
+        .modal-body { padding: 12px 18px; overflow: auto; }
+        .chunks-controls { display:flex; gap:12px; align-items:center; margin-bottom: 12px; flex-wrap: wrap; }
+        .chunks-search { padding: 8px 12px; border:1px solid #e2e8f0; border-radius:6px; font-size:13px; min-width: 260px; }
+        .chunks-meta { font-size: 12px; color:#64748b; }
+        .chunk-item { border:1px solid #e2e8f0; border-radius:8px; padding:12px; margin-bottom:10px; }
+        .chunk-header { display:flex; justify-content: space-between; align-items: center; margin-bottom:8px; }
+        .chunk-id { font-size:12px; font-weight:600; color:#475569; background:#f1f5f9; padding:2px 6px; border-radius:6px; }
+        .chunk-tags { display:flex; gap:6px; flex-wrap: wrap; }
+        .chunk-tag { font-size:11px; background:#eef2ff; color:#3730a3; padding:2px 6px; border-radius:6px; }
+        .chunk-content { font-size:13px; color:#334155; line-height:1.5; white-space: pre-wrap; }
+        .chunk-actions { display:flex; gap:8px; margin-top:8px; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="logo">
+                        <div class="logo-icon"></div>
+                        <div class="logo-text">
+                            <h1>SyftBox Local VectorDB</h1>
+                            <p>Vector Database Overview</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-right">
+                    
+                </div>
+            </div>
+        </div>
+    </header>
+    <br>
+    <div class="container">
+        <!-- Status Overview -->
+        <div class="status-grid">
+            <div class="status-card clickable" onclick="filterByStatus('queue')">
+                <div class="status-header">
+                    <div class="status-icon queue">Q</div>
+                    <div class="status-title">Queue to be Indexed</div>
+                </div>
+                <div class="status-count" id="queue-count">0</div>
+                <div class="status-description">Files waiting to be processed</div>
+            </div>
+
+            <div class="status-card clickable" onclick="filterByStatus('processing')">
+                <div class="status-header">
+                    <div class="status-icon processing">P</div>
+                    <div class="status-title">Currently Processing</div>
+                </div>
+                <div class="status-count" id="processing-count">0</div>
+                <div class="status-description">Files being indexed now</div>
+            </div>
+
+            <div class="status-card clickable" onclick="filterByStatus('completed')">
+                <div class="status-header">
+                    <div class="status-icon completed">C</div>
+                    <div class="status-title">Completed</div>
+                </div>
+                <div class="status-count" id="completed-count">0</div>
+                <div class="status-description">Successfully indexed files</div>
+            </div>
+        </div>
+
+        <!-- Files Tab -->
+        <section id="tab-files">
+            <!-- File List -->
+            <div class="file-list">
+                <div class="file-list-header">
+                    <div class="file-list-header-left">
+                        <h2 class="file-list-title">Watched Files & Folders</h2>
+                        <input type="text" class="filter-search-main" id="file-search" placeholder="🔍 Search files by name, path, or content..." onkeyup="filterFiles()" />
+                    </div>
+                    <div class="file-list-header-right">
+                        <div class="sort-controls">
+                            <select class="filter-select compact" id="sort-by" onchange="renderFileList()">
+                                <option value="name">Name</option>
+                                <option value="date">Date</option>
+                                <option value="size">Size</option>
+                                <option value="status">Status</option>
+                                <option value="chunks">Chunks</option>
+                                <option value="access">Access</option>
+                            </select>
+                            <button class="btn btn-sm" id="sort-order-btn" title="Toggle sort order" onclick="toggleSortOrder()">↑</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="file-list-body">
+                    <aside class="filters-sidebar">
+                        <div class="sidebar-section">
+                            <div class="filter-group compact">
+                                <label class="filter-label">Status</label>
+                                <select class="filter-select compact" id="status-filter">
+                                    <option value="all">All</option>
+                                    <option value="queue">Queue</option>
+                                    <option value="processing">Processing</option>
+                                    <option value="completed">Completed</option>
+                                </select>
+                            </div>
+                            <div class="filter-group compact">
+                                <label class="filter-label">Source</label>
+                                <select class="filter-select compact" id="source-filter">
+                                    <option value="all">All</option>
+                                    <option value="syftbox">SyftBox</option>
+                                    <option value="external">External</option>
+                                </select>
+                            </div>
+                            <div class="filter-group compact">
+                                <label class="filter-label">Access</label>
+                                <select class="filter-select compact" id="access-filter">
+                                    <option value="all">All</option>
+                                    <option value="public">Public</option>
+                                    <option value="full_query">Full query access</option>
+                                    <option value="restricted">Restricted (emails)</option>
+                                </select>
+                            </div>
+                            <div class="filter-group compact">
+                                <label class="filter-label">Date</label>
+                                <select class="filter-select compact" id="date-filter">
+                                    <option value="all">All Time</option>
+                                    <option value="today">Today</option>
+                                    <option value="week">Week</option>
+                                    <option value="month">Month</option>
+                                    <option value="quarter">Quarter</option>
+                                    <option value="year">Year</option>
+                                </select>
+                            </div>
+                            <div class="filter-group compact">
+                                <label class="filter-label">Email Access</label>
+                                <input type="text" id="email-access-filter" class="filter-select compact" placeholder="user@example.com" />
+                            </div>
+                            <button class="btn btn-sm" onclick="clearAllFilters()" style="margin-top:8px;">Clear All</button>
+                        </div>
+                    </aside>
+                    <div class="file-list-content-area">
+                        <div id="file-list-content">
+                            <!-- File items will be populated here -->
+                        </div>
+                        <div class="file-list-pagination" id="file-pagination">
+                            <!-- Pagination will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Recent Activity Logs (moved here) -->
+            <section class="logs-card">
+                <div class="logs-header">
+                    <h2 class="logs-title">Recent Activity</h2>
+                    <div class="logs-controls">
+                        <select id="log-filter" class="filter-select compact" onchange="renderLogs()">
+                            <option value="all">All</option>
+                            <option value="info">Info</option>
+                            <option value="success">Success</option>
+                            <option value="warning">Warning</option>
+                            <option value="error">Error</option>
+                        </select>
+                        <button class="btn btn-sm" onclick="clearLogs()" title="Clear logs">Clear</button>
+                    </div>
+                </div>
+                <div id="logs-list" class="logs-list"></div>
+                <div class="file-list-pagination" id="logs-pagination"></div>
+            </section>
+        </section>
+
+        <!-- Search & Chunks Tab -->
+        <section id="tab-search" class="hidden">
+            <!-- Search Space -->
+            <div class="search-space">
+                <div class="search-header">
+                    <h2 class="search-title">Chunk Search & Navigation</h2>
+                    <div class="search-controls">
+                        <select class="search-type-select" id="search-type">
+                            <option value="semantic">Semantic Search</option>
+                            <option value="exact">Exact Match</option>
+                            <option value="metadata">Metadata Search</option>
+                        </select>
+                        <button class="btn btn-primary" onclick="performSearch()">Search</button>
+                    </div>
+                </div>
+                
+                <div class="search-input-section">
+                    <div class="search-input-container">
+                        <input type="text" id="search-query" class="search-input" placeholder="Enter your search query..." onkeypress="handleSearchKeypress(event)">
+                        <div class="search-options">
+                            <label class="search-option">
+                                <input type="checkbox" id="search-across-files" checked>
+                                <span>Search across all files</span>
+                            </label>
+                            <label class="search-option">
+                                <input type="checkbox" id="search-in-chunks" checked>
+                                <span>Search in chunk content</span>
+                            </label>
+                            <label class="search-option">
+                                <input type="checkbox" id="search-in-metadata">
+                                <span>Search in metadata</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="search-results" id="search-results">
+                    <div class="search-results-header">
+                        <h3>Search Results</h3>
+                        <div class="results-info">
+                            <span id="results-count">0 results</span>
+                            <span id="search-time"></span>
+                        </div>
+                    </div>
+                    <div class="results-container" id="results-container">
+                        <!-- Search results will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Access Control Tab -->
+        <section id="tab-access" class="hidden">
+            <div class="permissions-section">
+                <div class="permissions-header">
+                    <h2 class="permissions-title">File Access Control (Full Read & Query Access)</h2>
+                    <div style="display:flex; gap:8px; align-items:center;">
+                        <input id="perm-search" class="permission-search" type="text" placeholder="Search by email..." onkeyup="renderPermissions()" />
+                        <button class="add-permission-btn" onclick="addPermission()">Add Permission</button>
+                    </div>
+                </div>
+                <div class="permissions-grid" id="permissions-grid">
+                    <!-- Permission items will be populated here -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Chunks Modal -->
+    <div id="chunks-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="chunks-modal-title">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="chunks-modal-title">Chunks</div>
+                <div class="modal-actions">
+                    <button class="btn btn-sm" onclick="closeChunksModal()" title="Close">✖️</button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="chunks-controls">
+                    <input id="chunks-modal-search" class="chunks-search" type="text" placeholder="Filter chunks (text, tag, section)..." oninput="renderChunksModalList()" />
+                    <span id="chunks-modal-meta" class="chunks-meta"></span>
+                </div>
+                <div id="chunks-modal-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Access Modal -->
+    <div id="access-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="access-modal-title">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="access-modal-title">Access</div>
+                <div class="modal-actions">
+                    <button class="btn btn-sm" onclick="closeAccessModal()" title="Close">✖️</button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="chunks-controls">
+                    <span id="access-modal-meta" class="chunks-meta"></span>
+                </div>
+                <div id="access-modal-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample data - in a real implementation, this would come from the backend
+        const sampleFiles = [
+            {
+                id: 1,
+                path: '/datasets/lexfirm.eu/lex_civil_law.html',
+                status: 'completed',
+                source: 'syftbox',
+                access: 'full_read',
+                lastModified: '2024-01-15 14:30:00',
+                size: '45.2 KB',
+                chunks: 12,
+                fileName: 'lex_civil_law.html'
+            },
+            {
+                id: 2,
+                path: '/datasets/safari-lab.org/animals_of_south_africa.html',
+                status: 'processing',
+                source: 'syftbox',
+                access: 'query_access',
+                lastModified: '2024-01-15 15:45:00',
+                size: '128.7 KB',
+                chunks: 8,
+                fileName: 'animals_of_south_africa.html'
+            },
+            {
+                id: 3,
+                path: '/external/documents/legal_contracts/contract_2024.pdf',
+                status: 'queue',
+                source: 'external',
+                access: 'full_read',
+                lastModified: '2024-01-15 16:20:00',
+                size: '2.1 MB',
+                chunks: 0,
+                fileName: 'contract_2024.pdf'
+            },
+            {
+                id: 4,
+                path: '/datasets/st-marys-hospital.com/meddevice_records.html',
+                status: 'completed',
+                source: 'syftbox',
+                access: 'query_access',
+                lastModified: '2024-01-15 13:15:00',
+                size: '89.3 KB',
+                chunks: 15,
+                fileName: 'meddevice_records.html'
+            },
+            {
+                id: 5,
+                path: '/external/research/medical_papers/clinical_study_2023.pdf',
+                status: 'completed',
+                source: 'external',
+                access: 'full_read',
+                lastModified: '2024-01-15 12:00:00',
+                size: '2.1 MB',
+                chunks: 22,
+                fileName: 'clinical_study_2023.pdf'
+            },
+            {
+                id: 6,
+                path: '/datasets/lexfirm.eu/contract_law.html',
+                status: 'completed',
+                source: 'syftbox',
+                access: 'full_read',
+                lastModified: '2024-01-14 10:30:00',
+                size: '67.8 KB',
+                chunks: 9,
+                fileName: 'contract_law.html'
+            },
+            {
+                id: 7,
+                path: '/external/documents/medical/patient_records_2024.pdf',
+                status: 'queue',
+                source: 'external',
+                access: 'query_access',
+                lastModified: '2024-01-16 09:15:00',
+                size: '1.8 MB',
+                chunks: 0,
+                fileName: 'patient_records_2024.pdf'
+            },
+            {
+                id: 8,
+                path: '/datasets/safari-lab.org/conservation_efforts.html',
+                status: 'completed',
+                source: 'syftbox',
+                access: 'query_access',
+                lastModified: '2024-01-13 16:45:00',
+                size: '95.3 KB',
+                chunks: 11,
+                fileName: 'conservation_efforts.html'
+            }
+        ];
+
+        const samplePermissions = [
+            {
+                id: 1,
+                email: 'researcher@university.edu',
+                path: '/datasets/st-marys-hospital.com/meddevice_records.html',
+                access: 'Query access',
+                added: '2024-01-10'
+            },
+            {
+                id: 2,
+                email: 'lawyer@lexfirm.eu',
+                path: '/datasets/lexfirm.eu/lex_civil_law.html',
+                access: 'Full read',
+                added: '2024-01-08'
+            },
+            {
+                id: 3,
+                email: 'doctor@st-marys.com',
+                path: '/datasets/st-marys-hospital.com/meddevice_records.html',
+                access: 'Full read',
+                added: '2024-01-12'
+            },
+            {
+                id: 4,
+                email: 'biologist@safari-lab.org',
+                path: '/datasets/safari-lab.org/animals_of_south_africa.html',
+                access: 'Query access',
+                added: '2024-01-14'
+            },
+            {
+                id: 5,
+                email: 'legal_assistant@lexfirm.eu',
+                path: '/datasets/lexfirm.eu/contract_law.html',
+                access: 'Query access',
+                added: '2024-01-13'
+            },
+            {
+                id: 6,
+                email: 'nurse@st-marys.com',
+                path: '/datasets/st-marys-hospital.com/meddevice_records.html',
+                access: 'Query access',
+                added: '2024-01-11'
+            }
+        ];
+
+        // Activity logs
+        const defaultLogs = [
+            { time: '2024-01-15 09:02:11', level: 'info',    message: 'User admin@vectordb.io signed in', source: 'session' },
+            { time: '2024-01-15 09:05:22', level: 'info',    message: 'Queued for indexing', source: '/external/documents/legal_contracts/contract_2024.pdf' },
+            { time: '2024-01-15 09:06:10', level: 'warning', message: 'Slow I/O detected while reading file', source: '/external/research/medical_papers/clinical_study_2023.pdf' },
+            { time: '2024-01-15 09:08:41', level: 'success', message: 'Chunked file (12 chunks)', source: '/datasets/lexfirm.eu/lex_civil_law.html' },
+            { time: '2024-01-15 09:09:30', level: 'info',    message: 'Computing embeddings (OpenAI ada-002)', source: '/datasets/lexfirm.eu/lex_civil_law.html' },
+            { time: '2024-01-15 09:10:12', level: 'success', message: 'Wrote 12 vectors to index', source: '/datasets/lexfirm.eu/lex_civil_law.html' },
+            { time: '2024-01-15 09:14:55', level: 'info',    message: 'Queued for indexing', source: '/datasets/st-marys-hospital.com/meddevice_records.html' },
+            { time: '2024-01-15 09:15:47', level: 'warning', message: 'Large file detected (3.4 MB) – chunking may take longer', source: '/external/research/medical_papers/clinical_study_2023.pdf' },
+            { time: '2024-01-15 09:17:33', level: 'success', message: 'Indexing completed (28 chunks)', source: '/datasets/st-marys-hospital.com/meddevice_records.html' },
+            { time: '2024-01-15 10:02:18', level: 'error',   message: 'Failed to read file (access denied)', source: '/external/documents/medical/patient_records_2024.pdf' },
+            { time: '2024-01-15 10:05:40', level: 'info',    message: 'Permission added for lawyer@lexfirm.eu (Full read)', source: '/datasets/lexfirm.eu/lex_civil_law.html' },
+            { time: '2024-01-15 10:12:03', level: 'success', message: 'Re-indexed (updated 8 chunks)', source: '/datasets/safari-lab.org/animals_of_south_africa.html' },
+            { time: '2024-01-15 10:20:57', level: 'info',    message: 'Computing embeddings (Mistral small)', source: '/datasets/safari-lab.org/animals_of_south_africa.html' },
+            { time: '2024-01-15 10:23:44', level: 'success', message: 'Wrote 8 vectors to index', source: '/datasets/safari-lab.org/animals_of_south_africa.html' },
+            { time: '2024-01-15 11:01:26', level: 'warning', message: 'API rate limited – retrying in 5s', source: 'embeddings' },
+            { time: '2024-01-15 11:02:02', level: 'success', message: 'Retry succeeded after backoff', source: 'embeddings' },
+            { time: '2024-01-15 11:25:17', level: 'info',    message: 'Queued for indexing', source: '/external/documents/legal_contracts/NDA_template.pdf' },
+            { time: '2024-01-15 11:26:39', level: 'success', message: 'Indexing completed (4 chunks)', source: '/external/documents/legal_contracts/NDA_template.pdf' },
+            { time: '2024-01-15 12:02:51', level: 'info',    message: 'Permission added for nurse@st-marys.com (Query access)', source: '/datasets/st-marys-hospital.com/meddevice_records.html' },
+            { time: '2024-01-15 12:18:03', level: 'warning', message: 'Out-of-date schema for metadata – using defaults', source: '/external/research/medical_papers/clinical_study_2021.pdf' },
+            { time: '2024-01-15 12:45:36', level: 'success', message: 'Deleted 3 orphan vectors', source: 'maintenance' },
+            { time: '2024-01-15 13:05:28', level: 'info',    message: 'Backup completed to s3://vectordb-backups/daily/', source: 'backup' },
+            { time: '2024-01-15 13:22:11', level: 'error',   message: 'Network error while fetching embeddings – will retry', source: 'embeddings' },
+            { time: '2024-01-15 13:23:14', level: 'success', message: 'Retry succeeded after network error', source: 'embeddings' },
+            { time: '2024-01-15 14:10:02', level: 'info',    message: 'User data_scientist@safari-lab.org requested vector search', source: 'search' },
+            { time: '2024-01-15 14:10:03', level: 'success', message: 'Top-5 results returned (k=5, cosine)', source: 'search' },
+            { time: '2024-01-15 15:01:44', level: 'info',    message: 'Permission removed for intern@lexfirm.eu', source: '/datasets/lexfirm.eu/lex_civil_law.html' },
+            { time: '2024-01-15 15:32:09', level: 'success', message: 'Index compacted (2.1% space reclaimed)', source: 'maintenance' },
+            { time: '2024-01-15 16:01:55', level: 'info',    message: 'Queued for indexing', source: '/external/research/legal/competition_law_guide.pdf' },
+            { time: '2024-01-15 16:06:37', level: 'success', message: 'Indexing completed (17 chunks)', source: '/external/research/legal/competition_law_guide.pdf' }
+        ];
+        let sampleLogs = defaultLogs.slice();
+        // Load any previously saved logs from localStorage
+        try {
+            const saved = localStorage.getItem('vdbLogs');
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                if (Array.isArray(parsed) && parsed.length > 0) {
+                    sampleLogs = parsed;
+                }
+            }
+        } catch (e) {}
+
+        function persistLogs() {
+            try {
+                localStorage.setItem('vdbLogs', JSON.stringify(sampleLogs));
+            } catch (e) {}
+        }
+
+        // Sample chunk data for search functionality
+        const sampleChunks = [
+            {
+                id: 1,
+                fileId: 1,
+                filePath: '/datasets/lexfirm.eu/lex_civil_law.html',
+                chunkIndex: 1,
+                content: 'Civil law is a legal system originating in mainland Europe and adopted in much of the world. Civil law is sometimes referred to as neo-Roman law, Romano-Germanic law or Continental law.',
+                metadata: {
+                    type: 'legal_text',
+                    language: 'en',
+                    section: 'introduction',
+                    tags: ['civil_law', 'legal_system', 'europe']
+                }
+            },
+            {
+                id: 2,
+                fileId: 1,
+                filePath: '/datasets/lexfirm.eu/lex_civil_law.html',
+                chunkIndex: 2,
+                content: 'The civil law system is based on the belief that it is the role of the legislature to create laws, and the role of the judiciary to interpret and apply those laws. This is in contrast to common law systems.',
+                metadata: {
+                    type: 'legal_text',
+                    language: 'en',
+                    section: 'legal_philosophy',
+                    tags: ['legislature', 'judiciary', 'common_law']
+                }
+            },
+            {
+                id: 3,
+                fileId: 2,
+                filePath: '/datasets/safari-lab.org/animals_of_south_africa.html',
+                chunkIndex: 1,
+                content: 'South Africa is home to a diverse range of wildlife, including the Big Five: lions, leopards, rhinoceros, elephants, and buffalo. These animals are found in various national parks and game reserves.',
+                metadata: {
+                    type: 'wildlife_info',
+                    language: 'en',
+                    section: 'big_five',
+                    tags: ['wildlife', 'big_five', 'national_parks', 'game_reserves']
+                }
+            },
+            {
+                id: 4,
+                fileId: 2,
+                filePath: '/datasets/safari-lab.org/animals_of_south_africa.html',
+                chunkIndex: 2,
+                content: 'The Kruger National Park is one of the largest game reserves in Africa, covering an area of 19,485 square kilometers. It is home to over 500 bird species and 147 mammal species.',
+                metadata: {
+                    type: 'wildlife_info',
+                    language: 'en',
+                    section: 'kruger_park',
+                    tags: ['kruger_park', 'game_reserve', 'birds', 'mammals']
+                }
+            },
+            {
+                id: 5,
+                fileId: 4,
+                filePath: '/datasets/st-marys-hospital.com/meddevice_records.html',
+                chunkIndex: 1,
+                content: 'Medical devices are instruments, apparatus, machines, implants, or other similar articles intended for use in the diagnosis, treatment, or prevention of disease or other medical conditions.',
+                metadata: {
+                    type: 'medical_text',
+                    language: 'en',
+                    section: 'definition',
+                    tags: ['medical_devices', 'diagnosis', 'treatment', 'prevention']
+                }
+            },
+            {
+                id: 6,
+                fileId: 4,
+                filePath: '/datasets/st-marys-hospital.com/meddevice_records.html',
+                chunkIndex: 2,
+                content: 'The FDA regulates medical devices in the United States, ensuring they are safe and effective for their intended use. Medical devices are classified into three categories based on risk.',
+                metadata: {
+                    type: 'medical_text',
+                    language: 'en',
+                    section: 'regulation',
+                    tags: ['FDA', 'regulation', 'safety', 'effectiveness', 'risk_categories']
+                }
+            }
+        ];
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStatusCounts();
+            renderFileList();
+            renderPermissions();
+            setupEventListeners();
+            // Ensure logs render with defaults on initial load
+            if (!Array.isArray(sampleLogs) || sampleLogs.length === 0) {
+                sampleLogs = defaultLogs.slice();
+            }
+            persistLogs();
+            renderLogs();
+            const lf = document.getElementById('log-filter');
+            if (lf) lf.addEventListener('change', () => { window.currentLogsPage = 1; renderLogs(); });
+            showVdbTab('tab-files'); // Default to Files tab
+        });
+
+        // Filter files by status when clicking on status cards
+        function filterByStatus(status) {
+            document.getElementById('status-filter').value = status;
+            window.currentPage = 1;
+            renderFileList();
+            
+            // Update active state on status cards
+            document.querySelectorAll('.status-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+        }
+
+        function updateStatusCounts() {
+            const queueCount = sampleFiles.filter(f => f.status === 'queue').length;
+            const processingCount = sampleFiles.filter(f => f.status === 'processing').length;
+            const completedCount = sampleFiles.filter(f => f.status === 'completed').length;
+
+            document.getElementById('queue-count').textContent = queueCount;
+            document.getElementById('processing-count').textContent = processingCount;
+            document.getElementById('completed-count').textContent = completedCount;
+        }
+
+        function renderFileList() {
+            const container = document.getElementById('file-list-content');
+            const statusFilter = document.getElementById('status-filter').value;
+            const sourceFilter = document.getElementById('source-filter').value;
+            const accessFilter = document.getElementById('access-filter').value;
+            const dateFilter = document.getElementById('date-filter').value;
+            const searchQuery = document.getElementById('file-search').value.toLowerCase();
+            const sortBy = document.getElementById('sort-by').value;
+            const sortOrder = window.currentSortOrder || 'asc';
+            const itemsPerPage = window.currentItemsPerPage || 25;
+
+            // Update sort order button icon
+            const orderBtn = document.getElementById('sort-order-btn');
+            if (orderBtn) orderBtn.textContent = sortOrder === 'asc' ? '↑' : '↓';
+
+            let filteredFiles = sampleFiles;
+
+            // Apply filters
+            if (statusFilter !== 'all') {
+                filteredFiles = filteredFiles.filter(f => f.status === statusFilter);
+            }
+
+            if (sourceFilter !== 'all') {
+                filteredFiles = filteredFiles.filter(f => f.source === sourceFilter);
+            }
+
+            if (accessFilter !== 'all') {
+                filteredFiles = filteredFiles.filter(f => getAccessPolicy(f) === accessFilter);
+            }
+
+            if (dateFilter !== 'all') {
+                filteredFiles = filteredFiles.filter(f => isInDateRange(f.lastModified, dateFilter));
+            }
+
+            if (searchQuery) {
+                filteredFiles = filteredFiles.filter(f => 
+                    f.fileName.toLowerCase().includes(searchQuery) ||
+                    f.path.toLowerCase().includes(searchQuery) ||
+                    f.status.toLowerCase().includes(searchQuery) ||
+                    f.source.toLowerCase().includes(searchQuery)
+                );
+            }
+
+            // Apply sorting
+            filteredFiles.sort((a, b) => {
+                let aValue, bValue;
+                
+                switch (sortBy) {
+                    case 'name':
+                        aValue = a.fileName.toLowerCase();
+                        bValue = b.fileName.toLowerCase();
+                        break;
+                    case 'date':
+                        aValue = new Date(a.lastModified);
+                        bValue = new Date(b.lastModified);
+                        break;
+                    case 'size':
+                        aValue = parseFileSize(a.size);
+                        bValue = parseFileSize(b.size);
+                        break;
+                    case 'status':
+                        aValue = a.status;
+                        bValue = b.status;
+                        break;
+                    case 'chunks':
+                        aValue = a.chunks;
+                        bValue = b.chunks;
+                        break;
+                    case 'access':
+                        const order = { 'public': 1, 'full_query': 2, 'restricted': 3 };
+                        aValue = order[getAccessPolicy(a)] || 99;
+                        bValue = order[getAccessPolicy(b)] || 99;
+                        break;
+                    default:
+                        aValue = a.fileName;
+                        bValue = b.fileName;
+                }
+
+                if (sortOrder === 'asc') {
+                    return aValue > bValue ? 1 : -1;
+                } else {
+                    return aValue < bValue ? 1 : -1;
+                }
+            });
+
+            // Apply pagination
+            const totalPages = Math.max(1, Math.ceil(filteredFiles.length / itemsPerPage));
+            if (!window.currentPage || window.currentPage < 1) window.currentPage = 1;
+            if (window.currentPage > totalPages) window.currentPage = totalPages;
+            const currentPage = window.currentPage;
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const paginatedFiles = filteredFiles.slice(startIndex, endIndex);
+            window.currentFilteredTotal = filteredFiles.length;
+
+            // Render files
+            container.innerHTML = paginatedFiles.map(file => `
+                <div class="file-item" style="padding:16px 20px;">
+                    <div class="file-info">
+                        <div class="file-header" style="margin-bottom:6px;">
+                            <div class="file-name">${file.fileName}</div>
+                        </div>
+                        <div class="file-path">${file.path}</div>
+                        <div class="file-meta" style="gap:12px;">
+                            <span class="meta-item"><span class="meta-label">Modified:</span> ${file.lastModified}</span>
+                            <span class="meta-item"><span class="meta-label">Size:</span> ${file.size}</span>
+                            <span class="meta-item"><span class="meta-label">Chunks:</span> ${file.chunks}</span>
+                            <span class="meta-item"><span class="meta-label">Source:</span> ${file.source}</span>
+                            ${renderAccessMeta(file.path, file.access)}
+                            <span class="file-status ${file.status}">${file.status}</span>
+                        </div>
+                        ${renderAccessChips(file.path)}
+                    </div>
+                    <div class="file-actions">
+                        <button class="btn btn-sm" title="Open" onclick="openFile('${file.path}')">📄</button>
+                        ${file.status === 'completed' ? `<button class="btn btn-sm" title="View Chunks" onclick="openChunksModal('${file.path}')">🔎</button>` : ''}
+                        <button class="btn btn-sm" title="Remove" onclick="removeFile(${file.id})" style="background:#fef2f2; color:#dc2626; border:1px solid #fecaca;">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+
+            // Render pagination
+            renderPagination(totalPages, currentPage);
+        }
+
+        function renderPagination(totalPages, currentPage) {
+            const container = document.getElementById('file-pagination');
+            if (!container) return;
+            const totalItems = window.currentFilteredTotal || 0;
+            const itemsPerPage = window.currentItemsPerPage || 25;
+            const start = totalItems === 0 ? 0 : ((currentPage - 1) * itemsPerPage) + 1;
+            const end = Math.min(currentPage * itemsPerPage, totalItems);
+
+            function pageRange(tp, cp) {
+                const pages = [];
+                if (tp <= 7) {
+                    for (let i = 1; i <= tp; i++) pages.push(i);
+                    return pages;
+                }
+                if (cp <= 4) {
+                    return [1,2,3,4,5,'…',tp];
+                }
+                if (cp >= tp - 3) {
+                    return [1,'…',tp-4,tp-3,tp-2,tp-1,tp];
+                }
+                return [1,'…',cp-1,cp,cp+1,'…',tp];
+            }
+
+            const pages = pageRange(totalPages, currentPage);
+            const pageButtons = pages.map(p => {
+                if (p === '…') {
+                    return `<button class="pagination-btn" disabled>…</button>`;
+                }
+                const active = p === currentPage ? 'active' : '';
+                return `<button class="pagination-btn ${active}" onclick="changePage(${p})">${p}</button>`;
+            }).join('');
+
+            const perPageOptions = [10, 25, 50, 100];
+            const perPageControls = perPageOptions.map(opt => {
+                const active = opt === itemsPerPage ? 'active' : '';
+                return `<button class="per-page-option ${active}" onclick="changeItemsPerPage(${opt})">${opt}</button>`;
+            }).join('');
+
+            container.innerHTML = `
+                <div class="pagination-top">
+                    <div class="pagination-info">${totalItems === 0 ? 'No files to display' : `Showing ${start}–${end} of ${totalItems}`}</div>
+                    <div class="per-page-controls">
+                        <span class="per-page-label">Rows per page:</span>
+                        ${perPageControls}
+                    </div>
+                </div>
+                <div class="pagination-bottom">
+                    <div class="pagination-controls">
+                        <button class="pagination-btn" ${currentPage === 1 ? 'disabled' : ''} onclick="changePage(${currentPage - 1})">Prev</button>
+                        ${pageButtons}
+                        <button class="pagination-btn" ${currentPage === totalPages ? 'disabled' : ''} onclick="changePage(${currentPage + 1})">Next</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderPermissions() {
+            const container = document.getElementById('permissions-grid');
+            const query = (document.getElementById('perm-search')?.value || '').toLowerCase();
+            const perms = query
+                ? samplePermissions.filter(p => p.email.toLowerCase().includes(query))
+                : samplePermissions;
+            
+            if (perms.length === 0) {
+                container.innerHTML = `
+                    <div class="permission-item" style="justify-content:center;">
+                        <div class="permission-info">
+                            <div class="permission-access"><em>No permissions match that email.</em></div>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = perms.map(permission => `
+                <div class="permission-item">
+                    <div class="permission-info">
+                        <div class="permission-email">${permission.email}</div>
+                        <div class="permission-path">${permission.path}</div>
+                        <div class="permission-access">${permission.access}</div>
+                        <div class="permission-access">Added: ${permission.added}</div>
+                    </div>
+                    <button class="remove-permission-btn" onclick="removePermission(${permission.id})">Remove</button>
+                </div>
+            `).join('');
+        }
+
+        function setupEventListeners() {
+            const resetAndRender = () => { window.currentPage = 1; renderFileList(); };
+            document.getElementById('status-filter').addEventListener('change', resetAndRender);
+            document.getElementById('source-filter').addEventListener('change', resetAndRender);
+            document.getElementById('access-filter').addEventListener('change', resetAndRender);
+            document.getElementById('date-filter').addEventListener('change', resetAndRender);
+            document.getElementById('sort-by').addEventListener('change', resetAndRender);
+            const eaf = document.getElementById('email-access-filter');
+            if (eaf) eaf.addEventListener('input', resetAndRender);
+        }
+
+        function filterFiles() {
+            window.currentPage = 1;
+            renderFileList();
+        }
+
+        function clearAllFilters() {
+            document.getElementById('status-filter').value = 'all';
+            document.getElementById('source-filter').value = 'all';
+            document.getElementById('access-filter').value = 'all';
+            document.getElementById('date-filter').value = 'all';
+            document.getElementById('sort-by').value = 'name';
+            window.currentSortOrder = 'asc';
+            const btn = document.getElementById('sort-order-btn');
+            if (btn) btn.textContent = '↑';
+            document.getElementById('file-search').value = '';
+            const eaf = document.getElementById('email-access-filter');
+            if (eaf) eaf.value = '';
+            window.currentPage = 1;
+            renderFileList();
+        }
+
+        function toggleSortOrder() {
+            window.currentSortOrder = (window.currentSortOrder === 'desc') ? 'asc' : 'desc';
+            const btn = document.getElementById('sort-order-btn');
+            if (btn) btn.textContent = window.currentSortOrder === 'asc' ? '↑' : '↓';
+            renderFileList();
+        }
+
+        function isInDateRange(dateString, range) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            
+            switch (range) {
+                case 'today':
+                    return date >= today;
+                case 'week':
+                    const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+                    return date >= weekAgo;
+                case 'month':
+                    const monthAgo = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
+                    return date >= monthAgo;
+                case 'quarter':
+                    const quarterAgo = new Date(today.getFullYear(), today.getMonth() - 3, today.getDate());
+                    return date >= quarterAgo;
+                case 'year':
+                    const yearAgo = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
+                    return date >= yearAgo;
+                default:
+                    return true;
+            }
+        }
+
+        function parseFileSize(sizeString) {
+            const size = parseFloat(sizeString);
+            if (sizeString.includes('KB')) return size;
+            if (sizeString.includes('MB')) return size * 1024;
+            if (sizeString.includes('GB')) return size * 1024 * 1024;
+            return size;
+        }
+
+        function getAccessSummary(filePath) {
+            const filePermissions = samplePermissions.filter(p => p.path === filePath);
+            if (filePermissions.length === 0) return 'inherit';
+            const full = filePermissions.filter(p => p.access === 'Full read').length;
+            const query = filePermissions.filter(p => p.access === 'Query access').length;
+            const parts = [];
+            if (full > 0) parts.push(`${full} full`);
+            if (query > 0) parts.push(`${query} query`);
+            return parts.join(', ') || 'inherit';
+        }
+
+        function showFileAccess(filePath) {
+            const filePermissions = samplePermissions.filter(p => p.path === filePath);
+            const fileName = filePath.split('/').pop();
+            
+            if (filePermissions.length === 0) {
+                alert(`No specific access controls set for ${fileName}\n\nThis file uses default access settings.`);
+                return;
+            }
+
+            let accessInfo = `Access Control for: ${fileName}\n\n`;
+            
+            const fullReadUsers = filePermissions.filter(p => p.access === 'Full read');
+            const queryAccessUsers = filePermissions.filter(p => p.access === 'Query access');
+            
+            if (fullReadUsers.length > 0) {
+                accessInfo += 'Full Read Access:\n';
+                fullReadUsers.forEach(p => {
+                    accessInfo += `• ${p.email} (Added: ${p.added})\n`;
+                });
+                accessInfo += '\n';
+            }
+            
+            if (queryAccessUsers.length > 0) {
+                accessInfo += 'Query Access:\n';
+                queryAccessUsers.forEach(p => {
+                    accessInfo += `• ${p.email} (Added: ${p.added})\n`;
+                });
+            }
+
+            alert(accessInfo);
+        }
+
+        function openFile(path) {
+            // In a real implementation, this would open the file or navigate to it
+            console.log('Opening file:', path);
+            alert(`Opening file: ${path}`);
+        }
+
+        function viewChunks(fileId) {
+            // In a real implementation, this would show the vector chunks for the file
+            console.log('Viewing chunks for file:', fileId);
+            alert(`Viewing chunks for file ID: ${fileId}`);
+        }
+
+        function viewChunksForFile(filePath) {
+            // Set the search query to show chunks from this specific file
+            document.getElementById('search-query').value = `file:"${filePath}"`;
+            
+            // Uncheck "Search across all files" and check "Search in chunks"
+            document.getElementById('search-across-files').checked = false;
+            document.getElementById('search-in-chunks').checked = true;
+            document.getElementById('search-in-metadata').checked = false;
+            
+            // Set search type to semantic for better chunk discovery
+            document.getElementById('search-type').value = 'semantic';
+            
+            // Perform the search automatically
+            performSearch();
+            
+            // Scroll to search results
+            document.getElementById('search-results').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        function addPermission() {
+            const email = prompt('Enter email address:');
+            if (email) {
+                const path = prompt('Enter file path (e.g., "/datasets/example/file.html"):');
+                if (path) {
+                    const access = prompt('Enter access level:\n1. "Full read" - Complete access to file content\n2. "Query access" - Can search and query file chunks\n\nEnter your choice:');
+                    if (access) {
+                        // Normalize access input
+                        let normalizedAccess = access.toLowerCase();
+                        if (normalizedAccess.includes('full') || normalizedAccess.includes('complete')) {
+                            normalizedAccess = 'Full read';
+                        } else if (normalizedAccess.includes('query') || normalizedAccess.includes('search')) {
+                            normalizedAccess = 'Query access';
+                        } else {
+                            normalizedAccess = access; // Keep original if not recognized
+                        }
+                        
+                        const newPermission = {
+                            id: Date.now(),
+                            email: email,
+                            path: path,
+                            access: normalizedAccess,
+                            added: new Date().toISOString().split('T')[0]
+                        };
+                        samplePermissions.push(newPermission);
+                        renderPermissions();
+                        renderFileList(); // Refresh file list to show new access info
+                    }
+                }
+            }
+        }
+
+        function removeFile(fileId) {
+            if (confirm('Are you sure you want to remove this file from monitoring?')) {
+                const index = sampleFiles.findIndex(f => f.id === fileId);
+                if (index > -1) {
+                    sampleFiles.splice(index, 1);
+                    updateStatusCounts();
+                    renderFileList();
+                }
+            }
+        }
+
+        // Search functionality
+        function performSearch() {
+            const query = document.getElementById('search-query').value.trim();
+            const searchType = document.getElementById('search-type').value;
+            const searchAcrossFiles = document.getElementById('search-across-files').checked;
+            const searchInChunks = document.getElementById('search-in-chunks').checked;
+            const searchInMetadata = document.getElementById('search-in-metadata').checked;
+
+            // Allow empty queries for file-specific searches (e.g., file:"/path/file.html")
+            const fileMatch = query.match(/file:"([^"]+)"/);
+            if (!query && !fileMatch) {
+                alert('Please enter a search query');
+                return;
+            }
+
+            const startTime = performance.now();
+            const results = searchChunks(query, searchType, searchAcrossFiles, searchInChunks, searchInMetadata);
+            const endTime = performance.now();
+            const searchTime = ((endTime - startTime) / 1000).toFixed(2);
+
+            displaySearchResults(results, searchTime);
+        }
+
+        function searchChunks(query, searchType, searchAcrossFiles, searchInChunks, searchInMetadata) {
+            let results = [];
+            
+            // Parse file-specific queries (e.g., file:"/path/to/file.html")
+            let targetFilePath = null;
+            let searchQuery = query;
+            
+            const fileMatch = query.match(/file:"([^"]+)"/);
+            if (fileMatch) {
+                targetFilePath = fileMatch[1];
+                searchQuery = query.replace(/file:"[^"]+"/, '').trim();
+                
+                // If no specific search query, show all chunks from the file
+                if (!searchQuery) {
+                    searchQuery = '.*';
+                }
+            }
+
+            sampleChunks.forEach(chunk => {
+                let score = 0;
+                let matchFound = false;
+
+                // If we're searching for a specific file, filter by file path
+                if (targetFilePath && chunk.filePath !== targetFilePath) {
+                    return; // Skip chunks from other files
+                }
+
+                if (searchInChunks && chunk.content.toLowerCase().includes(searchQuery.toLowerCase())) {
+                    score += 100; // Exact content match
+                    matchFound = true;
+                }
+
+                if (searchInMetadata && searchInMetadata) {
+                    // Search in metadata fields
+                    const metadataStr = JSON.stringify(chunk.metadata).toLowerCase();
+                    if (metadataStr.includes(searchQuery.toLowerCase())) {
+                        score += 50; // Metadata match
+                        matchFound = true;
+                    }
+
+                    // Search in tags
+                    if (chunk.metadata.tags && chunk.metadata.tags.some(tag => 
+                        tag.toLowerCase().includes(searchQuery.toLowerCase()))) {
+                        score += 30; // Tag match
+                        matchFound = true;
+                    }
+                }
+
+                if (searchType === 'exact') {
+                    // For exact match, only include if query exactly matches content
+                    if (chunk.content.toLowerCase() === searchQuery.toLowerCase()) {
+                        score += 200;
+                        matchFound = true;
+                    }
+                } else if (searchType === 'semantic') {
+                    // For semantic search, include partial matches and give bonus for longer matches
+                    if (chunk.content.toLowerCase().includes(searchQuery.toLowerCase())) {
+                        const matchLength = searchQuery.length / chunk.content.length;
+                        score += Math.floor(100 * matchLength);
+                        matchFound = true;
+                    }
+                }
+
+                if (matchFound) {
+                    results.push({
+                        ...chunk,
+                        score: score,
+                        similarity: Math.min(100, score)
+                    });
+                }
+            });
+
+            // Sort by relevance score
+            results.sort((a, b) => b.score - a.score);
+            return results;
+        }
+
+        function displaySearchResults(results, searchTime) {
+            const container = document.getElementById('results-container');
+            const countSpan = document.getElementById('results-count');
+            const timeSpan = document.getElementById('search-time');
+
+            countSpan.textContent = `${results.length} results`;
+            timeSpan.textContent = `(${searchTime}s)`;
+
+            if (results.length === 0) {
+                container.innerHTML = `
+                    <div class="result-item">
+                        <div class="result-content">
+                            <em>No results found for your search query. Try adjusting your search terms or search options.</em>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = results.map(result => `
+                <div class="result-item">
+                    <div class="result-header">
+                        <div>
+                            <div class="result-file">${result.filePath}</div>
+                            <div class="result-chunk">Chunk ${result.chunkIndex}</div>
+                        </div>
+                        <div class="result-similarity">${result.similarity}% match</div>
+                    </div>
+                    <div class="result-content">${result.content}</div>
+                    <div class="result-actions">
+                        <button class="btn btn-sm" onclick="openFile('${result.filePath}')">Open File</button>
+                        <button class="btn btn-primary btn-sm" onclick="viewChunkDetails(${result.id})">View Chunk</button>
+                        <button class="btn btn-sm" onclick="copyChunkContent('${result.content}')">Copy Content</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function handleSearchKeypress(event) {
+            if (event.key === 'Enter') {
+                performSearch();
+            }
+        }
+
+        function viewChunkDetails(chunkId) {
+            const chunk = sampleChunks.find(c => c.id === chunkId);
+            if (chunk) {
+                const metadataStr = JSON.stringify(chunk.metadata, null, 2);
+                alert(`Chunk Details:\n\nFile: ${chunk.filePath}\nChunk: ${chunk.chunkIndex}\n\nContent:\n${chunk.content}\n\nMetadata:\n${metadataStr}`);
+            }
+        }
+
+        function copyChunkContent(content) {
+            navigator.clipboard.writeText(content).then(() => {
+                alert('Chunk content copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy content: ', err);
+                alert('Failed to copy content to clipboard');
+            });
+        }
+
+        function removePermission(permissionId) {
+            if (confirm('Are you sure you want to remove this permission?')) {
+                const index = samplePermissions.findIndex(p => p.id === permissionId);
+                if (index > -1) {
+                    samplePermissions.splice(index, 1);
+                    renderPermissions();
+                }
+            }
+        }
+
+        function renderLogs() {
+            const list = document.getElementById('logs-list');
+            if (!list) return;
+            const filter = (document.getElementById('log-filter')?.value || 'all');
+            const items = (filter === 'all') ? sampleLogs : sampleLogs.filter(l => l.level === filter);
+            const itemsPerPage = window.currentLogsPerPage || 10;
+            const totalPages = Math.max(1, Math.ceil(items.length / itemsPerPage));
+            if (!window.currentLogsPage || window.currentLogsPage < 1) window.currentLogsPage = 1;
+            if (window.currentLogsPage > totalPages) window.currentLogsPage = totalPages;
+            const currentPage = window.currentLogsPage;
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const paginated = items.slice(startIndex, endIndex);
+            if (items.length === 0) {
+                list.innerHTML = `
+                    <div class="log-item">
+                        <div class="log-time">—</div>
+                        <div class="log-body">
+                            <div class="log-line">
+                                <span class="log-level info">info</span>
+                                <span class="log-message"><em>No recent activity.</em></span>
+                                <button class="btn btn-sm" style="margin-left:8px;" onclick="restoreLogs()">Restore defaults</button>
+                            </div>
+                        </div>
+                    </div>`;
+                return;
+            }
+            list.innerHTML = paginated.map(l => `
+                <div class="log-item">
+                    <div class="log-time">${l.time}</div>
+                    <div class="log-body">
+                        <div class="log-line">
+                            <span class="log-level ${l.level}">${l.level}</span>
+                            <span class="log-message">${l.message}</span>
+                        </div>
+                        <div class="log-source">${l.source}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            renderLogsPagination(totalPages, currentPage, itemsPerPage, items.length);
+        }
+
+        function renderLogsPagination(totalPages, currentPage, itemsPerPage, totalItems) {
+            const container = document.getElementById('logs-pagination');
+            if (!container) return;
+            const start = totalItems === 0 ? 0 : ((currentPage - 1) * itemsPerPage) + 1;
+            const end = Math.min(currentPage * itemsPerPage, totalItems);
+
+            function pageRange(tp, cp) {
+                const pages = [];
+                if (tp <= 7) { for (let i = 1; i <= tp; i++) pages.push(i); return pages; }
+                if (cp <= 4) return [1,2,3,4,5,'…',tp];
+                if (cp >= tp - 3) return [1,'…',tp-4,tp-3,tp-2,tp-1,tp];
+                return [1,'…',cp-1,cp,cp+1,'…',tp];
+            }
+
+            const pages = pageRange(totalPages, currentPage);
+            const pageButtons = pages.map(p => {
+                if (p === '…') return `<button class="pagination-btn" disabled>…</button>`;
+                const active = p === currentPage ? 'active' : '';
+                return `<button class="pagination-btn ${active}" onclick="changeLogsPage(${p})">${p}</button>`;
+            }).join('');
+
+            const perPageOptions = [10, 25, 50];
+            const perPageControls = perPageOptions.map(opt => {
+                const active = opt === itemsPerPage ? 'active' : '';
+                return `<button class="per-page-option ${active}" onclick="changeLogsPerPage(${opt})">${opt}</button>`;
+            }).join('');
+
+            container.innerHTML = `
+                <div class="pagination-top">
+                    <div class="pagination-info">${totalItems === 0 ? 'No activity' : `Showing ${start}–${end} of ${totalItems}`}</div>
+                    <div class="per-page-controls">
+                        <span class="per-page-label">Rows per page:</span>
+                        ${perPageControls}
+                    </div>
+                </div>
+                <div class="pagination-bottom">
+                    <div class="pagination-controls">
+                        <button class="pagination-btn" ${currentPage === 1 ? 'disabled' : ''} onclick="changeLogsPage(${currentPage - 1})">Prev</button>
+                        ${pageButtons}
+                        <button class="pagination-btn" ${currentPage === totalPages ? 'disabled' : ''} onclick="changeLogsPage(${currentPage + 1})">Next</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function changeLogsPage(page) {
+            if (page < 1) page = 1;
+            window.currentLogsPage = page;
+            renderLogs();
+        }
+
+        function changeLogsPerPage(newPerPage) {
+            window.currentLogsPerPage = newPerPage;
+            window.currentLogsPage = 1;
+            renderLogs();
+        }
+
+        function clearLogs() {
+            if (!confirm('Clear recent activity logs?')) return;
+            sampleLogs = defaultLogs.slice();
+            persistLogs();
+            renderLogs();
+        }
+
+        function restoreLogs() {
+            sampleLogs = defaultLogs.slice();
+            persistLogs();
+            renderLogs();
+        }
+
+        function showVdbTab(tabId, evt) {
+            document.querySelectorAll('.vdb-subnav .subtab').forEach(b => b.classList.remove('active'));
+            if (evt) evt.currentTarget.classList.add('active');
+            document.querySelectorAll('#tab-files, #tab-search, #tab-access').forEach(el => el.classList.add('hidden'));
+            const el = document.getElementById(tabId);
+            if (el) el.classList.remove('hidden');
+        }
+
+        // Chunks modal
+        function openChunksModal(filePath) {
+            window.currentChunksFilePath = filePath;
+            const modal = document.getElementById('chunks-modal');
+            const title = document.getElementById('chunks-modal-title');
+            title.textContent = `Chunks — ${filePath.split('/').pop()}`;
+            document.getElementById('chunks-modal-search').value = '';
+            renderChunksModalList();
+            modal.classList.add('active');
+        }
+        function closeChunksModal() {
+            const modal = document.getElementById('chunks-modal');
+            modal.classList.remove('active');
+        }
+        function renderChunksModalList() {
+            const listEl = document.getElementById('chunks-modal-list');
+            const metaEl = document.getElementById('chunks-modal-meta');
+            const q = (document.getElementById('chunks-modal-search')?.value || '').toLowerCase();
+            const filePath = window.currentChunksFilePath;
+            if (!filePath) { listEl.innerHTML = ''; metaEl.textContent=''; return; }
+            let chunks = sampleChunks.filter(c => c.filePath === filePath);
+            if (chunks.length === 0) {
+                // fallback: synthesize empty chunks from sampleFiles metadata
+                const file = sampleFiles.find(f => f.path === filePath);
+                const n = Math.max(0, file?.chunks || 0);
+                chunks = Array.from({length:n}).map((_,i) => ({ id: 100000+i, filePath, chunkIndex: i+1, content: '(no sample content available for this chunk)', metadata: { section: 'unknown', tags: [] }}));
+            }
+            let filtered = chunks;
+            if (q) {
+                filtered = chunks.filter(c => {
+                    const content = (c.content || '').toLowerCase();
+                    const meta = JSON.stringify(c.metadata || {}).toLowerCase();
+                    return content.includes(q) || meta.includes(q);
+                });
+            }
+            metaEl.textContent = `${filtered.length} of ${chunks.length} chunks`;
+            listEl.innerHTML = filtered.map(c => `
+                <div class="chunk-item">
+                    <div class="chunk-header">
+                        <span class="chunk-id">Chunk ${c.chunkIndex}</span>
+                        <div class="chunk-tags">
+                            ${(c.metadata?.tags || []).map(t => `<span class=\"chunk-tag\">${t}</span>`).join('')}
+                        </div>
+                    </div>
+                    <div class="chunk-content">${c.content}</div>
+                    <div class="chunk-actions">
+                        <button class="btn btn-sm" onclick="copyChunkContent('${(c.content||'').replace(/'/g, "&#39;")}')" title="Copy content">Copy</button>
+                        <button class="btn btn-sm" onclick="viewChunkMetadataEncoded('${encodeURIComponent(JSON.stringify(c.metadata || {}))}')" title="View metadata">Metadata</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function viewChunkMetadataEncoded(encoded) {
+            try {
+                const meta = JSON.parse(decodeURIComponent(encoded));
+                alert(JSON.stringify(meta, null, 2));
+            } catch (e) {
+                alert('Failed to parse metadata');
+            }
+        }
+        // Close modal on ESC and overlay click
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeChunksModal(); });
+        document.getElementById('chunks-modal').addEventListener('click', (e) => { if (e.target.id === 'chunks-modal') closeChunksModal(); });
+
+        function getAccessCount(filePath) {
+            const f = normalizePath(filePath);
+            return samplePermissions.filter(p => normalizePath(p.path) === f).length;
+        }
+
+        function getAccessInlineChips(filePath, limit = 3) {
+            const f = normalizePath(filePath);
+            const perms = samplePermissions.filter(p => normalizePath(p.path) === f);
+            if (perms.length === 0) {
+                return '<span class="permission-access"><em>No explicit access</em></span>';
+            }
+            const chips = perms.slice(0, limit)
+                .map(p => `<span class="access-user">${p.email}</span>`) 
+                .join('');
+            const more = perms.length > limit 
+                ? `<span class="more-link" onclick="openAccessModal('${filePath}')">+${perms.length - limit} more</span>`
+                : '';
+            return chips + more;
+        }
+
+        function normalizePath(p) {
+            return (p || '').trim().replace(/\/+$/, '').toLowerCase();
+        }
+
+        function openAccessModal(filePath) {
+            const modal = document.getElementById('access-modal');
+            const title = document.getElementById('access-modal-title');
+            const listEl = document.getElementById('access-modal-list');
+            const metaEl = document.getElementById('access-modal-meta');
+            const f = normalizePath(filePath);
+            const perms = samplePermissions.filter(p => normalizePath(p.path) === f);
+            title.textContent = `Access — ${filePath.split('/').pop()}`;
+            metaEl.textContent = `${perms.length} user${perms.length===1?'':'s'} have explicit access`;
+            if (perms.length === 0) {
+                listEl.innerHTML = '<div class="permission-item" style="justify-content:center;"><div class="permission-info"><div class="permission-access"><em>No explicit access entries.</em></div></div></div>';
+            } else {
+                listEl.innerHTML = perms.map(p => `
+                    <div class="permission-item">
+                        <div class="permission-info">
+                            <div class="permission-email">${p.email}</div>
+                            <div class="permission-path">${p.path}</div>
+                            <div class="permission-access">${p.access}</div>
+                            <div class="permission-access">Added: ${p.added}</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            modal.classList.add('active');
+        }
+        function closeAccessModal() {
+            document.getElementById('access-modal').classList.remove('active');
+        }
+        // Close on overlay click
+        document.getElementById('access-modal').addEventListener('click', (e) => { if (e.target.id === 'access-modal') closeAccessModal(); });
+
+        function renderAccessMeta(filePath, fileAccess) {
+            const policy = getAccessPolicy({ path: filePath, access: fileAccess });
+            const count = getAccessCount(filePath);
+            if (policy === 'public') {
+                return `<span class="meta-item"><span class="meta-label">Access:</span> Public</span>`;
+            }
+            if (policy === 'full_query') {
+                return `<span class="meta-item"><span class="meta-label">Access:</span> Full query access</span>`;
+            }
+            return `<span class="meta-item meta-link" onclick="openAccessModal('${filePath}')" title="View access"><span class="meta-label">Access:</span> Restricted (${count} user${count===1?'':'s'})</span>`;
+        }
+
+        function renderAccessChips(filePath) {
+            const policy = getAccessPolicy({ path: filePath });
+            if (policy !== 'restricted') return '';
+            return `<div class="access-inline">${getAccessInlineChips(filePath, 3)}</div>`;
+        }
+
+        function getAccessPolicy(file) {
+            const fpath = normalizePath(file.path);
+            const perms = samplePermissions.filter(p => normalizePath(p.path) === fpath);
+            if (perms.length > 0) return 'restricted';
+            const a = (file.access || '').toLowerCase();
+            if (a === 'full_read') return 'public';
+            if (a === 'query_access') return 'full_query';
+            return 'restricted';
+        }
+
+        function changePage(page) {
+            if (page < 1) page = 1;
+            window.currentPage = page;
+            renderFileList();
+        }
+
+        function changeItemsPerPage(newPerPage) {
+            // Store the new per-page value in a data attribute or variable
+            // For now, we'll use a global variable
+            window.currentItemsPerPage = newPerPage;
+            window.currentPage = 1;
+            renderFileList();
+        }
+    </script>
+</body>
+</html>

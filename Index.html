@@ -21,7 +21,7 @@
 
         .container {
             max-width: 1200px;
-            margin: 30px auto 0 auto;
+            margin: 0px auto 0 auto;
             padding: 0 20px;
         }
 
@@ -71,7 +71,7 @@
         }
 
         .nav-tab:hover {
-            color: #3b82f6;
+            color: #4A6FB3;
         }
 
         .nav-tab.active {
@@ -130,7 +130,7 @@
 
         .sorting-controls select:focus {
             outline: none;
-            border-color: #3b82f6;
+            border-color: #4A6FB3;
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
             background: white;
         }
@@ -151,12 +151,12 @@
         }
 
         .sub-tab.active {
-            color: #3b82f6;
-            border-bottom-color: #3b82f6;
+            color: #4A6FB3;
+            border-bottom-color: #4A6FB3;
         }
 
         .sub-tab:hover {
-            color: #3b82f6;
+            color: #4A6FB3;
         }
 
         .sub-tab:disabled {
@@ -207,6 +207,19 @@
             gap: 16px;
         }
 
+        /* User icon - force light background */
+        .user-icon {
+            background: #f1f5f9 !important;
+            border: 1px solid #e2e8f0 !important;
+            color: #64748b !important;
+            border-radius: 6px;
+        }
+
+        .user-icon:hover {
+            background: #e2e8f0 !important;
+            color: #475569 !important;
+        }
+
         .control-item {
             display: flex;
             align-items: center;
@@ -225,7 +238,7 @@
         }
 
         .switch.active {
-            background: #3b82f6;
+            background: #4A6FB3;
         }
 
         .switch::after {
@@ -246,30 +259,32 @@
 
         .btn {
             padding: 8px 16px;
-            border: 1px solid #d1d5db;
+            border: 1px solid #4A6FB3;
             border-radius: 6px;
-            background: white;
-            color: #374151;
+            background: linear-gradient(135deg, #7A6BB3, #4A6FB3);
+            color: #ffffff;
             cursor: pointer;
             font-size: 14px;
-            transition: all 0.2s;
+            transition: background-color 0.2s, border-color 0.2s, color 0.2s;
             text-decoration: none;
             display: inline-block;
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
 
         .btn:hover {
-            background: #f9fafb;
-            border-color: #9ca3af;
+            background: linear-gradient(135deg, #6A5AA6, #3E5F9F);
+            border-color: #3E5F9F;
         }
 
         .btn-primary {
-            background: #3b82f6;
-            color: white;
-            border-color: #3b82f6;
+            background: linear-gradient(135deg, #7A6BB3, #4A6FB3);
+            color: #ffffff;
+            border-color: #4A6FB3;
         }
 
         .btn-primary:hover {
-            background: #2563eb;
+            background: linear-gradient(135deg, #6A5AA6, #3E5F9F);
+            border-color: #3E5F9F;
         }
 
         .btn-sm {
@@ -303,8 +318,8 @@
         }
 
         .tab.active {
-            color: #3b82f6;
-            border-bottom-color: #3b82f6;
+            color: #4A6FB3;
+            border-bottom-color: #4A6FB3;
         }
 
         .tab:disabled {
@@ -352,7 +367,13 @@
         .collectives-grid {
             display: grid;
             gap: 16px;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: 1fr;
+        }
+
+        .agents-grid {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
         }
 
         .compose-grid {
@@ -420,7 +441,7 @@
 
         .input:focus {
             outline: none;
-            border-color: #3b82f6;
+            border-color: #4A6FB3;
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
 
@@ -468,18 +489,23 @@
         }
 
         .badge-default {
-            background: #3b82f6;
+            background: #4A6FB3;
             color: white;
         }
 
         .badge-data {
-            background: #f1f5f9;
-            color: #475569;
+            background: #DEF2EE; /* light green */
+            color: #475569;      /* grey text */
         }
 
         .badge-model {
-            background: #3b82f6;
-            color: white;
+            background: #E9E1EA; /* light violet */
+            color: #475569;      /* grey text */
+        }
+
+        .badge-agent {
+            background: #CCFBF1; /* light teal */
+            color: #134E4A;      /* dark teal text */
         }
 
         /* Service Cards */
@@ -504,14 +530,132 @@
 
         .service-card[data-type="data"]:hover,
         .service-card[data-type="model"]:hover {
-            border-color: #3b82f6;
+            border-color: #4A6FB3;
             transform: translateY(-4px);
             box-shadow: 0 6px 20px rgba(59, 130, 246, 0.15);
         }
 
         .service-card[data-type="data"]:hover .service-title,
         .service-card[data-type="model"]:hover .service-title {
-            color: #3b82f6;
+            color: #4A6FB3;
+        }
+
+        /* Agent Cards - Skinnier design */
+        .agent-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px;
+            transition: all 0.2s;
+            cursor: default;
+        }
+
+        .agent-card:hover {
+            border-color: #14B8A6;
+            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.15);
+        }
+
+        .agent-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .agent-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+
+        .agent-summary {
+            font-size: 12px;
+            color: #64748b;
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+
+        .agent-pipeline {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 8px;
+            margin-bottom: 12px;
+            font-size: 11px;
+        }
+
+        .agent-sources-synthesizer {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .agent-sources, .agent-synthesizer {
+            flex: 1;
+        }
+
+        .agent-label {
+            font-size: 10px;
+            font-weight: 600;
+            color: #94a3b8;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .agent-item {
+            font-size: 11px;
+            color: #475569;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .agent-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .agent-action-btn {
+            flex: 1;
+            padding: 6px 12px;
+            font-size: 12px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            color: #475569;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .agent-action-btn:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+        }
+
+        .agent-action-btn.primary {
+            background: #14B8A6;
+            color: white;
+            border-color: #14B8A6;
+        }
+
+        .agent-action-btn.primary:hover {
+            background: #0D9488;
+            border-color: #0D9488;
+        }
+
+        .agent-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid #f1f5f9;
+            font-size: 10px;
+            color: #94a3b8;
         }
 
         .service-card .card-content {
@@ -544,8 +688,9 @@
         }
 
         .service-card[data-type="model"] .service-title .badge {
-            background: linear-gradient(135deg, #a78bfa, #8b5cf6);
-            color: white;
+            background: #E9E1EA; /* light violet */
+            color: #475569;      /* grey text */
+            border: 1px solid #E1D9E6;
         }
 
         .service-owner {
@@ -628,7 +773,7 @@
         }
 
         .quick-tags .badge:hover {
-            background: #3b82f6;
+            background: #4A6FB3;
             color: white;
         }
 
@@ -658,7 +803,7 @@
 
         .filter-pill:hover {
             background: rgba(59, 130, 246, 0.1);
-            color: #3b82f6;
+            color: #4A6FB3;
         }
 
         .filter-pill.active {
@@ -689,7 +834,7 @@
             background: white;
             border-radius: 12px;
             width: 90%;
-            max-width: 800px;
+            max-width: 1000px;
             max-height: 90vh;
             overflow-y: auto;
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
@@ -783,7 +928,7 @@
         .chat-button {
             width: 100%;
             padding: 8px 16px;
-            background: #3b82f6;
+            background: #4A6FB3;
             color: white;
             border: none;
             border-radius: 6px;
@@ -794,6 +939,76 @@
 
         .chat-button:hover {
             background: #2563eb;
+        }
+        
+        /* Response Box Styles */
+        .response-box {
+            margin-top: 16px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            display: none;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .response-header {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .response-metadata {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        
+        .response-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 8px;
+            background: #f1f5f9;
+            color: #475569;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .response-content {
+            color: #374151;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        
+        .response-summary {
+            margin-bottom: 12px;
+        }
+        
+        .response-summary ul {
+            margin: 8px 0;
+            padding-left: 20px;
+        }
+        
+        .response-summary li {
+            margin-bottom: 4px;
+        }
+        
+        .response-note {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-left: 3px solid #4A6FB3;
+            border-radius: 6px;
+            padding: 12px;
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 16px;
         }
 
         .code-section {
@@ -817,8 +1032,8 @@
         }
 
         .code-tab.active {
-            color: #3b82f6;
-            border-bottom-color: #3b82f6;
+            color: #4A6FB3;
+            border-bottom-color: #4A6FB3;
         }
 
         .code-block {
@@ -859,7 +1074,7 @@
 
         .code-copy-btn.copied {
             background: #059669;
-            border-color: #10b981;
+            border-color: #53BEA9;
         }
 
         /* MCP Install Styles */
@@ -899,6 +1114,153 @@
             color: #94a3b8;
             font-size: 14px;
             font-weight: 400;
+        }
+
+        /* MCP Tab Panel - Clean styles matching modal */
+        .mcp-tab-panel {
+            background: transparent;
+            padding: 0;
+            overflow-y: auto;
+            max-height: 500px;
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #374151;
+        }
+        
+        .mcp-tab-panel h4 {
+            color: #1e293b;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            margin-top: 20px;
+            font-family: 'Rubik', sans-serif;
+        }
+        
+        .mcp-tab-panel h4:first-child {
+            margin-top: 0;
+        }
+        
+        .mcp-tab-panel p {
+            color: #475569;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+        
+        .mcp-tab-panel ul, .mcp-tab-panel ol {
+            margin: 0 0 16px 20px;
+            padding: 0;
+            color: #475569;
+            font-size: 14px;
+        }
+        
+        .mcp-tab-panel li {
+            margin-bottom: 6px;
+        }
+        
+        .mcp-command-block {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            position: relative;
+        }
+        
+        .mcp-command-block pre {
+            margin: 0;
+            color: #f1f5f9;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+        }
+        
+        .mcp-command-block code {
+            background: transparent;
+            color: #f1f5f9;
+        }
+        
+        .mcp-command-block .code-copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            padding: 6px 12px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .mcp-command-block .code-copy-btn:hover {
+            background: #2563eb;
+        }
+        
+        .mcp-command-block .code-copy-btn.copied {
+            background: #10b981;
+        }
+        
+        /* Info box for MCP panels */
+        .mcp-info-box {
+            background: #eff6ff;
+            border: 1px solid #dbeafe;
+            border-left: 3px solid #3b82f6;
+            padding: 12px;
+            border-radius: 4px;
+            margin: 16px 0;
+        }
+        
+        .mcp-info-box p {
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+        
+        .mcp-info-box code {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 12px;
+        }
+        
+        /* Warning box for MCP panels */
+        .mcp-warning-box {
+            background: #fef3c7;
+            border: 1px solid #fde68a;
+            border-left: 3px solid #f59e0b;
+            padding: 12px;
+            border-radius: 4px;
+            margin: 16px 0;
+        }
+        
+        .mcp-warning-box p {
+            color: #92400e;
+            margin-bottom: 8px;
+        }
+        
+        .mcp-warning-box ul {
+            color: #92400e;
+        }
+        
+        .mcp-warning-box a {
+            color: #d97706;
+            text-decoration: underline;
+        }
+        
+        /* Step container for MCP panels */
+        .mcp-step {
+            margin-bottom: 24px;
+        }
+        
+        .mcp-step-title {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 8px;
+            font-size: 14px;
         }
 
         /* MCP Tabs */
@@ -1003,7 +1365,7 @@
 
         .copy-btn-inline.copied {
             background: #059669;
-            border-color: #10b981;
+            border-color: #53BEA9;
         }
 
         .config-paths {
@@ -1178,7 +1540,7 @@
 
         .mcp-copy-btn.copied {
             background: #059669;
-            border-color: #10b981;
+            border-color: #53BEA9;
         }
 
         .mcp-paths {
@@ -1216,12 +1578,12 @@
 
         /* Python Syntax Highlighting */
         .python-keyword {
-            color: #8b5cf6;
+            color: #937098;
             font-weight: 600;
         }
 
         .python-string {
-            color: #10b981;
+            color: #53BEA9;
         }
 
         .python-comment {
@@ -1230,7 +1592,7 @@
         }
 
         .python-function {
-            color: #3b82f6;
+            color: #4A6FB3;
         }
 
         .python-number {
@@ -1246,7 +1608,7 @@
         }
 
         .python-docstring {
-            color: #10b981;
+            color: #53BEA9;
             font-style: italic;
         }
 
@@ -1289,6 +1651,216 @@
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
+        }
+        
+        .tooltip-button {
+            width: 100%;
+            padding: 8px 12px;
+            border: none;
+            background: #f8fafc;
+            color: #334155;
+            font-size: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 4px;
+            text-align: left;
+        }
+        
+        .tooltip-button:hover {
+            background: #e2e8f0;
+        }
+        
+        .tooltip-divider {
+            height: 1px;
+            background: #e2e8f0;
+            margin: 8px 0;
+        }
+        
+        /* Payment Registration Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 1000px;
+            max-height: 80vh;
+            overflow: auto;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #64748b;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-close:hover {
+            color: #334155;
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        .payment-modal-step {
+            display: none;
+        }
+        
+        .payment-modal-step.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #475569;
+            margin-bottom: 8px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #1e293b;
+            background: white;
+            transition: all 0.2s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #4A6FB3;
+            box-shadow: 0 0 0 3px rgba(74, 111, 179, 0.1);
+        }
+        
+        .form-help {
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 4px;
+        }
+        
+        .service-option {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .service-option:hover {
+            border-color: #cbd5e1;
+            background: #f8fafc;
+        }
+        
+        .service-option.selected {
+            border-color: #4A6FB3;
+            background: #eff6ff;
+        }
+        
+        .service-option input[type="radio"] {
+            margin-right: 12px;
+        }
+        
+        .service-details {
+            flex: 1;
+        }
+        
+        .service-name {
+            font-weight: 500;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+        
+        .service-url {
+            font-size: 13px;
+            color: #64748b;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .payment-error {
+            color: #dc2626;
+            font-size: 13px;
+            margin-top: 8px;
+            display: none;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            color: #334155;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+        }
+        
+        .btn-primary {
+            background: #4A6FB3;
+            color: white;
+            border-color: #4A6FB3;
+        }
+        
+        .btn-primary:hover {
+            background: #3d5a94;
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
         .tooltip-section {
@@ -1683,22 +2255,22 @@
         }
 
         .flow-section:hover {
-            border-color: #3b82f6;
+            border-color: #4A6FB3;
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
         }
 
         .flow-section.data-sources {
-            border-color: #10b981;
+            border-color: #53BEA9;
             background: #f0fdf4;
         }
 
         .flow-section.synthesizers {
-            border-color: #8b5cf6;
+            border-color: #937098;
             background: #faf5ff;
         }
 
         .flow-section.final-response {
-            border-color: #3b82f6;
+            border-color: #4A6FB3;
             background: #eff6ff;
         }
 
@@ -2006,7 +2578,7 @@
         }
 
         input:checked + .toggle-slider {
-            background-color: #3b82f6;
+            background-color: #4A6FB3;
         }
 
         input:checked + .toggle-slider:before {
@@ -2039,7 +2611,7 @@
                         <div class="logo-icon"></div>
                         <div class="logo-text">
                             <h1>SyftBox AI Service Hub</h1>
-                            <p>The network for federated knowledge</p>
+                            <p>The network for collective intelligence</p>
                         </div>
                     </div>
                 </div>
@@ -2047,7 +2619,7 @@
                 <div class="header-right">
                     <nav class="main-nav">
                         <button class="nav-tab active" onclick="showMainTab('discover')">Discover</button>
-                        <a href="compose.html" class="nav-tab">Compose</a>
+                        <a href="compose.html" class="nav-tab" onclick="return checkAuthForCompose(event)">Compose</a>
                         <a href="build.html" class="nav-tab">Build</a>
                     </nav>
                 
@@ -2059,10 +2631,24 @@
                                 <span class="tooltip-label">Email</span>
                                 <span class="tooltip-value" id="userEmail">guest@syft.org</span>
                             </div>
-                            <div class="tooltip-section">
+                            <div class="tooltip-section" id="balanceSection">
                                 <span class="tooltip-label">Balance</span>
-                                <span class="tooltip-balance" id="userBalance">$20</span>
+                                <span class="tooltip-balance" id="userBalance" style="color: #ef4444;">Missing</span>
                             </div>
+                            <div class="tooltip-section">
+                                <span class="tooltip-label">Wallet Manager</span>
+                                <span class="tooltip-value" id="paymentStatus">Not registered</span>
+                            </div>
+                            <div class="tooltip-divider"></div>
+                            <button class="tooltip-button" onclick="showPaymentRegistration()" id="registerPaymentBtn">
+                                🔧 Register Wallet Manager
+                            </button>
+                            <button class="tooltip-button" onclick="managePaymentService()" id="managePaymentBtn" style="display: none;">
+                                ⚙️ Manage Wallet Manager
+                            </button>
+                            <button class="tooltip-button" onclick="signIn()" id="signInBtn">
+                                🔑 Sign In / Log In
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -2070,6 +2656,7 @@
         </div>
     </header>
 
+    <br>
     <!-- Main Content -->
     <main class="container">
         <div class="main-content">
@@ -2081,6 +2668,7 @@
                         <button class="sub-tab active" onclick="showDiscoverTab('data-sources')">🗄️ Data Sources</button>
                         <button class="sub-tab" onclick="showDiscoverTab('synthesizers')">🧠 Synthesizers</button>
                         <button class="sub-tab" onclick="showDiscoverTab('collectives')">🏢 Collectives</button>
+                        <button class="sub-tab" onclick="showDiscoverTab('agents')">🤖 Agents (future) </button>
                     </div>
                     <div class="sub-nav-right">
                         <div class="sorting-controls">
@@ -2118,7 +2706,7 @@
                                 <label class="label">Supported Service</label>
                                 <div class="filter-pills" data-filter="mode">
                                     <span class="filter-pill" data-value="search">🔍 Search</span>
-                                    <span class="filter-pill" data-value="chat">💬 Chat</span>
+                                    <span class="filter-pill" data-value="/rag">💬 RAG</span>
                                 </div>
                             </div>
 
@@ -2217,7 +2805,7 @@
                             <label class="config-label">Mode:</label>
                             <select class="config-input" id="modalMode" onchange="updateModalConfig()">
                                 <option value="search">Search</option>
-                                <option value="chat">Chat</option>
+                                <option value="/rag">RAG</option>
                                 <option value="mcp">MCP</option>
                             </select>
                         </div>
@@ -2238,6 +2826,26 @@
                         <div class="section-title">Test Query</div>
                         <textarea class="chat-input" id="chatInput" placeholder="Enter your message or query here..."></textarea>
                         <button class="chat-button" onclick="runQuery()">Run Query</button>
+                        
+                        <!-- Response Box -->
+                        <div class="response-box" id="responseBox">
+                            <div class="response-header">
+                                <span>🎯</span>
+                                <span>Analysis Complete</span>
+                            </div>
+                            
+                            <div class="response-metadata" id="responseMetadata">
+                                <!-- Metadata badges will be populated by JavaScript -->
+                            </div>
+                            
+                            <div class="response-content" id="responseContent">
+                                <!-- Response content will be populated by JavaScript -->
+                            </div>
+                            
+                            <div class="response-note">
+                                <strong>💡 Note:</strong> This is a demonstration of SyftBox's federated AI composition capabilities. In a production environment, this would provide detailed analysis based on your specific query with real data insights, source citations with confidence scores, and interactive follow-up suggestions.
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -2248,7 +2856,8 @@
                     <div class="code-tabs">
                         <button class="code-tab active" onclick="showCodeTab('python')">Python</button>
                         <button class="code-tab" onclick="showCodeTab('http')">HTTP</button>
-                        <button class="code-tab" onclick="showCodeTab('mcp')" id="mcpTab" style="display: none;">MCP Install</button>
+                        <button class="code-tab" onclick="showCodeTab('claude')" id="claudeTab" style="display: none;">Claude Install</button>
+                        <button class="code-tab" onclick="showCodeTab('manual')" id="manualTab" style="display: none;">Manual Install</button>
                     </div>
 
                     <div id="pythonCode" class="code-block">
@@ -2257,14 +2866,16 @@
                     <div id="httpCode" class="code-block hidden">
                         <button class="code-copy-btn" onclick="copyCode('httpCode')">Copy</button>
                     </div>
-                </div>
-
-                <!-- MCP Install Section (Separate from code section) -->
-                <div class="mcp-section hidden" id="mcpSection">
-                    <div class="section-title">Installation Options</div>
-                    <div id="mcpCode" class="mcp-install-wrapper">
+                    <!-- MCP Install Tabs - Using separate class -->
+                    <div id="claudeCode" class="mcp-tab-panel hidden">
+                        <!-- Content will be generated dynamically -->
+                    </div>
+                    <div id="manualCode" class="mcp-tab-panel hidden">
+                        <!-- Content will be generated dynamically -->
                     </div>
                 </div>
+
+
             </div>
         </div>
     </div>
@@ -2310,7 +2921,7 @@
                 <div class="text-sm text-muted">Add sources/synthesizers from Discover to begin.</div>
             </div>
             <div class="popup-footer">
-                <a href="compose.html" class="btn btn-sm btn-primary" onclick="transferComposition()">Go to Compose →</a>
+                <button class="btn btn-sm btn-primary" onclick="transferComposition()">Go to Compose →</button>
             </div>
         </div>
     </div>
@@ -2354,39 +2965,339 @@
             
             // Trigger initial mode setup
             toggleMode();
+            
+            // Update user info first to sync userAccount
+            updateUserInfo();
+            
+            // Initialize payment status
+            updatePaymentStatus();
+            
+            // Add password validation listeners
+            const passwordInput = document.getElementById('paymentPassword');
+            const confirmInput = document.getElementById('paymentPasswordConfirm');
+            
+            if (passwordInput && confirmInput) {
+                passwordInput.addEventListener('input', validatePasswords);
+                confirmInput.addEventListener('input', validatePasswords);
+            }
+            
+            // Listen for account updates from other pages
+            window.addEventListener('userAccountUpdated', function(event) {
+                userAccount = event.detail;
+                updatePaymentStatus();
+            });
         });
 
+        // Centralized User Account Management System
+        class UserAccountManager {
+            constructor() {
+                this.storageKey = 'userAccountData';
+                this.walletStorageKey = 'walletManagerData'; // Separate storage for wallet data
+                this.defaultAccount = {
+                    email: 'guest@syft.org',
+                    name: 'Guest',
+                    paymentService: null
+                    // Note: balance is not set by default - only when wallet manager is registered
+                };
+                this.account = this.loadAccount();
+                this.loadWalletData(); // Load wallet data separately
+            }
+            
+            loadAccount() {
+                try {
+                    const stored = localStorage.getItem(this.storageKey);
+                    if (stored) {
+                        const parsedAccount = JSON.parse(stored);
+                        // Merge with defaults to ensure all properties exist
+                        return { ...this.defaultAccount, ...parsedAccount };
+                    }
+                } catch (e) {
+                    console.warn('Failed to load user account from localStorage:', e);
+                }
+                return { ...this.defaultAccount };
+            }
+            
+            loadWalletData() {
+                try {
+                    const walletData = localStorage.getItem(this.walletStorageKey);
+                    if (walletData) {
+                        const parsed = JSON.parse(walletData);
+                        this.account.paymentService = parsed.paymentService;
+                        this.account.balance = parsed.balance;
+                    }
+                } catch (e) {
+                    console.warn('Failed to load wallet data from localStorage:', e);
+                }
+            }
+            
+            saveWalletData() {
+                try {
+                    const walletData = {
+                        paymentService: this.account.paymentService,
+                        balance: this.account.balance
+                    };
+                    localStorage.setItem(this.walletStorageKey, JSON.stringify(walletData));
+                } catch (e) {
+                    console.warn('Failed to save wallet data to localStorage:', e);
+                }
+            }
+            
+            saveAccount() {
+                try {
+                    localStorage.setItem(this.storageKey, JSON.stringify(this.account));
+                } catch (e) {
+                    console.warn('Failed to save user account to localStorage:', e);
+                }
+            }
+            
+            updateAccount(updates) {
+                this.account = { ...this.account, ...updates };
+                this.saveAccount();
+                // Trigger UI updates across all pages
+                this.broadcastAccountUpdate();
+            }
+            
+            broadcastAccountUpdate() {
+                // Trigger storage event for cross-page communication
+                window.dispatchEvent(new CustomEvent('userAccountUpdated', { 
+                    detail: this.account 
+                }));
+            }
+            
+            getAccount() {
+                return { ...this.account };
+            }
+            
+            registerPaymentService(provider, url) {
+                this.account.paymentService = {
+                    provider,
+                    url,
+                    registeredAt: new Date().toISOString()
+                };
+                this.account.balance = '$87.20'; // Set balance when wallet manager is registered
+                
+                // Save wallet data separately (persists across user changes)
+                this.saveWalletData();
+                
+                // Also update account and broadcast
+                this.saveAccount();
+                this.broadcastAccountUpdate();
+            }
+            
+            updateAuthenticatedUser(email) {
+                // Only update email/name if different
+                if (this.account.email !== email) {
+                    this.account.email = email;
+                    this.account.name = email.split('@')[0];
+                    
+                    // Always reload wallet data (persists across users)
+                    this.loadWalletData();
+                    
+                    this.saveAccount();
+                    this.broadcastAccountUpdate();
+                }
+            }
+            
+            isLoggedIn() {
+                return this.account.email !== 'guest@syft.org';
+            }
+            
+            hasPaymentService() {
+                return this.account.paymentService !== null;
+            }
+        }
+        
+        // Global account manager instance
+        const accountManager = new UserAccountManager();
+        
+        // Legacy userAccount object for backward compatibility
+        let userAccount = accountManager.getAccount();
+        
+        // Wallet Manager Registration Functions
+        function showPaymentRegistration() {
+            document.getElementById('paymentEmail').value = userAccount.email;
+            document.getElementById('paymentRegistrationModal').style.display = 'flex';
+            resetPaymentModal();
+        }
+        
+        function selectPaymentService(service) {
+            document.getElementById('openmined-radio').checked = true;
+            document.getElementById('proceedBtn').disabled = false;
+        }
+        
+        function proceedToPasswordStep() {
+            document.getElementById('paymentStep1').classList.remove('active');
+            document.getElementById('paymentStep2').classList.add('active');
+        }
+        
+        function goBackToServiceSelection() {
+            document.getElementById('paymentStep2').classList.remove('active');
+            document.getElementById('paymentStep1').classList.add('active');
+        }
+        
+        function validatePasswords() {
+            const password = document.getElementById('paymentPassword').value;
+            const confirmPassword = document.getElementById('paymentPasswordConfirm').value;
+            const errorDiv = document.getElementById('passwordError');
+            
+            if (password && confirmPassword && password !== confirmPassword) {
+                errorDiv.style.display = 'block';
+                return false;
+            } else {
+                errorDiv.style.display = 'none';
+                return true;
+            }
+        }
+        
+        function completePaymentRegistration() {
+            const password = document.getElementById('paymentPassword').value;
+            const confirmPassword = document.getElementById('paymentPasswordConfirm').value;
+            
+            if (!password || !confirmPassword) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            if (!validatePasswords()) {
+                return;
+            }
+            
+            // Register wallet manager using account manager
+            accountManager.registerPaymentService('OpenMined Wallet Manager', 'https://payments.openmined.org');
+            
+            // Update local userAccount object for immediate UI update
+            userAccount = accountManager.getAccount();
+            
+            updatePaymentStatus();
+            closeModal('paymentRegistrationModal');
+            alert('Payment service registration completed successfully!');
+        }
+        
+        function updatePaymentStatus() {
+            // Get fresh account data
+            userAccount = accountManager.getAccount();
+            
+            const paymentStatus = document.getElementById('paymentStatus');
+            const registerBtn = document.getElementById('registerPaymentBtn');
+            const manageBtn = document.getElementById('managePaymentBtn');
+            const balanceSection = document.getElementById('balanceSection');
+            const signInBtn = document.getElementById('signInBtn');
+            const balanceElement = document.getElementById('userBalance');
+            
+            const isLoggedIn = accountManager.isLoggedIn();
+            const hasPaymentService = accountManager.hasPaymentService();
+            
+            // Always show balance section but update content based on wallet manager status
+            if (balanceSection) balanceSection.style.display = 'block';
+            
+            if (hasPaymentService) {
+                // Update balance display when registered
+                if (balanceElement) {
+                    balanceElement.textContent = userAccount.balance || '$87.20';
+                    balanceElement.style.color = ''; // Default color
+                }
+                
+                if (paymentStatus) {
+                    paymentStatus.textContent = 'Registered';
+                    paymentStatus.style.color = '#16a34a';
+                }
+                if (registerBtn) registerBtn.style.display = 'none';
+                if (manageBtn) manageBtn.style.display = 'block';
+            } else {
+                // Show "Missing" when not registered
+                if (balanceElement) {
+                    balanceElement.textContent = 'Missing';
+                    balanceElement.style.color = '#ef4444'; // Red color for missing
+                }
+                
+                if (paymentStatus) {
+                    paymentStatus.textContent = 'Not registered';
+                    paymentStatus.style.color = '#64748b';
+                }
+                // Show register button only when logged in (not guest)
+                if (registerBtn) registerBtn.style.display = isLoggedIn ? 'block' : 'none';
+                if (manageBtn) manageBtn.style.display = 'none';
+            }
+            
+            // Show/hide sign in button based on login status
+            if (signInBtn) {
+                signInBtn.style.display = isLoggedIn ? 'none' : 'block';
+            }
+        }
+        
+        function managePaymentService() {
+            alert(`Manage your ${userAccount.paymentService.provider} account\n\nRegistered: ${new Date(userAccount.paymentService.registeredAt).toLocaleDateString()}\nService URL: ${userAccount.paymentService.url}`);
+        }
+        
+        function resetPaymentModal() {
+            document.getElementById('paymentStep1').classList.add('active');
+            document.getElementById('paymentStep2').classList.remove('active');
+            document.getElementById('paymentPassword').value = '';
+            document.getElementById('paymentPasswordConfirm').value = '';
+            document.getElementById('passwordError').style.display = 'none';
+            document.getElementById('openmined-radio').checked = false;
+            document.getElementById('proceedBtn').disabled = true;
+        }
+        
+        // Paid Service Validation
+        function checkPaidServiceAccess(serviceName) {
+            // Example list of paid services
+            const paidServices = ['gpt-4-turbo', 'claude-3-opus', 'gemini-pro'];
+            
+            if (paidServices.some(service => serviceName.toLowerCase().includes(service))) {
+                if (!userAccount.paymentService) {
+                    showPaymentRequiredModal();
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+        function showPaymentRequiredModal() {
+            document.getElementById('paymentRequiredModal').style.display = 'flex';
+        }
+        
+        // Close modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+        
+        // Sign in function
+        function signIn() {
+            window.location.href = 'login.html';
+        }
+        
         // Sample data
         const SERVICES = [
   {
     id: "sa-animals",
-    name: "Animals of South Africa",
+    name: "Animals-of-South-Africa",
                 owner: "research@safari-lab.org",
     type: "data",
     hub: "wildlife",
     summary: "Species records, park reports, conservation notes.",
                 description: "Curated wildlife corpus with ranger logs, conservation bulletins, and biodiversity surveys (2010–2025).",
     pricing: "$0.005 / request",
-    endpoints: ["search", "chat"],
+    endpoints: ["search", "/rag"],
     tags: ["domain:wildlife", "language:en", "task:retrieval", "task:rag-generation"],
                 mcp: true,
   },
   {
     id: "lex-civil",
-    name: "Lex Civil Law",
+    name: "Lex-Civil-Law",
                 owner: "data@lexfirm.eu",
     type: "data",
     hub: "civil-law",
     summary: "Civil code, case law digests, firm memos (EU focus).",
     description: "Continuously indexed civil law materials with internal commentary and citations.",
     pricing: "$0.010 / request",
-    endpoints: ["search", "chat"],
+    endpoints: ["search", "/rag"],
     tags: ["domain:legal", "language:en", "language:de", "task:retrieval", "task:rag-generation"],
                 mcp: false,
   },
   {
     id: "med-devices",
-    name: "MedDevice Records",
+    name: "MedDevice-Records",
                 owner: "admin@st-marys-hospital.com",
     type: "data",
     hub: "devices",
@@ -2489,7 +3400,7 @@
                 summary: "Biomedical text understanding and entity extraction.",
                 description: "Pre-trained on PubMed abstracts and clinical notes for biomedical NLP tasks and drug discovery.",
                 pricing: "$0.05 / request",
-                endpoints: ["search", "chat"],
+                endpoints: ["search", "/rag"],
                 tags: ["domain:healthcare", "task:extraction", "task:retrieval", "model:bert"],
                 mcp: true,
             },
@@ -2525,7 +3436,7 @@
                 summary: "Legal document analysis and case law reasoning.",
                 description: "Academic model trained on legal corpus for contract analysis, case outcome prediction, and legal research.",
                 pricing: "$0.15 / request",
-                endpoints: ["search", "chat"],
+                endpoints: ["search", "/rag"],
                 tags: ["domain:legal", "task:analysis", "task:research", "model:academic"],
                 mcp: false,
             },
@@ -2559,26 +3470,66 @@
 
         let currentUserState = 'user'; // Change this to test different states
 
+        // Check authentication
+        function isAuthenticated() {
+            const auth = localStorage.getItem('isAuthenticated');
+            const authTime = parseInt(localStorage.getItem('authTime') || '0');
+            const now = Date.now();
+            const hoursSinceAuth = (now - authTime) / (1000 * 60 * 60);
+            
+            return auth === 'true' && hoursSinceAuth < 24;
+        }
+
+        // Check authentication for Compose navigation
+        function checkAuthForCompose(event) {
+            if (!isAuthenticated()) {
+                event.preventDefault();
+                window.location.href = 'login.html?redirect=compose.html';
+                return false;
+            }
+            return true;
+        }
+
         // Update user info display
         function updateUserInfo() {
-            const userState = USER_STATES[currentUserState];
-            const emailElement = document.getElementById('userEmail');
-            const balanceElement = document.getElementById('userBalance');
-            const usageElement = document.getElementById('monthlyUsage');
-            
-            emailElement.textContent = userState.email;
-            balanceElement.textContent = userState.balance;
-            usageElement.textContent = userState.usage;
-            
-            // Apply guest styling if needed
-            if (userState.isGuest) {
-                emailElement.className = 'tooltip-guest';
-                balanceElement.className = 'tooltip-guest';
-                usageElement.className = 'tooltip-guest';
-            } else {
-                emailElement.className = 'tooltip-value';
-                balanceElement.className = 'tooltip-balance';
+            // Use authenticated email if available
+            const authEmail = localStorage.getItem('userEmail');
+            if (authEmail && isAuthenticated()) {
+                // Update account manager with authenticated email
+                accountManager.updateAuthenticatedUser(authEmail);
+                userAccount = accountManager.getAccount();
+                
+                const emailElement = document.getElementById('userEmail');
+                const balanceElement = document.getElementById('userBalance');
+                const usageElement = document.getElementById('monthlyUsage');
+                
+                if (emailElement) emailElement.textContent = authEmail;
+                // Note: Balance is handled by updatePaymentStatus() - don't set it here
+                if (usageElement) usageElement.textContent = '1,247 requests';
+                
+                if (emailElement) emailElement.className = 'tooltip-value';
+                if (balanceElement) balanceElement.className = 'tooltip-balance';
                 usageElement.className = 'tooltip-value';
+            } else {
+                const userState = USER_STATES[currentUserState];
+                const emailElement = document.getElementById('userEmail');
+                const balanceElement = document.getElementById('userBalance');
+                const usageElement = document.getElementById('monthlyUsage');
+                
+                emailElement.textContent = userState.email;
+                // Note: Balance is handled by updatePaymentStatus() - don't set it here
+                usageElement.textContent = userState.usage;
+                
+                // Apply guest styling if needed
+                if (userState.isGuest) {
+                    emailElement.className = 'tooltip-guest';
+                    balanceElement.className = 'tooltip-guest';
+                    usageElement.className = 'tooltip-guest';
+                } else {
+                    emailElement.className = 'tooltip-value';
+                    balanceElement.className = 'tooltip-balance';
+                    usageElement.className = 'tooltip-value';
+                }
             }
         }
 
@@ -2586,33 +3537,241 @@
         const COLLECTIVES = [
             {
                 id: "bio-rag-collective",
-                name: "🏢 Bio RAG Collective",
+                name: "🏢 Bio-RAG-Collective",
                 type: "collective",
                 summary: "Query this collective → routes only within members meeting policy today.",
                 tags: ["Verified", "Routing policy", "Eval thresholds"],
                 description: "Biomedical research collective with verified data sources and smart routing.",
                 pricing: "Free tier available",
-                members: 15
+                members: 15,
+                endpoints: ["search", "/rag"],
+                mcp: true,
+                memberList: [
+                    "nlp@mayo.edu",
+                    "research@stanford.edu", 
+                    "bio@johns-hopkins.edu",
+                    "data@pfizer.com",
+                    "ai@moderna.com",
+                    "research@nih.gov",
+                    "bio@harvard.edu",
+                    "medical@cdc.gov",
+                    "data@merck.com",
+                    "research@ucsf.edu",
+                    "bio@mit.edu",
+                    "ai@novartis.com",
+                    "research@yale.edu",
+                    "medical@who.org",
+                    "data@roche.com"
+                ]
             },
             {
                 id: "pii-safe-collective",
-                name: "🏢 PII-Safe Collective",
+                name: "🏢 PII-Safe-Collective",
                 type: "collective",
                 summary: "All services in this collective are PII-safe and GDPR compliant.",
                 tags: ["Verified", "Privacy focused", "GDPR compliant"],
                 description: "Privacy-focused collective ensuring data protection compliance.",
                 pricing: "$0.002 / request",
-                members: 8
+                members: 8,
+                endpoints: ["search", "/rag"],
+                mcp: true,
+                memberList: [
+                    "privacy@protonmail.com",
+                    "secure@signal.org",
+                    "data@tutanota.com",
+                    "privacy@duckduckgo.com",
+                    "secure@startpage.com",
+                    "data@mullvad.net",
+                    "privacy@torproject.org",
+                    "secure@brave.com"
+                ]
             },
             {
                 id: "swiss-public-sector",
-                name: "🏢 Swiss Public Sector",
+                name: "🏢 Swiss-Public-Sector",
                 type: "collective",
                 summary: "Swiss government services and public sector data sources.",
                 tags: ["Government", "Local data", "Verified"],
                 description: "Official Swiss government and public sector data collective.",
                 pricing: "Public access",
-                members: 23
+                members: 23,
+                endpoints: ["search"],
+                mcp: false,
+                memberList: [
+                    "admin@admin.ch",
+                    "data@swisstopo.ch",
+                    "info@srf.ch",
+                    "data@meteoswiss.ch",
+                    "admin@eda.admin.ch",
+                    "data@bfs.admin.ch",
+                    "info@swissinfo.ch",
+                    "data@seco.admin.ch",
+                    "admin@bag.admin.ch",
+                    "data@are.admin.ch",
+                    "info@parlament.ch",
+                    "data@bfe.admin.ch",
+                    "admin@ejpd.admin.ch",
+                    "data@vbs.admin.ch",
+                    "info@uvek.admin.ch",
+                    "data@efd.admin.ch",
+                    "admin@wbf.admin.ch",
+                    "data@bak.admin.ch",
+                    "info@fedlex.admin.ch",
+                    "data@astra.admin.ch",
+                    "admin@bakom.admin.ch",
+                    "data@sbb.ch",
+                    "info@post.ch"
+                ]
+            }
+        ];
+
+        // Agents data (bundles from Compose)
+        const AGENTS = [
+            {
+                id: "legal-research-agent",
+                name: "Legal-Research-Assistant",
+                type: "agent",
+                summary: "AI-powered legal research across civil law, contracts, and international regulations",
+                description: "Combines multiple legal data sources with specialized LLMs for comprehensive legal research and analysis",
+                tags: ["Legal", "Research", "Multi-source"],
+                sources: [
+                    { id: "lex-civil", name: "Lex-Civil-Law", owner: "data@lexfirm.eu" },
+                    { id: "med-devices", name: "MedDevice Records", owner: "admin@st-marys-hospital.com" },
+                    { id: "sa-animals", name: "Animals of South Africa", owner: "research@safari-lab.org" }
+                ],
+                synthesizer: {
+                    id: "lex-moe",
+                    name: "Lex MoE",
+                    owner: "models@lexfirm.eu",
+                    params: {
+                        temperature: 0.3,
+                        max_tokens: 2000,
+                        mode: "legal_analysis"
+                    }
+                },
+                executionLayout: "Sequential → Parallel merge → Synthesis",
+                githubUrl: "https://github.com/syft-hub/agents/legal-research",
+                colabUrl: "https://colab.research.google.com/github/syft-hub/agents/legal-research/notebook.ipynb",
+                created: "2024-03-01",
+                author: "legal@syft.org",
+                usage: 1250
+            },
+            {
+                id: "medical-diagnosis-agent",
+                name: "Medical-Diagnosis-Support",
+                type: "agent",
+                summary: "Clinical decision support combining medical device data with biomedical research",
+                description: "Integrates hospital records, clinical trials, and medical device data with specialized biomedical LLMs",
+                tags: ["Medical", "Diagnosis", "Clinical"],
+                sources: [
+                    { id: "meddevice_records", name: "Medical-Device-Records", owner: "st-marys-hospital.com" },
+                    { id: "clinical_trials", name: "Clinical-Trials-Database", owner: "nlp@mayo.edu" },
+                    { id: "pubmed_research", name: "PubMed-Research", owner: "research@stanford.edu" }
+                ],
+                synthesizer: {
+                    id: "biobert_clinical",
+                    name: "BioBERT Clinical",
+                    owner: "nlp@mayo.edu",
+                    params: {
+                        temperature: 0.2,
+                        max_tokens: 1500,
+                        mode: "clinical_analysis",
+                        confidence_threshold: 0.85
+                    }
+                },
+                executionLayout: "Parallel retrieval → Ranking → Synthesis → Validation",
+                githubUrl: "https://github.com/syft-hub/agents/medical-diagnosis",
+                colabUrl: "https://colab.research.google.com/github/syft-hub/agents/medical-diagnosis/notebook.ipynb",
+                created: "2024-02-15",
+                author: "medical@syft.org",
+                usage: 892
+            },
+            {
+                id: "wildlife-conservation-agent",
+                name: "Wildlife-Conservation-Analyst",
+                type: "agent",
+                summary: "Biodiversity and conservation analysis for South African wildlife",
+                description: "Analyzes wildlife data, migration patterns, and conservation efforts using specialized models",
+                tags: ["Conservation", "Wildlife", "Environmental"],
+                sources: [
+                    { id: "animals_south_africa", name: "Animals-of-South-Africa", owner: "safari-lab.org" },
+                    { id: "migration_patterns", name: "Migration-Patterns-DB", owner: "conservation.org" }
+                ],
+                synthesizer: {
+                    id: "llama-3-70b",
+                    name: "Llama 3 70B",
+                    owner: "research@meta.com",
+                    params: {
+                        temperature: 0.5,
+                        max_tokens: 2500,
+                        mode: "scientific_analysis"
+                    }
+                },
+                executionLayout: "Data aggregation → Pattern analysis → Synthesis",
+                githubUrl: "https://github.com/syft-hub/agents/wildlife-conservation",
+                colabUrl: "https://colab.research.google.com/github/syft-hub/agents/wildlife-conservation/notebook.ipynb",
+                created: "2024-03-10",
+                author: "conservation@syft.org",
+                usage: 567
+            },
+            {
+                id: "market-intelligence-agent",
+                name: "Market-Intelligence-Scanner",
+                type: "agent",
+                summary: "Real-time market analysis combining financial data with GPT-4",
+                description: "Scans multiple financial data sources for market trends, opportunities, and risk analysis",
+                tags: ["Finance", "Market Analysis", "Real-time"],
+                sources: [
+                    { id: "bloomberg_data", name: "Bloomberg-Terminal", owner: "data@bloomberg.com" },
+                    { id: "sec_filings", name: "SEC-Filings", owner: "sec.gov" },
+                    { id: "market_sentiment", name: "Market-Sentiment", owner: "finance@reuters.com" }
+                ],
+                synthesizer: {
+                    id: "gpt-4-turbo",
+                    name: "GPT-4 Turbo",
+                    owner: "api@openai.com",
+                    params: {
+                        temperature: 0.4,
+                        max_tokens: 3000,
+                        mode: "financial_analysis",
+                        response_format: "structured"
+                    }
+                },
+                executionLayout: "Real-time streaming → Aggregation → Analysis → Alert generation",
+                githubUrl: "https://github.com/syft-hub/agents/market-intelligence",
+                colabUrl: "https://colab.research.google.com/github/syft-hub/agents/market-intelligence/notebook.ipynb",
+                created: "2024-03-05",
+                author: "finance@syft.org",
+                usage: 2103
+            },
+            {
+                id: "code-review-agent",
+                name: "Intelligent-Code-Reviewer",
+                type: "agent",
+                summary: "Automated code review with security analysis and best practices",
+                description: "Combines code repositories with specialized code analysis models for comprehensive reviews",
+                tags: ["Development", "Security", "Code Quality"],
+                sources: [
+                    { id: "github_repos", name: "GitHub-Repositories", owner: "github.com" },
+                    { id: "security_vulns", name: "Security-Vulnerabilities-DB", owner: "nvd.nist.gov" }
+                ],
+                synthesizer: {
+                    id: "code_llama_34b",
+                    name: "Code Llama 34B",
+                    owner: "research@meta.com",
+                    params: {
+                        temperature: 0.1,
+                        max_tokens: 2000,
+                        mode: "code_review",
+                        languages: ["python", "javascript", "java"]
+                    }
+                },
+                executionLayout: "Code parsing → Vulnerability scan → Pattern matching → Report generation",
+                githubUrl: "https://github.com/syft-hub/agents/code-review",
+                colabUrl: "https://colab.research.google.com/github/syft-hub/agents/code-review/notebook.ipynb",
+                created: "2024-02-28",
+                author: "dev@syft.org",
+                usage: 3421
             }
         ];
 
@@ -2688,14 +3847,19 @@
             
             if (type === 'data-sources') {
                 filteredServices = SERVICES.filter(s => s.type === 'data');
+                renderServices(filteredServices);
             } else if (type === 'synthesizers') {
                 filteredServices = SERVICES.filter(s => s.type === 'model');
+                renderServices(filteredServices);
             } else if (type === 'collectives') {
                 // Show collectives data
                 filteredServices = COLLECTIVES;
+                renderServices(filteredServices);
+            } else if (type === 'agents') {
+                // Show agents with custom rendering
+                renderAgents(AGENTS);
+                return;
             }
-            
-            renderServices(filteredServices);
         }
 
         // Toggle switch
@@ -2741,6 +3905,13 @@
         function renderServices(services = SERVICES) {
             const grid = document.getElementById('servicesGrid');
             grid.innerHTML = '';
+            
+            // Determine grid class based on service type
+            if (services.length > 0 && services[0].type === 'collective') {
+                grid.className = 'collectives-grid';
+            } else {
+                grid.className = 'services-grid';
+            }
 
             services.forEach(service => {
                 const card = createServiceCard(service);
@@ -2754,9 +3925,10 @@
             card.className = 'card service-card';
             card.setAttribute('data-type', service.type);
             
-            const typeIcon = service.type === 'data' ? '🗄️' : '🧠';
-            const typeName = service.type === 'data' ? 'Data' : 'Synthesizer';
-            const badgeClass = service.type === 'data' ? 'badge-data' : 'badge-model';
+            // Treat collectives as data sources
+            const typeIcon = (service.type === 'data' || service.type === 'collective') ? '🗄️' : '🧠';
+            const typeName = (service.type === 'data' || service.type === 'collective') ? 'Data Source' : 'Synthesizer';
+            const badgeClass = (service.type === 'data' || service.type === 'collective') ? 'badge-data' : 'badge-model';
             
             // Make the card clickable for both data sources and synthesizers
             const isClickable = true;
@@ -2776,8 +3948,8 @@
                 // For synthesizers, show the owner/name format
                 displayName = `${service.owner}/${service.name}`;
             } else if (service.type === 'collective') {
-                // For collectives, use name as-is
-                displayName = service.name;
+                // For collectives, use name as-is but mark as collective data source
+                displayName = service.name + ' (Collective)';
             }
             
             card.innerHTML = `
@@ -2797,19 +3969,32 @@
                     <div class="service-tags">
                         ${service.type === 'collective' ? 
                             service.tags.map(tag => `<span class="badge badge-outline">${tag}</span>`).join('') :
-                            `${service.endpoints.includes('search') ? '<span class="badge badge-outline">🔍 Search</span>' : ''}
-                             ${service.endpoints.includes('chat') ? '<span class="badge badge-outline">💬 Chat</span>' : ''}
+                            `${service.endpoints && service.endpoints.includes('search') ? '<span class="badge badge-outline">🔍 Search</span>' : ''}
+                             ${service.endpoints && service.endpoints.includes('chat') ? '<span class="badge badge-outline">💬 Chat</span>' : ''}
+                             ${service.endpoints && service.endpoints.includes('/rag') ? '<span class="badge badge-outline">💬 RAG</span>' : ''}
                              ${service.mcp ? '<span class="badge badge-default">🔗 MCP</span>' : ''}`
                         }
         </div>
+        ${service.type === 'collective' ? `
+                    <div class="collective-members" style="margin-top: 12px;">
+                        <div class="text-sm" style="color: #64748b; margin-bottom: 6px;">Members (${service.members}):</div>
+                        <div class="member-list" id="member-list-${service.id}">
+                            ${service.memberList.slice(0, 3).map(member => 
+                                `<div class="member-item" style="font-size: 12px; color: #374151; margin-bottom: 2px;">• ${member}</div>`
+                            ).join('')}
+                            ${service.memberList.length > 3 ? 
+                                `<button class="see-more-btn" style="background: none; border: none; color: #4A6FB3; font-size: 12px; padding: 0; cursor: pointer; text-decoration: underline;" onclick="event.stopPropagation(); toggleMemberList('${service.id}')">See ${service.memberList.length - 3} more...</button>` : ''
+                            }
+                        </div>
+                    </div>` : ''}
         </div>
                 <div class="card-footer">
                     <div class="service-footer">
                         <div class="service-pricing">${service.pricing}</div>
                         <div class="service-actions">
                             ${service.type === 'collective' ? 
-                                `<button class="btn btn-primary btn-sm" onclick="event.stopPropagation(); openCollective('${service.id}')">Open</button>
-                                 <span class="text-xs text-muted">${service.members} members</span>` :
+                                `<button class="btn btn-sm" onclick="event.stopPropagation(); openCollective('${service.id}')">View Details</button>
+                                 <button class="btn btn-primary btn-sm" onclick="event.stopPropagation(); addService('${service.id}')">➕ Add</button>` :
                                 `<button class="btn btn-sm" onclick="event.stopPropagation(); tryService('${service.id}')">Try</button>
                                  <button class="btn btn-primary btn-sm" onclick="event.stopPropagation(); addService('${service.id}')">➕ Add</button>`
                             }
@@ -2819,6 +4004,94 @@
             `;
             
             return card;
+        }
+
+        // Render agents
+        function renderAgents(agents) {
+            const grid = document.getElementById('servicesGrid');
+            grid.innerHTML = '';
+            grid.className = 'agents-grid';  // Use agents-specific grid
+
+            agents.forEach(agent => {
+                const card = createAgentCard(agent);
+                grid.appendChild(card);
+            });
+        }
+
+        // Create agent card
+        function createAgentCard(agent) {
+            const card = document.createElement('div');
+            card.className = 'agent-card';
+            
+            // Format sources list
+            const sourcesList = agent.sources.map(s => s.name).slice(0, 2).join(', ');
+            const moreCount = agent.sources.length > 2 ? ` +${agent.sources.length - 2} more` : '';
+            
+            card.innerHTML = `
+                <div class="agent-header">
+                    <div>
+                        <div class="agent-title">${agent.name}</div>
+                        <span class="badge badge-agent">🤖 Agent</span>
+                    </div>
+                </div>
+                
+                <div class="agent-summary">${agent.summary}</div>
+                
+                <div class="agent-pipeline">
+                    <div class="agent-sources-synthesizer">
+                        <div class="agent-sources">
+                            <div class="agent-label">Sources</div>
+                            <div class="agent-item" title="${agent.sources.map(s => s.name).join(', ')}">
+                                ${sourcesList}${moreCount}
+                            </div>
+                        </div>
+                        <div class="agent-synthesizer">
+                            <div class="agent-label">Synthesizer</div>
+                            <div class="agent-item">${agent.synthesizer.name}</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agent-actions">
+                    <button class="agent-action-btn primary" onclick="tryAgent('${agent.id}')">
+                        Try
+                    </button>
+                    <a href="${agent.githubUrl}" target="_blank" class="agent-action-btn">
+                        <span>📦</span> Code
+                    </a>
+                    <a href="${agent.colabUrl}" target="_blank" class="agent-action-btn">
+                        <span>📓</span> Colab
+                    </a>
+                </div>
+                
+                <div class="agent-meta">
+                    <span>${agent.usage} uses</span>
+                    <span>by ${agent.author}</span>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        // Try agent - Transfer to Compose with pre-selected sources and synthesizer
+        function tryAgent(agentId) {
+            const agent = AGENTS.find(a => a.id === agentId);
+            if (!agent) return;
+            
+            // Prepare the configuration to transfer
+            const agentConfig = {
+                sources: agent.sources,
+                synthesizer: agent.synthesizer,
+                agentName: agent.name,
+                agentId: agent.id,
+                executionLayout: agent.executionLayout
+            };
+            
+            // Store in sessionStorage to transfer to compose page
+            sessionStorage.setItem('agentConfig', JSON.stringify(agentConfig));
+            
+            // Navigate to compose page
+            window.location.href = 'compose.html';
         }
 
         // Get active filter values from pills (multi-select)
@@ -2841,7 +4114,7 @@
                 // Text search
                 const matchesQuery = service.name.toLowerCase().includes(query) || 
                                    service.summary.toLowerCase().includes(query) ||
-                                   service.tags.join(' ').toLowerCase().includes(query);
+                                   (service.tags && service.tags.join(' ').toLowerCase().includes(query));
                 
                 // Category filter (if any selected)
                 const matchesCategory = categories.length === 0 || categories.includes(service.type);
@@ -2849,20 +4122,20 @@
                 // Mode filter (if any selected)
                 const matchesMode = modes.length === 0 || 
                                   modes.some(mode => 
-                                      (mode === 'search' && service.endpoints.includes('search')) ||
-                                      (mode === 'chat' && service.endpoints.includes('chat'))
+                                      (mode === 'search' && service.endpoints && service.endpoints.includes('search')) ||
+                                      (mode === '/rag' && service.endpoints && service.endpoints.includes('/rag'))
                                   );
                 
                 // Language filter (if any selected)
                 const matchesLanguage = languages.length === 0 || 
                                       languages.some(lang => 
-                                          service.tags.some(tag => tag.includes(`language:${lang}`))
+                                          service.tags && service.tags.some(tag => tag.includes(`language:${lang}`))
                                       );
                 
                 // Domain filter (if any selected)
                 const matchesDomain = domains.length === 0 || 
                                     domains.some(domain => 
-                                        service.tags.some(tag => tag.includes(`domain:${domain}`))
+                                        service.tags && service.tags.some(tag => tag.includes(`domain:${domain}`))
                                     );
                 
                 // MCP filter (if any selected)
@@ -2890,6 +4163,12 @@
 
         // Try service
         function tryService(serviceId) {
+            // Check authentication
+            if (!isAuthenticated()) {
+                window.location.href = 'login.html?redirect=Index.html';
+                return;
+            }
+            
             currentService = SERVICES.find(s => s.id === serviceId);
             if (!currentService) return;
 
@@ -2906,12 +4185,15 @@
             if (currentService.endpoints.includes('chat')) {
                 modeSelect.innerHTML += '<option value="chat">Chat</option>';
             }
+            if (currentService.endpoints.includes('/rag')) {
+                modeSelect.innerHTML += '<option value="/rag">RAG</option>';
+            }
             if (currentService.mcp) {
                 modeSelect.innerHTML += '<option value="mcp">MCP</option>';
             }
             
             // Set default mode
-            modeSelect.value = currentService.endpoints.includes('search') ? 'search' : 'chat';
+            modeSelect.value = currentService.endpoints.includes('search') ? 'search' : '/rag';
             
             updateModalConfig();
             updateCode();
@@ -2931,45 +4213,50 @@
             const mode = document.getElementById('modalMode').value;
             const topKRow = document.getElementById('topKRow');
             const tempRow = document.getElementById('tempRow');
-            const mcpTab = document.getElementById('mcpTab');
+            const claudeTab = document.getElementById('claudeTab');
+            const manualTab = document.getElementById('manualTab');
             const pythonTab = document.querySelector('[onclick="showCodeTab(\'python\')"]');
             const httpTab = document.querySelector('[onclick="showCodeTab(\'http\')"]');
             const chatSection = document.querySelector('.chat-section');
             const codeSection = document.getElementById('codeSection');
-            const mcpSection = document.getElementById('mcpSection');
+
             
             if (mode === 'search') {
                 topKRow.classList.remove('hidden');
                 tempRow.classList.add('hidden');
-                mcpTab.style.display = 'none';
+                claudeTab.style.display = 'none';
+                manualTab.style.display = 'none';
                 pythonTab.style.display = 'block';
                 httpTab.style.display = 'block';
                 chatSection.style.display = 'block';
                 codeSection.style.display = 'block';
-                mcpSection.style.display = 'none';
+
                 // Show Python tab by default
                 showCodeTab('python');
-            } else if (mode === 'chat') {
+            } else if (mode === '/rag') {
                 topKRow.classList.add('hidden');
                 tempRow.classList.remove('hidden');
-                mcpTab.style.display = 'none';
+                claudeTab.style.display = 'none';
+                manualTab.style.display = 'none';
                 pythonTab.style.display = 'block';
                 httpTab.style.display = 'block';
                 chatSection.style.display = 'block';
                 codeSection.style.display = 'block';
-                mcpSection.style.display = 'none';
+
                 // Show Python tab by default
                 showCodeTab('python');
             } else if (mode === 'mcp') {
                 topKRow.classList.add('hidden');
                 tempRow.classList.add('hidden');
-                mcpTab.style.display = 'block';
+                claudeTab.style.display = 'block';
+                manualTab.style.display = 'block';
                 pythonTab.style.display = 'none';
                 httpTab.style.display = 'none';
                 chatSection.style.display = 'none';
-                codeSection.style.display = 'none';
-                mcpSection.style.display = 'block';
-                // Show MCP section
+                codeSection.style.display = 'block';
+
+                // Show Claude Install tab by default
+                showCodeTab('claude');
                 updateCode();
             }
             
@@ -2984,11 +4271,11 @@
             document.querySelectorAll('.code-tab').forEach(t => t.classList.remove('active'));
             document.querySelector(`[onclick="showCodeTab('${tab}')"]`).classList.add('active');
             
-            // Show selected code block
-            document.querySelectorAll('.code-block').forEach(block => block.classList.add('hidden'));
-            if (tab !== 'mcp') {
-                document.getElementById(`${tab}Code`).classList.remove('hidden');
-            }
+            // Hide all code blocks and MCP panels
+            document.querySelectorAll('.code-block, .mcp-tab-panel').forEach(block => block.classList.add('hidden'));
+            
+            // Show selected tab content
+            document.getElementById(`${tab}Code`).classList.remove('hidden');
         }
 
         // Copy code to clipboard
@@ -3006,6 +4293,26 @@
                     copyBtn.textContent = originalText;
                     copyBtn.classList.remove('copied');
                 }, 2000);
+            });
+        }
+
+        // Copy MCP command to clipboard
+        function copyMcpCommand(elementId, command) {
+            navigator.clipboard.writeText(command).then(() => {
+                // Find the button that was clicked
+                const codeBlock = document.getElementById(elementId);
+                const button = codeBlock.parentElement.querySelector('.code-copy-btn');
+                
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
             });
         }
 
@@ -3161,24 +4468,29 @@
             const temp = document.getElementById('tempInput').value;
             const message = document.getElementById('chatInput').value || 'Your query here';
             
-            const pythonCode = generatePythonCode(mode, topK, temp, message);
-            const httpCode = generateHttpCode(mode, topK, temp, message);
-            const mcpCode = generateMcpCode();
-            
-                        // Apply syntax highlighting to Python code
-            const pythonBlock = document.getElementById('pythonCode');
-            pythonBlock.innerHTML = '<button class="code-copy-btn" onclick="copyCode(\'pythonCode\')">Copy</button><pre>' + highlightPython(pythonCode) + '</pre>';
-            pythonBlock.dataset.rawCode = pythonCode; // Store raw code for copying
-            
-            // Plain text for HTTP and MCP
-            const httpBlock = document.getElementById('httpCode');
-            httpBlock.innerHTML = '<button class="code-copy-btn" onclick="copyCode(\'httpCode\')">Copy</button><pre>' + httpCode + '</pre>';
-            httpBlock.dataset.rawCode = httpCode; // Store raw code for copying
-
-            const mcpBlock = document.getElementById('mcpCode');
-            // Clear any existing content and insert the HTML directly
-            mcpBlock.innerHTML = '';
-            mcpBlock.insertAdjacentHTML('beforeend', mcpCode);
+            if (mode === 'mcp') {
+                // Generate MCP installation content
+                const claudeBlock = document.getElementById('claudeCode');
+                claudeBlock.innerHTML = generateClaudeInstructions();
+                claudeBlock.dataset.rawCode = generateClaudeCode();
+                
+                const manualBlock = document.getElementById('manualCode');
+                manualBlock.innerHTML = generateManualInstructions();
+            } else {
+                // Generate regular code
+                const pythonCode = generatePythonCode(mode, topK, temp, message);
+                const httpCode = generateHttpCode(mode, topK, temp, message);
+                
+                // Apply syntax highlighting to Python code
+                const pythonBlock = document.getElementById('pythonCode');
+                pythonBlock.innerHTML = '<button class="code-copy-btn" onclick="copyCode(\'pythonCode\')">Copy</button><pre>' + highlightPython(pythonCode) + '</pre>';
+                pythonBlock.dataset.rawCode = pythonCode; // Store raw code for copying
+                
+                // Plain text for HTTP
+                const httpBlock = document.getElementById('httpCode');
+                httpBlock.innerHTML = '<button class="code-copy-btn" onclick="copyCode(\'httpCode\')">Copy</button><pre>' + httpCode + '</pre>';
+                httpBlock.dataset.rawCode = httpCode; // Store raw code for copying
+            }
         }
 
         // Generate Python code
@@ -3218,7 +4530,7 @@ def main():
 
 if __name__ == "__main__":
     main()`;
-            } else if (mode === 'chat') {
+            } else if (mode === '/rag') {
                 return `#!/usr/bin/env python3
 """
 Chat example for ${currentService.name}
@@ -3296,7 +4608,7 @@ Response:
   "total": ${topK},
   "query_time_ms": 145
 }`;
-            } else if (mode === 'chat') {
+            } else if (mode === '/rag') {
                 return `# Chat API Example for ${currentService.name}
 curl -X POST "${baseUrl}/chat" \\
   -H "Content-Type: application/json" \\
@@ -3341,84 +4653,146 @@ Response:
             }
         }
 
-        // Generate MCP installation code
-        function generateMcpCode() {
+        // Generate Claude installation code
+        function generateClaudeCode() {
+            const serviceName = currentService.name.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
+            const serviceUrl = `https://mcp.syftbox.net/${currentService.id}`;
+            
+            return `claude mcp add --transport http syftbox_${currentService.id} ${serviceUrl}`;
+        }
+        
+        // Generate Claude installation instructions
+        function generateClaudeInstructions() {
+            const claudeCommand = generateClaudeCode();
+            
+            return `
+                <h4>Quick Installation for ${currentService.name}</h4>
+                <p>Run this command in your terminal to install the MCP service:</p>
+                
+                <div class="mcp-command-block">
+                    <button class="code-copy-btn" onclick="copyMcpCommand('claude-main-cmd', '${claudeCommand.replace(/'/g, "\\'").replace(/"/g, '\\"')}')">Copy</button>
+                    <pre><code id="claude-main-cmd">${claudeCommand}</code></pre>
+                </div>
+                
+                <h4>What this command does</h4>
+                <ul>
+                    <li>Adds the MCP server to your Claude Desktop</li>
+                    <li>Configures the connection settings automatically</li>
+                    <li>Enables the service in your Claude interface</li>
+                </ul>
+                
+                <h4>After installation</h4>
+                <ol>
+                    <li>Restart Claude Desktop to activate the service</li>
+                    <li>Look for "${currentService.name}" in your tools menu</li>
+                    <li>Start using the service directly in Claude</li>
+                </ol>
+                
+                <h4>Additional commands</h4>
+                <p>Verify installation:</p>
+                <div class="mcp-command-block">
+                    <button class="code-copy-btn" onclick="copyMcpCommand('claude-verify-cmd', 'claude mcp list')">Copy</button>
+                    <pre><code id="claude-verify-cmd">claude mcp list</code></pre>
+                </div>
+                
+                <p>Remove service:</p>
+                <div class="mcp-command-block">
+                    <button class="code-copy-btn" onclick="copyMcpCommand('claude-remove-cmd', 'claude mcp remove syftbox_${currentService.id}')">Copy</button>
+                    <pre><code id="claude-remove-cmd">claude mcp remove syftbox_${currentService.id}</code></pre>
+                </div>
+            `;
+        }
+
+        // Generate manual installation code
+        function generateManualCode() {
             const serviceName = currentService.name.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
             const datasite = currentService.owner.split('@')[1] || 'datasite';
             
-            return `<div class="mcp-install-container">
-                <h2>Installation Options</h2>
+            return {
+                npmCommand: `npm install -g @syftbox/mcp-${serviceName}`,
+                config: {
+                    "mcpServers": {
+                        [`syftbox-${currentService.id}`]: {
+                            "command": `syftbox-mcp-${serviceName}`,
+                            "args": ["--datasite", datasite],
+                            "env": {
+                                "SYFTBOX_API_KEY": "your-api-key-here"
+                            }
+                        }
+                    }
+                },
+                verifyCommand: `npm list -g @syftbox/mcp-${serviceName}`
+            };
+        }
+        
+        // Generate manual installation instructions
+        function generateManualInstructions() {
+            const code = generateManualCode();
+            const configJson = JSON.stringify(code.config, null, 2);
+            
+            return `
+                <h4>Manual Installation for ${currentService.name}</h4>
                 
-                <div class="mcp-tabs">
-                    <button class="mcp-tab-btn active" onclick="showMcpTab('cli')">Claude MCP CLI</button>
-                    <button class="mcp-tab-btn" onclick="showMcpTab('manual')">Manual Installation</button>
+                <div class="mcp-step">
+                    <p class="mcp-step-title">Step 1: Install MCP server package</p>
+                    <p>Run this command in your terminal:</p>
+                    <div class="mcp-command-block">
+                        <button class="code-copy-btn" onclick="copyMcpCommand('manual-npm-cmd', '${code.npmCommand.replace(/'/g, "\\'")}')">Copy</button>
+                        <pre><code id="manual-npm-cmd">${code.npmCommand}</code></pre>
+                    </div>
                 </div>
                 
-                <div id="mcp-cli-tab" class="mcp-tab-content active">
-                    <h3>Claude MCP CLI (Recommended)</h3>
-                    <p>Install using the Claude MCP command line interface:</p>
-                    <div class="code-block-inline">
-                        <code>claude mcp add --transport http syftbox_${currentService.id} https://mcp.syftbox.net/${currentService.id}</code>
-                        <button class="copy-btn-inline" data-text="claude mcp add --transport http syftbox_${currentService.id} https://mcp.syftbox.net/${currentService.id}" onclick="copyToClipboard(this)">Copy</button>
+                <div class="mcp-step">
+                    <p class="mcp-step-title">Step 2: Locate your Claude Desktop config file</p>
+                    <div class="mcp-info-box">
+                        <p><strong>macOS/Linux:</strong> <code>~/.config/claude/claude_desktop_config.json</code></p>
+                        <p><strong>Windows:</strong> <code>%APPDATA%/Claude/claude_desktop_config.json</code></p>
                     </div>
-                    
-                    <h3>Usage</h3>
-                    <p>Once installed, the ${currentService.name} service will be available as an MCP tool in Claude Desktop conversations.</p>
-                    <p><strong>Example usage in Claude:</strong></p>
-                    <div class="code-block-inline">
-                        <code>"Use the ${serviceName} tool to search for information about..."</code>
-                        <button class="copy-btn-inline" data-text="Use the ${serviceName} tool to search for information about..." onclick="copyToClipboard(this)">Copy</button>
-                    </div>
-                    
-                    <h3>Verification</h3>
-                    <p>After installation, you should see "${currentService.name}" listed in your Claude Desktop MCP tools list.</p>
                 </div>
                 
-                <div id="mcp-manual-tab" class="mcp-tab-content">
-                    <h3>Manual Installation</h3>
-                    
-                    <div class="mcp-step">
-                        <h4>Step 1: Install the MCP server package</h4>
-                        <div class="code-block-inline">
-                            <code>npm install -g @syftbox/mcp-${serviceName}</code>
-                            <button class="copy-btn-inline" data-text="npm install -g @syftbox/mcp-${serviceName}" onclick="copyToClipboard(this)">Copy</button>
-                        </div>
-                    </div>
-                    
-                    <div class="mcp-step">
-                        <h4>Step 2: Add to Claude Desktop config</h4>
-                        <p>Edit your Claude Desktop configuration file:</p>
-                        <div class="config-paths">
-                            <div><strong>macOS/Linux:</strong> <code>~/.config/claude/claude_desktop_config.json</code></div>
-                            <div><strong>Windows:</strong> <code>%APPDATA%\\Claude\\claude_desktop_config.json</code></div>
-                        </div>
-                        <p>Add this configuration:</p>
-                        <div class="code-block-inline">
-                            <pre><code>{
-  "mcpServers": {
-    "${serviceName}": {
-      "command": "mcp-${serviceName}",
-      "args": [
-        "--api-key", "YOUR_API_KEY",
-        "--endpoint", "https://api.syftbox.net"
-      ],
-      "env": {
-        "SYFTBOX_SERVICE_ID": "${currentService.id}",
-        "SYFTBOX_DATASITE": "${datasite}"
-      }
-    }
-  }
-}</code></pre>
-                            <button class="copy-btn-inline" data-text='{\n  "mcpServers": {\n    "${serviceName}": {\n      "command": "mcp-${serviceName}",\n      "args": [\n        "--api-key", "YOUR_API_KEY",\n        "--endpoint", "https://api.syftbox.net"\n      ],\n      "env": {\n        "SYFTBOX_SERVICE_ID": "${currentService.id}",\n        "SYFTBOX_DATASITE": "${datasite}"\n      }\n    }\n  }\n}' onclick="copyToClipboard(this)">Copy</button>
-                        </div>
-                    </div>
-                    
-                    <div class="mcp-step">
-                        <h4>Step 3: Restart Claude Desktop</h4>
-                        <p>After saving the configuration, restart Claude Desktop for the changes to take effect.</p>
+                <div class="mcp-step">
+                    <p class="mcp-step-title">Step 3: Add this configuration to the file</p>
+                    <div class="mcp-command-block">
+                        <button class="code-copy-btn" onclick="copyMcpCommand('manual-config-json', '${configJson.replace(/'/g, "\\'")}')">Copy</button>
+                        <pre><code id="manual-config-json">${configJson}</code></pre>
                     </div>
                 </div>
-            </div>`;
+                
+                <div class="mcp-step">
+                    <p class="mcp-step-title">Step 4: Save and restart</p>
+                    <p>Save the configuration file and restart Claude Desktop for the changes to take effect.</p>
+                </div>
+                
+                <div class="mcp-step">
+                    <p class="mcp-step-title">Step 5: Verify installation</p>
+                    <p>The service should appear as "${currentService.name}" in your Claude tools menu.</p>
+                    <p>To verify the npm package installation:</p>
+                    <div class="mcp-command-block">
+                        <button class="code-copy-btn" onclick="copyMcpCommand('manual-verify-cmd', '${code.verifyCommand.replace(/'/g, "\\'")}')">Copy</button>
+                        <pre><code id="manual-verify-cmd">${code.verifyCommand}</code></pre>
+                    </div>
+                </div>
+                
+                <div class="mcp-warning-box">
+                    <p><strong>Troubleshooting</strong></p>
+                    <ul>
+                        <li>Check logs at: <code>~/.config/claude/logs/</code></li>
+                        <li>Ensure npm is installed and up to date</li>
+                        <li>Documentation: <a href="https://docs.syftbox.net/mcp/${currentService.id}" style="color: #fbbf24;">docs.syftbox.net/mcp/${currentService.id}</a></li>
+                    </ul>
+                </div>
+            `;
+        }
+
+        // Show MCP installation tab
+        function showMcpInstallTab(tab) {
+            // Update tab buttons
+            document.querySelectorAll('.mcp-tab-btn').forEach(t => t.classList.remove('active'));
+            document.querySelector(`[onclick="showMcpInstallTab('${tab}')"]`).classList.add('active');
+            
+            // Show selected tab content
+            document.querySelectorAll('.mcp-tab-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`mcp-${tab}-tab`).classList.add('active');
         }
 
         // Run query (placeholder)
@@ -3432,8 +4806,48 @@ Response:
             // Update code examples with the new message
             updateCode();
             
-            // Simulate API call (placeholder)
-            alert(`Query sent to ${currentService.name}: "${message}"\n\nIn a real implementation, this would call the service API and display results.`);
+            // Get current mode and service information
+            const mode = document.getElementById('modalMode').value;
+            const serviceName = currentService ? currentService.name : 'Selected Service';
+            const processingMode = mode === 'search' ? 'search-based' : 'chat-based';
+            const numSources = 1; // Default to 1 source
+            
+            // Show response box
+            showResponseBox(message, serviceName, processingMode, numSources);
+        }
+        
+        // Show response box with hardcoded content
+        function showResponseBox(query, serviceName, processingMode, sourceCount) {
+            const responseBox = document.getElementById('responseBox');
+            const responseMetadata = document.getElementById('responseMetadata');
+            const responseContent = document.getElementById('responseContent');
+            
+            // Generate metadata badges
+            responseMetadata.innerHTML = `
+                <span class="response-badge">${sourceCount} sources</span>
+                <span class="response-badge">${serviceName}</span>
+                <span class="response-badge">${processingMode}</span>
+            `;
+            
+            // Generate response content
+            responseContent.innerHTML = `
+                <div class="response-summary">
+                    Based on your query <em>"${query}"</em>, I've successfully analyzed information from ${sourceCount} federated data source using ${serviceName}.
+                </div>
+                
+                <div class="response-summary">
+                    <strong>📊 Processing Summary:</strong>
+                    <ul>
+                        <li>✅ Successfully queried ${sourceCount} distributed data source</li>
+                        <li>✅ Content synthesis completed with high confidence</li>
+                        <li>✅ Cross-source validation and citation performed</li>
+                    </ul>
+                </div>
+            `;
+            
+            // Show the response box with animation
+            responseBox.style.display = 'block';
+            responseBox.scrollIntoView({ behavior: 'smooth' });
         }
 
         // Close modal when clicking outside
@@ -3483,6 +4897,29 @@ Response:
             window.open(url, '_blank');
         }
 
+        // Toggle member list visibility
+        function toggleMemberList(collectiveId) {
+            const collective = COLLECTIVES.find(c => c.id === collectiveId);
+            if (!collective) return;
+            
+            const memberListContainer = document.getElementById(`member-list-${collectiveId}`);
+            const seeMoreBtn = memberListContainer.querySelector('.see-more-btn');
+            
+            if (seeMoreBtn.textContent.includes('more...')) {
+                // Show all members
+                memberListContainer.innerHTML = collective.memberList.map(member => 
+                    `<div class="member-item" style="font-size: 12px; color: #374151; margin-bottom: 2px;">• ${member}</div>`
+                ).join('') + 
+                `<button class="see-more-btn" style="background: none; border: none; color: #4A6FB3; font-size: 12px; padding: 0; cursor: pointer; text-decoration: underline;" onclick="event.stopPropagation(); toggleMemberList('${collectiveId}')">Show less</button>`;
+            } else {
+                // Show only first 3 members
+                memberListContainer.innerHTML = collective.memberList.slice(0, 3).map(member => 
+                    `<div class="member-item" style="font-size: 12px; color: #374151; margin-bottom: 2px;">• ${member}</div>`
+                ).join('') + 
+                `<button class="see-more-btn" style="background: none; border: none; color: #4A6FB3; font-size: 12px; padding: 0; cursor: pointer; text-decoration: underline;" onclick="event.stopPropagation(); toggleMemberList('${collectiveId}')">See ${collective.memberList.length - 3} more...</button>`;
+            }
+        }
+
         // Open collective page
         function openCollective(collectiveId) {
             const collective = COLLECTIVES.find(c => c.id === collectiveId);
@@ -3494,7 +4931,12 @@ Response:
 
         // Add service to selection
         function addService(serviceId) {
-            const service = SERVICES.find(s => s.id === serviceId);
+            // Look for service in both SERVICES and COLLECTIVES
+            let service = SERVICES.find(s => s.id === serviceId);
+            if (!service) {
+                service = COLLECTIVES.find(c => c.id === serviceId);
+            }
+            
             if (service && !selectedServices.find(s => s.id === serviceId)) {
                 selectedServices.push(service);
                 updateSelectedServicesDisplay();
@@ -3504,7 +4946,7 @@ Response:
                 const button = event.target;
                 const originalText = button.innerHTML;
                 button.innerHTML = '✅ Added';
-                button.style.background = '#10b981';
+                button.style.background = '#53BEA9';
                 setTimeout(() => {
                     button.innerHTML = originalText;
                     button.style.background = '';
@@ -3534,10 +4976,10 @@ Response:
             popup.classList.remove('hidden');
             
             container.innerHTML = selectedServices.map(service => {
-                const typeIcon = service.type === 'data' ? '🗄️' : '🧠';
+                const typeIcon = (service.type === 'data' || service.type === 'collective') ? '🗄️' : '🧠';
                 return `
                     <div class="popup-service">
-                        <span class="badge ${service.type === 'data' ? 'badge-data' : 'badge-model'}">
+                        <span class="badge ${(service.type === 'data' || service.type === 'collective') ? 'badge-data' : 'badge-model'}">
                             ${typeIcon}
                         </span>
                         <span>${service.name}</span>
@@ -3549,7 +4991,7 @@ Response:
 
         // Update execution plan
         function updateExecutionPlan() {
-            const dataHubs = selectedServices.filter(s => s.type === 'data').length;
+            const dataHubs = selectedServices.filter(s => s.type === 'data' || s.type === 'collective').length;
             const synthesizers = selectedServices.filter(s => s.type === 'model').length;
             
             document.getElementById('dataHubCount').textContent = dataHubs;
@@ -3569,14 +5011,40 @@ Response:
 
         // Transfer composition to compose.html
         function transferComposition() {
+            // Check authentication before transferring to compose
+            if (!isAuthenticated()) {
+                window.location.href = 'login.html?redirect=compose.html';
+                return;
+            }
+            
+            // For Discover tab, we need to convert selectedServices to sources and synthesizer format
+            let sources = [];
+            let synthesizer = null;
+            
+            if (currentTab === 'discover') {
+                // Filter selectedServices into sources (data/collective) and synthesizer (model)
+                sources = selectedServices.filter(s => s.type === 'data' || s.type === 'collective');
+                const synthesizerService = selectedServices.find(s => s.type === 'model' || s.type === 'llm');
+                if (synthesizerService) {
+                    synthesizer = synthesizerService;
+                }
+            } else {
+                // For composition tab, use the existing variables
+                sources = selectedSources;
+                synthesizer = selectedSynthesizer;
+            }
+            
             // Save current composition to localStorage
             const composition = {
-                sources: selectedSources,
-                synthesizer: selectedSynthesizer,
+                sources: sources,
+                synthesizer: synthesizer,
                 timestamp: Date.now()
             };
             
             localStorage.setItem('syftbox_composition', JSON.stringify(composition));
+            
+            // Navigate to compose page
+            window.location.href = 'compose.html';
         }
 
 
@@ -3641,7 +5109,7 @@ Response:
                     <div class="dropdown-item-summary">${service.summary}</div>
                     <div class="dropdown-item-capabilities">
                         ${service.endpoints.includes('search') ? '<span class="badge badge-outline">🔍 Search</span>' : ''}
-                        ${service.endpoints.includes('chat') ? '<span class="badge badge-outline">💬 Chat</span>' : ''}
+                        ${service.endpoints.includes('/rag') ? '<span class="badge badge-outline">💬 RAG</span>' : ''}
                         ${service.mcp ? '<span class="badge badge-default">🔗 MCP</span>' : ''}
                     </div>
                 </div>
@@ -3662,6 +5130,7 @@ Response:
                     <div class="dropdown-item-summary">${service.summary}</div>
                     <div class="dropdown-item-capabilities">
                         ${service.endpoints.includes('chat') ? '<span class="badge badge-outline">💬 Chat</span>' : ''}
+                        ${service.endpoints.includes('/rag') ? '<span class="badge badge-outline">💬 RAG</span>' : ''}
                         ${service.mcp ? '<span class="badge badge-default">🔗 MCP</span>' : ''}
                         <span class="badge badge-outline">🌡️ Temp: 0.7</span>
                     </div>
@@ -3949,7 +5418,7 @@ Response:
                     <span class="item-name">${source.name}</span>
                     <div class="flow-capabilities">
                         ${source.endpoints.includes('search') ? '<span class="badge badge-outline">🔍</span>' : ''}
-                        ${source.endpoints.includes('chat') ? '<span class="badge badge-outline">💬</span>' : ''}
+                        ${source.endpoints.includes('/rag') ? '<span class="badge badge-outline">💬</span>' : ''}
                     </div>
                 </div>
             `).join('');
@@ -4219,5 +5688,77 @@ Response:
 
 
     </script>
+    
+    <!-- Payment Registration Modal -->
+    <div class="modal-overlay" id="paymentRegistrationModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Register Wallet Manager</h3>
+                <button class="modal-close" onclick="closeModal('paymentRegistrationModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <!-- Step 1: Service Selection -->
+                <div class="payment-modal-step active" id="paymentStep1">
+                    <div class="form-group">
+                        <label class="form-label">Select Wallet Manager</label>
+                        <div class="service-option" onclick="selectPaymentService('openmined')">
+                            <input type="radio" name="paymentService" value="openmined" id="openmined-radio">
+                            <div class="service-details">
+                                <div class="service-name">OpenMined Wallet Manager</div>
+                                <div class="service-url">https://payments.openmined.org</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-input" id="paymentEmail" placeholder="Your email address" readonly>
+                        <div class="form-help">This email is prefilled from your profile</div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px;">
+                        <button class="btn" onclick="closeModal('paymentRegistrationModal')">Cancel</button>
+                        <button class="btn btn-primary" onclick="proceedToPasswordStep()" id="proceedBtn" disabled>Next</button>
+                    </div>
+                </div>
+                
+                <!-- Step 2: Password Setup -->
+                <div class="payment-modal-step" id="paymentStep2">
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-input" id="paymentPassword" placeholder="Create a password">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Confirm Password</label>
+                        <input type="password" class="form-input" id="paymentPasswordConfirm" placeholder="Confirm your password">
+                        <div class="payment-error" id="passwordError">Passwords do not match</div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px;">
+                        <button class="btn" onclick="goBackToServiceSelection()">Back</button>
+                        <button class="btn btn-primary" onclick="completePaymentRegistration()">Complete Registration</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Payment Required Modal -->
+    <div class="modal-overlay" id="paymentRequiredModal" style="display: none;">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h3>Wallet Manager Required</h3>
+                <button class="modal-close" onclick="closeModal('paymentRequiredModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <p style="margin-bottom: 16px;">This service requires payment. You must register with a wallet manager to access paid services.</p>
+                <div style="display: flex; gap: 8px; justify-content: flex-end;">
+                    <button class="btn" onclick="closeModal('paymentRequiredModal')">Cancel</button>
+                    <button class="btn btn-primary" onclick="closeModal('paymentRequiredModal'); showPaymentRegistration();">Register Wallet Manager</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

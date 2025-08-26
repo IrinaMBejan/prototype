@@ -19,9 +19,10 @@
             line-height: 1.6;
         }
 
+        /* Container - This is the main constraint for content width */
         .container {
             max-width: 1200px;
-            margin: 30px auto 0 auto;
+            margin: 0 auto;
             padding: 0 20px;
         }
 
@@ -71,7 +72,7 @@
         }
 
         .nav-tab:hover {
-            color: #3b82f6;
+            color: #4A6FB3;
         }
 
         .nav-tab.active {
@@ -88,158 +89,155 @@
         .logo-icon {
             width: 32px;
             height: 32px;
-            background-image: url('./syftbox-logo.svg');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
         }
 
         .logo-text h1 {
             font-size: 18px;
             font-weight: 700;
             margin-bottom: 2px;
-            color: #1e293b;
             font-family: 'Rubik', -apple-system, system-ui, sans-serif;
         }
 
         .logo-text p {
-            font-size: 12px;
+            font-size: 11px;
             color: #64748b;
-            font-weight: 500;
+            font-weight: 400;
         }
 
         .header-controls {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 12px;
         }
 
         .btn {
             padding: 8px 16px;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
             background: white;
-            color: #374151;
-            cursor: pointer;
+            color: #334155;
             font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
             transition: all 0.2s;
-            text-decoration: none;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .btn:hover {
-            background: #f9fafb;
-            border-color: #9ca3af;
+            background: #f8fafc;
+            border-color: #cbd5e1;
         }
 
         .btn-primary {
-            background: #3b82f6;
+            background: #4A6FB3;
             color: white;
-            border-color: #3b82f6;
+            border-color: #4A6FB3;
         }
 
         .btn-primary:hover {
-            background: #2563eb;
+            background: #3d5a94;
         }
 
         .btn-success {
-            background: #10b981;
+            background: #059669;
             color: white;
-            border-color: #10b981;
+            border-color: #059669;
         }
 
         .btn-success:hover {
-            background: #059669;
+            background: #047857;
         }
 
-        .btn-sm {
-            padding: 6px 12px;
-            font-size: 12px;
+        .user-icon {
+            width: 36px;
+            height: 36px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
         }
 
-        .btn-large {
-            padding: 12px 24px;
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        /* Service Edit Layout */
-        .service-edit-container {
+        /* Main Content Container */
+        .main-content {
             max-width: 1000px;
             margin: 40px auto;
             padding: 0 20px;
         }
 
+        /* Service Header */
         .service-header {
             background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
+            border-radius: 12px;
             padding: 24px;
             margin-bottom: 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .service-title {
             font-size: 24px;
             font-weight: 600;
             color: #1e293b;
+            margin-bottom: 4px;
             font-family: 'Rubik', -apple-system, system-ui, sans-serif;
         }
 
         .service-actions {
             display: flex;
             gap: 12px;
+            align-items: center;
+            margin-top: 16px;
         }
 
-        /* Tabs */
+        /* Tab Navigation */
         .tab-navigation {
-            display: flex;
             background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px 8px 0 0;
-            margin-bottom: 0;
+            border-radius: 12px;
+            padding: 8px;
+            margin-bottom: 24px;
+            display: flex;
+            gap: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .tab-button {
             flex: 1;
-            padding: 16px 24px;
-            background: none;
+            padding: 12px 16px;
             border: none;
-            color: #6b7280;
-            cursor: pointer;
-            transition: all 0.2s;
-            border-bottom: 2px solid transparent;
+            background: transparent;
+            color: #64748b;
+            font-size: 14px;
             font-weight: 500;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
-        .tab-button:first-child {
-            border-radius: 8px 0 0 0;
-        }
-
-        .tab-button:last-child {
-            border-radius: 0 8px 0 0;
+        .tab-button:hover {
+            background: #f1f5f9;
+            color: #334155;
         }
 
         .tab-button.active {
-            color: #3b82f6;
-            border-bottom-color: #3b82f6;
-            background: #f8fafc;
+            background: #4A6FB3;
+            color: white;
         }
 
-        .tab-button:hover:not(.active) {
-            color: #374151;
-            background: #f9fafb;
-        }
-
+        /* Tab Content */
         .tab-content {
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-top: none;
-            border-radius: 0 0 8px 8px;
-            padding: 24px;
             display: none;
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .tab-content.active {
@@ -248,40 +246,340 @@
 
         /* Form Elements */
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
         .form-label {
             display: block;
+            font-size: 14px;
             font-weight: 500;
-            color: #374151;
-            margin-bottom: 6px;
+            color: #475569;
+            margin-bottom: 8px;
         }
 
-        .form-input, .form-textarea, .form-select {
+        .form-input,
+        .form-select,
+        .form-textarea {
             width: 100%;
             padding: 10px 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
             font-size: 14px;
-            transition: border-color 0.2s;
+            color: #1e293b;
+            background: white;
+            transition: all 0.2s;
         }
 
-        .form-input:focus, .form-textarea:focus, .form-select:focus {
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
             outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            border-color: #4A6FB3;
+            box-shadow: 0 0 0 3px rgba(74, 111, 179, 0.1);
         }
 
         .form-textarea {
+            min-height: 100px;
             resize: vertical;
-            min-height: 80px;
+            font-family: inherit;
         }
 
         .form-help {
-            font-size: 12px;
-            color: #6b7280;
+            font-size: 13px;
+            color: #64748b;
             margin-top: 4px;
+        }
+
+        /* Section Title */
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 16px;
+            font-family: 'Rubik', -apple-system, system-ui, sans-serif;
+        }
+
+        /* Service Type Indicator */
+        .service-type-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+
+        .indicator-label {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .indicator-value {
+            font-size: 13px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        /* Manage Control Section */
+        .access-control-section {
+            margin-bottom: 32px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .access-control-section:last-child {
+            border-bottom: none;
+        }
+
+        /* Service Users */
+        .service-users-grid {
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .service-users-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .service-user-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .service-user-email {
+            font-size: 14px;
+            color: #1e293b;
+            font-weight: 500;
+        }
+
+        .service-user-access {
+            font-size: 13px;
+            padding: 4px 8px;
+            background: #dbeafe;
+            color: #1d4ed8;
+            border-radius: 4px;
+        }
+
+        .btn-remove {
+            padding: 4px 8px;
+            font-size: 12px;
+            background: #fee2e2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+
+        .btn-remove:hover {
+            background: #fecaca;
+            border-color: #fca5a5;
+        }
+
+        /* Watched Files Table */
+        .watched-files-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+        }
+
+        .watched-files-table th {
+            text-align: left;
+            padding: 12px;
+            background: #f8fafc;
+            font-size: 13px;
+            font-weight: 600;
+            color: #475569;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .watched-files-table td {
+            padding: 12px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 14px;
+        }
+
+        .path-cell {
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #1e293b;
+        }
+
+        .user-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            background: #e0f2fe;
+            color: #0369a1;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 4px;
+        }
+
+        /* File Access Management */
+        .file-access-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .file-access-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .file-path {
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: #1e293b;
+            font-weight: 500;
+        }
+
+        .file-access-body {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .access-users {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        /* Add Path Form */
+        .add-path-form {
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        /* Collective Policies */
+        .collective-policies {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 12px;
+        }
+
+        .policy-grid {
+            display: grid;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .policy-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            gap: 8px;
+        }
+
+        .policy-item label {
+            flex: 1;
+            text-align: left;
+        }
+
+        .policy-status {
+            font-size: 12px;
+            padding: 4px 8px;
+            background: #f1f5f9;
+            color: #64748b;
+            border-radius: 4px;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow: auto;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #64748b;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            color: #334155;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        /* Markdown editor */
+        .markdown-toolbar {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .markdown-preview {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 12px;
+            margin-top: 8px;
+            min-height: 100px;
         }
 
         /* Tags Input */
@@ -293,39 +591,46 @@
         }
 
         .tag {
-            background: #e0e7ff;
-            color: #3730a3;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 12px;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 4px;
+            padding: 4px 10px;
+            background: #e0f2fe;
+            color: #0369a1;
+            border-radius: 16px;
+            font-size: 13px;
         }
 
         .tag-remove {
             background: none;
             border: none;
-            color: #6366f1;
+            color: #0369a1;
             cursor: pointer;
-            font-weight: bold;
+            font-size: 16px;
+            padding: 0;
+            margin-left: 4px;
+        }
+
+        .tag-remove:hover {
+            color: #dc2626;
         }
 
         .tag-suggestions {
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
+            gap: 8px;
             margin-top: 8px;
         }
 
         .tag-suggestion {
+            display: inline-block;
+            padding: 4px 10px;
             background: #f1f5f9;
-            color: #475569;
-            padding: 4px 8px;
-            border-radius: 12px;
+            color: #64748b;
+            border-radius: 16px;
             font-size: 12px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: background 0.2s;
         }
 
         .tag-suggestion:hover {
@@ -333,567 +638,420 @@
         }
 
         /* Service Type Selection */
-        .service-type-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-bottom: 20px;
+        .single-choice-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
 
-        .service-type-card {
+        .single-choice-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px;
             border: 2px solid #e2e8f0;
             border-radius: 8px;
-            padding: 16px;
             cursor: pointer;
             transition: all 0.2s;
         }
 
-        .service-type-card:hover {
+        .single-choice-item:hover {
             border-color: #cbd5e1;
-        }
-
-        .service-type-card.selected {
-            border-color: #3b82f6;
-            background: #3b82f6;
-            color: white;
-        }
-
-        .service-type-card.selected .service-type-title {
-            color: white;
-        }
-
-        .service-type-card.selected .service-type-description {
-            color: #e0f2fe;
-        }
-
-        .service-type-title {
-            font-weight: 600;
-            color: #1e293b;
-            margin-bottom: 8px;
-        }
-
-        .service-type-description {
-            font-size: 14px;
-            color: #6b7280;
-        }
-
-        .selected-type-indicator {
-            margin-top: 12px;
-            padding: 8px 12px;
-            background: #f0f9ff;
-            border: 1px solid #0ea5e9;
-            border-radius: 6px;
-            color: #0c4a6e;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .synthesizer-info-card {
-            display: flex;
-            gap: 12px;
-            padding: 16px;
             background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            margin-bottom: 16px;
         }
 
-        .info-icon {
-            font-size: 24px;
+        .single-choice-item.selected {
+            border-color: #4A6FB3;
+            background: #eff6ff;
+        }
+
+        .radio-circle {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #cbd5e1;
+            border-radius: 50%;
+            margin-top: 2px;
+            position: relative;
             flex-shrink: 0;
         }
 
-        .info-content h4 {
-            font-weight: 600;
+        .single-choice-item.selected .radio-circle {
+            border-color: #4A6FB3;
+        }
+
+        .single-choice-item.selected .radio-circle::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            background: #4A6FB3;
+            border-radius: 50%;
+        }
+
+        .choice-text {
+            flex: 1;
+        }
+
+        .choice-title {
+            font-size: 15px;
+            font-weight: 500;
             color: #1e293b;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
         }
 
-        .info-content p {
+        .choice-desc {
+            font-size: 13px;
             color: #64748b;
-            font-size: 14px;
-            line-height: 1.5;
-            margin: 0;
         }
 
-        /* Options Grid */
+        /* Service Configuration */
+        .service-config-container {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .service-config-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
         .options-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin: 20px 0;
+            gap: 12px;
         }
 
         .option-card {
-            border: 1px solid #e2e8f0;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
             border-radius: 8px;
-            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-card:hover {
+            border-color: #cbd5e1;
+            background: white;
         }
 
         .option-card.selected {
-            border-color: #3b82f6;
-            background: #f0f9ff;
+            border-color: #4A6FB3;
+            background: #eff6ff;
         }
 
         .option-title {
-            font-weight: 600;
+            font-size: 14px;
+            font-weight: 500;
             color: #1e293b;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
         .option-description {
-            font-size: 14px;
-            color: #6b7280;
-            margin-bottom: 12px;
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* LLM Filters */
-        .llm-filters {
-            display: none;
-            margin-top: 20px;
-            padding: 16px;
-            background: #f8fafc;
-            border-radius: 8px;
-            border: 1px solid #e2e8f0;
-        }
-
-        .llm-filters.active {
-            display: block;
-        }
-
-        .filter-item {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            padding: 12px;
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-            margin-bottom: 12px;
-        }
-
-        .filter-input {
-            flex: 1;
-        }
-
-        .filter-remove {
-            background: #fee2e2;
-            color: #dc2626;
-            border: 1px solid #fecaca;
-            padding: 6px 8px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        /* Access Control */
-        .access-control-section {
-            margin-bottom: 24px;
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #1e293b;
-            margin-bottom: 16px;
-            font-family: 'Rubik', -apple-system, system-ui, sans-serif;
-        }
-
-        .policy-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .policy-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-        }
-
-        .file-path-list {
-            margin: 16px 0;
-        }
-
-        .file-path-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 12px;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 4px;
-            margin-bottom: 8px;
-        }
-
-        .file-path {
-            font-family: monospace;
-            color: #374151;
-        }
-
-        .user-list {
-            margin: 16px 0;
-        }
-
-        .user-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 12px;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 4px;
-            margin-bottom: 8px;
-        }
-
-        .user-email {
-            color: #374151;
-        }
-
-        /* File Access Styles */
-        .file-access-item {
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            margin-bottom: 16px;
-            background: white;
-        }
-
-        .file-access-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 16px;
-            border-bottom: 1px solid #f1f5f9;
-            background: #f8fafc;
-            border-radius: 8px 8px 0 0;
-        }
-
-        .file-path-info {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .file-type-badge {
-            background: #dbeafe;
-            color: #1d4ed8;
-            padding: 2px 8px;
-            border-radius: 12px;
             font-size: 12px;
+            color: #64748b;
+        }
+
+        /* Advanced Settings */
+        .advanced-settings {
+            margin-top: 16px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 16px;
+        }
+
+        .advanced-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 14px;
             font-weight: 500;
+            color: #475569;
         }
 
-        .file-type-badge.file-badge {
-            background: #dcfce7;
-            color: #166534;
+        .advanced-arrow {
+            transition: transform 0.2s;
         }
 
-        .file-access-body {
-            padding: 16px;
+        .advanced-arrow.expanded {
+            transform: rotate(90deg);
         }
 
-        .access-label {
-            font-weight: 500;
-            color: #374151;
+        .advanced-content {
+            margin-top: 16px;
+            padding-left: 24px;
+        }
+
+        .available-services-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .generate-actions {
+            display: flex;
+            justify-content: center;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .btn-large {
+            padding: 12px 24px;
+            font-size: 16px;
+        }
+
+        .btn-sm {
+            padding: 4px 8px;
+            font-size: 12px;
+        }
+
+        .tooltip-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip-bubble {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e293b;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            white-space: nowrap;
             margin-bottom: 8px;
+            z-index: 10;
+            max-width: 250px;
+            white-space: normal;
+        }
+
+        .tooltip-container.tooltip-hover:hover .tooltip-bubble {
             display: block;
         }
 
-        .user-tags {
+        .tooltip-bubble::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 6px solid #1e293b;
+        }
+
+        /* Filter Tags */
+        .filter-group {
+            margin-top: 12px;
+        }
+
+        .filter-tags {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-            margin-bottom: 12px;
-        }
-
-        .user-tag {
-            background: #e0e7ff;
-            color: #3730a3;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .user-tag.public-access {
-            background: #dcfce7;
-            color: #166534;
-        }
-
-        .user-tag-remove {
-            background: none;
-            border: none;
-            color: #6366f1;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .add-user-to-file {
-            display: flex;
-            gap: 8px;
-        }
-
-        .add-file-section {
-            padding: 16px;
-            background: #f8fafc;
-            border: 1px dashed #cbd5e1;
-            border-radius: 8px;
-            margin-top: 16px;
-        }
-
-        /* Collective Policies */
-        .collective-policies {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 16px;
-            margin-top: 16px;
-        }
-
-        .policies-header h4 {
-            font-weight: 600;
-            color: #1e293b;
             margin-bottom: 8px;
         }
 
-        .policy-status {
+        .filter-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 8px;
+            background: #f1f5f9;
+            color: #475569;
+            border-radius: 12px;
             font-size: 12px;
-            color: #6b7280;
-            font-style: italic;
+            border: 1px solid #e2e8f0;
         }
 
-        /* Generate Code Section */
-        .generate-code-section {
-            background: #f0f9ff;
-            border: 1px solid #0ea5e9;
-            border-radius: 8px;
-            padding: 24px;
-            margin-top: 32px;
-            text-align: center;
-        }
-
-        /* Modal Styles */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 8px;
-            width: 600px;
-            max-width: 90vw;
-            max-height: 80vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: between;
-            align-items: center;
-            padding: 16px 20px;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .modal-header h3 {
-            margin: 0;
-            flex: 1;
-        }
-
-        .modal-close {
+        .filter-tag-remove {
             background: none;
             border: none;
-            font-size: 24px;
+            color: #64748b;
             cursor: pointer;
-            color: #6b7280;
+            font-size: 14px;
             padding: 0;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            margin-left: 4px;
         }
 
-        .modal-body {
-            flex: 1;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
+        .filter-tag-remove:hover {
+            color: #dc2626;
         }
 
-        .modal-footer {
-            padding: 16px 20px;
-            border-top: 1px solid #e2e8f0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        /* Account Menu */
+        .account-menu {
+            position: relative;
+            display: inline-block;
         }
-
-        .modal-actions {
-            display: flex;
-            gap: 8px;
+        
+        .account-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            min-width: 200px;
+            z-index: 50;
+            display: none;
+            margin-top: 4px;
         }
-
-        /* File Picker Styles */
-        .file-picker-nav {
-            padding: 12px 20px;
-            border-bottom: 1px solid #f1f5f9;
-            background: #f8fafc;
+        
+        .account-dropdown.show {
+            display: block;
         }
-
-        .breadcrumb {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .breadcrumb-item {
-            color: #3b82f6;
+        
+        .dropdown-item {
+            padding: 12px 16px;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            font-size: 14px;
+            color: #334155;
             cursor: pointer;
-            padding: 4px 8px;
-            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             transition: background 0.2s;
         }
-
-        .breadcrumb-item:hover {
-            background: #e0f2fe;
+        
+        .dropdown-item:hover {
+            background: #f8fafc;
         }
-
-        .breadcrumb-item:after {
-            content: "/";
-            margin-left: 8px;
-            color: #6b7280;
+        
+        .dropdown-item:first-child {
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
         }
-
-        .breadcrumb-item:last-child:after {
+        
+        .dropdown-item:last-child {
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+        
+        .dropdown-divider {
+            height: 1px;
+            background: #e2e8f0;
+            margin: 4px 0;
+        }
+        
+        .payment-status {
+            font-size: 12px;
+            color: #64748b;
+            margin-left: auto;
+        }
+        
+        .payment-status.registered {
+            color: #16a34a;
+        }
+        
+        /* Payment Registration Modal */
+        .payment-modal-step {
             display: none;
         }
-
-        .file-picker-toolbar {
+        
+        .payment-modal-step.active {
+            display: block;
+        }
+        
+        .service-option {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 12px 20px;
-            background: #f8fafc;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .current-path {
-            font-family: monospace;
-            color: #6b7280;
-            font-size: 14px;
-        }
-
-        .file-list {
-            flex: 1;
-            overflow-y: auto;
-            padding: 8px;
-        }
-
-        .file-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 8px 12px;
-            border-radius: 4px;
+            padding: 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 12px;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.2s;
         }
-
-        .file-item:hover {
-            background: #f1f5f9;
+        
+        .service-option:hover {
+            border-color: #cbd5e1;
+            background: #f8fafc;
         }
-
-        .file-item.selected {
-            background: #dbeafe;
-            color: #1d4ed8;
+        
+        .service-option.selected {
+            border-color: #4A6FB3;
+            background: #eff6ff;
         }
-
-        .file-icon {
-            font-size: 16px;
-            width: 20px;
-            text-align: center;
+        
+        .service-option input[type="radio"] {
+            margin-right: 12px;
         }
-
-        .file-name {
+        
+        .service-details {
             flex: 1;
-            font-size: 14px;
         }
-
-        .file-type {
-            font-size: 12px;
-            color: #6b7280;
-            font-style: italic;
+        
+        .service-name {
+            font-weight: 500;
+            color: #1e293b;
+            margin-bottom: 4px;
         }
-
-        .selected-path-display {
-            font-size: 14px;
-            color: #374151;
+        
+        .service-url {
+            font-size: 13px;
+            color: #64748b;
+            font-family: 'Courier New', monospace;
         }
-
-        .selected-path-display span {
-            font-family: monospace;
-            color: #1d4ed8;
+        
+        .payment-error {
+            color: #dc2626;
+            font-size: 13px;
+            margin-top: 8px;
+            display: none;
         }
-
+        
         /* Responsive */
         @media (max-width: 768px) {
-            .container {
-                padding: 0 16px;
-            }
-            
-            .service-edit-container {
+            .main-content {
                 padding: 0 16px;
             }
 
             .service-header {
                 flex-direction: column;
+                align-items: flex-start;
                 gap: 16px;
-                align-items: stretch;
             }
 
-            .service-type-grid,
-            .options-grid {
-                grid-template-columns: 1fr;
+            .service-actions {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .service-actions .btn {
+                width: 100%;
+                justify-content: center;
             }
 
             .tab-navigation {
                 flex-direction: column;
             }
 
-            .tab-button {
-                border-radius: 0 !important;
-                border-bottom: 1px solid #e2e8f0;
-                border-right: none;
+            .service-users-grid {
+                grid-template-columns: 1fr;
             }
-
-            .tab-button:last-child {
-                border-bottom: none;
+            
+            .account-dropdown {
+                right: -20px;
+                min-width: 180px;
             }
         }
     </style>
@@ -908,7 +1066,7 @@
                         <div class="logo-icon"></div>
                         <div class="logo-text">
                             <h1>SyftBox AI Service Hub</h1>
-                            <p>The network for federated knowledge</p>
+                            <p>The network for collective intelligence</p>
                         </div>
                     </div>
                 </div>
@@ -919,25 +1077,44 @@
                         <a href="compose.html" class="nav-tab">Compose</a>
                         <a href="build.html" class="nav-tab active">Build</a>
                     </nav>
-                
-                <div class="header-controls">
-                    <button class="btn user-icon">👤</button>
+                    
+                    <div class="header-controls">
+                        <div class="account-menu">
+                            <button class="btn user-icon" onclick="toggleAccountMenu()">👤</button>
+                            <div class="account-dropdown" id="accountDropdown">
+                                <div class="dropdown-item" style="font-weight: 500; pointer-events: none;">
+                                    <span id="accountName">Irina</span>
+                                    <span class="payment-status" id="paymentStatus">Not registered</span>
+                                </div>
+                                <div class="dropdown-divider"></div>
+                                <button class="dropdown-item" onclick="showPaymentRegistration()" id="registerPaymentBtn">
+                                    💳 Register Wallet Manager
+                                </button>
+                                <button class="dropdown-item" onclick="managePaymentService()" id="managePaymentBtn" style="display: none;">
+                                    ⚙️ Manage Wallet Manager
+                                </button>
+                                <div class="dropdown-divider"></div>
+                                <button class="dropdown-item">
+                                    🚪 Sign Out
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Service Edit Content -->
-    <div class="service-edit-container">
+    <!-- Main Content - Everything is contained within this -->
+    <div class="main-content">
         <!-- Service Header -->
         <div class="service-header">
-            <div>
-                <h1 class="service-title" id="serviceTitle">irina@openmined.org/legal_document_analyzer</h1>
-                <div style="color: #6b7280; font-size: 14px;">Draft • Created 2 hours ago</div>
-            </div>
+            <h1 class="service-title" id="serviceTitle">irina@openmined.org/legal_document_analyzer</h1>
+            <div style="color: #6b7280; font-size: 14px; margin-bottom: 16px;" id="serviceStatus">Draft • Created 2 hours ago</div>
             <div class="service-actions">
                 <button class="btn" onclick="goBack()">← Back to Services</button>
-                <button class="btn btn-success" onclick="publishService()">📤 Publish Service</button>
+                <button class="btn btn-success" onclick="publishService()" id="publishBtn">📤 Publish Service</button>
+                <button class="btn" onclick="generateMCPTool()" id="generateMCPBtn" disabled>🔧 Generate MCP Tool</button>
             </div>
         </div>
 
@@ -945,7 +1122,7 @@
         <div class="tab-navigation">
             <button class="tab-button active" onclick="showTab('metadata')">📝 Metadata</button>
             <button class="tab-button" onclick="showTab('code-generation')">⚙️ Code Generation</button>
-            <button class="tab-button" onclick="showTab('access-control')">🔐 Access Control</button>
+            <button class="tab-button" onclick="showTab('access-control')">🔐 Manage Control</button>
         </div>
 
         <!-- Metadata Tab -->
@@ -957,13 +1134,28 @@
 
             <div class="form-group">
                 <label class="form-label">Summary</label>
-                <input type="text" class="form-input" placeholder="Brief description of your service">
+                <input type="text" class="form-input" id="summaryInput" placeholder="Brief description of your service">
                 <div class="form-help">A short one-line summary that appears in service listings</div>
             </div>
 
             <div class="form-group">
                 <label class="form-label">Description</label>
-                <textarea class="form-textarea" placeholder="Detailed description of your service functionality, use cases, and capabilities..."></textarea>
+                <div class="markdown-toolbar">
+                    <button class="btn btn-sm" type="button" onclick="applyMarkdown('bold')">Bold</button>
+                    <button class="btn btn-sm" type="button" onclick="applyMarkdown('italic')">Italic</button>
+                    <button class="btn btn-sm" type="button" onclick="applyMarkdown('h1')">H1</button>
+                    <button class="btn btn-sm" type="button" onclick="applyMarkdown('h2')">H2</button>
+                    <button class="btn btn-sm" type="button" onclick="applyMarkdown('h3')">H3</button>
+                    <button class="btn btn-sm" type="button" onclick="applyMarkdown('list')">List</button>
+                    <button class="btn btn-sm" type="button" onclick="applyMarkdown('code')">Code</button>
+                    <button class="btn btn-sm" type="button" onclick="applyMarkdown('link')">Link</button>
+                    <button class="btn btn-sm" type="button" onclick="triggerDescriptionUpload()">Upload .md</button>
+                    <input type="file" id="descUploadInput" accept=".md,.markdown,text/markdown,text/plain" style="display:none" onchange="handleDescriptionUpload(event)">
+                    <div style="flex:1"></div>
+                    <button class="btn btn-sm" type="button" onclick="toggleDescriptionPreview()" id="descPreviewBtn">Markdown Preview</button>
+                </div>
+                <textarea class="form-textarea" id="descriptionInput" placeholder="Detailed description of your service functionality, use cases, and capabilities..." oninput="handleDescriptionInput()"></textarea>
+                <div id="descriptionPreview" class="markdown-preview" style="display:none;"></div>
             </div>
 
             <div class="form-group">
@@ -973,339 +1165,373 @@
                         legal
                         <button class="tag-remove" onclick="removeTag(this)">×</button>
                     </div>
+                    <div class="tag">
+                        documents
+                        <button class="tag-remove" onclick="removeTag(this)">×</button>
+                    </div>
+                    <div class="tag">
+                        nlp
+                        <button class="tag-remove" onclick="removeTag(this)">×</button>
+                    </div>
+                    <div class="tag">
+                        analysis
+                        <button class="tag-remove" onclick="removeTag(this)">×</button>
+                    </div>
                 </div>
                 <input type="text" class="form-input" id="tagInput" placeholder="Add tags..." onkeypress="handleTagInput(event)">
                 <div class="form-help">Press Enter to add tags. Tags help users discover your service.</div>
                 <div class="tag-suggestions">
                     <div class="tag-suggestion" onclick="addSuggestionTag('language:english')">language:english</div>
                     <div class="tag-suggestion" onclick="addSuggestionTag('language:spanish')">language:spanish</div>
-                    <div class="tag-suggestion" onclick="addSuggestionTag('language:french')">language:french</div>
-                    <div class="tag-suggestion" onclick="addSuggestionTag('domain:legal')">domain:legal</div>
-                    <div class="tag-suggestion" onclick="addSuggestionTag('domain:medical')">domain:medical</div>
+                    <div class="tag-suggestion" onclick="addSuggestionTag('priority:high')">priority:high</div>
                     <div class="tag-suggestion" onclick="addSuggestionTag('type:chat')">type:chat</div>
                     <div class="tag-suggestion" onclick="addSuggestionTag('type:search')">type:search</div>
                 </div>
             </div>
+
+           
         </div>
 
         <!-- Code Generation Tab -->
         <div class="tab-content" id="code-generation-tab">
+            <!-- Service Type Selection -->
             <div class="form-group">
-                <label class="form-label">Service Type</label>
-                <div class="service-type-grid">
-                    <div class="service-type-card" onclick="selectServiceType('datasource')" id="datasource-card">
-                        <div class="service-type-title">🗄️ Data Source</div>
-                        <div class="service-type-description">Provides access to your data through chat or search interfaces</div>
+                <label class="form-label">Service Type
+                    <span class="tooltip-container tooltip-hover" style="margin-left:6px;">
+                        <span style="cursor: help;">ℹ️</span>
+                        <span class="tooltip-bubble">Data Source serves your data via RAG or search. Synthesizer merges inputs using an AI model or logic.</span>
+                    </span>
+                </label>
+                <div class="single-choice-list">
+                    <div class="single-choice-item" id="type-datasource" onclick="selectServiceType('datasource')">
+                        <span class="radio-circle"></span>
+                        <div class="choice-text">
+                            <div class="choice-title">🗄️ Data Source</div>
+                            <div class="choice-desc">Expose your data via RAG or keyword search.</div>
+                        </div>
                     </div>
-                    <div class="service-type-card" onclick="selectServiceType('synthesizer')" id="synthesizer-card">
-                        <div class="service-type-title">🧠 Synthesizer</div>
-                        <div class="service-type-description">Combines federated inputs using an AI model or custom logic. We expect you to plug in your custom model.</div>
+                    <div class="single-choice-item" id="type-synthesizer" onclick="selectServiceType('synthesizer')">
+                        <span class="radio-circle"></span>
+                        <div class="choice-text">
+                            <div class="choice-title">🧠 Synthesizer</div>
+                            <div class="choice-desc">Combine federated inputs with your own AI model or logic.</div>
+                        </div>
                     </div>
-                </div>
-                <div class="selected-type-indicator" id="selectedTypeIndicator" style="display: none;">
-                    <span id="selectedTypeName"></span> selected
                 </div>
             </div>
 
-            <!-- Data Source Options -->
-            <div id="datasource-options" style="display: none;">
-                <div class="form-group">
-                    <label class="form-label">Interface Types</label>
-                    <div class="options-grid">
-                        <div class="option-card" onclick="toggleOption('chat')">
-                            <div class="option-title">
-                                <input type="checkbox" id="chat-option">
-                                💬 Chat Interface
-                            </div>
-                            <div class="option-description">
-                                Ideal for nuanced responses to user queries. Allows custom LLM filters and conversation-style interactions with your data.
-                            </div>
-                        </div>
-                        <div class="option-card" onclick="toggleOption('search')">
-                            <div class="option-title">
-                                <input type="checkbox" id="search-option">
-                                🔍 Search Interface
-                            </div>
-                            <div class="option-description">
-                                Most factual responses. Returns exact quotations from your data sources without AI interpretation.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Common Configuration Section (shown for both Chat and Search) -->
-                <div class="common-config-section" id="common-config-section" style="display: none;">
-                    <div class="section-title">Configuration</div>
-                    
+            <!-- Synthesizer Configuration (shown when synthesizer is selected) -->
+            <div id="synth-config-container" class="service-config-container" style="display:none;">
+                <div class="service-config-panel">
                     <div class="form-group">
-                        <label class="form-label">Embedding Model</label>
-                        <select class="form-select">
-                            <option value="all-minilm">all-MiniLM-L6-v2 (Default)</option>
-                            <option value="instructor">instructor-xl</option>
-                            <option value="e5-large">E5-large-v2</option>
-                            <option value="bge-large">BGE-large-en</option>
-                        </select>
-                        <div class="form-help">Embedding model used to convert text into vector representations for similarity search.</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Chunk Size</label>
-                        <div style="display: flex; gap: 12px; align-items: center;">
-                            <input type="range" id="common-chunk-size" min="128" max="2048" value="512" style="flex: 1;" oninput="updateCommonChunkSize()">
-                            <span id="common-chunk-size-value">512</span>
-                            <span style="color: #6b7280; font-size: 14px;">tokens</span>
-                        </div>
-                        <div class="form-help">Smaller chunks provide more precise retrieval, larger chunks provide more context.</div>
-                    </div>
-                </div>
-
-                <!-- RAG Model Selection -->
-                <div class="rag-model-selection" id="rag-model-selection" style="display: none;">
-                    <div class="section-title">RAG Model Configuration</div>
-                    <div class="form-group">
-                        <label class="form-label">Model Type</label>
+                        <label class="form-label">Chat Configuration</label>
                         <div class="options-grid">
-                            <div class="option-card" onclick="selectRAGType('custom')">
+                            <div class="option-card selected" id="synth-gen-default-card" onclick="selectGenerationOption('synth','default')">
                                 <div class="option-title">
-                                    <input type="radio" name="rag-type" id="custom-rag">
-                                    🛠️ Custom RAG Model
+                                    <input type="radio" name="synth-gen" id="synth-gen-default" checked> Default Chat
                                 </div>
-                                <div class="option-description">
-                                    Generate template code for your own RAG implementation. Provides scaffolding and integration points.
-                                </div>
+                                <div class="option-description">Leverages local vector DB with your chosen Ollama model.</div>
                             </div>
-                            <div class="option-card" onclick="selectRAGType('default')">
+                            <div class="option-card" id="synth-gen-custom-card" onclick="selectGenerationOption('synth','custom')">
                                 <div class="option-title">
-                                    <input type="radio" name="rag-type" id="default-rag">
-                                    🚀 Default Setup
+                                    <input type="radio" name="synth-gen" id="synth-gen-custom"> Custom Chat
                                 </div>
-                                <div class="option-description">
-                                    Use pre-configured RAG with Ollama models. Quick setup with proven configurations.
-                                </div>
+                                <div class="option-description">You will implement and provide your own chat endpoint.</div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Default Setup Options -->
-                    <div class="default-rag-options" id="default-rag-options" style="display: none;">
-                        <div class="form-group">
-                            <label class="form-label">Ollama Model</label>
-                            <select class="form-select" id="ollama-model">
-                                <option value="">Select a model...</option>
-                                <option value="llama3.2:3b">Llama 3.2 3B (Fast, efficient)</option>
-                                <option value="llama3.2:7b">Llama 3.2 7B (Balanced)</option>
-                                <option value="llama3.1:8b">Llama 3.1 8B (High quality)</option>
-                                <option value="mistral:7b">Mistral 7B (Code-friendly)</option>
-                                <option value="codellama:7b">Code Llama 7B (Code specialist)</option>
-                                <option value="phi3:mini">Phi-3 Mini (Lightweight)</option>
-                                <option value="gemma2:2b">Gemma 2 2B (Fast inference)</option>
-                                <option value="qwen2:7b">Qwen 2 7B (Multilingual)</option>
-                            </select>
-                            <div class="form-help">Choose an Ollama model for your RAG implementation. Models will be automatically downloaded if not available locally.</div>
-                        </div>
-
-
-
-
-                    </div>
-                </div>
-
-                <!-- LLM Filters Section -->
-                <div class="llm-filters" id="llm-filters">
-                    <div class="section-title">LLM Filters</div>
-                    <div class="form-help" style="margin-bottom: 16px;">
-                        Define filters to control what information the LLM can include in responses.
-                    </div>
                     
-                    <div id="filters-list">
-                        <div class="filter-item">
-                            <input type="text" class="form-input filter-input" placeholder="e.g., Remove employees PII data if found in the response" value="Remove employees PII data if found in the response">
-                            <button class="filter-remove" onclick="removeFilter(this)">Remove</button>
+                    <!-- Advanced Settings -->
+                    <div class="advanced-settings" id="synth-advanced-settings">
+                        <div class="advanced-toggle" onclick="toggleAdvancedSettings('synth')">
+                            <span class="advanced-arrow" id="synth-arrow">▶</span>
+                            <span>Advanced Settings</span>
+                        </div>
+                        <div class="advanced-content" id="synth-advanced-content" style="display:none;">
+                            <div class="form-group">
+                                <label class="form-label">Ollama Model</label>
+                                <select class="form-select" id="synth-ollama-model">
+                                    <option value="llama3.2:7b" selected>Llama 3.2 7B (Balanced)</option>
+                                    <option value="llama3.2:3b">Llama 3.2 3B (Fast, efficient)</option>
+                                    <option value="llama3.1:8b">Llama 3.1 8B (High quality)</option>
+                                    <option value="mistral:7b">Mistral 7B (Code-friendly)</option>
+                                    <option value="codellama:7b">Code Llama 7B (Code specialist)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Temperature</label>
+                                <div style="display:flex; gap: 12px; align-items: center;">
+                                    <input type="range" id="synth-temperature" min="0" max="1" step="0.1" value="0.7" style="flex:1;" oninput="document.getElementById('synth-temperature-value').textContent=this.value">
+                                    <span id="synth-temperature-value">0.7</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    
-                    <button class="btn" onclick="addFilter()">+ Add Filter</button>
                 </div>
-
             </div>
 
-            <!-- Synthesizer Options -->
-            <div id="synthesizer-options" style="display: none;">
+            <!-- Available Services (for Data Source) -->
+            <div id="available-services" style="display:none;">
                 <div class="form-group">
-                    <div class="synthesizer-info-card">
-                        <div class="info-icon">ℹ️</div>
-                        <div class="info-content">
-                            <h4>Custom Model Integration</h4>
-                            <p>For synthesizers, you'll need to integrate your own AI model or custom logic. The generated code will provide the framework and federated data handling, while you implement the specific synthesis logic.</p>
+                    <label class="form-label">Available Services
+                        <span class="tooltip-container tooltip-hover" style="margin-left:6px;">
+                            <span style="cursor: help;">ℹ️</span>
+                            <span class="tooltip-bubble">RAG answers with grounded citations using vector search. Search returns exact matches without LLM synthesis.</span>
+                        </span>
+                    </label>
+                    <div class="available-services-layout">
+                        <div class="service-list">
+                            <div class="option-card" id="available-rag" onclick="toggleAvailableService('rag')">
+                                <div class="option-title">
+                                    <input type="checkbox" id="rag-available">
+                                    Retrieval-Augmented Generation (RAG)
+                                </div>
+                                <div class="option-description">LLM synthesizes answers from your documents with citations.</div>
+                            </div>
+                            
+                            <!-- RAG Configuration Container -->
+                            <div id="rag-config-container" class="service-config-container" style="display:none;">
+                                <div class="service-config-panel">
+                                    <div class="form-group">
+                                        <label class="form-label">RAG Configuration</label>
+                                        <div class="options-grid">
+                                            <div class="option-card selected" id="rag-gen-default-card" onclick="selectGenerationOption('rag','default')">
+                                                <div class="option-title">
+                                                    <input type="radio" name="rag-gen" id="rag-gen-default" checked> Default RAG setup
+                                                </div>
+                                                <div class="option-description">Leverages local vector DB with your chosen Ollama model.</div>
+                                            </div>
+                                            <div class="option-card" id="rag-gen-custom-card" onclick="selectGenerationOption('rag','custom')">
+                                                <div class="option-title">
+                                                    <input type="radio" name="rag-gen" id="rag-gen-custom"> Custom RAG
+                                                </div>
+                                                <div class="option-description">You will implement and provide your own RAG endpoint.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Advanced Settings for RAG -->
+                                    <div class="advanced-settings" id="rag-advanced-settings">
+                                        <div class="advanced-toggle" onclick="toggleAdvancedSettings('rag')">
+                                            <span class="advanced-arrow" id="rag-arrow">▶</span>
+                                            <span>Advanced Settings</span>
+                                        </div>
+                                        <div class="advanced-content" id="rag-advanced-content" style="display:none;">
+                                            <div class="form-group">
+                                                <label class="form-label">Ollama Model</label>
+                                                <select class="form-select" id="rag-ollama-model">
+                                                    <option value="llama3.2:7b" selected>Llama 3.2 7B (Balanced)</option>
+                                                    <option value="llama3.2:3b">Llama 3.2 3B (Fast, efficient)</option>
+                                                    <option value="llama3.1:8b">Llama 3.1 8B (High quality)</option>
+                                                    <option value="mistral:7b">Mistral 7B (Code-friendly)</option>
+                                                    <option value="codellama:7b">Code Llama 7B (Code specialist)</option>
+                                                    <option value="phi3:mini">Phi-3 Mini (Lightweight)</option>
+                                                    <option value="gemma2:2b">Gemma 2 2B (Fast inference)</option>
+                                                    <option value="qwen2:7b">Qwen 2 7B (Multilingual)</option>
+                                                </select>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="form-label">Temperature</label>
+                                                <div style="display:flex; gap: 12px; align-items: center;">
+                                                    <input type="range" id="rag-temperature" min="0" max="1" step="0.1" value="0.7" style="flex:1;" oninput="document.getElementById('rag-temperature-value').textContent=this.value">
+                                                    <span id="rag-temperature-value">0.7</span>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="form-label">Max Tokens</label>
+                                                <input type="number" class="form-input" id="rag-max-tokens" value="1000" min="100" max="8000" step="100">
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="form-label">Top K Results</label>
+                                                <input type="number" class="form-input" id="rag-top-k" value="5" min="1" max="20">
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="form-label">Similarity Threshold</label>
+                                                <div style="display:flex; gap: 12px; align-items: center;">
+                                                    <input type="range" id="rag-similarity" min="0" max="1" step="0.05" value="0.7" style="flex:1;" oninput="document.getElementById('rag-similarity-value').textContent=this.value">
+                                                    <span id="rag-similarity-value">0.7</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- LLM Privacy Filters for RAG -->
+                                    <div class="form-group" id="rag-llm-filters">
+                                        <label class="form-label">
+                                            LLM Privacy Filters (optional)
+                                            <span class="tooltip-container tooltip-hover" style="margin-left:6px;">
+                                                <span style="cursor: help;">ℹ️</span>
+                                                <span class="tooltip-bubble">Post-process outputs to ensure they don't expose your data in undesired ways.</span>
+                                            </span>
+                                        </label>
+                                        <div class="filter-group">
+                                            <div id="rag-output-filters-list" class="filter-tags"></div>
+                                            <div style="display: flex; gap: 8px; margin-top: 8px;">
+                                                <input type="text" class="form-input" placeholder="e.g., Remove employee names from output" id="rag-filter-input">
+                                                <button class="btn btn-sm" onclick="addFilter('rag')">Add Filter</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="option-card" id="available-search" onclick="toggleAvailableService('search')">
+                                <div class="option-title">
+                                    <input type="checkbox" id="search-available">
+                                    Direct Search
+                                </div>
+                                <div class="option-description">Returns exact chunks of your data for maximum factuality.</div>
+                            </div>
+
+                            <!-- Search Configuration Container -->
+                            <div id="search-config-container" class="service-config-container" style="display:none;">
+                                <div class="service-config-panel">
+                                    <div class="form-group">
+                                        <label class="form-label">Search Configuration</label>
+                                        <div class="options-grid">
+                                            <div class="option-card selected" id="search-gen-default-card" onclick="selectGenerationOption('search','default')">
+                                                <div class="option-title">
+                                                    <input type="radio" name="search-gen" id="search-gen-default" checked> Default Search
+                                                </div>
+                                                <div class="option-description">Uses semantic search across your local vector database.</div>
+                                            </div>
+                                            <div class="option-card" id="search-gen-custom-card" onclick="selectGenerationOption('search','custom')">
+                                                <div class="option-title">
+                                                    <input type="radio" name="search-gen" id="search-gen-custom"> Custom Search
+                                                </div>
+                                                <div class="option-description">You will implement your own /search endpoint.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Advanced Settings for Search -->
+                                    <div class="advanced-settings" id="search-advanced-settings">
+                                        <div class="advanced-toggle" onclick="toggleAdvancedSettings('search')">
+                                            <span class="advanced-arrow" id="search-arrow">▶</span>
+                                            <span>Advanced Settings</span>
+                                        </div>
+                                        <div class="advanced-content" id="search-advanced-content" style="display:none;">
+                                            <div class="form-group">
+                                                <label class="form-label">Max Results</label>
+                                                <input type="number" class="form-input" id="search-max-results" value="10" min="1" max="100">
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Generate Code Section -->
-            <div class="generate-code-section">
-                <div class="section-title">Generate Service Code</div>
-                <div class="form-help" style="margin-bottom: 16px;">
-                    Generate the complete service implementation based on your configuration above.
-                </div>
-                <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-                    <button class="btn btn-primary btn-large" onclick="generateServiceCode()">
-                        🚀 Generate Code
-                    </button>
-                    <button class="btn btn-large" onclick="generateMCPTool()">
-                        🔧 Generate MCP Tool
-                    </button>
-                </div>
-                <div class="form-help" style="margin-top: 12px; text-align: left;">
-                    <strong>Generate Code:</strong> Creates the complete service implementation<br>
-                    <strong>Generate MCP Tool:</strong> Creates a Model Context Protocol tool for external integrations
-                </div>
+            <!-- Generate Code Button -->
+            <div class="generate-actions" id="generate-code-actions">
+                <button class="btn btn-primary btn-large" id="generateActionButton" onclick="generateServiceCode()">Generate Code</button>
             </div>
         </div>
 
-        <!-- Access Control Tab -->
+        <!-- Manage Control Tab -->
         <div class="tab-content" id="access-control-tab">
+            <!-- Service Type Indicator -->
+            <div class="service-type-indicator">
+                <div class="indicator-label">Service Type:</div>
+                <div class="indicator-value" id="access-control-service-type">Data Source</div>
+            </div>
+
+            <!-- Service Access Control -->
             <div class="access-control-section">
-                <div class="section-title">Watched Files/Folders</div>
+                <div class="section-title">Service Manage Control</div>
                 <div class="form-help" style="margin-bottom: 16px;">
-                    Configure which files and folders this service can access, and who can query each resource.
+                    Configure who can access and use this service.
                 </div>
                 
-                <div class="file-access-list" id="file-access-list">
-                    <!-- Legal Documents -->
-                    <div class="file-access-item">
-                        <div class="file-access-header">
-                            <div class="file-path-info">
-                                <span class="file-path">/data/legal-documents/</span>
-                                <span class="file-type-badge">Folder</span>
-                            </div>
-                            <button class="btn btn-sm" onclick="removeFilePath(this)" style="color: #dc2626;">Remove</button>
-                        </div>
-                        <div class="file-access-body">
-                            <div class="access-users">
-                                <label class="access-label">Who can query this resource:</label>
-                                <div class="user-tags">
-                                    <div class="user-tag">
-                                        admin@lexfirm.eu
-                                        <button class="user-tag-remove" onclick="removeUserFromFile(this)">×</button>
-                                    </div>
-                                    <div class="user-tag">
-                                        analyst@lexfirm.eu
-                                        <button class="user-tag-remove" onclick="removeUserFromFile(this)">×</button>
-                                    </div>
-                                    <div class="user-tag">
-                                        lawyer@lexfirm.eu
-                                        <button class="user-tag-remove" onclick="removeUserFromFile(this)">×</button>
-                                    </div>
-                                </div>
-                                <div class="add-user-to-file">
-                                    <input type="email" class="form-input" placeholder="Add user email..." style="flex: 1;">
-                                    <button class="btn btn-sm" onclick="addUserToFile(this)">Add</button>
-                                </div>
-                            </div>
-                        </div>
+                <div class="form-group">
+                    <label class="form-label">Service Users</label>
+                    <div class="service-users-grid">
+                        <input type="email" class="form-input" placeholder="User email..." id="service-user-email">
+                        <select class="form-select" id="service-user-access">
+                            <option value="full">Full Access</option>
+                            <option value="read">Read Only</option>
+                            <option value="query">Query Only</option>
+                        </select>
+                        <button class="btn btn-primary" onclick="addServiceUser()">Add User</button>
                     </div>
-
-                    <!-- Contracts -->
-                    <div class="file-access-item">
-                        <div class="file-access-header">
-                            <div class="file-path-info">
-                                <span class="file-path">/data/contracts/</span>
-                                <span class="file-type-badge">Folder</span>
-                            </div>
-                            <button class="btn btn-sm" onclick="removeFilePath(this)" style="color: #dc2626;">Remove</button>
-                        </div>
-                        <div class="file-access-body">
-                            <div class="access-users">
-                                <label class="access-label">Who can query this resource:</label>
-                                <div class="user-tags">
-                                    <div class="user-tag">
-                                        admin@lexfirm.eu
-                                        <button class="user-tag-remove" onclick="removeUserFromFile(this)">×</button>
-                                    </div>
-                                    <div class="user-tag">
-                                        senior-partner@lexfirm.eu
-                                        <button class="user-tag-remove" onclick="removeUserFromFile(this)">×</button>
-                                    </div>
-                                </div>
-                                <div class="add-user-to-file">
-                                    <input type="email" class="form-input" placeholder="Add user email..." style="flex: 1;">
-                                    <button class="btn btn-sm" onclick="addUserToFile(this)">Add</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Public Documentation -->
-                    <div class="file-access-item">
-                        <div class="file-access-header">
-                            <div class="file-path-info">
-                                <span class="file-path">/docs/public-guidelines.pdf</span>
-                                <span class="file-type-badge file-badge">File</span>
-                            </div>
-                            <button class="btn btn-sm" onclick="removeFilePath(this)" style="color: #dc2626;">Remove</button>
-                        </div>
-                        <div class="file-access-body">
-                            <div class="access-users">
-                                <label class="access-label">Who can query this resource:</label>
-                                <div class="user-tags">
-                                    <div class="user-tag public-access">
-                                        🌐 Public Access
-                                    </div>
-                                </div>
-                                <div class="add-user-to-file">
-                                    <input type="email" class="form-input" placeholder="Add user email..." style="flex: 1;">
-                                    <button class="btn btn-sm" onclick="addUserToFile(this)">Add</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="add-file-section">
-                    <div style="display: flex; gap: 8px;">
-                        <input type="text" class="form-input" id="new-file-path" placeholder="Select file or folder..." style="flex: 1;" readonly>
-                        <button class="btn" onclick="openFilePickerModal()">Browse...</button>
-                        <button class="btn btn-primary" onclick="addFilePath()" id="add-path-btn" disabled>Add Path</button>
-                    </div>
-                </div>
-
-                <!-- File Picker Modal -->
-                <div class="modal-overlay" id="filePickerModal" style="display: none;">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3>Select File or Folder</h3>
-                            <button class="modal-close" onclick="closeFilePickerModal()">×</button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="file-picker-nav">
-                                <div class="breadcrumb" id="breadcrumb">
-                                    <span class="breadcrumb-item" onclick="navigateToPath('/')">🏠 Home</span>
-                                </div>
-                            </div>
-                            <div class="file-picker-content">
-                                <div class="file-picker-toolbar">
-                                    <button class="btn btn-sm" onclick="navigateUp()">⬆️ Up</button>
-                                    <span class="current-path" id="currentPath">/Users/irina</span>
-                                </div>
-                                <div class="file-list" id="fileList">
-                                    <!-- Files and folders will be populated here -->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <div class="selected-path-display">
-                                <label>Selected: <span id="selectedPath">None</span></label>
-                            </div>
-                            <div class="modal-actions">
-                                <button class="btn" onclick="closeFilePickerModal()">Cancel</button>
-                                <button class="btn btn-primary" onclick="confirmPathSelection()" id="confirmBtn" disabled>Select</button>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="service-users-list" id="service-users-list"></div>
                 </div>
             </div>
 
+            <!-- Data Source Specific: Watched Files -->
+            <div class="access-control-section" id="watched-files-section">
+                <div class="section-title">Watched Files/Folders</div>
+                <div class="form-help" style="margin-bottom: 16px;">
+                    Configure which files and folders this service can access, and who has access to each resource.
+                </div>
+                
+                <table class="watched-files-table">
+                    <thead>
+                        <tr>
+                            <th>Path</th>
+                            <th>Date Added</th>
+                            <th>Allowed to Query</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="watched-files-tbody">
+                        <tr>
+                            <td class="path-cell">/data/legal-documents/</td>
+                            <td>2024-01-15</td>
+                            <td>
+                                <span class="user-badge">admin@lexfirm.eu</span>
+                                <span class="user-badge">analyst@lexfirm.eu</span>
+                                <button class="btn btn-primary" style="padding: 4px 8px; font-size: 12px; margin-left: 8px;" onclick="showAddUserModal('/data/legal-documents/')">+</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-remove">Remove</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="path-cell">/data/contracts/</td>
+                            <td>2024-01-10</td>
+                            <td>
+                                <span class="user-badge">admin@lexfirm.eu</span>
+                                <span class="user-badge">senior.partner@lexfirm.eu</span>
+                                <button class="btn btn-primary" style="padding: 4px 8px; font-size: 12px; margin-left: 8px;" onclick="showAddUserModal('/data/contracts/')">+</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-remove">Remove</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="path-cell">/docs/public-guidelines.pdf</td>
+                            <td>2024-01-05</td>
+                            <td>
+                                <span style="color: #059669; font-size: 13px;">✓ Everyone</span>
+                                <button class="btn btn-primary" style="padding: 4px 8px; font-size: 12px; margin-left: 8px;" onclick="showAddUserModal('/docs/public-guidelines.pdf')">+</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-remove">Remove</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="add-path-form">
+                    <input type="text" class="form-input" id="new-path-input" placeholder="Add new path to watch...">
+                    <button class="btn" onclick="browsePath()">Browse Path</button>
+                    <button class="btn btn-primary" onclick="addNewPath()">Add Path</button>
+                    <input type="file" id="path-browser" style="display: none;" onchange="handlePathSelection(event)" webkitdirectory>
+                </div>
+            </div>
+
+            <!-- Collective Membership -->
             <div class="access-control-section">
                 <div class="section-title">Collective Membership</div>
                 <div class="form-help" style="margin-bottom: 16px;">
@@ -1314,46 +1540,35 @@
                 
                 <div class="form-group">
                     <label class="form-label">Select Collective</label>
-                    <select class="form-select" id="collective-select" onchange="updateCollectivePolicies()">
+                    <select class="form-select" id="collective-select">
                         <option value="">Independent (No collective)</option>
                         <option value="legal-ai">Legal AI Collective</option>
-                        <option value="healthcare">Healthcare Data Network</option>
-                        <option value="research">Research Consortium</option>
-                        <option value="create-new">+ Create New Collective</option>
+                        <option value="healthcare-ai">Healthcare AI Collective</option>
+                        <option value="finance-ai">Finance AI Collective</option>
                     </select>
                 </div>
 
-                <!-- Collective Policies -->
                 <div class="collective-policies" id="collective-policies" style="display: none;">
-                    <div class="policies-header">
-                        <h4>Collective Policies</h4>
-                        <div class="form-help">These policies are managed by the collective and apply to all members.</div>
-                    </div>
-                    
+                    <div style="font-size: 14px; font-weight: 600; color: #1e293b;">Inherited Policies</div>
                     <div class="policy-grid">
                         <div class="policy-item">
-                            <input type="checkbox" id="unified-routing" disabled>
+                            <input type="checkbox" id="unified-routing" checked disabled>
                             <label for="unified-routing">Unified Routing</label>
                             <span class="policy-status">Enabled by collective</span>
                         </div>
                         <div class="policy-item">
-                            <input type="checkbox" id="pricing-delegation" disabled>
+                            <input type="checkbox" id="pricing-delegation" checked disabled>
                             <label for="pricing-delegation">Pricing Delegation</label>
                             <span class="policy-status">Enabled by collective</span>
                         </div>
                         <div class="policy-item">
                             <input type="checkbox" id="access-delegation" disabled>
-                            <label for="access-delegation">Access Control Delegation</label>
+                            <label for="access-delegation">Manage Control Delegation</label>
                             <span class="policy-status">Disabled by collective</span>
                         </div>
                         <div class="policy-item">
                             <input type="checkbox" id="paywall-disabled">
                             <label for="paywall-disabled">Disable Paywall</label>
-                            <span class="policy-status">User configurable</span>
-                        </div>
-                        <div class="policy-item">
-                            <input type="checkbox" id="human-approval">
-                            <label for="human-approval">Human in the Loop Approval</label>
                             <span class="policy-status">User configurable</span>
                         </div>
                     </div>
@@ -1362,117 +1577,491 @@
         </div>
     </div>
 
+    <!-- Modals -->
+    <div class="modal-overlay" id="codeGenModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Generated Service Code</h3>
+                <button class="modal-close" onclick="closeModal('codeGenModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <p>Your service code has been generated successfully!</p>
+                <pre style="background: #f8fafc; padding: 16px; border-radius: 8px; overflow-x: auto;">
+# Service configuration generated
+service_id: irina@openmined.org/legal_document_analyzer
+type: datasource
+status: ready
+                </pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add User Modal -->
+    <div class="modal-overlay" id="addUserModal" style="display: none;">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <h3>Add User Access</h3>
+                <button class="modal-close" onclick="closeModal('addUserModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <p id="addUserPath" style="font-size: 13px; color: #64748b; margin-bottom: 16px;"></p>
+                <div class="form-group">
+                    <label class="form-label">User Email</label>
+                    <input type="email" class="form-input" id="addUserEmail" placeholder="user@example.com">
+                </div>
+                <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px;">
+                    <button class="btn" onclick="closeModal('addUserModal')">Cancel</button>
+                    <button class="btn btn-primary" onclick="addUserToPath()">Add User</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Payment Registration Modal -->
+    <div class="modal-overlay" id="paymentRegistrationModal" style="display: none;">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <h3>Register Wallet Manager</h3>
+                <button class="modal-close" onclick="closeModal('paymentRegistrationModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <!-- Step 1: Service Selection -->
+                <div class="payment-modal-step active" id="paymentStep1">
+                    <div class="form-group">
+                        <label class="form-label">Select Wallet Manager</label>
+                        <div class="service-option" onclick="selectPaymentService('openmined')">
+                            <input type="radio" name="paymentService" value="openmined" id="openmined-radio">
+                            <div class="service-details">
+                                <div class="service-name">OpenMined Wallet Manager</div>
+                                <div class="service-url">https://payments.openmined.org</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-input" id="paymentEmail" placeholder="Your email address" readonly>
+                        <div class="form-help">This email is prefilled from your profile</div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px;">
+                        <button class="btn" onclick="closeModal('paymentRegistrationModal')">Cancel</button>
+                        <button class="btn btn-primary" onclick="proceedToPasswordStep()" id="proceedBtn" disabled>Next</button>
+                    </div>
+                </div>
+                
+                <!-- Step 2: Password Setup -->
+                <div class="payment-modal-step" id="paymentStep2">
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-input" id="paymentPassword" placeholder="Create a password">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Confirm Password</label>
+                        <input type="password" class="form-input" id="paymentPasswordConfirm" placeholder="Confirm your password">
+                        <div class="payment-error" id="passwordError">Passwords do not match</div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px;">
+                        <button class="btn" onclick="goBackToServiceSelection()">Back</button>
+                        <button class="btn btn-primary" onclick="completePaymentRegistration()">Complete Registration</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Payment Required Modal -->
+    <div class="modal-overlay" id="paymentRequiredModal" style="display: none;">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <h3>Wallet Manager Required</h3>
+                <button class="modal-close" onclick="closeModal('paymentRequiredModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <p style="margin-bottom: 16px;">This service requires payment. You must register with a wallet manager to access paid services.</p>
+                <div style="display: flex; gap: 8px; justify-content: flex-end;">
+                    <button class="btn" onclick="closeModal('paymentRequiredModal')">Cancel</button>
+                    <button class="btn btn-primary" onclick="closeModal('paymentRequiredModal'); showPaymentRegistration();">Register Wallet Manager</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Tab Management
-        function showTab(tabName) {
-            // Remove active class from all tabs and contents
-            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+        // Global variables
+        let selectedServiceType = null;
+        let selectedAvailable = { rag: false, search: false };
+        let generationChoices = { rag: null, search: null, synth: null };
+        
+        // Centralized User Account Management System
+        class UserAccountManager {
+            constructor() {
+                this.storageKey = 'userAccountData';
+                this.walletStorageKey = 'walletManagerData'; // Separate storage for wallet data
+                this.defaultAccount = {
+                    email: 'guest@syft.org',
+                    name: 'Guest',
+                    paymentService: null
+                    // Note: balance is not set by default - only when wallet manager is registered
+                };
+                this.account = this.loadAccount();
+                this.loadWalletData(); // Load wallet data separately
+            }
             
-            // Add active class to selected tab and content
-            event.target.classList.add('active');
+            loadAccount() {
+                try {
+                    const stored = localStorage.getItem(this.storageKey);
+                    if (stored) {
+                        const parsedAccount = JSON.parse(stored);
+                        return { ...this.defaultAccount, ...parsedAccount };
+                    }
+                } catch (e) {
+                    console.warn('Failed to load user account from localStorage:', e);
+                }
+                return { ...this.defaultAccount };
+            }
+            
+            loadWalletData() {
+                try {
+                    const walletData = localStorage.getItem(this.walletStorageKey);
+                    if (walletData) {
+                        const parsed = JSON.parse(walletData);
+                        this.account.paymentService = parsed.paymentService;
+                        this.account.balance = parsed.balance;
+                    }
+                } catch (e) {
+                    console.warn('Failed to load wallet data from localStorage:', e);
+                }
+            }
+            
+            saveWalletData() {
+                try {
+                    const walletData = {
+                        paymentService: this.account.paymentService,
+                        balance: this.account.balance
+                    };
+                    localStorage.setItem(this.walletStorageKey, JSON.stringify(walletData));
+                } catch (e) {
+                    console.warn('Failed to save wallet data to localStorage:', e);
+                }
+            }
+            
+            saveAccount() {
+                try {
+                    localStorage.setItem(this.storageKey, JSON.stringify(this.account));
+                } catch (e) {
+                    console.warn('Failed to save user account to localStorage:', e);
+                }
+            }
+            
+            updateAccount(updates) {
+                this.account = { ...this.account, ...updates };
+                this.saveAccount();
+                this.broadcastAccountUpdate();
+            }
+            
+            broadcastAccountUpdate() {
+                window.dispatchEvent(new CustomEvent('userAccountUpdated', { 
+                    detail: this.account 
+                }));
+            }
+            
+            getAccount() {
+                return { ...this.account };
+            }
+            
+            registerPaymentService(provider, url) {
+                this.account.paymentService = {
+                    provider,
+                    url,
+                    registeredAt: new Date().toISOString()
+                };
+                this.account.balance = '$87.20'; // Set balance when wallet manager is registered
+                
+                // Save wallet data separately (persists across user changes)
+                this.saveWalletData();
+                
+                // Also update account and broadcast
+                this.saveAccount();
+                this.broadcastAccountUpdate();
+            }
+            
+            updateAuthenticatedUser(email) {
+                // Only update email/name if different
+                if (this.account.email !== email) {
+                    this.account.email = email;
+                    this.account.name = email.split('@')[0];
+                    
+                    // Always reload wallet data (persists across users)
+                    this.loadWalletData();
+                    
+                    this.saveAccount();
+                    this.broadcastAccountUpdate();
+                }
+            }
+            
+            isLoggedIn() {
+                return this.account.email !== 'guest@syft.org';
+            }
+            
+            hasPaymentService() {
+                return this.account.paymentService !== null;
+            }
+        }
+        
+        // Global account manager instance
+        const accountManager = new UserAccountManager();
+        
+        // Set default user for service-edit (authenticated user context)
+        if (accountManager.getAccount().email === 'guest@syft.org') {
+            accountManager.updateAuthenticatedUser('irina@openmined.org');
+        }
+        
+        // Legacy userAccount object for backward compatibility
+        let userAccount = accountManager.getAccount();
+
+        // Tab switching
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active from all buttons
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
             document.getElementById(`${tabName}-tab`).classList.add('active');
+            
+            // Add active to selected button
+            event.target.classList.add('active');
         }
 
         // Service Type Selection
         function selectServiceType(type) {
-            // Remove selected class from all cards
-            document.querySelectorAll('.service-type-card').forEach(card => card.classList.remove('selected'));
+            selectedServiceType = type;
             
-            // Add selected class to clicked card
-            event.target.classList.add('selected');
+            // Reset choices when switching types
+            selectedAvailable = { rag: false, search: false };
+            generationChoices = { rag: null, search: null, synth: null };
             
-            // Show selection indicator
-            const indicator = document.getElementById('selectedTypeIndicator');
-            const typeName = document.getElementById('selectedTypeName');
-            const typeDisplayName = type === 'datasource' ? '🗄️ Data Source' : '🧠 Synthesizer';
+            // Update UI selection
+            document.getElementById('type-datasource').classList.toggle('selected', type === 'datasource');
+            document.getElementById('type-synthesizer').classList.toggle('selected', type === 'synthesizer');
             
-            typeName.textContent = typeDisplayName;
-            indicator.style.display = 'block';
+            // Toggle sections
+            document.getElementById('available-services').style.display = (type === 'datasource') ? 'block' : 'none';
+            document.getElementById('synth-config-container').style.display = (type === 'synthesizer') ? 'block' : 'none';
             
-            // Show/hide options based on type
-            document.getElementById('datasource-options').style.display = type === 'datasource' ? 'block' : 'none';
-            document.getElementById('synthesizer-options').style.display = type === 'synthesizer' ? 'block' : 'none';
-            
-            // Reset any previous selections when switching types
-            if (type === 'datasource') {
-                // Reset chat/search selections
-                document.querySelectorAll('#datasource-options .option-card').forEach(card => {
-                    card.classList.remove('selected');
-                    const checkbox = card.querySelector('input[type="checkbox"]');
-                    if (checkbox) checkbox.checked = false;
-                });
-                // Hide all configuration sections
-                document.getElementById('common-config-section').style.display = 'none';
-                document.getElementById('rag-model-selection').style.display = 'none';
-                document.getElementById('llm-filters').classList.remove('active');
+            // Set default for synthesizer
+            if (type === 'synthesizer') {
+                generationChoices.synth = 'default';
             }
-        }
-
-        // Option Toggle
-        function toggleOption(optionType) {
-            const card = event.currentTarget;
-            const checkbox = card.querySelector('input[type="checkbox"]');
             
-            checkbox.checked = !checkbox.checked;
-            card.classList.toggle('selected', checkbox.checked);
-            
-            // Check if any interface is selected
-            const chatSelected = document.getElementById('chat-option')?.checked || false;
-            const searchSelected = document.getElementById('search-option')?.checked || false;
-            
-            // Show common configuration if either chat or search is selected
-            const commonConfigSection = document.getElementById('common-config-section');
-            commonConfigSection.style.display = (chatSelected || searchSelected) ? 'block' : 'none';
-            
-            // Show RAG model selection and LLM filters only if chat is selected
-            if (optionType === 'chat') {
-                const ragSection = document.getElementById('rag-model-selection');
-                const filtersSection = document.getElementById('llm-filters');
-                
-                if (checkbox.checked) {
-                    ragSection.style.display = 'block';
-                    filtersSection.classList.add('active');
-                } else {
-                    ragSection.style.display = 'none';
-                    filtersSection.classList.remove('active');
-                    // Also hide default RAG options
-                    document.getElementById('default-rag-options').style.display = 'none';
+            // Update access control indicator
+            const indicator = document.getElementById('access-control-service-type');
+            if (indicator) {
+                if (type === 'datasource') {
+                    indicator.textContent = 'Data Source';
+                    indicator.style.background = '#dbeafe';
+                    indicator.style.color = '#1d4ed8';
+                } else if (type === 'synthesizer') {
+                    indicator.textContent = 'Synthesizer';
+                    indicator.style.background = '#dcfce7';
+                    indicator.style.color = '#16a34a';
                 }
             }
+            
+            // Update generate button
+            updateGenerateButton();
         }
 
-        // RAG Type Selection
-        function selectRAGType(type) {
-            // Update radio buttons
-            document.getElementById('custom-rag').checked = (type === 'custom');
-            document.getElementById('default-rag').checked = (type === 'default');
+        // Toggle Available Service
+        function toggleAvailableService(service) {
+            selectedAvailable[service] = !selectedAvailable[service];
             
-            // Update card selection
-            document.querySelectorAll('#rag-model-selection .option-card').forEach(card => {
+            const card = document.getElementById(`available-${service}`);
+            const checkbox = document.getElementById(`${service}-available`);
+            const container = document.getElementById(`${service}-config-container`);
+            
+            if (selectedAvailable[service]) {
+                card.classList.add('selected');
+                checkbox.checked = true;
+                container.style.display = 'block';
+                // Set default choice when enabling service
+                generationChoices[service] = 'default';
+            } else {
                 card.classList.remove('selected');
-            });
-            event.currentTarget.classList.add('selected');
+                checkbox.checked = false;
+                container.style.display = 'none';
+                // Reset choice when disabling service
+                generationChoices[service] = null;
+            }
             
-            // Show/hide default setup options
-            const defaultOptions = document.getElementById('default-rag-options');
-            defaultOptions.style.display = (type === 'default') ? 'block' : 'none';
+            // Update generate button
+            updateGenerateButton();
         }
 
-        // Update chunk size value display for common section
-        function updateCommonChunkSize() {
-            const slider = document.getElementById('common-chunk-size');
-            const display = document.getElementById('common-chunk-size-value');
-            display.textContent = slider.value;
+        // Select Generation Option
+        function selectGenerationOption(service, option) {
+            generationChoices[service] = option;
+            
+            // Update UI
+            document.getElementById(`${service}-gen-default-card`).classList.toggle('selected', option === 'default');
+            document.getElementById(`${service}-gen-custom-card`).classList.toggle('selected', option === 'custom');
+            document.getElementById(`${service}-gen-default`).checked = (option === 'default');
+            document.getElementById(`${service}-gen-custom`).checked = (option === 'custom');
+            
+            // Show/hide advanced settings based on selection
+            const advancedSettings = document.getElementById(`${service}-advanced-settings`);
+            const llmFilters = document.getElementById(`${service}-llm-filters`) || document.getElementById(`${service}-filters`);
+            
+            if (option === 'custom') {
+                // Hide advanced settings for custom implementations
+                if (advancedSettings) {
+                    advancedSettings.style.display = 'none';
+                }
+                if (llmFilters) {
+                    llmFilters.style.display = 'none';
+                }
+            } else {
+                // Show advanced settings for default implementations
+                if (advancedSettings) {
+                    advancedSettings.style.display = 'block';
+                }
+                if (llmFilters) {
+                    llmFilters.style.display = 'block';
+                }
+            }
+            
+            // Update generate button
+            updateGenerateButton();
         }
 
-        // Tag Management
+        // Toggle Advanced Settings
+        function toggleAdvancedSettings(service) {
+            const content = document.getElementById(`${service}-advanced-content`);
+            const arrow = document.getElementById(`${service}-arrow`);
+            
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                arrow.classList.add('expanded');
+            } else {
+                content.style.display = 'none';
+                arrow.classList.remove('expanded');
+            }
+        }
+
+        // Markdown Functions
+        function applyMarkdown(type) {
+            const textarea = document.getElementById('descriptionInput');
+            const start = textarea.selectionStart;
+            const end = textarea.selectionEnd;
+            const text = textarea.value;
+            const selectedText = text.substring(start, end);
+            
+            let replacement = '';
+            switch(type) {
+                case 'bold':
+                    replacement = `**${selectedText || 'bold text'}**`;
+                    break;
+                case 'italic':
+                    replacement = `*${selectedText || 'italic text'}*`;
+                    break;
+                case 'h1':
+                    replacement = `# ${selectedText || 'Heading 1'}`;
+                    break;
+                case 'h2':
+                    replacement = `## ${selectedText || 'Heading 2'}`;
+                    break;
+                case 'h3':
+                    replacement = `### ${selectedText || 'Heading 3'}`;
+                    break;
+                case 'list':
+                    replacement = `- ${selectedText || 'List item'}`;
+                    break;
+                case 'code':
+                    replacement = `\`${selectedText || 'code'}\``;
+                    break;
+                case 'link':
+                    replacement = `[${selectedText || 'link text'}](url)`;
+                    break;
+            }
+            
+            textarea.value = text.substring(0, start) + replacement + text.substring(end);
+            textarea.focus();
+            textarea.setSelectionRange(start, start + replacement.length);
+            handleDescriptionInput();
+        }
+
+        function toggleDescriptionPreview() {
+            const preview = document.getElementById('descriptionPreview');
+            const btn = document.getElementById('descPreviewBtn');
+            const textarea = document.getElementById('descriptionInput');
+            
+            if (preview.style.display === 'none') {
+                preview.style.display = 'block';
+                textarea.style.display = 'none';
+                btn.textContent = 'Edit Markdown';
+                updateDescriptionPreview();
+            } else {
+                preview.style.display = 'none';
+                textarea.style.display = 'block';
+                btn.textContent = 'Markdown Preview';
+            }
+        }
+
+        function handleDescriptionInput() {
+            if (document.getElementById('descriptionPreview').style.display !== 'none') {
+                updateDescriptionPreview();
+            }
+        }
+
+        function updateDescriptionPreview() {
+            const textarea = document.getElementById('descriptionInput');
+            const preview = document.getElementById('descriptionPreview');
+            // Simple markdown to HTML conversion
+            let html = textarea.value
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/### (.*?)$/gm, '<h3>$1</h3>')
+                .replace(/## (.*?)$/gm, '<h2>$1</h2>')
+                .replace(/# (.*?)$/gm, '<h1>$1</h1>')
+                .replace(/- (.*?)$/gm, '<li>$1</li>')
+                .replace(/`(.*?)`/g, '<code>$1</code>')
+                .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+                .replace(/\n/g, '<br>');
+            preview.innerHTML = html || '<em>No content to preview</em>';
+        }
+
+        function triggerDescriptionUpload() {
+            document.getElementById('descUploadInput').click();
+        }
+
+        function handleDescriptionUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('descriptionInput').value = e.target.result;
+                    handleDescriptionInput();
+                };
+                reader.readAsText(file);
+            }
+        }
+
+        // Tag Functions
         function handleTagInput(event) {
             if (event.key === 'Enter') {
-                const input = event.target;
-                const tagText = input.value.trim();
-                if (tagText) {
-                    addTag(tagText);
+                event.preventDefault();
+                const input = document.getElementById('tagInput');
+                const tag = input.value.trim();
+                if (tag) {
+                    addTag(tag);
                     input.value = '';
                 }
             }
@@ -1480,417 +2069,160 @@
 
         function addTag(tagText) {
             const container = document.getElementById('tagsContainer');
-            const tagElement = document.createElement('div');
-            tagElement.className = 'tag';
-            tagElement.innerHTML = `
+            const tagDiv = document.createElement('div');
+            tagDiv.className = 'tag';
+            tagDiv.innerHTML = `
                 ${tagText}
                 <button class="tag-remove" onclick="removeTag(this)">×</button>
             `;
-            container.appendChild(tagElement);
-        }
-
-        function addSuggestionTag(tagText) {
-            addTag(tagText);
+            container.appendChild(tagDiv);
         }
 
         function removeTag(button) {
             button.parentElement.remove();
         }
 
-        // LLM Filters
-        function addFilter() {
-            const filtersList = document.getElementById('filters-list');
-            const filterElement = document.createElement('div');
-            filterElement.className = 'filter-item';
-            filterElement.innerHTML = `
-                <input type="text" class="form-input filter-input" placeholder="e.g., Remove personal information from responses">
-                <button class="filter-remove" onclick="removeFilter(this)">Remove</button>
-            `;
-            filtersList.appendChild(filterElement);
+        function addSuggestionTag(tagText) {
+            addTag(tagText);
         }
 
+        // Update Generate Button based on selections
+        function updateGenerateButton() {
+            const button = document.getElementById('generateActionButton');
+            if (!button) return;
+            
+            let hasValidConfig = false;
+            let hasCustomConfig = false;
+            
+            // Check synthesizer configuration
+            if (selectedServiceType === 'synthesizer') {
+                if (generationChoices.synth === 'default') {
+                    hasValidConfig = true;
+                } else if (generationChoices.synth === 'custom') {
+                    hasCustomConfig = true;
+                }
+            }
+            
+            // Check data source configuration
+            if (selectedServiceType === 'datasource') {
+                if (selectedAvailable.rag || selectedAvailable.search) {
+                    if ((selectedAvailable.rag && generationChoices.rag === 'default') ||
+                        (selectedAvailable.search && generationChoices.search === 'default')) {
+                        hasValidConfig = true;
+                    }
+                    if ((selectedAvailable.rag && generationChoices.rag === 'custom') ||
+                        (selectedAvailable.search && generationChoices.search === 'custom')) {
+                        hasCustomConfig = true;
+                    }
+                }
+            }
+            
+            // Update button text and state
+            if (hasValidConfig && !hasCustomConfig) {
+                button.textContent = 'Generate AI Service';
+                button.disabled = false;
+                button.style.opacity = '1';
+                button.style.cursor = 'pointer';
+            } else if (hasCustomConfig || (selectedServiceType && (selectedAvailable.rag || selectedAvailable.search || selectedServiceType === 'synthesizer'))) {
+                button.textContent = 'Generate Template Service Code';
+                button.disabled = true;
+                button.style.opacity = '0.5';
+                button.style.cursor = 'not-allowed';
+            } else {
+                button.textContent = 'Generate Service Code';
+                button.disabled = true;
+                button.style.opacity = '0.5';
+                button.style.cursor = 'not-allowed';
+            }
+        }
+
+        // Add Filter
+        function addFilter(service) {
+            const input = document.getElementById(`${service}-filter-input`);
+            const filterText = input.value.trim();
+            if (!filterText) return;
+            
+            const filtersList = document.getElementById(`${service}-output-filters-list`);
+            const filterTag = document.createElement('div');
+            filterTag.className = 'filter-tag';
+            filterTag.innerHTML = `
+                ${filterText}
+                <button class="filter-tag-remove" onclick="removeFilter(this)">×</button>
+            `;
+            
+            filtersList.appendChild(filterTag);
+            input.value = '';
+        }
+
+        // Remove Filter
         function removeFilter(button) {
             button.parentElement.remove();
         }
 
-        // MCP Tool Generation
-        function generateMCPTool() {
-            const button = event.target;
-            const originalText = button.innerHTML;
-            
-            // Show loading state
-            button.innerHTML = '⏳ Generating...';
-            button.disabled = true;
-            
-            // Simulate MCP tool generation process
-            setTimeout(() => {
-                const serviceName = document.querySelector('#metadata-tab .form-input').value || 'untitled_service';
-                const sanitizedName = serviceName.replace(/[^a-zA-Z0-9@._-]/g, '_').toLowerCase();
-                
-                // Success state
-                button.innerHTML = '✅ Generated!';
-                button.style.background = '#10b981';
-                button.style.borderColor = '#10b981';
-                
-                // Show success message
-                setTimeout(() => {
-                    alert(`🔧 MCP Tool generated successfully!\n\n` +
-                          `Service: ${serviceName}\n` +
-                          `Type: Model Context Protocol Tool\n\n` +
-                          `📁 Generated files location:\n~/syftbox/mcp-tools/${sanitizedName}/\n\n` +
-                          `Files created:\n` +
-                          `• mcp_server.py - MCP server implementation\n` +
-                          `• manifest.json - Tool manifest and capabilities\n` +
-                          `• schema.json - Input/output schemas\n` +
-                          `• README.md - Integration instructions\n` +
-                          `• requirements.txt - Python dependencies\n\n` +
-                          `Integration:\n` +
-                          `This MCP tool can be integrated with Claude Desktop, ` +
-                          `VS Code, or any MCP-compatible application to provide ` +
-                          `external access to your data source.`);
-                    
-                    // Reset button after showing message
-                    button.innerHTML = originalText;
-                    button.disabled = false;
-                    button.style.background = '';
-                    button.style.borderColor = '';
-                }, 1000);
-            }, 1500);
-        }
-
         // Generate Service Code
         function generateServiceCode() {
-            const button = event.target;
+            // Check if any paid services are being used
+            if (selectedServiceType === 'synthesizer' && generationChoices.synth === 'default') {
+                const selectedModel = document.getElementById('synth-ollama-model')?.value || 'llama3.2:7b';
+                if (!checkPaidServiceAccess(selectedModel)) {
+                    return; // Don't proceed if payment is required but not set up
+                }
+            }
+            
+            if (selectedServiceType === 'datasource') {
+                if (selectedAvailable.rag && generationChoices.rag === 'default') {
+                    const selectedModel = document.getElementById('rag-ollama-model')?.value || 'llama3.2:7b';
+                    if (!checkPaidServiceAccess(selectedModel)) {
+                        return;
+                    }
+                }
+            }
+            
+            const button = document.getElementById('generateActionButton');
             const originalText = button.innerHTML;
             
             // Show loading state
             button.innerHTML = '⏳ Generating...';
             button.disabled = true;
             
-            // Simulate code generation process
+            // Simulate code generation
             setTimeout(() => {
-                // Determine service type and configuration
-                const isDataSource = document.getElementById('datasource-options').style.display === 'block';
-                const isSynthesizer = document.getElementById('synthesizer-options').style.display === 'block';
-                const serviceName = document.querySelector('#metadata-tab .form-input').value || 'untitled_service';
-                const sanitizedName = serviceName.replace(/[^a-zA-Z0-9@._-]/g, '_').toLowerCase();
+                button.innerHTML = '✅ Code Generated!';
+                button.style.background = '#16a34a';
                 
-                let serviceType = 'unknown';
-                let configDetails = '';
-                let generatedPath = '';
+                // Show success modal
+                alert('Service code generated successfully!\n\nYour service is now ready to be published.');
                 
-                if (isDataSource) {
-                    serviceType = 'Data Source';
-                    const chatEnabled = document.getElementById('chat-option')?.checked;
-                    const searchEnabled = document.getElementById('search-option')?.checked;
-                    const customRAG = document.getElementById('custom-rag')?.checked;
-                    const defaultRAG = document.getElementById('default-rag')?.checked;
-                    
-                    if (chatEnabled && defaultRAG) {
-                        const selectedModel = document.getElementById('ollama-model')?.value || 'llama3.2:3b';
-                        configDetails = `with Chat interface using ${selectedModel} RAG setup`;
-                    } else if (chatEnabled && customRAG) {
-                        configDetails = 'with Chat interface using custom RAG template';
-                    } else if (searchEnabled) {
-                        configDetails = 'with Search interface';
-                    } else {
-                        configDetails = 'with basic configuration';
-                    }
-                    
-                    generatedPath = `~/syftbox/services/${sanitizedName}/`;
-                } else if (isSynthesizer) {
-                    serviceType = 'Synthesizer';
-                    configDetails = 'with federated data handling framework';
-                    generatedPath = `~/syftbox/synthesizers/${sanitizedName}/`;
-                } else {
-                    serviceType = 'Service';
-                    configDetails = 'with basic template';
-                    generatedPath = `~/syftbox/services/${sanitizedName}/`;
-                }
-                
-                // Success state
-                button.innerHTML = '✅ Generated!';
-                button.style.background = '#10b981';
-                button.style.borderColor = '#10b981';
-                
-                // Show success message
+                // Reset button after delay
                 setTimeout(() => {
-                    alert(`🎉 ${serviceType} code generated successfully!\n\n` +
-                          `Service: ${serviceName}\n` +
-                          `Type: ${serviceType} ${configDetails}\n\n` +
-                          `📁 Generated files location:\n${generatedPath}\n\n` +
-                          `Files created:\n` +
-                          `• main.py - Service entry point\n` +
-                          `• config.yaml - Service configuration\n` +
-                          `• requirements.txt - Python dependencies\n` +
-                          `• README.md - Setup instructions\n` +
-                          `• api/ - API endpoint handlers\n` +
-                          `• utils/ - Helper utilities\n\n` +
-                          `Next steps:\n` +
-                          `1. Navigate to the generated directory\n` +
-                          `2. Review the configuration files\n` +
-                          `3. Install dependencies: pip install -r requirements.txt\n` +
-                          `4. Start the service: python main.py`);
-                    
-                    // Reset button after showing message
                     button.innerHTML = originalText;
                     button.disabled = false;
                     button.style.background = '';
-                    button.style.borderColor = '';
-                }, 1000);
+                    updateGenerateButton(); // Reset to proper state
+                }, 2000);
             }, 2000);
         }
 
-        // File Path Management
-        let currentPath = '/Users/irina';
-        let selectedFilePath = '';
-
-        function addFilePath() {
-            const input = document.getElementById('new-file-path');
-            const path = input.value.trim();
-            if (path) {
-                const container = document.getElementById('file-access-list');
-                const isFile = path.includes('.') && !path.endsWith('/');
-                const badgeClass = isFile ? 'file-badge' : '';
-                const badgeText = isFile ? 'File' : 'Folder';
-                
-                const pathElement = document.createElement('div');
-                pathElement.className = 'file-access-item';
-                pathElement.innerHTML = `
-                    <div class="file-access-header">
-                        <div class="file-path-info">
-                            <span class="file-path">${path}</span>
-                            <span class="file-type-badge ${badgeClass}">${badgeText}</span>
-                        </div>
-                        <button class="btn btn-sm" onclick="removeFilePath(this)" style="color: #dc2626;">Remove</button>
-                    </div>
-                    <div class="file-access-body">
-                        <div class="access-users">
-                            <label class="access-label">Who can query this resource:</label>
-                            <div class="user-tags">
-                                <!-- Users will be added here -->
-                            </div>
-                            <div class="add-user-to-file">
-                                <input type="email" class="form-input" placeholder="Add user email..." style="flex: 1;">
-                                <button class="btn btn-sm" onclick="addUserToFile(this)">Add</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                container.appendChild(pathElement);
-                input.value = '';
-                document.getElementById('add-path-btn').disabled = true;
-            }
-        }
-
-        // File Picker Modal Functions
-        function openFilePickerModal() {
-            document.getElementById('filePickerModal').style.display = 'flex';
-            currentPath = '/Users/irina';
-            populateFileList();
-            updateBreadcrumb();
-        }
-
-        function closeFilePickerModal() {
-            document.getElementById('filePickerModal').style.display = 'none';
-            selectedFilePath = '';
-            document.getElementById('selectedPath').textContent = 'None';
-            document.getElementById('confirmBtn').disabled = true;
-        }
-
-        function populateFileList() {
-            const fileList = document.getElementById('fileList');
-            document.getElementById('currentPath').textContent = currentPath;
+        // Add service user
+        function addServiceUser() {
+            const emailInput = document.getElementById('service-user-email');
+            const accessSelect = document.getElementById('service-user-access');
+            const usersList = document.getElementById('service-users-list');
             
-            // Mock file system data
-            const mockFiles = {
-                '/Users/irina': [
-                    { name: 'Documents', type: 'folder', icon: '📁' },
-                    { name: 'Desktop', type: 'folder', icon: '📁' },
-                    { name: 'Downloads', type: 'folder', icon: '📁' },
-                    { name: 'data', type: 'folder', icon: '📁' },
-                    { name: 'projects', type: 'folder', icon: '📁' },
-                    { name: 'config.yaml', type: 'file', icon: '📄' }
-                ],
-                '/Users/irina/Documents': [
-                    { name: 'legal-documents', type: 'folder', icon: '📁' },
-                    { name: 'contracts', type: 'folder', icon: '📁' },
-                    { name: 'reports', type: 'folder', icon: '📁' },
-                    { name: 'notes.txt', type: 'file', icon: '📄' }
-                ],
-                '/Users/irina/data': [
-                    { name: 'legal-documents', type: 'folder', icon: '📁' },
-                    { name: 'contracts', type: 'folder', icon: '📁' },
-                    { name: 'medical-records', type: 'folder', icon: '📁' },
-                    { name: 'research-papers', type: 'folder', icon: '📁' },
-                    { name: 'database.db', type: 'file', icon: '🗃️' },
-                    { name: 'config.json', type: 'file', icon: '📄' }
-                ],
-                '/Users/irina/Documents/legal-documents': [
-                    { name: 'contracts', type: 'folder', icon: '📁' },
-                    { name: 'patents', type: 'folder', icon: '📁' },
-                    { name: 'compliance', type: 'folder', icon: '📁' },
-                    { name: 'legal_brief.pdf', type: 'file', icon: '📄' },
-                    { name: 'case_study.docx', type: 'file', icon: '📄' }
-                ]
-            };
+            if (!emailInput.value) return;
             
-            const files = mockFiles[currentPath] || [];
-            
-            fileList.innerHTML = files.map(file => `
-                <div class="file-item" onclick="selectFile('${file.name}', '${file.type}')">
-                    <span class="file-icon">${file.icon}</span>
-                    <span class="file-name">${file.name}</span>
-                    <span class="file-type">${file.type}</span>
+            const userItem = document.createElement('div');
+            userItem.className = 'service-user-item';
+            userItem.innerHTML = `
+                <div>
+                    <div class="service-user-email">${emailInput.value}</div>
+                    <div class="service-user-access">${accessSelect.value}</div>
                 </div>
-            `).join('');
-        }
-
-        function selectFile(fileName, fileType) {
-            // Remove previous selection
-            document.querySelectorAll('.file-item').forEach(item => {
-                item.classList.remove('selected');
-            });
+                <button class="btn btn-remove" onclick="this.parentElement.remove()">Remove</button>
+            `;
             
-            // Add selection to clicked item
-            event.currentTarget.classList.add('selected');
-            
-            // Update selected path
-            selectedFilePath = currentPath.endsWith('/') ? currentPath + fileName : currentPath + '/' + fileName;
-            document.getElementById('selectedPath').textContent = selectedFilePath;
-            document.getElementById('confirmBtn').disabled = false;
-            
-            // If it's a folder, allow double-click to navigate
-            if (fileType === 'folder') {
-                // Set up double-click navigation
-                setTimeout(() => {
-                    event.currentTarget.ondblclick = () => navigateToPath(selectedFilePath);
-                }, 100);
-            }
-        }
-
-        function navigateToPath(path) {
-            currentPath = path;
-            selectedFilePath = '';
-            document.getElementById('selectedPath').textContent = 'None';
-            document.getElementById('confirmBtn').disabled = true;
-            populateFileList();
-            updateBreadcrumb();
-        }
-
-        function navigateUp() {
-            const pathParts = currentPath.split('/').filter(part => part !== '');
-            if (pathParts.length > 2) { // Don't go above /Users/irina
-                pathParts.pop();
-                currentPath = '/' + pathParts.join('/');
-                navigateToPath(currentPath);
-            }
-        }
-
-        function updateBreadcrumb() {
-            const breadcrumb = document.getElementById('breadcrumb');
-            const pathParts = currentPath.split('/').filter(part => part !== '');
-            
-            let breadcrumbHTML = '<span class="breadcrumb-item" onclick="navigateToPath(\'/Users/irina\')">🏠 Home</span>';
-            
-            if (pathParts.length > 2) {
-                let buildPath = '/' + pathParts[0] + '/' + pathParts[1]; // /Users/irina
-                for (let i = 2; i < pathParts.length; i++) {
-                    buildPath += '/' + pathParts[i];
-                    breadcrumbHTML += `<span class="breadcrumb-item" onclick="navigateToPath('${buildPath}')">${pathParts[i]}</span>`;
-                }
-            }
-            
-            breadcrumb.innerHTML = breadcrumbHTML;
-        }
-
-        function confirmPathSelection() {
-            if (selectedFilePath) {
-                document.getElementById('new-file-path').value = selectedFilePath;
-                document.getElementById('add-path-btn').disabled = false;
-                closeFilePickerModal();
-            }
-        }
-
-        function removeFilePath(button) {
-            button.closest('.file-access-item').remove();
-        }
-
-        // User to File Management
-        function addUserToFile(button) {
-            const input = button.previousElementSibling;
-            const email = input.value.trim();
-            if (email && email.includes('@')) {
-                const userTags = button.closest('.access-users').querySelector('.user-tags');
-                const userTag = document.createElement('div');
-                userTag.className = 'user-tag';
-                userTag.innerHTML = `
-                    ${email}
-                    <button class="user-tag-remove" onclick="removeUserFromFile(this)">×</button>
-                `;
-                userTags.appendChild(userTag);
-                input.value = '';
-            } else {
-                alert('Please enter a valid email address.');
-            }
-        }
-
-        function removeUserFromFile(button) {
-            button.parentElement.remove();
-        }
-
-        // Collective Management
-        function updateCollectivePolicies() {
-            const select = document.getElementById('collective-select');
-            const policiesSection = document.getElementById('collective-policies');
-            
-            if (select.value && select.value !== 'create-new') {
-                policiesSection.style.display = 'block';
-                
-                // Update policy checkboxes based on collective
-                const collectiveSettings = {
-                    'legal-ai': {
-                        'unified-routing': { checked: true, disabled: true, status: 'Enabled by collective' },
-                        'pricing-delegation': { checked: true, disabled: true, status: 'Enabled by collective' },
-                        'access-delegation': { checked: false, disabled: true, status: 'Disabled by collective' },
-                        'paywall-disabled': { checked: false, disabled: false, status: 'User configurable' },
-                        'human-approval': { checked: true, disabled: false, status: 'User configurable' }
-                    },
-                    'healthcare': {
-                        'unified-routing': { checked: true, disabled: true, status: 'Enabled by collective' },
-                        'pricing-delegation': { checked: false, disabled: true, status: 'Disabled by collective' },
-                        'access-delegation': { checked: true, disabled: true, status: 'Enabled by collective' },
-                        'paywall-disabled': { checked: true, disabled: true, status: 'Enabled by collective' },
-                        'human-approval': { checked: true, disabled: true, status: 'Required by collective' }
-                    },
-                    'research': {
-                        'unified-routing': { checked: false, disabled: true, status: 'Disabled by collective' },
-                        'pricing-delegation': { checked: false, disabled: true, status: 'Disabled by collective' },
-                        'access-delegation': { checked: false, disabled: true, status: 'Disabled by collective' },
-                        'paywall-disabled': { checked: true, disabled: true, status: 'Enabled by collective' },
-                        'human-approval': { checked: false, disabled: false, status: 'User configurable' }
-                    }
-                };
-                
-                const settings = collectiveSettings[select.value];
-                if (settings) {
-                    Object.keys(settings).forEach(policyId => {
-                        const checkbox = document.getElementById(policyId);
-                        const statusSpan = checkbox.closest('.policy-item').querySelector('.policy-status');
-                        const setting = settings[policyId];
-                        
-                        checkbox.checked = setting.checked;
-                        checkbox.disabled = setting.disabled;
-                        statusSpan.textContent = setting.status;
-                    });
-                }
-            } else if (select.value === 'create-new') {
-                alert('Creating a new collective would open a collective setup wizard.');
-                select.value = '';
-                policiesSection.style.display = 'none';
-            } else {
-                policiesSection.style.display = 'none';
-            }
+            usersList.appendChild(userItem);
+            emailInput.value = '';
         }
 
         // Navigation
@@ -1898,11 +2230,281 @@
             window.location.href = 'build.html';
         }
 
+        // Publish service
         function publishService() {
-            if (confirm('Publish this service? It will be available to authorized users.')) {
-                alert('🎉 Service published successfully!\n\nYour service is now live and accessible to authorized users.');
+            if (confirm('Are you ready to publish this service?')) {
+                document.getElementById('serviceStatus').textContent = 'Published • Live';
+                document.getElementById('publishBtn').textContent = '✅ Published';
+                document.getElementById('publishBtn').disabled = true;
+                document.getElementById('generateMCPBtn').disabled = false;
+                alert('Service published successfully!');
             }
         }
+
+        // Generate MCP Tool
+        function generateMCPTool() {
+            alert('MCP Tool generated successfully!\n\nYour tool configuration has been created and is ready for integration.');
+        }
+
+        // Show Add User Modal
+        let currentPath = '';
+        function showAddUserModal(path) {
+            currentPath = path;
+            document.getElementById('addUserPath').textContent = `Adding access for: ${path}`;
+            document.getElementById('addUserEmail').value = '';
+            document.getElementById('addUserModal').style.display = 'flex';
+        }
+
+        // Add User to Path
+        function addUserToPath() {
+            const email = document.getElementById('addUserEmail').value.trim();
+            if (!email) {
+                alert('Please enter a valid email address');
+                return;
+            }
+            
+            // Find the row with the current path and add the user badge
+            const rows = document.querySelectorAll('#watched-files-tbody tr');
+            rows.forEach(row => {
+                const pathCell = row.querySelector('.path-cell');
+                if (pathCell && pathCell.textContent === currentPath) {
+                    const queryCell = row.cells[2];
+                    const plusButton = queryCell.querySelector('button');
+                    
+                    // Create new user badge
+                    const userBadge = document.createElement('span');
+                    userBadge.className = 'user-badge';
+                    userBadge.textContent = email;
+                    
+                    // Insert before the + button
+                    queryCell.insertBefore(userBadge, plusButton);
+                }
+            });
+            
+            closeModal('addUserModal');
+            alert(`Added ${email} to ${currentPath}`);
+        }
+
+        // Browse Path functionality
+        function browsePath() {
+            document.getElementById('path-browser').click();
+        }
+
+        function handlePathSelection(event) {
+            const files = event.target.files;
+            if (files.length > 0) {
+                // Get the directory path from the first file
+                const path = files[0].webkitRelativePath;
+                const folderPath = '/' + path.split('/')[0] + '/';
+                document.getElementById('new-path-input').value = folderPath;
+            }
+        }
+
+        function addNewPath() {
+            const pathInput = document.getElementById('new-path-input');
+            const path = pathInput.value.trim();
+            if (!path) {
+                alert('Please enter or select a path');
+                return;
+            }
+            
+            // Add new row to the table
+            const tbody = document.getElementById('watched-files-tbody');
+            const newRow = document.createElement('tr');
+            const currentDate = new Date().toISOString().split('T')[0];
+            
+            newRow.innerHTML = `
+                <td class="path-cell">${path}</td>
+                <td>${currentDate}</td>
+                <td>
+                    <span style="color: #059669; font-size: 13px;">✓ Everyone</span>
+                    <button class="btn btn-primary" style="padding: 4px 8px; font-size: 12px; margin-left: 8px;" onclick="showAddUserModal('${path}')">+</button>
+                </td>
+                <td>
+                    <button class="btn btn-remove">Remove</button>
+                </td>
+            `;
+            
+            tbody.appendChild(newRow);
+            pathInput.value = '';
+            alert(`Added path: ${path}`);
+        }
+
+        // Close modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Account Menu Functions
+        function toggleAccountMenu() {
+            const dropdown = document.getElementById('accountDropdown');
+            dropdown.classList.toggle('show');
+        }
+        
+        // Close account menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const accountMenu = document.querySelector('.account-menu');
+            if (!accountMenu.contains(event.target)) {
+                document.getElementById('accountDropdown').classList.remove('show');
+            }
+        });
+        
+        // Wallet Manager Registration Functions
+        function showPaymentRegistration() {
+            document.getElementById('accountDropdown').classList.remove('show');
+            document.getElementById('paymentEmail').value = userAccount.email;
+            document.getElementById('paymentRegistrationModal').style.display = 'flex';
+            resetPaymentModal();
+        }
+        
+        function selectPaymentService(service) {
+            document.getElementById('openmined-radio').checked = true;
+            document.getElementById('proceedBtn').disabled = false;
+        }
+        
+        function proceedToPasswordStep() {
+            document.getElementById('paymentStep1').classList.remove('active');
+            document.getElementById('paymentStep2').classList.add('active');
+        }
+        
+        function goBackToServiceSelection() {
+            document.getElementById('paymentStep2').classList.remove('active');
+            document.getElementById('paymentStep1').classList.add('active');
+        }
+        
+        function validatePasswords() {
+            const password = document.getElementById('paymentPassword').value;
+            const confirmPassword = document.getElementById('paymentPasswordConfirm').value;
+            const errorDiv = document.getElementById('passwordError');
+            
+            if (password && confirmPassword && password !== confirmPassword) {
+                errorDiv.style.display = 'block';
+                return false;
+            } else {
+                errorDiv.style.display = 'none';
+                return true;
+            }
+        }
+        
+        function completePaymentRegistration() {
+            const password = document.getElementById('paymentPassword').value;
+            const confirmPassword = document.getElementById('paymentPasswordConfirm').value;
+            
+            if (!password || !confirmPassword) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            if (!validatePasswords()) {
+                return;
+            }
+            
+            // Register wallet manager using account manager
+            accountManager.registerPaymentService('OpenMined Wallet Manager', 'https://payments.openmined.org');
+            
+            // Update local userAccount object for immediate UI update
+            userAccount = accountManager.getAccount();
+            
+            updatePaymentStatus();
+            closeModal('paymentRegistrationModal');
+            alert('Payment service registration completed successfully!');
+        }
+        
+        function updatePaymentStatus() {
+            // Get fresh account data
+            userAccount = accountManager.getAccount();
+            
+            const paymentStatus = document.getElementById('paymentStatus');
+            const registerBtn = document.getElementById('registerPaymentBtn');
+            const manageBtn = document.getElementById('managePaymentBtn');
+            const accountName = document.getElementById('accountName');
+            
+            // Update account name display
+            if (accountName) {
+                accountName.textContent = userAccount.name || userAccount.email.split('@')[0];
+            }
+            
+            const hasPaymentService = accountManager.hasPaymentService();
+            
+            if (hasPaymentService) {
+                if (paymentStatus) {
+                    paymentStatus.textContent = 'Registered';
+                    paymentStatus.classList.add('registered');
+                }
+                if (registerBtn) registerBtn.style.display = 'none';
+                if (manageBtn) manageBtn.style.display = 'flex';
+            } else {
+                if (paymentStatus) {
+                    paymentStatus.textContent = 'Not registered';
+                    paymentStatus.classList.remove('registered');
+                }
+                if (registerBtn) registerBtn.style.display = 'flex';
+                if (manageBtn) manageBtn.style.display = 'none';
+            }
+        }
+        
+        function managePaymentService() {
+            document.getElementById('accountDropdown').classList.remove('show');
+            alert(`Manage your ${userAccount.paymentService.provider} account\n\nRegistered: ${new Date(userAccount.paymentService.registeredAt).toLocaleDateString()}\nService URL: ${userAccount.paymentService.url}`);
+        }
+        
+        function resetPaymentModal() {
+            document.getElementById('paymentStep1').classList.add('active');
+            document.getElementById('paymentStep2').classList.remove('active');
+            document.getElementById('paymentPassword').value = '';
+            document.getElementById('paymentPasswordConfirm').value = '';
+            document.getElementById('passwordError').style.display = 'none';
+            document.getElementById('openmined-radio').checked = false;
+            document.getElementById('proceedBtn').disabled = true;
+        }
+        
+        // Paid Service Validation
+        function checkPaidServiceAccess(serviceName) {
+            // Example list of paid services - in a real app this would come from the service configuration
+            const paidServices = ['gpt-4-turbo', 'claude-3-opus', 'gemini-pro'];
+            
+            if (paidServices.some(service => serviceName.toLowerCase().includes(service))) {
+                if (!userAccount.paymentService) {
+                    showPaymentRequiredModal();
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+        function showPaymentRequiredModal() {
+            document.getElementById('paymentRequiredModal').style.display = 'flex';
+        }
+        
+        // Add password validation listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            const passwordInput = document.getElementById('paymentPassword');
+            const confirmInput = document.getElementById('paymentPasswordConfirm');
+            
+            if (passwordInput && confirmInput) {
+                passwordInput.addEventListener('input', validatePasswords);
+                confirmInput.addEventListener('input', validatePasswords);
+            }
+            
+            // Listen for account updates from other pages
+            window.addEventListener('userAccountUpdated', function(event) {
+                userAccount = event.detail;
+                updatePaymentStatus();
+            });
+            
+            // Initialize payment status
+            updatePaymentStatus();
+        });
+        
+        // Collective select handler
+        document.getElementById('collective-select').addEventListener('change', function() {
+            const policies = document.getElementById('collective-policies');
+            if (this.value) {
+                policies.style.display = 'block';
+            } else {
+                policies.style.display = 'none';
+            }
+        });
     </script>
 </body>
 </html>

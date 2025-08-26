@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Service Monitor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&family=Roboto:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0px auto  auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 40;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        /* Logo & Header Controls */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background-image: url('../syftbox-logo.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .logo-text h1 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 2px;
+            color: #1e293b;
+            font-family: 'Rubik', -apple-system, system-ui, sans-serif;
+        }
+
+        .logo-text p {
+            font-size: 12px;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .service-name {
+            font-size: 14px;
+            color: #4A6FB3;
+            font-weight: 500;
+            margin-left: 16px;
+            padding: 4px 12px;
+            background: #eff6ff;
+            border-radius: 6px;
+            border: 1px solid #dbeafe;
+        }
+
+        /* Card Styles */
+        .card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .card-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #f1f5f9;
+            background: #fafbfc;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        .card-content {
+            padding: 24px;
+        }
+
+        /* Overview Metrics */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .metric-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .metric-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .metric-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: white;
+        }
+
+        .metric-icon.active {
+            background: linear-gradient(135deg, #53BEA9, #059669);
+        }
+
+        .metric-icon.queries {
+            background: linear-gradient(135deg, #4A6FB3, #2563eb);
+        }
+
+        .metric-icon.earnings {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+
+        .metric-icon.uptime {
+            background: linear-gradient(135deg, #937098, #7c3aed);
+        }
+
+        .metric-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+
+        .metric-label {
+            font-size: 14px;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .metric-details {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-top: 8px;
+        }
+
+        /* Logs Section */
+        .logs-section {
+            margin-top: 32px;
+        }
+
+        .logs-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .logs-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .logs-controls {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            padding: 8px 16px 8px 40px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            width: 300px;
+            background: white;
+        }
+
+        .search-box::before {
+            content: "🔍";
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 8px;
+        }
+
+        .filter-tab {
+            padding: 6px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            background: white;
+            color: #6b7280;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-tab:hover {
+            border-color: #4A6FB3;
+            color: #4A6FB3;
+        }
+
+        .filter-tab.active {
+            background: #4A6FB3;
+            color: white;
+            border-color: #4A6FB3;
+        }
+
+        /* Log Table */
+        .log-table {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .log-table-header {
+            background: #f8fafc;
+            padding: 16px 24px;
+            border-bottom: 1px solid #e2e8f0;
+            display: grid;
+            grid-template-columns: 120px 80px 1fr 100px;
+            gap: 16px;
+            font-weight: 600;
+            color: #374151;
+            font-size: 14px;
+        }
+
+        .log-row {
+            display: grid;
+            grid-template-columns: 120px 80px 1fr 100px;
+            gap: 16px;
+            padding: 16px 24px;
+            border-bottom: 1px solid #f1f5f9;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+
+        .log-row:hover {
+            background-color: #f8fafc;
+        }
+
+        .log-row:last-child {
+            border-bottom: none;
+        }
+
+        .log-timestamp {
+            font-size: 12px;
+            color: #6b7280;
+            font-family: 'Monaco', 'Menlo', monospace;
+        }
+
+        .log-level {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .log-level.info {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .log-level.warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .log-level.error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .log-level.success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .log-message {
+            font-size: 14px;
+            color: #374151;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
+        .log-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+
+        .action-btn {
+            padding: 4px 8px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            background: white;
+            color: #6b7280;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover {
+            border-color: #4A6FB3;
+            color: #4A6FB3;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 24px;
+        }
+
+        .page-btn {
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            background: white;
+            color: #6b7280;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .page-btn:hover {
+            border-color: #4A6FB3;
+            color: #4A6FB3;
+        }
+
+        .page-btn.active {
+            background: #4A6FB3;
+            color: white;
+            border-color: #4A6FB3;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Copy Modal */
+        .copy-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .copy-modal.show {
+            display: flex;
+        }
+
+        .copy-content {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .copy-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .copy-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #6b7280;
+        }
+
+        .copy-textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 12px;
+            resize: vertical;
+        }
+
+        .copy-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+            justify-content: flex-end;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            background: white;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: #4A6FB3;
+            color: white;
+            border-color: #4A6FB3;
+        }
+
+        .btn-primary:hover {
+            background: #2563eb;
+        }
+
+        .btn:hover {
+            border-color: #4A6FB3;
+            color: #4A6FB3;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .overview-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .log-table-header,
+            .log-row {
+                grid-template-columns: 100px 70px 1fr 80px;
+                gap: 12px;
+                padding: 12px 16px;
+            }
+            
+            .search-box input {
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="logo">
+                        <div class="logo-icon"></div>
+                        <div class="logo-text">
+                            <h1>AI Service Monitor</h1>
+                            <p>Real-time service monitoring & analytics</p>
+                        </div>
+                    </div>
+                    <div class="service-name">irina@openmined.org/legal_analyzer</div>
+                </div>
+                <div class="header-right">
+                    <span class="status-indicator">🟢 Active</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <br>
+    <div class="container">
+        <!-- Overview Metrics -->
+        <div class="overview-grid">
+            <div class="metric-card">
+                <div class="metric-header">
+                    <div class="metric-icon active">🟢</div>
+                    <div>
+                        <div class="metric-value">Active</div>
+                        <div class="metric-label">Service Status</div>
+                        <div class="metric-details">Running smoothly</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-header">
+                    <div class="metric-icon queries">📊</div>
+                    <div>
+                        <div class="metric-value">1,247</div>
+                        <div class="metric-label">Total Queries</div>
+                        <div class="metric-details">+23 this hour</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-header">
+                    <div class="metric-icon earnings">💰</div>
+                    <div>
+                        <div class="metric-value">$847.32</div>
+                        <div class="metric-label">Total Earned</div>
+                        <div class="metric-details">+$12.45 today</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-header">
+                    <div class="metric-icon uptime">⏱️</div>
+                    <div>
+                        <div class="metric-value">99.7%</div>
+                        <div class="metric-label">Uptime</div>
+                        <div class="metric-details">Since Dec 1, 2024</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Logs Section -->
+        <div class="logs-section">
+            <div class="logs-header">
+                <h2 class="logs-title">Service Logs</h2>
+                <div class="logs-controls">
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Search logs...">
+                    </div>
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-filter="all">All</button>
+                        <button class="filter-tab" data-filter="info">Info</button>
+                        <button class="filter-tab" data-filter="warning">Warning</button>
+                        <button class="filter-tab" data-filter="error">Error</button>
+                        <button class="filter-tab" data-filter="success">Success</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="log-table">
+                <div class="log-table-header">
+                    <div>Timestamp</div>
+                    <div>Level</div>
+                    <div>Message</div>
+                    <div>Actions</div>
+                </div>
+                <div id="logTableBody">
+                    <!-- Log rows will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="pagination">
+                <button class="page-btn" id="prevPage" disabled>← Previous</button>
+                <span class="page-info">Page <span id="currentPage">1</span> of <span id="totalPages">1</span></span>
+                <button class="page-btn" id="nextPage">Next →</button>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <script>
+        // Sample log data
+        const sampleLogs = [
+            {
+                timestamp: '2024-12-15 14:32:15',
+                level: 'info',
+                message: 'Legal analysis request received for contract ID: CON-2024-001',
+                source: 'router'
+            },
+            {
+                timestamp: '2024-12-15 14:32:18',
+                level: 'info',
+                message: 'Processing contract analysis using legal_analyzer model',
+                source: 'service'
+            },
+            {
+                timestamp: '2024-12-15 14:32:22',
+                message: 'Contract analysis completed successfully. Risk score: 0.15',
+                level: 'success',
+                source: 'service'
+            },
+            {
+                timestamp: '2024-12-15 14:32:25',
+                level: 'info',
+                message: 'Response sent to client. Processing time: 2.3s',
+                source: 'router'
+            },
+            {
+                timestamp: '2024-12-15 14:31:45',
+                level: 'warning',
+                message: 'High memory usage detected: 87%. Consider scaling.',
+                source: 'service'
+            },
+            {
+                timestamp: '2024-12-15 14:31:30',
+                level: 'info',
+                message: 'Health check completed. All systems operational.',
+                source: 'service'
+            },
+            {
+                timestamp: '2024-12-15 14:30:15',
+                level: 'error',
+                message: 'Failed to connect to external legal database. Retrying...',
+                source: 'service'
+            },
+            {
+                timestamp: '2024-12-15 14:29:58',
+                level: 'info',
+                message: 'Legal analysis request received for contract ID: CON-2024-002',
+                source: 'router'
+            },
+            {
+                timestamp: '2024-12-15 14:29:45',
+                level: 'success',
+                message: 'External legal database connection restored',
+                source: 'service'
+            },
+            {
+                timestamp: '2024-12-15 14:28:30',
+                level: 'info',
+                message: 'Scheduled maintenance completed. All services restored.',
+                source: 'service'
+            }
+        ];
+
+        let currentPage = 1;
+        const logsPerPage = 10;
+        let filteredLogs = [...sampleLogs];
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            renderLogs();
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            // Search functionality
+            document.getElementById('searchInput').addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                filterLogs(searchTerm);
+            });
+
+            // Filter tabs
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    const filter = this.dataset.filter;
+                    filterByLevel(filter);
+                });
+            });
+
+            // Pagination
+            document.getElementById('prevPage').addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderLogs();
+                }
+            });
+
+            document.getElementById('nextPage').addEventListener('click', () => {
+                const totalPages = Math.ceil(filteredLogs.length / logsPerPage);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderLogs();
+                }
+            });
+        }
+
+        function filterLogs(searchTerm) {
+            filteredLogs = sampleLogs.filter(log => 
+                log.message.toLowerCase().includes(searchTerm) ||
+                log.timestamp.toLowerCase().includes(searchTerm) ||
+                log.level.toLowerCase().includes(searchTerm)
+            );
+            currentPage = 1;
+            renderLogs();
+        }
+
+        function filterByLevel(level) {
+            if (level === 'all') {
+                filteredLogs = [...sampleLogs];
+            } else {
+                filteredLogs = sampleLogs.filter(log => log.level === level);
+            }
+            currentPage = 1;
+            renderLogs();
+        }
+
+        function renderLogs() {
+            const tableBody = document.getElementById('logTableBody');
+            const startIndex = (currentPage - 1) * logsPerPage;
+            const endIndex = startIndex + logsPerPage;
+            const pageLogs = filteredLogs.slice(startIndex, endIndex);
+
+            tableBody.innerHTML = '';
+
+            pageLogs.forEach(log => {
+                const row = document.createElement('div');
+                row.className = 'log-row';
+                row.innerHTML = `
+                    <div class="log-timestamp">${log.timestamp}</div>
+                    <div class="log-level ${log.level}">${log.level}</div>
+                    <div class="log-message">${log.message}</div>
+                    <div class="log-actions">
+                        <button class="action-btn" onclick="copyFullLog('${log.timestamp}', '${log.level}', '${log.message}', '${log.source}')">Copy</button>
+                    </div>
+                `;
+                tableBody.appendChild(row);
+            });
+
+            updatePagination();
+        }
+
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredLogs.length / logsPerPage);
+            document.getElementById('currentPage').textContent = currentPage;
+            document.getElementById('totalPages').textContent = totalPages;
+            document.getElementById('prevPage').disabled = currentPage === 1;
+            document.getElementById('nextPage').disabled = currentPage === totalPages;
+        }
+
+        function copyFullLog(timestamp, level, message, source) {
+            const fullLog = `[${timestamp}] [${level.toUpperCase()}] [${source}] ${message}`;
+            const textToCopy = fullLog.length > 10000 ? fullLog.slice(-10000) : fullLog;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                btn.style.background = '#53BEA9';
+                btn.style.color = 'white';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = 'white';
+                    btn.style.color = '#6b7280';
+                }, 1000);
+            });
+        }
+
+        // Auto-refresh logs every 30 seconds
+        setInterval(() => {
+            // In a real implementation, this would fetch new logs from the server
+            console.log('Auto-refreshing logs...');
+        }, 30000);
+    </script>
+</body>
+</html>

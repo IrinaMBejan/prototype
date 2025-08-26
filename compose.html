@@ -20,8 +20,8 @@
         }
 
         .container {
-            max-width: 1440px;
-            margin: 30px auto 0 auto;
+            max-width: 1200px;
+            margin: 0px auto 0 auto;
             padding: 0 20px;
         }
 
@@ -71,7 +71,7 @@
         }
 
         .nav-tab:hover {
-            color: #3b82f6;
+            color: #4A6FB3;
         }
 
         .nav-tab.active {
@@ -144,6 +144,181 @@
             visibility: visible;
             transform: translateY(0);
         }
+        
+        .tooltip-button {
+            width: 100%;
+            padding: 8px 12px;
+            border: none;
+            background: #f8fafc;
+            color: #334155;
+            font-size: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 4px;
+            text-align: left;
+        }
+        
+        .tooltip-button:hover {
+            background: #e2e8f0;
+        }
+        
+        .tooltip-divider {
+            height: 1px;
+            background: #e2e8f0;
+            margin: 8px 0;
+        }
+        
+        /* Payment Registration Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow: auto;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #64748b;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-close:hover {
+            color: #334155;
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        .payment-modal-step {
+            display: none;
+        }
+        
+        .payment-modal-step.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #475569;
+            margin-bottom: 8px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #1e293b;
+            background: white;
+            transition: all 0.2s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #4A6FB3;
+            box-shadow: 0 0 0 3px rgba(74, 111, 179, 0.1);
+        }
+        
+        .form-help {
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 4px;
+        }
+        
+        .service-option {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .service-option:hover {
+            border-color: #cbd5e1;
+            background: #f8fafc;
+        }
+        
+        .service-option.selected {
+            border-color: #4A6FB3;
+            background: #eff6ff;
+        }
+        
+        .service-option input[type="radio"] {
+            margin-right: 12px;
+        }
+        
+        .service-details {
+            flex: 1;
+        }
+        
+        .service-name {
+            font-weight: 500;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+        
+        .service-url {
+            font-size: 13px;
+            color: #64748b;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .payment-error {
+            color: #dc2626;
+            font-size: 13px;
+            margin-top: 8px;
+            display: none;
+        }
 
         .tooltip-section {
             margin-bottom: 8px;
@@ -171,7 +346,7 @@
         }
 
         .tooltip-balance {
-            color: #10b981;
+            color: #53BEA9;
             font-weight: 600;
         }
 
@@ -182,6 +357,9 @@
             border-radius: 12px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
 
         .card-header {
@@ -224,7 +402,7 @@
 
         .input:focus, .textarea:focus {
             outline: none;
-            border-color: #3b82f6;
+            border-color: #4A6FB3;
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
 
@@ -238,32 +416,35 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 10px 16px;
-            border: 1px solid transparent;
-            border-radius: 6px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 12px;
             font-size: 14px;
-            font-weight: 500;
+            font-weight: 400;
             text-decoration: none;
             cursor: pointer;
-            transition: all 0.2s;
-            background: #f8fafc;
-            color: #374151;
+            transition: all 0.3s ease;
+            background: #f1f5f9;
+            color: #475569;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
 
         .btn:hover {
-            background: #f1f5f9;
-            border-color: #d1d5db;
+            background: #e2e8f0;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .btn-primary {
-            background: #3b82f6;
+            background: linear-gradient(135deg, #4A6FB3, #6366f1);
             color: white;
-            border-color: #3b82f6;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
         }
 
         .btn-primary:hover {
-            background: #2563eb;
-            border-color: #2563eb;
+            background: linear-gradient(135deg, #2563eb, #5b21b6);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
         }
 
         .btn-sm {
@@ -274,8 +455,10 @@
         /* Compose Grid */
         .compose-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: 1fr 400px;
             gap: 24px;
+            align-items: stretch;
+            min-height: 680px;
         }
 
         /* Selected Items */
@@ -422,18 +605,18 @@
         }
 
         .badge-default {
-            background: #3b82f6;
+            background: #4A6FB3;
             color: white;
         }
 
         .badge-data {
-            background: #10b981;
-            color: white;
+            background: #DEF2EE; /* light green */
+            color: #475569;      /* grey text */
         }
 
         .badge-model {
-            background: #8b5cf6;
-            color: white;
+            background: #E9E1EA; /* light violet */
+            color: #475569;      /* grey text */
         }
 
         /* Toggle Switch */
@@ -488,7 +671,7 @@
         }
 
         input:checked + .toggle-slider {
-            background-color: #3b82f6;
+            background-color: #4A6FB3;
         }
 
         input:checked + .toggle-slider:before {
@@ -522,22 +705,22 @@
         }
 
         .flow-section:hover {
-            border-color: #3b82f6;
+            border-color: #4A6FB3;
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
         }
 
         .flow-section.data-sources {
-            border-color: #10b981;
+            border-color: #53BEA9;
             background: #f0fdf4;
         }
 
         .flow-section.synthesizers {
-            border-color: #8b5cf6;
+            border-color: #937098;
             background: #faf5ff;
         }
 
         .flow-section.final-response {
-            border-color: #3b82f6;
+            border-color: #4A6FB3;
             background: #eff6ff;
         }
 
@@ -553,9 +736,13 @@
             min-height: 40px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 12px;
             align-items: center;
             justify-content: center;
+        }
+
+        .flow-content:has(.compact) {
+            gap: 8px;
         }
 
         .empty-state {
@@ -566,21 +753,43 @@
 
         .flow-item {
             display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 6px 10px;
+            flex-direction: column;
+            gap: 8px;
+            padding: 12px;
             background: white;
             border: 1px solid #d1d5db;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 12px;
-            max-width: 180px;
+            max-width: 200px;
+            min-width: 160px;
+        }
+
+        .flow-item-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 4px;
+        }
+
+        .flow-item-header .badge {
+            font-size: 16px;
         }
 
         .flow-item .item-name {
+            font-weight: 600;
+            color: #374151;
+            text-align: center;
+            white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            white-space: nowrap;
-            flex: 1;
+        }
+
+        .flow-capabilities {
+            display: flex;
+            gap: 4px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
         .flow-arrows {
@@ -622,26 +831,248 @@
             color: #374151;
         }
 
+        .total-price {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .total-price strong {
+            color: #059669;
+            font-weight: 600;
+        }
+
         .action-buttons {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 12px;
             align-items: stretch;
+            margin-top: 8px;
         }
 
         .action-buttons .btn {
             width: 100%;
             justify-content: center;
-            padding: 14px 20px;
-            font-size: 15px;
-            font-weight: 500;
+            padding: 16px 20px;
+            font-size: 14px;
+            font-weight: 400;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
 
         .action-buttons .btn span {
             font-size: 16px;
+        }
+
+        .action-buttons .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .action-buttons .btn-primary:hover {
+            background: linear-gradient(135deg, #2563eb, #5b21b6);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Parameter Editing Overlay */
+        .param-overlay {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #4A6FB3;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+            z-index: 1000;
+            margin-top: 4px;
+            padding: 12px;
+            display: none;
+        }
+
+        .param-overlay.show {
+            display: block;
+        }
+
+        .param-group {
+            margin-bottom: 8px;
+        }
+
+        .param-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .param-label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 4px;
+        }
+
+        .param-input {
+            width: 100%;
+            padding: 6px 8px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            font-size: 12px;
+            background: #f9fafb;
+        }
+
+        .param-input:focus {
+            outline: none;
+            border-color: #4A6FB3;
+            background: white;
+        }
+
+        .param-slider {
+            width: 100%;
+            height: 4px;
+            border-radius: 2px;
+            background: #e5e7eb;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .param-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #4A6FB3;
+            cursor: pointer;
+        }
+
+        .param-slider::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #4A6FB3;
+            cursor: pointer;
+            border: none;
+        }
+
+        .param-value {
+            font-size: 11px;
+            color: #6b7280;
+            margin-left: 8px;
+        }
+
+        /* Flow Item Enhancements */
+        .flow-item.clickable {
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-radius: 8px;
+            padding: 8px;
+            margin: 4px 0;
+        }
+
+        .flow-item.clickable:hover {
+            background: #f8fafc;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .flow-params {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            justify-content: center;
+            margin-top: 4px;
+        }
+
+        /* Compact view styles */
+        .flow-compact-toggle {
+            display: flex;
+            justify-content: center;
+            margin: 12px 0;
+        }
+
+        .compact-toggle-btn {
+            background: #f3f4f6;
+            border: 1px solid #d1d5db;
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-size: 12px;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .compact-toggle-btn:hover {
+            background: #e5e7eb;
+            transform: translateY(-1px);
+        }
+
+        /* Make the button more prominent when showing "Show all sources" */
+        .compact-toggle-btn.show-all {
+            background: #dbeafe;
+            border-color: #4A6FB3;
+            color: #1e40af;
+            animation: pulse-subtle 2s ease-in-out 3;
+        }
+
+        .compact-toggle-btn.show-all:hover {
+            background: #bfdbfe;
+        }
+
+        @keyframes pulse-subtle {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .flow-item.compact {
+            /* Keep normal card width so names remain visible */
+            max-width: 200px;
+            min-width: 160px;
+            padding: 12px;
+        }
+
+        .flow-item.compact .flow-params {
+            display: none;
+        }
+
+        .flow-item.compact .item-name {
+            /* Keep normal font size for readability */
+            font-size: 14px;
+        }
+
+        .sources-count-badge {
+            background: #dbeafe;
+            color: #1e40af;
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .param-badge {
+            background: #eff6ff;
+            color: #1d4ed8;
+            font-size: 10px;
+            font-weight: 500;
+            padding: 3px 6px;
+            border-radius: 4px;
+            white-space: nowrap;
+            border: 1px solid #dbeafe;
+            transition: all 0.3s ease;
+        }
+
+        .param-badge.inactive {
+            background: #f1f5f9;
+            color: #94a3b8;
+            border-color: #e2e8f0;
+            opacity: 0.6;
         }
 
         /* Transfer Notification */
@@ -697,12 +1128,501 @@
             }
         }
 
-        /* Response Section */
-        .response-container {
+        /* Chat Interface */
+        .chat-interface {
             border: 1px solid #e2e8f0;
-            border-radius: 8px;
+            border-radius: 12px;
             background: white;
             overflow: hidden;
+            max-width: 100%;
+            height: 545px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-container {
+            flex: 1;
+            padding: 20px;
+            background: #f8fafc;
+            overflow-y: auto;
+            min-height: 0;
+        }
+
+        .chat-input-area {
+            border-top: 1px solid #e2e8f0;
+            background: white;
+            padding: 16px 20px;
+        }
+
+        .chat-input-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .chat-input-row {
+            display: flex;
+            align-items: flex-end;
+            gap: 12px;
+        }
+
+        .chat-input-field {
+            flex: 1;
+            min-height: 44px;
+            max-height: 120px;
+            padding: 12px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 24px;
+            font-size: 14px;
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            resize: none;
+            overflow-y: auto;
+            line-height: 1.4;
+            background: #f8fafc;
+            transition: all 0.2s ease;
+        }
+
+        .chat-input-field:focus {
+            outline: none;
+            border-color: #4A6FB3;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .chat-input-field::placeholder {
+            color: #9ca3af;
+        }
+
+        .chat-send-button {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, #4A6FB3, #6366f1);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            box-shadow: 0 3px 10px rgba(59, 130, 246, 0.3);
+        }
+
+        .chat-send-button:hover:not(:disabled) {
+            background: linear-gradient(135deg, #2563eb, #5b21b6);
+            transform: scale(1.08);
+            box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+        }
+
+        .chat-send-button:disabled {
+            background: #d1d5db;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .chat-file-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .chat-file-upload {
+            display: none;
+        }
+
+        .chat-file-button {
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 20px;
+            background: white;
+            color: #6b7280;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .chat-file-button:hover {
+            background: #f3f4f6;
+            border-color: #9ca3af;
+            color: #374151;
+        }
+
+        .chat-files-list {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            flex: 1;
+        }
+
+        .chat-file-chip {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 8px;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 16px;
+            font-size: 11px;
+            color: #1e40af;
+        }
+
+        .chat-file-chip .file-remove {
+            cursor: pointer;
+            color: #6b7280;
+            font-size: 14px;
+            font-weight: bold;
+            margin-left: 2px;
+        }
+
+        .chat-file-chip .file-remove:hover {
+            color: #ef4444;
+        }
+
+        .chat-empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            color: #6b7280;
+            padding: 40px;
+        }
+
+        .chat-empty-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.7;
+        }
+
+        .chat-empty-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #374151;
+        }
+
+        .chat-empty-subtitle {
+            font-size: 14px;
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+        /* Compact Configuration Bar */
+        .config-bar {
+            background: white;
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 12px;
+            min-height: 120px;
+        }
+
+        .config-section-compact {
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            gap: 12px;
+            width: 100%;
+            margin-left: 0;
+        }
+
+        .config-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            white-space: nowrap;
+            width: 160px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .config-display {
+            flex: 1;
+            min-height: 40px;
+            display: flex;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 8px 12px;
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 13px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .config-display:hover {
+            border-color: #9ca3af;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .config-display.empty {
+            color: #9ca3af;
+            font-style: italic;
+        }
+
+        .config-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 6px 10px;
+            font-size: 13px;
+            color: #374151;
+            font-weight: 500;
+            position: relative;
+            flex-shrink: 0;
+            margin: 2px 0;
+        }
+
+        .config-item-icon {
+            font-size: 14px;
+        }
+
+        .config-item-name {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex: 1;
+        }
+
+        .config-item-remove {
+            cursor: pointer;
+            color: #6b7280;
+            font-size: 12px;
+            margin-left: 2px;
+            font-weight: bold;
+        }
+
+        .config-item-remove:hover {
+            color: #ef4444;
+        }
+
+        .config-item-status {
+            font-size: 10px;
+            margin-left: 4px;
+            cursor: help;
+        }
+
+        .status-online {
+            color: #10b981;
+        }
+
+        .status-offline {
+            color: #ef4444;
+        }
+
+        .config-item.offline {
+            opacity: 0.6;
+            background: #f3f4f6;
+            border-color: #d1d5db;
+        }
+
+        .config-item.offline .config-item-name {
+            color: #6b7280;
+        }
+
+        .config-item.offline .config-item-icon {
+            opacity: 0.7;
+        }
+
+        .config-add-btn {
+            background: none;
+            border: none;
+            color: #4A6FB3;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            padding: 6px 8px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            margin: 2px 0;
+        }
+
+        .config-add-btn:hover {
+            background: #eff6ff;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px rgba(59, 130, 246, 0.2);
+        }
+
+        .config-toggle-section {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 12px;
+            width: 100%;
+            margin-left: 0;
+        }
+
+        .toggle-mini {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            background: #e5e7eb;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .toggle-mini.active {
+            background: #4A6FB3;
+        }
+
+        .toggle-mini::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle-mini.active::before {
+            transform: translateX(20px);
+        }
+
+        .toggle-text-mini {
+            flex: 1;
+            font-size: 13px;
+            color: #374151;
+            line-height: 1.4;
+        }
+
+        .toggle-text-mini .primary {
+            font-weight: 500;
+            color: #1e293b;
+        }
+
+        .toggle-text-mini .secondary {
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        /* Dropdown positioning for compact config */
+        .config-section-compact {
+            position: relative;
+        }
+        
+        .config-section-compact .source-dropdown,
+        .config-section-compact .synthesizer-dropdown {
+            position: absolute !important;
+            top: 100% !important;
+            left: 0 !important;
+            right: 0 !important;
+            width: auto !important;
+            min-width: auto !important;
+            max-width: none !important;
+            z-index: 1000;
+            margin-top: 4px;
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            max-height: 300px;
+            overflow: hidden;
+        }
+
+        .config-section-compact .dropdown-content {
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .chat-message {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-message.user {
+            align-items: flex-end;
+        }
+
+        .chat-message.assistant {
+            align-items: flex-start;
+        }
+
+        .message-bubble {
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            font-size: 14px;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+
+        .message-bubble.user {
+            background: #4A6FB3;
+            color: white;
+            border-bottom-right-radius: 6px;
+        }
+
+        .message-bubble.assistant {
+            background: white;
+            color: #374151;
+            border: 1px solid #e2e8f0;
+            border-bottom-left-radius: 6px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .message-avatar.user {
+            background: #4A6FB3;
+            color: white;
+        }
+
+        .message-avatar.assistant {
+            background: #53BEA9;
+            color: white;
+        }
+
+        .message-timestamp {
+            font-size: 11px;
+            color: #6b7280;
+            margin-top: 4px;
+            margin-bottom: 8px;
+        }
+
+        .user .message-timestamp {
+            text-align: right;
+        }
+
+        .assistant .message-timestamp {
+            text-align: left;
         }
 
         .response-header {
@@ -715,7 +1635,7 @@
         }
 
         .response-status {
-            color: #10b981;
+            color: #53BEA9;
             font-weight: 500;
             font-size: 14px;
         }
@@ -726,13 +1646,13 @@
         }
 
         .response-content {
-            padding: 16px;
-            background: #fafbfc;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 13px;
+            padding: 0;
+            background: #f8fafc;
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 14px;
             line-height: 1.6;
-            max-height: 400px;
-            overflow-y: auto;
+            max-height: none;
+            overflow-y: visible;
         }
 
         .response-content h3 {
@@ -770,10 +1690,122 @@
 
         .response-content .source-citation {
             background: #eff6ff;
-            border-left: 3px solid #3b82f6;
+            border-left: 3px solid #4A6FB3;
             padding: 8px 12px;
             margin: 8px 0;
             border-radius: 0 4px 4px 0;
+        }
+
+        /* Chat File Attachments */
+        .file-attachments {
+            margin: 12px 0;
+            padding: 0;
+        }
+
+        .file-attachment {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin: 4px 0;
+            font-size: 13px;
+            transition: all 0.2s ease;
+        }
+
+        .file-attachment:hover {
+            background: #e2e8f0;
+            border-color: #cbd5e1;
+        }
+
+        .file-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #4A6FB3;
+            color: white;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .file-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .file-info .file-name {
+            font-weight: 500;
+            color: #1e293b;
+            word-break: break-all;
+        }
+
+        .file-info .file-size {
+            color: #6b7280;
+            font-size: 11px;
+        }
+
+        .chat-metadata {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 8px 0;
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .metadata-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .metadata-badge {
+            background: #e2e8f0;
+            color: #374151;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        .chat-thinking {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: #f1f5f9;
+            border-radius: 18px;
+            margin-bottom: 12px;
+            font-size: 13px;
+            color: #6b7280;
+            font-style: italic;
+        }
+
+        .thinking-dots {
+            display: flex;
+            gap: 2px;
+        }
+
+        .thinking-dot {
+            width: 4px;
+            height: 4px;
+            background: #9ca3af;
+            border-radius: 50%;
+            animation: thinking 1.4s infinite;
+        }
+
+        .thinking-dot:nth-child(2) { animation-delay: 0.2s; }
+        .thinking-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes thinking {
+            0%, 60%, 100% { opacity: 0.3; }
+            30% { opacity: 1; }
         }
 
         /* Query Container */
@@ -834,13 +1866,13 @@
         }
 
         .file-input:hover {
-            border-color: #3b82f6;
+            border-color: #4A6FB3;
             background: #f0f9ff;
         }
 
         .file-input:focus {
             outline: none;
-            border-color: #3b82f6;
+            border-color: #4A6FB3;
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
 
@@ -995,6 +2027,64 @@
             padding-top: 16px;
             border-top: 1px solid #e2e8f0;
         }
+        
+        /* Replacement Modal Styles */
+        .replacement-notice {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .replacement-options {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+        
+        .replacement-option {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .replacement-option:hover {
+            border-color: #3b82f6;
+            background: #f8faff;
+        }
+        
+        .replacement-option-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .replacement-name {
+            font-weight: 500;
+            flex: 1;
+        }
+        
+        .replacement-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 12px;
+            color: #64748b;
+        }
+        
+        .replacement-summary {
+            font-size: 13px;
+            color: #334155;
+            line-height: 1.4;
+        }
 
         .selected-sources-preview,
         .selected-synthesizer-preview {
@@ -1115,13 +2205,13 @@
         }
 
         .code-tab:hover {
-            color: #3b82f6;
+            color: #4A6FB3;
             background: #f8fafc;
         }
 
         .code-tab.active {
-            color: #3b82f6;
-            border-bottom-color: #3b82f6;
+            color: #4A6FB3;
+            border-bottom-color: #4A6FB3;
         }
 
         .code-content {
@@ -1210,7 +2300,7 @@
                         <div class="logo-icon"></div>
                         <div class="logo-text">
                             <h1>SyftBox AI Service Hub</h1>
-                            <p>The network for federated knowledge</p>
+                            <p>The network for collective intelligence</p>
                         </div>
                     </div>
                 </div>
@@ -1219,7 +2309,7 @@
                     <nav class="main-nav">
                         <a href="Index.html" class="nav-tab">Discover</a>
                         <a href="compose.html" class="nav-tab active">Compose</a>
-                        <a href="Index.html" class="nav-tab">Build</a>
+                        <a href="build.html" class="nav-tab">Build</a>
                     </nav>
                 
                     <div class="header-controls">
@@ -1228,12 +2318,26 @@
                             <div class="settings-tooltip">
                                 <div class="tooltip-section">
                                     <span class="tooltip-label">Email</span>
-                                    <span class="tooltip-value">guest@syft.org</span>
+                                    <span class="tooltip-value" id="userEmail">guest@syft.org</span>
+                                </div>
+                                <div class="tooltip-section" id="balanceSection">
+                                    <span class="tooltip-label">Balance</span>
+                                    <span class="tooltip-balance" id="userBalance" style="color: #ef4444;">Missing</span>
                                 </div>
                                 <div class="tooltip-section">
-                                    <span class="tooltip-label">Balance</span>
-                                    <span class="tooltip-balance">$20</span>
+                                    <span class="tooltip-label">Wallet Manager</span>
+                                    <span class="tooltip-value" id="paymentStatus">Not registered</span>
                                 </div>
+                                <div class="tooltip-divider"></div>
+                                <button class="tooltip-button" onclick="showPaymentRegistration()" id="registerPaymentBtn">
+                                    🔧 Register Wallet Manager
+                                </button>
+                                <button class="tooltip-button" onclick="managePaymentService()" id="managePaymentBtn" style="display: none;">
+                                    ⚙️ Manage Wallet Manager
+                                </button>
+                                <button class="tooltip-button" onclick="signIn()" id="signInBtn">
+                                    🔑 Sign In / Log In
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -1241,106 +2345,112 @@
             </div>
         </div>
     </header>
+    <br>
 
     <!-- Main Content -->
     <div class="container">
         <div class="compose-grid">
-            <!-- Sources and Configuration -->
+            <!-- Main Chat Interface -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">⚙️ Composition Configuration</h3>
+                    <h3 class="card-title">Try out a FedRAG pipeline</h3>
                 </div>
-                <div class="card-content space-y-4">
-                    <!-- Sources Section -->
-                    <div class="form-group">
-                        <label class="label">Data Sources</label>
-                        <div class="selected-sources" id="selectedSources">
-                            <div class="text-sm text-muted">No sources selected</div>
-                        </div>
-                        <div class="add-source-container">
-                            <button class="btn btn-sm" onclick="toggleSourceDropdown()">
-                                <span id="addSourceBtnText">+ Add Source</span>
-                                <span id="addSourceIcon">▼</span>
-                            </button>
-                            <div class="source-dropdown hidden" id="sourceDropdown">
-                                <div class="dropdown-search">
-                                    <input type="text" placeholder="Search by name, description, or owner..." id="sourceSearchInput" oninput="filterSourceDropdown()">
+                <div class="card-content" style="padding: 0;">
+                    <!-- Compact Configuration Bar -->
+                    <div class="config-bar">
+                            <!-- Data Sources -->
+                            <div class="config-section-compact">
+                                <span class="config-label">🗄️ Data Sources</span>
+                                <div class="config-display" id="sourceConfigDisplay" onclick="toggleSourceDropdown()">
+                                    <span class="empty">Select data sources...</span>
+                                    <button class="config-add-btn" onclick="event.stopPropagation(); toggleSourceDropdown();">
+                                        <span>+</span>
+                                    </button>
                                 </div>
-                                <div class="dropdown-content" id="sourceDropdownContent">
-                                    <!-- Sources will be populated here -->
+                                <div class="source-dropdown hidden" id="sourceDropdown">
+                                    <div class="dropdown-search">
+                                        <input type="text" placeholder="Search sources..." id="sourceSearchInput" oninput="filterSourceDropdown()">
+                                    </div>
+                                    <div class="dropdown-content" id="sourceDropdownContent">
+                                        <!-- Sources will be populated here -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Synthesizer -->
+                            <div class="config-section-compact">
+                                <span class="config-label">🧠 Synthesizer Model</span>
+                                <div class="config-display" id="synthesizerConfigDisplay" onclick="toggleSynthesizerDropdown()">
+                                    <span class="empty">Select AI synthesizer...</span>
+                                    <button class="config-add-btn" onclick="event.stopPropagation(); toggleSynthesizerDropdown();">
+                                        <span>+</span>
+                                    </button>
+                                </div>
+                                <div class="synthesizer-dropdown hidden" id="synthesizerDropdown">
+                                    <div class="dropdown-search">
+                                        <input type="text" placeholder="Search synthesizers..." id="synthesizerSearchInput" oninput="filterSynthesizerDropdown()">
+                                    </div>
+                                    <div class="dropdown-content" id="synthesizerDropdownContent">
+                                        <!-- Synthesizers will be populated here -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Settings -->
+                            <div class="config-toggle-section">
+                                <span class="config-label">⚙️ Response Mode     </span>
+                                <div class="toggle-mini" id="factualToggleMini" onclick="toggleFactualModeMini()"></div>
+                                <div class="toggle-text-mini">
+                                    <div class="primary">Prioritize factual answers when possible</div>
+                                    <div class="secondary">Search-based inputs are preferred to conversational responses</div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Synthesizer Section -->
-                    <div class="form-group">
-                        <label class="label">Synthesizer</label>
-                        <div class="selected-synthesizer" id="selectedSynthesizer">
-                            <div class="text-sm text-muted">No synthesizer selected</div>
-                        </div>
-                        <div class="add-synthesizer-container">
-                            <button class="btn btn-sm" onclick="toggleSynthesizerDropdown()">
-                                <span id="addSynthesizerBtnText">+ Add Synthesizer</span>
-                                <span id="addSynthesizerIcon">▼</span>
-                            </button>
-                            <div class="synthesizer-dropdown hidden" id="synthesizerDropdown">
-                                <div class="dropdown-search">
-                                    <input type="text" placeholder="Search by name, description, or owner..." id="synthesizerSearchInput" oninput="filterSynthesizerDropdown()">
-                                </div>
-                                <div class="dropdown-content" id="synthesizerDropdownContent">
-                                    <!-- Synthesizers will be populated here -->
+                    <!-- Chat Interface -->
+                    <div class="chat-interface">
+                        <!-- Chat Container -->
+                        <div class="chat-container" id="chatContainer">
+                            <!-- Empty state -->
+                            <div class="chat-empty-state" id="chatEmptyState">
+                                <div class="chat-empty-icon">🚀</div>
+                                <div class="chat-empty-title">Compose your pipeline and get unique insights</div>
+                                <div class="chat-empty-subtitle">
+                                    Configure your sources and synthesizer model above, then start asking questions to try it out. <br>
+                                    Share it others or embed it in your app!
+                                    <br>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Settings Section -->
-                    <div class="form-group">
-                        <label class="label">Response Preference</label>
-                        <div class="toggle-container">
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="factualToggle" onchange="updateResponsePreference()">
-                                <span class="toggle-slider"></span>
-                            </label>
-                            <span class="toggle-label">Prioritize factual answers when possible (search mode) over conversational responses (chat mode)</span>
-                        </div>
-                    </div>
-
-
-
-                    <!-- Test Query Section -->
-                    <div class="form-group">
-                        <label class="label">Test Query & Files</label>
-                        <div class="query-container">
-                        <textarea class="textarea" id="testQuery" placeholder="e.g., Compare civil code updates in 2024 across DE and FR; cite sources."></textarea>
-                            
-                            <div class="file-upload-container">
-                                <div class="file-upload-header">
-                                    <span class="file-upload-icon">📎</span>
-                                    <span class="file-upload-label">Attach Files (Optional)</span>
+                        
+                        <!-- Chat Input Area -->
+                        <div class="chat-input-area">
+                            <div class="chat-input-container">
+                                <!-- File attachments row -->
+                                <div class="chat-file-area" id="chatFileArea" style="display: none;">
+                                    <div class="chat-files-list" id="chatFilesList">
+                                        <!-- Attached files will appear here -->
+                                    </div>
                                 </div>
-                                <input type="file" class="file-input" id="fileUpload" accept=".pdf,.doc,.docx,.txt,.csv,.xlsx" multiple>
-                                <div class="file-upload-info">
-                                    <span class="supported-formats">PDF, DOC, DOCX, TXT, CSV, XLSX</span>
-                                    <span class="file-limit">Max 10MB per file</span>
+                                
+                                <!-- Input row -->
+                                <div class="chat-input-row">
+                                    <textarea 
+                                        id="chatInput" 
+                                        class="chat-input-field" 
+                                        placeholder="Ask about your data sources, upload files, or compose a federated query..."
+                                        rows="1"
+                                    ></textarea>
+                                    
+                                    <input type="file" id="chatFileUpload" class="chat-file-upload" multiple accept=".txt,.pdf,.doc,.docx,.md">
+                                    <button type="button" class="chat-file-button" onclick="document.getElementById('chatFileUpload').click()">
+                                        📎
+                                    </button>
+                                    
+                                    <button type="button" class="chat-send-button" id="chatSendButton" onclick="sendChatMessage()">
+                                        ➤
+                                    </button>
                                 </div>
-                                <div class="file-list" id="fileList"></div>
-                            </div>
-                        </div>
-                        <button class="btn btn-primary mt-2" onclick="runComposition()">🚀 Run Composition</button>
-                    </div>
-
-                    <!-- Response Section (initially hidden) -->
-                    <div class="form-group hidden" id="responseSection">
-                        <label class="label">Response</label>
-                        <div class="response-container">
-                            <div class="response-header">
-                                <div class="response-status">✅ Composition Complete</div>
-                                <div class="response-time">Generated in 2.3s</div>
-                            </div>
-                            <div class="response-content" id="responseContent">
-                                <!-- Response will be populated here -->
                             </div>
                         </div>
                     </div>
@@ -1350,7 +2460,8 @@
             <!-- Plan Preview and Actions -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">📊 Execution Plan</h3>
+                    <h3 class="card-title">Execution Layout</h3>
+                    <div id="executionLayoutDescription" style="font-size: 13px; color: #3b82f6; margin-top: 6px; font-weight: 500; padding: 4px 8px; background: #eff6ff; border-radius: 4px; display: none;"></div>
                 </div>
                 <div class="card-content">
                     <!-- Visual Flow Diagram -->
@@ -1391,6 +2502,12 @@
                                         <div class="response-mode">
                                             Mode: <strong id="responseMode">auto</strong>
                                         </div>
+                                        <div class="total-price">
+                                            Total Price: <strong id="totalPrice">$0.00</strong>
+                                        </div>
+                                        <div style="font-size: 10px; color: #94a3b8; margin-top: 4px;">
+                                            ℹ️ Estimated cost per request based on selected data sources and AI model token usage
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1403,11 +2520,15 @@
                     <div class="action-buttons">
                         <button class="btn btn-primary" onclick="showCodeModal()">
                             <span>📋</span>
-                            Show me the code
+                            Show pipeline code
                         </button>
                         <button class="btn" onclick="showMcpModal()">
                             <span>🛠️</span>
-                            Generate custom MCP tool from data sources
+                            Generate MCP tool for pipeline
+                        </button>
+                        <button class="btn" onclick="openInColab()">
+                            <span>📓</span>
+                            Open in Google Colab
                         </button>
                     </div>
                 </div>
@@ -1424,8 +2545,8 @@
             </div>
             <div class="modal-body">
                 <div class="code-tabs">
-                    <button class="code-tab active" onclick="showCodeTab('python')">Python</button>
-                    <button class="code-tab" onclick="showCodeTab('javascript')">JavaScript</button>
+                    <button class="code-tab active" onclick="showCodeTab('python', event)">Python</button>
+                    <button class="code-tab" onclick="showCodeTab('javascript', event)">JavaScript</button>
                 </div>
                 
                 <div id="pythonCodeContent" class="code-content">
@@ -1501,6 +2622,282 @@
     </div>
 
     <script>
+        // Centralized User Account Management System
+        class UserAccountManager {
+            constructor() {
+                this.storageKey = 'userAccountData';
+                this.walletStorageKey = 'walletManagerData'; // Separate storage for wallet data
+                this.defaultAccount = {
+                    email: 'guest@syft.org',
+                    name: 'Guest',
+                    paymentService: null
+                    // Note: balance is not set by default - only when wallet manager is registered
+                };
+                this.account = this.loadAccount();
+                this.loadWalletData(); // Load wallet data separately
+            }
+            
+            loadAccount() {
+                try {
+                    const stored = localStorage.getItem(this.storageKey);
+                    if (stored) {
+                        const parsedAccount = JSON.parse(stored);
+                        return { ...this.defaultAccount, ...parsedAccount };
+                    }
+                } catch (e) {
+                    console.warn('Failed to load user account from localStorage:', e);
+                }
+                return { ...this.defaultAccount };
+            }
+            
+            loadWalletData() {
+                try {
+                    const walletData = localStorage.getItem(this.walletStorageKey);
+                    if (walletData) {
+                        const parsed = JSON.parse(walletData);
+                        this.account.paymentService = parsed.paymentService;
+                        this.account.balance = parsed.balance;
+                    }
+                } catch (e) {
+                    console.warn('Failed to load wallet data from localStorage:', e);
+                }
+            }
+            
+            saveWalletData() {
+                try {
+                    const walletData = {
+                        paymentService: this.account.paymentService,
+                        balance: this.account.balance
+                    };
+                    localStorage.setItem(this.walletStorageKey, JSON.stringify(walletData));
+                } catch (e) {
+                    console.warn('Failed to save wallet data to localStorage:', e);
+                }
+            }
+            
+            saveAccount() {
+                try {
+                    localStorage.setItem(this.storageKey, JSON.stringify(this.account));
+                } catch (e) {
+                    console.warn('Failed to save user account to localStorage:', e);
+                }
+            }
+            
+            updateAccount(updates) {
+                this.account = { ...this.account, ...updates };
+                this.saveAccount();
+                this.broadcastAccountUpdate();
+            }
+            
+            broadcastAccountUpdate() {
+                window.dispatchEvent(new CustomEvent('userAccountUpdated', { 
+                    detail: this.account 
+                }));
+            }
+            
+            getAccount() {
+                return { ...this.account };
+            }
+            
+            registerPaymentService(provider, url) {
+                this.account.paymentService = {
+                    provider,
+                    url,
+                    registeredAt: new Date().toISOString()
+                };
+                this.account.balance = '$87.20'; // Set balance when wallet manager is registered
+                
+                // Save wallet data separately (persists across user changes)
+                this.saveWalletData();
+                
+                // Also update account and broadcast
+                this.saveAccount();
+                this.broadcastAccountUpdate();
+            }
+            
+            updateAuthenticatedUser(email) {
+                // Only update email/name if different
+                if (this.account.email !== email) {
+                    this.account.email = email;
+                    this.account.name = email.split('@')[0];
+                    
+                    // Always reload wallet data (persists across users)
+                    this.loadWalletData();
+                    
+                    this.saveAccount();
+                    this.broadcastAccountUpdate();
+                }
+            }
+            
+            isLoggedIn() {
+                return this.account.email !== 'guest@syft.org';
+            }
+            
+            hasPaymentService() {
+                return this.account.paymentService !== null;
+            }
+        }
+        
+        // Global account manager instance
+        const accountManager = new UserAccountManager();
+        
+        // Legacy userAccount object for backward compatibility
+        let userAccount = accountManager.getAccount();
+        
+        // Wallet Manager Registration Functions
+        function showPaymentRegistration() {
+            document.getElementById('paymentEmail').value = userAccount.email;
+            document.getElementById('paymentRegistrationModal').style.display = 'flex';
+            resetPaymentModal();
+        }
+        
+        function selectPaymentService(service) {
+            document.getElementById('openmined-radio').checked = true;
+            document.getElementById('proceedBtn').disabled = false;
+        }
+        
+        function proceedToPasswordStep() {
+            document.getElementById('paymentStep1').classList.remove('active');
+            document.getElementById('paymentStep2').classList.add('active');
+        }
+        
+        function goBackToServiceSelection() {
+            document.getElementById('paymentStep2').classList.remove('active');
+            document.getElementById('paymentStep1').classList.add('active');
+        }
+        
+        function validatePasswords() {
+            const password = document.getElementById('paymentPassword').value;
+            const confirmPassword = document.getElementById('paymentPasswordConfirm').value;
+            const errorDiv = document.getElementById('passwordError');
+            
+            if (password && confirmPassword && password !== confirmPassword) {
+                errorDiv.style.display = 'block';
+                return false;
+            } else {
+                errorDiv.style.display = 'none';
+                return true;
+            }
+        }
+        
+        function completePaymentRegistration() {
+            const password = document.getElementById('paymentPassword').value;
+            const confirmPassword = document.getElementById('paymentPasswordConfirm').value;
+            
+            if (!password || !confirmPassword) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            if (!validatePasswords()) {
+                return;
+            }
+            
+            // Register wallet manager using account manager
+            accountManager.registerPaymentService('OpenMined Wallet Manager', 'https://payments.openmined.org');
+            
+            // Update local userAccount object for immediate UI update
+            userAccount = accountManager.getAccount();
+            
+            updatePaymentStatus();
+            closeModal('paymentRegistrationModal');
+            alert('Payment service registration completed successfully!');
+        }
+        
+        function updatePaymentStatus() {
+            // Get fresh account data
+            userAccount = accountManager.getAccount();
+            
+            const paymentStatus = document.getElementById('paymentStatus');
+            const registerBtn = document.getElementById('registerPaymentBtn');
+            const manageBtn = document.getElementById('managePaymentBtn');
+            const balanceSection = document.getElementById('balanceSection');
+            const signInBtn = document.getElementById('signInBtn');
+            const balanceElement = document.getElementById('userBalance');
+            
+            const isLoggedIn = accountManager.isLoggedIn();
+            const hasPaymentService = accountManager.hasPaymentService();
+            
+            // Always show balance section but update content based on wallet manager status
+            if (balanceSection) balanceSection.style.display = 'block';
+            
+            if (hasPaymentService) {
+                // Update balance display when registered
+                if (balanceElement) {
+                    balanceElement.textContent = userAccount.balance || '$87.20';
+                    balanceElement.style.color = ''; // Default color
+                }
+                
+                if (paymentStatus) {
+                    paymentStatus.textContent = 'Registered';
+                    paymentStatus.style.color = '#16a34a';
+                }
+                if (registerBtn) registerBtn.style.display = 'none';
+                if (manageBtn) manageBtn.style.display = 'block';
+            } else {
+                // Show "Missing" when not registered
+                if (balanceElement) {
+                    balanceElement.textContent = 'Missing';
+                    balanceElement.style.color = '#ef4444'; // Red color for missing
+                }
+                
+                if (paymentStatus) {
+                    paymentStatus.textContent = 'Not registered';
+                    paymentStatus.style.color = '#64748b';
+                }
+                // Show register button only when logged in (not guest)
+                if (registerBtn) registerBtn.style.display = isLoggedIn ? 'block' : 'none';
+                if (manageBtn) manageBtn.style.display = 'none';
+            }
+            
+            // Show/hide sign in button based on login status
+            if (signInBtn) {
+                signInBtn.style.display = isLoggedIn ? 'none' : 'block';
+            }
+        }
+        
+        function managePaymentService() {
+            alert(`Manage your ${userAccount.paymentService.provider} account\n\nRegistered: ${new Date(userAccount.paymentService.registeredAt).toLocaleDateString()}\nService URL: ${userAccount.paymentService.url}`);
+        }
+        
+        function resetPaymentModal() {
+            document.getElementById('paymentStep1').classList.add('active');
+            document.getElementById('paymentStep2').classList.remove('active');
+            document.getElementById('paymentPassword').value = '';
+            document.getElementById('paymentPasswordConfirm').value = '';
+            document.getElementById('passwordError').style.display = 'none';
+            document.getElementById('openmined-radio').checked = false;
+            document.getElementById('proceedBtn').disabled = true;
+        }
+        
+        // Paid Service Validation
+        function checkPaidServiceAccess(serviceName) {
+            // Example list of paid services
+            const paidServices = ['gpt-4-turbo', 'claude-3-opus', 'gemini-pro'];
+            
+            if (paidServices.some(service => serviceName.toLowerCase().includes(service))) {
+                if (!userAccount.paymentService) {
+                    showPaymentRequiredModal();
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+        function showPaymentRequiredModal() {
+            document.getElementById('paymentRequiredModal').style.display = 'flex';
+        }
+        
+        // Close modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+        
+        // Sign in function
+        function signIn() {
+            window.location.href = 'login.html';
+        }
+        
         // Sample data - this would normally come from the main Index.html
         const SERVICES = [
             {
@@ -1512,10 +2909,10 @@
                 summary: "Species records, park reports, conservation notes.",
                 description: "Curated wildlife corpus with ranger logs, conservation bulletins, and biodiversity surveys (2010–2025).",
                 pricing: "$0.005 / request",
-                endpoints: ["search", "chat"],
+                endpoints: ["search", "/rag"],
                 tags: ["domain:wildlife", "language:en", "task:retrieval", "task:rag-generation"],
                 mcp: true,
-                lastActive: "2 hours ago",
+                lastActive: "6 hours ago",
             },
             {
                 id: "lex-civil",
@@ -1526,7 +2923,7 @@
                 summary: "Civil code, case law digests, firm memos (EU focus).",
                 description: "Continuously indexed civil law materials with internal commentary and citations.",
                 pricing: "$0.010 / request",
-                endpoints: ["search", "chat"],
+                endpoints: ["search", "/rag"],
                 tags: ["domain:legal", "language:en", "language:de", "task:retrieval", "task:rag-generation"],
                 mcp: false,
                 lastActive: "5 minutes ago",
@@ -1644,7 +3041,7 @@
                 summary: "Biomedical text understanding and entity extraction.",
                 description: "Pre-trained on PubMed abstracts and clinical notes for biomedical NLP tasks and drug discovery.",
                 pricing: "$0.05 / request",
-                endpoints: ["search", "chat"],
+                endpoints: ["search", "/rag"],
                 tags: ["domain:healthcare", "task:extraction", "task:retrieval", "model:bert"],
                 mcp: true,
                 lastActive: "2 hours ago",
@@ -1683,11 +3080,106 @@
                 summary: "Legal document analysis and case law reasoning.",
                 description: "Academic model trained on legal corpus for contract analysis, case outcome prediction, and legal research.",
                 pricing: "$0.15 / request",
-                endpoints: ["search", "chat"],
+                endpoints: ["search", "/rag"],
                 tags: ["domain:legal", "task:analysis", "task:research", "model:academic"],
                 mcp: false,
                 lastActive: "8 hours ago",
             },
+        ];
+
+        // Collectives data
+        const COLLECTIVES = [
+            {
+                id: "bio-rag-collective",
+                name: "🏢 Bio RAG Collective",
+                type: "collective",
+                summary: "Query this collective → routes only within members meeting policy today.",
+                tags: ["Verified", "Routing policy", "Eval thresholds"],
+                description: "Biomedical research collective with verified data sources and smart routing.",
+                pricing: "Free tier available",
+                members: 15,
+                endpoints: ["search", "/rag"],
+                mcp: true,
+                lastActive: "5 minutes ago",
+                memberList: [
+                    "nlp@mayo.edu",
+                    "research@stanford.edu", 
+                    "bio@johns-hopkins.edu",
+                    "data@pfizer.com",
+                    "ai@moderna.com",
+                    "research@nih.gov",
+                    "bio@harvard.edu",
+                    "medical@cdc.gov",
+                    "data@merck.com",
+                    "research@ucsf.edu",
+                    "bio@mit.edu",
+                    "ai@novartis.com",
+                    "research@yale.edu",
+                    "medical@who.org",
+                    "data@roche.com"
+                ]
+            },
+            {
+                id: "pii-safe-collective",
+                name: "🏢 PII-Safe Collective",
+                type: "collective",
+                summary: "All services in this collective are PII-safe and GDPR compliant.",
+                tags: ["Verified", "Privacy focused", "GDPR compliant"],
+                description: "Privacy-focused collective ensuring data protection compliance.",
+                pricing: "$0.002 / request",
+                members: 8,
+                endpoints: ["search", "/rag"],
+                mcp: true,
+                lastActive: "10 minutes ago",
+                memberList: [
+                    "privacy@protonmail.com",
+                    "secure@signal.org",
+                    "data@tutanota.com",
+                    "privacy@duckduckgo.com",
+                    "secure@startpage.com",
+                    "data@mullvad.net",
+                    "privacy@torproject.org",
+                    "secure@brave.com"
+                ]
+            },
+            {
+                id: "swiss-public-sector",
+                name: "🏢 Swiss Public Sector",
+                type: "collective",
+                summary: "Swiss government services and public sector data sources.",
+                tags: ["Government", "Local data", "Verified"],
+                description: "Official Swiss government and public sector data collective.",
+                pricing: "Public access",
+                members: 23,
+                endpoints: ["search"],
+                mcp: false,
+                lastActive: "2 hours ago",
+                memberList: [
+                    "admin@admin.ch",
+                    "data@swisstopo.ch",
+                    "info@srf.ch",
+                    "data@meteoswiss.ch",
+                    "admin@eda.admin.ch",
+                    "data@bfs.admin.ch",
+                    "info@swissinfo.ch",
+                    "data@seco.admin.ch",
+                    "admin@bag.admin.ch",
+                    "data@are.admin.ch",
+                    "info@parlament.ch",
+                    "data@bfe.admin.ch",
+                    "admin@ejpd.admin.ch",
+                    "data@vbs.admin.ch",
+                    "info@uvek.admin.ch",
+                    "data@efd.admin.ch",
+                    "admin@wbf.admin.ch",
+                    "data@bak.admin.ch",
+                    "info@fedlex.admin.ch",
+                    "data@astra.admin.ch",
+                    "admin@bakom.admin.ch",
+                    "data@sbb.ch",
+                    "info@post.ch"
+                ]
+            }
         ];
 
         // Composition Tab Variables
@@ -1695,17 +3187,252 @@
         let selectedSynthesizer = null;
 
         // Initialize when page loads
+        // Check authentication
+        function isAuthenticated() {
+            const auth = localStorage.getItem('isAuthenticated');
+            const authTime = parseInt(localStorage.getItem('authTime') || '0');
+            const now = Date.now();
+            const hoursSinceAuth = (now - authTime) / (1000 * 60 * 60);
+            
+            return auth === 'true' && hoursSinceAuth < 24;
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication on page load
+            if (!isAuthenticated()) {
+                window.location.href = 'login.html?redirect=compose.html';
+                return;
+            }
+            
+            // Update user email display and account
+            const authEmail = localStorage.getItem('userEmail');
+            if (authEmail) {
+                // Update account manager with authenticated email
+                accountManager.updateAuthenticatedUser(authEmail);
+                userAccount = accountManager.getAccount();
+                
+                const emailElement = document.getElementById('userEmail');
+                if (emailElement) {
+                    emailElement.textContent = authEmail;
+                }
+                // Note: Balance is handled by updatePaymentStatus() - don't set it here
+            }
+            
+            // Initialize payment status
+            updatePaymentStatus();
+            
+            // Add password validation listeners
+            const passwordInput = document.getElementById('paymentPassword');
+            const confirmInput = document.getElementById('paymentPasswordConfirm');
+            
+            if (passwordInput && confirmInput) {
+                passwordInput.addEventListener('input', validatePasswords);
+                confirmInput.addEventListener('input', validatePasswords);
+            }
+            
+            // Listen for account updates from other pages
+            window.addEventListener('userAccountUpdated', function(event) {
+                userAccount = event.detail;
+                updatePaymentStatus();
+            });
+            
             populateCompositionDropdowns();
-            setupFileUpload();
+            setupChatInterface();
             loadTransferredComposition();
+            setupDropdownClickOutside();
+            updateTotalPrice(); // Initialize price display
         });
+
+        // Setup click outside handler for overlays
+        function setupDropdownClickOutside() {
+            document.addEventListener('click', function(event) {
+                const sourceDropdown = document.getElementById('sourceDropdown');
+                const synthesizerDropdown = document.getElementById('synthesizerDropdown');
+                const sourceConfig = document.getElementById('sourceConfigDisplay');
+                const synthesizerConfig = document.getElementById('synthesizerConfigDisplay');
+                
+                // Check if clicking on a config item or its parameter overlay
+                const clickedOnConfigItem = event.target.closest('.config-item');
+                const clickedOnParamOverlay = event.target.closest('.param-overlay');
+                
+                // If clicking outside all relevant areas, close overlays
+                const clickedOutside = !sourceConfig?.contains(event.target) && 
+                                     !synthesizerConfig?.contains(event.target) &&
+                                     !sourceDropdown?.contains(event.target) && 
+                                     !synthesizerDropdown?.contains(event.target) &&
+                                     !clickedOnConfigItem &&
+                                     !clickedOnParamOverlay;
+                
+                if (clickedOutside && activeOverlayType) {
+                    closeAllOverlays();
+                }
+                
+                // Legacy individual dropdown closing (backup)
+                if (sourceDropdown && !sourceDropdown.classList.contains('hidden')) {
+                    if (!sourceConfig?.contains(event.target) && !sourceDropdown.contains(event.target)) {
+                        sourceDropdown.classList.add('hidden');
+                        if (activeOverlayType === 'dropdown') activeOverlayType = null;
+                    }
+                }
+                
+                if (synthesizerDropdown && !synthesizerDropdown.classList.contains('hidden')) {
+                    if (!synthesizerConfig?.contains(event.target) && !synthesizerDropdown.contains(event.target)) {
+                        synthesizerDropdown.classList.add('hidden');
+                        if (activeOverlayType === 'dropdown') activeOverlayType = null;
+                    }
+                }
+            });
+        }
+
+        // Show notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerHTML = `
+                <div style="position: fixed; top: 20px; right: 20px; background: #14B8A6; color: white; padding: 12px 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 10000; animation: slideIn 0.3s ease;">
+                    ${message}
+                </div>
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transition = 'opacity 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
 
         // Load transferred composition from discover page
         function loadTransferredComposition() {
             try {
+                // First check for agent configuration from sessionStorage
+                const agentConfig = sessionStorage.getItem('agentConfig');
+                if (agentConfig) {
+                    const config = JSON.parse(agentConfig);
+                    sessionStorage.removeItem('agentConfig'); // Clear after reading
+                    
+                    // Set flag to indicate we're from an agent
+                    sessionStorage.setItem('fromAgent', 'true');
+                    
+                    // Load agent sources
+                    if (config.sources && Array.isArray(config.sources)) {
+                        selectedSources = [];
+                        config.sources.forEach(source => {
+                            // Find the full service data
+                            const fullService = SERVICES.find(s => s.id === source.id && s.type === 'data');
+                            if (fullService) {
+                                selectedSources.push({
+                                    id: fullService.id,
+                                    name: fullService.name,
+                                    type: fullService.type,
+                                    owner: fullService.owner,
+                                    description: fullService.description,
+                                    endpoints: fullService.endpoints || [],
+                                    params: fullService.params || {}
+                                });
+                            }
+                        });
+                    }
+                    
+                    // Load agent synthesizer
+                    if (config.synthesizer) {
+                        const fullSynthesizer = SERVICES.find(s => 
+                            s.id === config.synthesizer.id && (s.type === 'llm' || s.type === 'model')
+                        );
+                        if (fullSynthesizer) {
+                            selectedSynthesizer = {
+                                id: fullSynthesizer.id,
+                                name: fullSynthesizer.name,
+                                type: fullSynthesizer.type,
+                                owner: fullSynthesizer.owner,
+                                description: fullSynthesizer.description,
+                                endpoints: fullSynthesizer.endpoints || [],
+                                params: config.synthesizer.params || fullSynthesizer.params || {}
+                            };
+                        }
+                    }
+                    
+                    // Show a notification that agent configuration was loaded
+                    if (config.agentName) {
+                        showNotification(`Loaded configuration from agent: ${config.agentName}`);
+                    }
+                    
+                    // Update execution layout if provided from agent
+                    if (config.executionLayout) {
+                        // Store the agent execution layout for later use
+                        sessionStorage.setItem('agentExecutionLayout', config.executionLayout);
+                        
+                        // Replace the entire flow diagram with the agent's execution layout
+                        const flowDiagram = document.querySelector('.execution-flow');
+                        if (flowDiagram) {
+                            // Create a simple display of the agent's execution layout
+                            flowDiagram.innerHTML = `
+                                <div style="padding: 40px 20px; text-align: center;">
+                                    <div style="font-size: 18px; color: #1e40af; font-weight: 600; margin-bottom: 20px;">
+                                        ${config.executionLayout}
+                                    </div>
+                                    <div style="margin-top: 30px;">
+                                        <div style="font-size: 14px; color: #64748b; margin-bottom: 15px;">Selected Sources:</div>
+                                        <div id="agentSourcesList" style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;">
+                                            <!-- Sources will be added here -->
+                                        </div>
+                                    </div>
+                                    <div style="margin-top: 25px;">
+                                        <div style="font-size: 14px; color: #64748b; margin-bottom: 15px;">Synthesizer:</div>
+                                        <div id="agentSynthesizerDisplay" style="display: flex; justify-content: center;">
+                                            <!-- Synthesizer will be added here -->
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    }
+                    
+                    // Update displays
+                    updateSelectedSourcesDisplay();
+                    updateSelectedSynthesizerDisplay();
+                    
+                    // If we have an agent execution layout, populate the agent view
+                    if (config.executionLayout) {
+                        // Populate sources in the agent layout view
+                        const sourcesList = document.getElementById('agentSourcesList');
+                        if (sourcesList && selectedSources.length > 0) {
+                            sourcesList.innerHTML = selectedSources.map(source => `
+                                <div style="padding: 6px 12px; background: #f1f5f9; border-radius: 6px; font-size: 13px; color: #475569;">
+                                    ${source.name}
+                                </div>
+                            `).join('');
+                        }
+                        
+                        // Populate synthesizer in the agent layout view
+                        const synthDisplay = document.getElementById('agentSynthesizerDisplay');
+                        if (synthDisplay && selectedSynthesizer) {
+                            synthDisplay.innerHTML = `
+                                <div style="padding: 6px 12px; background: #e0f2fe; border-radius: 6px; font-size: 13px; color: #0369a1;">
+                                    ${selectedSynthesizer.name}
+                                </div>
+                            `;
+                        }
+                    } else {
+                        // Only update the normal execution plan if not from agent
+                        updateCompositionExecutionPlan();
+                    }
+                    
+                    updateSendButton();
+                    updateTotalPrice();
+                    return; // Exit early if agent config was loaded
+                }
+                
+                // Otherwise check for regular saved composition
                 const savedComposition = localStorage.getItem('syftbox_composition');
-                if (!savedComposition) return;
+                if (!savedComposition) {
+                    // Clear the fromAgent flag if no composition to load
+                    sessionStorage.removeItem('fromAgent');
+                    return;
+                }
+                
+                // Clear fromAgent flag since this is from Discover
+                sessionStorage.removeItem('fromAgent');
                 
                 const composition = JSON.parse(savedComposition);
                 const now = Date.now();
@@ -1715,18 +3442,39 @@
                 if (composition.timestamp && (now - composition.timestamp) < maxAge) {
                     // Restore sources
                     if (composition.sources && Array.isArray(composition.sources)) {
-                        selectedSources = composition.sources.filter(source => 
-                            SERVICES.find(s => s.id === source.id && s.type === 'data')
-                        );
+                        selectedSources = [];
+                        composition.sources.forEach(source => {
+                            // Find the full service data to ensure we have all properties
+                            const fullService = SERVICES.find(s => s.id === source.id && (s.type === 'data' || s.type === 'collective'));
+                            if (fullService) {
+                                selectedSources.push({
+                                    id: fullService.id,
+                                    name: fullService.name,
+                                    type: fullService.type,
+                                    owner: fullService.owner,
+                                    description: fullService.description,
+                                    endpoints: fullService.endpoints || [],
+                                    params: fullService.params || {}
+                                });
+                            }
+                        });
                     }
                     
                     // Restore synthesizer
                     if (composition.synthesizer) {
-                        const synthesizer = SERVICES.find(s => 
-                            s.id === composition.synthesizer.id && s.type === 'llm'
+                        const fullSynthesizer = SERVICES.find(s => 
+                            s.id === composition.synthesizer.id && (s.type === 'llm' || s.type === 'model')
                         );
-                        if (synthesizer) {
-                            selectedSynthesizer = composition.synthesizer;
+                        if (fullSynthesizer) {
+                            selectedSynthesizer = {
+                                id: fullSynthesizer.id,
+                                name: fullSynthesizer.name,
+                                type: fullSynthesizer.type,
+                                owner: fullSynthesizer.owner,
+                                description: fullSynthesizer.description,
+                                endpoints: fullSynthesizer.endpoints || [],
+                                params: fullSynthesizer.params || {}
+                            };
                         }
                     }
                     
@@ -1734,6 +3482,8 @@
                     updateSelectedSourcesDisplay();
                     updateSelectedSynthesizerDisplay();
                     updateCompositionExecutionPlan();
+                    updateSendButton();
+                    updateTotalPrice();
                     
                     // Show notification
                     if (selectedSources.length > 0 || selectedSynthesizer) {
@@ -1753,10 +3503,22 @@
         function showTransferNotification() {
             const notification = document.createElement('div');
             notification.className = 'transfer-notification';
+            
+            let message = 'Composition transferred from Discover!';
+            if (selectedSources.length > 0) {
+                message = `Loaded ${selectedSources.length} source${selectedSources.length > 1 ? 's' : ''}`;
+                if (selectedSynthesizer) {
+                    message += ' and 1 synthesizer';
+                }
+                message += ' from Discover!';
+            } else if (selectedSynthesizer) {
+                message = 'Loaded 1 synthesizer from Discover!';
+            }
+            
             notification.innerHTML = `
                 <div class="notification-content">
                     <span class="notification-icon">✅</span>
-                    <span>Composition transferred from Discover!</span>
+                    <span>${message}</span>
                     <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
                 </div>
             `;
@@ -1849,63 +3611,104 @@
                 .replace(/`([^`]+)`/g, '<code>$1</code>');
         }
 
-        // File upload functionality
-        function setupFileUpload() {
-            const fileInput = document.getElementById('fileUpload');
-            const fileList = document.getElementById('fileList');
-            let selectedFiles = [];
-
-            fileInput.addEventListener('change', function(e) {
-                const files = Array.from(e.target.files);
+        // Chat file upload functionality
+        let chatSelectedFiles = [];
+        
+        // Compact view state for execution layout
+        let isCompactView = false;
+        
+        function setupChatInterface() {
+            const chatInput = document.getElementById('chatInput');
+            const chatFileUpload = document.getElementById('chatFileUpload');
+            const chatSendButton = document.getElementById('chatSendButton');
+            
+            // Auto-resize textarea
+            chatInput.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = Math.min(this.scrollHeight, 120) + 'px';
                 
-                files.forEach(file => {
-                    // Check file size (10MB limit)
-                    if (file.size > 10 * 1024 * 1024) {
-                        alert(`File "${file.name}" is too large. Maximum size is 10MB.`);
-                        return;
-                    }
-                    
-                    // Check if file already exists
-                    if (selectedFiles.find(f => f.name === file.name && f.size === file.size)) {
-                        return;
-                    }
-                    
-                    selectedFiles.push(file);
-                });
-                
-                updateFileList();
-                // Clear the input so the same file can be selected again if removed
-                fileInput.value = '';
+                // Enable/disable send button
+                updateSendButton();
             });
-
-            function updateFileList() {
-                if (selectedFiles.length === 0) {
-                    fileList.innerHTML = '';
+            
+            // Send on Enter (but not Shift+Enter)
+            chatInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendChatMessage();
+                }
+            });
+            
+            // File upload handling
+            chatFileUpload.addEventListener('change', handleChatFileUpload);
+            
+            // Initialize send button state
+            updateSendButton();
+        }
+        
+        function handleChatFileUpload(e) {
+            const files = Array.from(e.target.files);
+            const chatFileArea = document.getElementById('chatFileArea');
+            const chatFilesList = document.getElementById('chatFilesList');
+            
+            files.forEach(file => {
+                // Check file size (10MB limit)
+                if (file.size > 10 * 1024 * 1024) {
+                    alert(`File "${file.name}" is too large. Maximum size is 10MB.`);
                     return;
                 }
-
-                fileList.innerHTML = selectedFiles.map((file, index) => `
-                    <div class="file-item">
-                        <div>
-                            <span class="file-name">${file.name}</span>
-                            <span class="file-size">(${(file.size / 1024).toFixed(1)}KB)</span>
-                        </div>
-                        <button class="file-remove" onclick="removeFile(${index})" title="Remove file">✕</button>
-                    </div>
-                `).join('');
-            }
-
-            // Make removeFile globally accessible
-            window.removeFile = function(index) {
-                selectedFiles.splice(index, 1);
-                updateFileList();
-            };
-
-            // Make getSelectedFiles globally accessible for the composition
-            window.getSelectedFiles = function() {
-                return selectedFiles;
-            };
+                
+                // Check if file already exists
+                if (chatSelectedFiles.find(f => f.name === file.name && f.size === file.size)) {
+                    return;
+                }
+                
+                chatSelectedFiles.push(file);
+            });
+            
+            updateChatFilesList();
+            // Clear the input
+            e.target.value = '';
         }
+        
+        function updateChatFilesList() {
+            const chatFileArea = document.getElementById('chatFileArea');
+            const chatFilesList = document.getElementById('chatFilesList');
+            
+            if (chatSelectedFiles.length === 0) {
+                chatFileArea.style.display = 'none';
+                return;
+            }
+            
+            chatFileArea.style.display = 'flex';
+            chatFilesList.innerHTML = chatSelectedFiles.map((file, index) => `
+                <div class="chat-file-chip">
+                    📄 ${file.name} (${(file.size / 1024).toFixed(1)}KB)
+                    <span class="file-remove" onclick="removeChatFile(${index})">×</span>
+                </div>
+            `).join('');
+        }
+        
+        function removeChatFile(index) {
+            chatSelectedFiles.splice(index, 1);
+            updateChatFilesList();
+            updateSendButton();
+        }
+        
+        function updateSendButton() {
+            const chatInput = document.getElementById('chatInput');
+            const chatSendButton = document.getElementById('chatSendButton');
+            const hasContent = chatInput.value.trim().length > 0 || chatSelectedFiles.length > 0;
+            
+            chatSendButton.disabled = !hasContent || !selectedSynthesizer || selectedSources.length === 0;
+        }
+        
+        // Make getSelectedFiles compatible with old code
+        window.getSelectedFiles = function() {
+            return chatSelectedFiles;
+        };
+        
+        window.removeChatFile = removeChatFile;
 
         // --- Search utilities ---
         function normalize(text) {
@@ -1940,6 +3743,27 @@
                 .replace(/'/g, '&#39;');
         }
 
+        // Check if data source is inactive (not active in last 5 hours)
+        function isSourceInactive(lastActive) {
+            if (!lastActive) return false;
+            
+            const now = new Date();
+            const timeStr = lastActive.toLowerCase();
+            
+            // Parse different time formats
+            if (timeStr.includes('minute')) {
+                const minutes = parseInt(timeStr);
+                return minutes > 300; // 5 hours = 300 minutes
+            } else if (timeStr.includes('hour')) {
+                const hours = parseInt(timeStr);
+                return hours >= 5;
+            } else if (timeStr.includes('day') || timeStr.includes('week') || timeStr.includes('month')) {
+                return true; // Anything over a day is definitely inactive
+            }
+            
+            return false;
+        }
+
         function termVariants(term) {
             const variants = new Set();
             variants.add(term);
@@ -1964,17 +3788,38 @@
             populateSynthesizerDropdown();
         }
 
+        // Helper function to match search terms
+        function matchesSearch(service, searchTerm) {
+            const term = searchTerm.toLowerCase();
+            return service.name.toLowerCase().includes(term) ||
+                   service.summary.toLowerCase().includes(term) ||
+                   (service.tags && service.tags.some(tag => tag.toLowerCase().includes(term))) ||
+                   (service.owner && service.owner.toLowerCase().includes(term));
+        }
+
         // Populate source dropdown
         function populateSourceDropdown() {
             const content = document.getElementById('sourceDropdownContent');
             if (!content) return;
             const searchTerm = (document.getElementById('sourceSearchInput')?.value || '').trim();
             const dataServices = SERVICES.filter(s => s.type === 'data');
-            const filtered = searchTerm ? dataServices.filter(service => matchesSearch(service, searchTerm)) : dataServices;
+            const collectiveServices = COLLECTIVES.filter(c => c.type === 'collective');
+            const allDataSources = [...dataServices, ...collectiveServices];
+            
+            // Filter out already selected sources
+            const availableSources = allDataSources.filter(service => 
+                !selectedSources.find(selected => selected.id === service.id)
+            );
+            
+            const filtered = searchTerm ? availableSources.filter(service => matchesSearch(service, searchTerm)) : availableSources;
 
             if (filtered.length === 0) {
-                const q = escapeHtml(searchTerm);
-                content.innerHTML = `<div class="dropdown-item" style="cursor:default">No results found for "${q}"<div class="dropdown-item-summary" style="margin-top:4px;color:#9ca3af">Try different keywords</div></div>`;
+                if (searchTerm) {
+                    const q = escapeHtml(searchTerm);
+                    content.innerHTML = `<div class="dropdown-item" style="cursor:default">No results found for "${q}"<div class="dropdown-item-summary" style="margin-top:4px;color:#9ca3af">Try different keywords</div></div>`;
+                } else {
+                    content.innerHTML = `<div class="dropdown-item" style="cursor:default">All available sources selected<div class="dropdown-item-summary" style="margin-top:4px;color:#9ca3af">Remove sources to add different ones</div></div>`;
+                }
                 return;
             }
 
@@ -1982,14 +3827,15 @@
                 <div class="dropdown-item" onclick="addSource('${service.id}')">
                     <div class="dropdown-item-header">
                         <div class="dropdown-item-name">${service.name}</div>
-                        <div class="dropdown-item-owner">${service.owner}</div>
+                        <div class="dropdown-item-owner">${service.owner || (service.type === 'collective' ? `${service.members} members` : '')}</div>
                     </div>
                     <div class="dropdown-item-summary">${service.summary}</div>
                     <div class="dropdown-item-lastactive" style="font-size: 11px; color: #9ca3af; margin-top: 4px;">Last active: ${service.lastActive}</div>
                     <div class="dropdown-item-capabilities">
-                        ${service.endpoints.includes('search') ? '<span class="badge badge-outline">🔍 Search</span>' : ''}
-                        ${service.endpoints.includes('chat') ? '<span class="badge badge-outline">💬 Chat</span>' : ''}
+                        ${service.endpoints && service.endpoints.includes('search') ? '<span class="badge badge-outline">🔍 Search</span>' : ''}
+                        ${service.endpoints && service.endpoints.includes('chat') ? '<span class="badge badge-outline">💬 Chat</span>' : ''}
                         ${service.mcp ? '<span class="badge badge-default">🔗 MCP</span>' : ''}
+                        ${service.type === 'collective' ? '<span class="badge badge-data">🗄️ Collective Data Source</span>' : ''}
                     </div>
                 </div>
             `).join('');
@@ -2028,62 +3874,60 @@
         // Toggle source dropdown
         function toggleSourceDropdown() {
             const dropdown = document.getElementById('sourceDropdown');
-            const icon = document.getElementById('addSourceIcon');
-            const btnText = document.getElementById('addSourceBtnText');
             
-            if (!dropdown || !icon || !btnText) {
-                console.error('Missing dropdown elements:', { dropdown, icon, btnText });
+            if (!dropdown) {
+                console.error('Missing source dropdown element');
                 return;
             }
             
             if (dropdown.classList.contains('hidden')) {
+                if (!canShowOverlay('dropdown')) return;
+                
                 dropdown.classList.remove('hidden');
-                icon.textContent = '▲';
-                btnText.textContent = 'Hide Sources';
+                activeOverlayType = 'dropdown';
+                
                 // Repopulate and focus input when opening
                 populateSourceDropdown();
                 requestAnimationFrame(() => {
                     const input = document.getElementById('sourceSearchInput');
                     if (input) {
                         input.focus();
-                        // Place cursor at end
-                        const val = input.value;
-                        input.value = '';
-                        input.value = val;
+                        input.select();
                     }
                 });
             } else {
                 dropdown.classList.add('hidden');
-                icon.textContent = '▼';
-                btnText.textContent = '+ Add Source';
+                activeOverlayType = null;
             }
         }
 
         // Toggle synthesizer dropdown
         function toggleSynthesizerDropdown() {
             const dropdown = document.getElementById('synthesizerDropdown');
-            const icon = document.getElementById('addSynthesizerIcon');
-            const btnText = document.getElementById('addSynthesizerBtnText');
+            
+            if (!dropdown) {
+                console.error('Missing synthesizer dropdown element');
+                return;
+            }
             
             if (dropdown.classList.contains('hidden')) {
+                if (!canShowOverlay('dropdown')) return;
+                
                 dropdown.classList.remove('hidden');
-                icon.textContent = '▲';
-                btnText.textContent = 'Hide Synthesizers';
+                activeOverlayType = 'dropdown';
+                
                 // Repopulate and focus input when opening
                 populateSynthesizerDropdown();
                 requestAnimationFrame(() => {
                     const input = document.getElementById('synthesizerSearchInput');
                     if (input) {
                         input.focus();
-                        const val = input.value;
-                        input.value = '';
-                        input.value = val;
+                        input.select();
                     }
                 });
             } else {
                 dropdown.classList.add('hidden');
-                icon.textContent = '▼';
-                btnText.textContent = '+ Add Synthesizer';
+                activeOverlayType = null;
             }
         }
 
@@ -2099,96 +3943,336 @@
 
         // Add source
         function addSource(serviceId) {
-            const service = SERVICES.find(s => s.id === serviceId);
+            // Clear agent mode when manually adding
+            sessionStorage.removeItem('fromAgent');
+            sessionStorage.removeItem('agentExecutionLayout');
+            
+            // Look for service in both SERVICES and COLLECTIVES
+            let service = SERVICES.find(s => s.id === serviceId);
+            if (!service) {
+                service = COLLECTIVES.find(c => c.id === serviceId);
+            }
+            
             if (service && !selectedSources.find(s => s.id === serviceId)) {
-                selectedSources.push(service);
+                const serviceWithParams = addDefaultParamsToSource({...service});
+                selectedSources.push(serviceWithParams);
+                
+                // Auto-enable compact view when there are more than 3 sources for cleaner layout
+                if (selectedSources.length > 3 && !isCompactView) {
+                    isCompactView = true;
+                }
+                
                 updateSelectedSourcesDisplay();
                 updateCompositionExecutionPlan();
+                updateSendButton();
+                updateTotalPrice();
                 toggleSourceDropdown();
             }
         }
 
         // Remove source
         function removeSource(serviceId) {
+            // Clear agent mode when manually removing
+            sessionStorage.removeItem('fromAgent');
+            sessionStorage.removeItem('agentExecutionLayout');
+            
             selectedSources = selectedSources.filter(s => s.id !== serviceId);
+            
+            // Disable compact view if 3 or fewer sources remain
+            if (selectedSources.length <= 3) {
+                isCompactView = false;
+            }
+            
             updateSelectedSourcesDisplay();
             updateCompositionExecutionPlan();
+            updateSendButton();
+            updateTotalPrice();
         }
 
         // Add synthesizer
         function addSynthesizer(serviceId) {
             const service = SERVICES.find(s => s.id === serviceId);
             if (service) {
-                selectedSynthesizer = service;
+                selectedSynthesizer = addDefaultParamsToSynthesizer({...service});
                 updateSelectedSynthesizerDisplay();
                 updateCompositionExecutionPlan();
+                updateSendButton();
                 toggleSynthesizerDropdown();
             }
         }
 
         // Remove synthesizer
         function removeSynthesizer() {
+            // Clear agent mode when manually removing
+            sessionStorage.removeItem('fromAgent');
+            sessionStorage.removeItem('agentExecutionLayout');
+            
             selectedSynthesizer = null;
             updateSelectedSynthesizerDisplay();
             updateCompositionExecutionPlan();
+            updateSendButton();
+            updateTotalPrice();
         }
 
         // Update selected sources display
         function updateSelectedSourcesDisplay() {
-            const container = document.getElementById('selectedSources');
+            const container = document.getElementById('sourceConfigDisplay');
             
             if (selectedSources.length === 0) {
-                container.innerHTML = '<div class="text-sm text-muted">No sources selected</div>';
+                container.innerHTML = '<span class="empty">Select data sources...</span><button class="config-add-btn" onclick="event.stopPropagation(); toggleSourceDropdown();"><span>+</span></button>';
+                container.classList.add('empty');
                 return;
             }
             
-            container.innerHTML = selectedSources.map(source => `
-                <div class="selected-item">
-                    <span class="badge badge-data">🗄️</span>
-                    <span>${source.name}</span>
-                    <button class="remove-btn" onclick="removeSource('${source.id}')" title="Remove">✕</button>
-                </div>
-            `).join('');
+            container.classList.remove('empty');
+            const sourcesHtml = selectedSources.map((source, index) => {
+                const isOffline = isSourceInactive(source.lastActive);
+                const statusIcon = isOffline ? 
+                    `<span class="config-item-status status-offline" title="Data source offline (last active: ${source.lastActive}). Won't be included in queries - no charges apply.">●</span>` : 
+                    `<span class="config-item-status status-online" title="Data source online (last active: ${source.lastActive})">●</span>`;
+                const offlineClass = isOffline ? ' offline' : '';
+                
+                return `
+                    <div class="config-item${offlineClass}">
+                        <span class="config-item-icon">🗄️</span>
+                        <span class="config-item-name" title="${source.name}">${source.name}</span>
+                        ${statusIcon}
+                        <span class="config-item-remove" onclick="event.stopPropagation(); removeSource('${source.id}')" title="Remove">×</span>
+                    </div>
+                `;
+            }).join('');
+            
+            container.innerHTML = sourcesHtml + '<button class="config-add-btn" onclick="event.stopPropagation(); toggleSourceDropdown();"><span>+</span></button>';
         }
 
         // Update selected synthesizer display
         function updateSelectedSynthesizerDisplay() {
-            const container = document.getElementById('selectedSynthesizer');
+            const container = document.getElementById('synthesizerConfigDisplay');
             
             if (!selectedSynthesizer) {
-                container.innerHTML = '<div class="text-sm text-muted">No synthesizer selected</div>';
+                container.innerHTML = '<span class="empty">Select AI synthesizer...</span><button class="config-add-btn" onclick="event.stopPropagation(); toggleSynthesizerDropdown();"><span>+</span></button>';
+                container.classList.add('empty');
                 return;
             }
             
+            container.classList.remove('empty');
+            const isOffline = isSourceInactive(selectedSynthesizer.lastActive);
+            const statusIcon = isOffline ? 
+                `<span class="config-item-status status-offline" title="Synthesizer offline (last active: ${selectedSynthesizer.lastActive}). Click to find replacement.">●</span>` : 
+                `<span class="config-item-status status-online" title="Synthesizer online (last active: ${selectedSynthesizer.lastActive})">●</span>`;
+            const offlineClass = isOffline ? ' offline' : '';
+            const clickHandler = isOffline ? ` onclick="event.stopPropagation(); showReplacementModal('${selectedSynthesizer.id}')"` : '';
+            
             container.innerHTML = `
-                <div class="selected-item">
-                    <span class="badge badge-model">🧠</span>
-                    <span>${selectedSynthesizer.name}</span>
-                    <button class="remove-btn" onclick="removeSynthesizer()" title="Remove">✕</button>
+                <div class="config-item${offlineClass}"${clickHandler}>
+                    <span class="config-item-icon">🧠</span>
+                    <span class="config-item-name" title="${selectedSynthesizer.name}">${selectedSynthesizer.name}</span>
+                    ${statusIcon}
+                    <span class="config-item-remove" onclick="event.stopPropagation(); removeSynthesizer()" title="Remove">×</span>
                 </div>
+                <button class="config-add-btn" onclick="event.stopPropagation(); toggleSynthesizerDropdown();"><span>+</span></button>
             `;
+            
+            updateTotalPrice();
+        }
+
+        // Calculate and update total price
+        function updateTotalPrice() {
+            const totalPriceElement = document.getElementById('totalPrice');
+            if (!totalPriceElement) return;
+            
+            let totalPrice = 0;
+            
+            // Calculate cost for data sources (per request)
+            selectedSources.forEach(source => {
+                if (source.pricing) {
+                    // Handle different pricing formats: "$0.005 / request", "$0.02 / request", etc.
+                    const priceMatch = source.pricing.match(/\$([\d.]+)/);
+                    if (priceMatch) {
+                        totalPrice += parseFloat(priceMatch[1]);
+                    }
+                }
+            });
+            
+            // Calculate cost for synthesizer (per 1k tokens)
+            if (selectedSynthesizer && selectedSynthesizer.pricing) {
+                // Handle different pricing formats: "$0.06 / 1k tok", "$0.01 / 1k tok", etc.
+                const priceMatch = selectedSynthesizer.pricing.match(/\$([\d.]+)/);
+                if (priceMatch) {
+                    const pricePer1kTokens = parseFloat(priceMatch[1]);
+                    const maxTokens = selectedSynthesizer.maxTokens || 1000;
+                    const tokenCost = (maxTokens / 1000) * pricePer1kTokens;
+                    totalPrice += tokenCost;
+                }
+            }
+            
+            // Format the total price with appropriate precision
+            let formattedPrice;
+            if (totalPrice < 0.01) {
+                formattedPrice = totalPrice.toFixed(4); // Show 4 decimal places for very small amounts
+            } else if (totalPrice < 0.1) {
+                formattedPrice = totalPrice.toFixed(3); // Show 3 decimal places for small amounts
+            } else {
+                formattedPrice = totalPrice.toFixed(2); // Show 2 decimal places for larger amounts
+            }
+            
+            totalPriceElement.textContent = `$${formattedPrice}`;
+        }
+
+        // Toggle factual mode for mini toggle
+        function toggleFactualModeMini() {
+            const miniToggle = document.getElementById('factualToggleMini');
+            const isActive = miniToggle.classList.contains('active');
+            
+            if (isActive) {
+                miniToggle.classList.remove('active');
+            } else {
+                miniToggle.classList.add('active');
+            }
+            
+            // Sync with the original toggle if it exists
+            const originalToggle = document.getElementById('factualToggle');
+            if (originalToggle) {
+                originalToggle.checked = !isActive;
+            }
+            
+            updateResponsePreference();
         }
 
         // Update response preference
         function updateResponsePreference() {
-            const isFactual = document.getElementById('factualToggle').checked;
+            const miniToggle = document.getElementById('factualToggleMini');
+            const originalToggle = document.getElementById('factualToggle');
+            const isFactual = miniToggle ? miniToggle.classList.contains('active') : (originalToggle ? originalToggle.checked : false);
+            
+            // Sync both toggles
+            if (miniToggle && originalToggle) {
+                if (isFactual) {
+                    miniToggle.classList.add('active');
+                    originalToggle.checked = true;
+                } else {
+                    miniToggle.classList.remove('active');
+                    originalToggle.checked = false;
+                }
+            }
+            
             const responseMode = document.getElementById('responseMode');
-            responseMode.textContent = isFactual ? 'factual' : 'nuanced';
+            if (responseMode) {
+                responseMode.textContent = isFactual ? 'factual' : 'nuanced';
+            }
             
             // Update arrow labels based on preference
             const searchChatLabel = document.getElementById('searchChatLabel');
             if (searchChatLabel) {
                 searchChatLabel.textContent = isFactual ? '/search (factual)' : '/chat (nuanced)';
             }
+            
+            // Update execution layout to reflect parameter visibility changes
+            updateCompositionExecutionPlan();
         }
 
 
 
         // Update composition execution plan
         function updateCompositionExecutionPlan() {
-            // Update flow diagram
+            const agentLayout = sessionStorage.getItem('agentExecutionLayout');
+            const flowDiagram = document.querySelector('.execution-flow');
+            
+            if (agentLayout && sessionStorage.getItem('fromAgent')) {
+                // We're in agent mode - show the agent's execution layout
+                if (flowDiagram) {
+                    flowDiagram.innerHTML = `
+                        <div style="padding: 40px 20px; text-align: center;">
+                            <div style="font-size: 18px; color: #1e40af; font-weight: 600; margin-bottom: 20px;">
+                                ${agentLayout}
+                            </div>
+                            <div style="margin-top: 30px;">
+                                <div style="font-size: 14px; color: #64748b; margin-bottom: 15px;">Selected Sources:</div>
+                                <div id="agentSourcesList" style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;">
+                                    ${selectedSources.map(source => `
+                                        <div style="padding: 6px 12px; background: #f1f5f9; border-radius: 6px; font-size: 13px; color: #475569;">
+                                            ${source.name}
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                            <div style="margin-top: 25px;">
+                                <div style="font-size: 14px; color: #64748b; margin-bottom: 15px;">Synthesizer:</div>
+                                <div id="agentSynthesizerDisplay" style="display: flex; justify-content: center;">
+                                    ${selectedSynthesizer ? `
+                                        <div style="padding: 6px 12px; background: #e0f2fe; border-radius: 6px; font-size: 13px; color: #0369a1;">
+                                            ${selectedSynthesizer.name}
+                                        </div>
+                                    ` : '<div style="color: #94a3b8;">No synthesizer selected</div>'}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            } else {
+                // Normal mode - restore the default flow diagram if needed
+                if (flowDiagram && !flowDiagram.querySelector('.flow-row')) {
+                    // Restore the original structure
+                    flowDiagram.innerHTML = `
+                        <div class="flow-row">
+                            <div class="flow-section data-sources">
+                                <div class="flow-title">Data Sources</div>
+                                <div class="flow-content" id="flowDataSources">
+                                    <div class="empty-state">No sources selected</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flow-arrows">
+                            <div class="arrow-down">↓</div>
+                            <div class="arrow-label" id="searchChatLabel">/search or /chat</div>
+                        </div>
+                        
+                        <div class="flow-row">
+                            <div class="flow-section synthesizers">
+                                <div class="flow-title">Synthesizers</div>
+                                <div class="flow-content" id="flowSynthesizers">
+                                    <div class="empty-state">No synthesizer selected</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flow-arrows">
+                            <div class="arrow-down">↓</div>
+                            <div class="arrow-label">Process & Combine</div>
+                        </div>
+                        
+                        <div class="flow-row">
+                            <div class="flow-section final-response">
+                                <div class="flow-title">Final Response</div>
+                                <div class="flow-content">
+                                    <div class="response-info">
+                                        <div class="response-mode">
+                                            Mode: <strong id="responseMode">auto</strong>
+                                        </div>
+                                        <div class="total-price">
+                                            Total Price: <strong id="totalPrice">$0.00</strong>
+                                        </div>
+                                        <div style="font-size: 10px; color: #94a3b8; margin-top: 4px;">
+                                            ℹ️ Estimated cost per request based on selected data sources and AI model token usage
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                // Update the normal flow diagram
+                updateFlowDataSources();
+                updateFlowSynthesizers();
+            }
+        }
+
+        // Toggle compact view for data sources
+        function toggleCompactView() {
+            isCompactView = !isCompactView;
             updateFlowDataSources();
-            updateFlowSynthesizers();
         }
 
         // Update flow data sources
@@ -2200,16 +4284,83 @@
                 return;
             }
             
-            container.innerHTML = selectedSources.map(source => `
-                <div class="flow-item">
-                    <span class="badge badge-data">🗄️</span>
-                    <span class="item-name">${source.name}</span>
-                    <div class="flow-capabilities">
-                        ${source.endpoints.includes('search') ? '<span class="badge badge-outline">🔍</span>' : ''}
-                        ${source.endpoints.includes('chat') ? '<span class="badge badge-outline">💬</span>' : ''}
+            const isFactualMode = document.getElementById('factualToggleMini').classList.contains('active');
+            const shouldShowCompactToggle = selectedSources.length > 3;
+            const sourcesToShow = shouldShowCompactToggle && isCompactView ? selectedSources.slice(0, 3) : selectedSources;
+            
+            // Generate the sources HTML
+            const sourcesHtml = sourcesToShow.map((source, index) => {
+                // Check if source has only one endpoint
+                const endpoints = source.endpoints || [];
+                const hasSearch = endpoints.includes('search') || endpoints.includes('/search');
+                const hasChat = endpoints.includes('chat') || endpoints.includes('/rag') || endpoints.includes('/chat');
+                const hasOnlyOneEndpoint = (hasSearch && !hasChat) || (!hasSearch && hasChat);
+                
+                // Determine which params are active based on mode and endpoint availability
+                const searchParamsActive = hasOnlyOneEndpoint ? hasSearch : (isFactualMode && hasSearch);
+                const chatParamsActive = hasOnlyOneEndpoint ? hasChat : (!isFactualMode && hasChat);
+                
+                let paramsHtml = '';
+                
+                // Always show search params if endpoint supports it
+                if (hasSearch) {
+                    paramsHtml += `<span class="param-badge ${searchParamsActive ? '' : 'inactive'}">Top-K: ${source.topK || 5}</span>`;
+                }
+                
+                // Always show chat params if endpoint supports it
+                if (hasChat) {
+                    paramsHtml += `<span class="param-badge ${chatParamsActive ? '' : 'inactive'}">Tokens: ${source.maxTokens || 500}</span>`;
+                    paramsHtml += `<span class="param-badge ${chatParamsActive ? '' : 'inactive'}">Temp: ${source.temperature || 0.7}</span>`;
+                }
+                
+                const compactClass = shouldShowCompactToggle && isCompactView ? 'compact' : '';
+                
+                return `
+                    <div class="flow-item clickable ${compactClass}" onclick="openSourceParamEditor('${source.id}', ${index})" title="Click to edit parameters">
+                        <div class="flow-item-header">
+                            <span class="badge badge-data">🗄️</span>
+                            <span class="item-name">${source.name}</span>
+                        </div>
+                        <div class="flow-params">
+                            ${paramsHtml}
+                        </div>
                     </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
+            
+            // Add compact view indicator and toggle if in compact mode
+            let compactIndicatorHtml = '';
+            if (shouldShowCompactToggle && isCompactView) {
+                const hiddenCount = selectedSources.length - 3;
+                compactIndicatorHtml = `
+                    <div class="flow-item compact" style="background: #fef3c7; border: 2px dashed #f59e0b; cursor: pointer;" onclick="toggleCompactView()">
+                        <div class="flow-item-header">
+                            <span class="badge badge-data" style="opacity: 0.8; color: #d97706;">⋯</span>
+                            <span class="item-name" style="color: #92400e; font-weight: 600;">+${hiddenCount} more</span>
+                        </div>
+                        <div style="font-size: 10px; color: #b45309; margin-top: 2px;">Click to show all</div>
+                    </div>
+                `;
+            }
+            
+            // Add toggle button if more than 3 sources
+            let toggleButtonHtml = '';
+            if (shouldShowCompactToggle) {
+                const buttonText = isCompactView ? 'Show all sources' : 'Show less';
+                const buttonIcon = isCompactView ? '⬇️' : '⬆️';
+                const buttonClass = isCompactView ? 'compact-toggle-btn show-all' : 'compact-toggle-btn';
+                toggleButtonHtml = `
+                    <div class="flow-compact-toggle">
+                        <button class="${buttonClass}" onclick="toggleCompactView()">
+                            <span>${buttonIcon}</span>
+                            <span>${buttonText}</span>
+                            <span class="sources-count-badge">${selectedSources.length}</span>
+                        </button>
+                    </div>
+                `;
+            }
+            
+            container.innerHTML = sourcesHtml + compactIndicatorHtml + toggleButtonHtml;
         }
 
         // Update flow synthesizers
@@ -2221,124 +4372,318 @@
                 return;
             }
             
+            const isFactualMode = document.getElementById('factualToggleMini').classList.contains('active');
+            const isOffline = isSourceInactive(selectedSynthesizer.lastActive);
+            // Synthesizer params should always remain active (chat-based) regardless of toggle, but inactive if offline
+            const synthParamsActive = !isOffline;
+            const offlineClass = isOffline ? ' offline' : '';
+            const clickHandler = isOffline ? `showReplacementModal('${selectedSynthesizer.id}')` : `openSynthesizerParamEditor()`;
+            const clickTitle = isOffline ? 'Synthesizer offline - click to find replacement' : 'Click to edit parameters';
+            
             container.innerHTML = `
-                <div class="flow-item">
-                    <span class="badge badge-model">🧠</span>
-                    <span class="item-name">${selectedSynthesizer.name}</span>
-                    <div class="flow-capabilities">
-                        <span class="badge badge-outline">🌡️ 0.7</span>
+                <div class="flow-item clickable${offlineClass}" onclick="${clickHandler}" title="${clickTitle}">
+                    <div class="flow-item-header">
+                        <span class="badge badge-model">🧠</span>
+                        <span class="item-name">${selectedSynthesizer.name}</span>
+                        ${isOffline ? '<span class="status-offline" style="margin-left: 8px;">●</span>' : ''}
+                    </div>
+                    <div class="flow-params">
+                        <span class="param-badge ${synthParamsActive ? '' : 'inactive'}">Tokens: ${selectedSynthesizer.maxTokens || 1000}</span>
+                        <span class="param-badge ${synthParamsActive ? '' : 'inactive'}">Temp: ${selectedSynthesizer.temperature || 0.7}</span>
                     </div>
                 </div>
             `;
         }
 
-        // Run composition
-        function runComposition() {
-            const query = document.getElementById('testQuery').value;
-            if (!query.trim()) {
-                alert('Please enter a test query');
+        // Send chat message
+        function sendChatMessage() {
+            console.log('sendChatMessage called');
+            const chatInput = document.getElementById('chatInput');
+            const query = chatInput.value.trim();
+            console.log('Query:', query);
+            console.log('Selected sources:', selectedSources);
+            console.log('Selected synthesizer:', selectedSynthesizer);
+            
+            if (!query && chatSelectedFiles.length === 0) {
+                console.log('No query or files, returning');
                 return;
             }
             
             if (selectedSources.length === 0) {
-                alert('Please select at least one data source');
+                alert('Please select at least one data source before sending a message.');
                 return;
             }
             
             if (!selectedSynthesizer) {
-                alert('Please select a synthesizer');
+                alert('Please select a synthesizer before sending a message.');
                 return;
             }
             
-            // Show loading state
-            const button = document.querySelector('button[onclick="runComposition()"]');
-            const originalText = button.innerHTML;
-            button.innerHTML = '⏳ Processing...';
-            button.disabled = true;
+            // Disable send button
+            const chatSendButton = document.getElementById('chatSendButton');
+            chatSendButton.disabled = true;
             
-            // Simulate processing time
+            // Hide empty state
+            const chatEmptyState = document.getElementById('chatEmptyState');
+            if (chatEmptyState) {
+                chatEmptyState.style.display = 'none';
+            }
+            
+            // Clear input and files
+            const chatContainer = document.getElementById('chatContainer');
+            const currentFiles = [...chatSelectedFiles];
+            
+            chatInput.value = '';
+            chatInput.style.height = 'auto';
+            chatSelectedFiles = [];
+            updateChatFilesList();
+            
+            // Generate chat response
+            generateChatResponse(query || 'File analysis request', chatContainer, currentFiles, () => {
+                // Re-enable send button
+                updateSendButton();
+            });
+        }
+        
+        // Legacy function for backward compatibility
+        function runComposition() {
+            sendChatMessage();
+        }
+
+        // Generate chat-style response with typing animation
+        function generateChatResponse(query, container, files = null, onComplete = null) {
+            console.log('generateChatResponse called with:', { query, container, files });
+            
+            // Handle different parameter arrangements for backward compatibility
+            if (typeof files === 'function' && onComplete === null) {
+                onComplete = files;
+                files = chatSelectedFiles || [];
+            } else if (files === null) {
+                files = chatSelectedFiles || [];
+            }
+            
+            const currentTime = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            // Add user message
+            console.log('Creating user message');
+            const userMessage = createChatMessage('user', query, files, currentTime);
+            container.appendChild(userMessage);
+            
+            // Scroll to show user message
+            container.scrollTop = container.scrollHeight;
+            
+            // Add typing indicator after a short delay
             setTimeout(() => {
-                // Reset button
-                button.innerHTML = originalText;
-                button.disabled = false;
+                const thinkingElement = document.createElement('div');
+                thinkingElement.className = 'chat-thinking';
+                thinkingElement.innerHTML = `
+                    <div class="thinking-dots">
+                        <div class="thinking-dot"></div>
+                        <div class="thinking-dot"></div>
+                        <div class="thinking-dot"></div>
+                    </div>
+                    Analyzing ${selectedSources.length} sources and processing query...
+                `;
+                container.appendChild(thinkingElement);
+                container.scrollTop = container.scrollHeight;
                 
-                // Show response section
-                const responseSection = document.getElementById('responseSection');
-                const responseContent = document.getElementById('responseContent');
+                // Generate assistant response after "thinking"
+                setTimeout(() => {
+                    console.log('Generating assistant response');
+                    
+                    // Remove thinking indicator
+                    thinkingElement.remove();
+                    
+                    // Create assistant response
+                    const responseTime = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                    console.log('Creating assistant message');
+                    const assistantMessage = createAssistantResponse(query, responseTime, files);
+                    console.log('Assistant message created:', assistantMessage);
+                    container.appendChild(assistantMessage);
+                    
+                    // Scroll to show response
+                    container.scrollTop = container.scrollHeight;
+                    
+                    if (onComplete) onComplete();
+                }, 2000);
+            }, 500);
+        }
+
+        // Create user chat message
+        function createChatMessage(type, content, files = [], timestamp) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${type}`;
+            
+            let filesHTML = '';
+            if (files && files.length > 0) {
+                filesHTML = `
+                    <div class="file-attachments">
+                        ${files.map(file => `
+                            <div class="file-attachment">
+                                <div class="file-icon">📄</div>
+                                <div class="file-info">
+                                    <div class="file-name">${file.name}</div>
+                                    <div class="file-size">${(file.size / 1024).toFixed(1)}KB</div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+            
+            messageDiv.innerHTML = `
+                <div class="message-avatar ${type}">${type === 'user' ? '👤' : '🤖'}</div>
+                <div class="message-timestamp">${timestamp}</div>
+                <div class="message-bubble ${type}">
+                    ${content}
+                    ${filesHTML}
+                </div>
+            `;
+            
+            return messageDiv;
+        }
+
+        // Create assistant response message
+        function createAssistantResponse(query, timestamp, files = null) {
+            console.log('createAssistantResponse called');
+            try {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'chat-message assistant';
                 
-                // Generate fake markdown response
-                const selectedFiles = window.getSelectedFiles();
-                const fileInfo = selectedFiles.length > 0 ? `\n\n**📎 File Analysis:** ${selectedFiles.length} file(s) processed and integrated into the analysis:\n${selectedFiles.map(f => `- ${f.name} (${(f.size / 1024).toFixed(1)}KB)`).join('\n')}` : '';
+                const factualToggle = document.getElementById('factualToggleMini');
+                console.log('factualToggleMini element:', factualToggle);
+                const isFactualMode = factualToggle ? factualToggle.classList.contains('active') : false;
+                const processingMode = isFactualMode ? 'Factual (search-based)' : 'Nuanced (chat-based)';
+                const selectedFiles = files || (typeof window.getSelectedFiles === 'function' ? window.getSelectedFiles() : []);
+            
+            let responseContent = `
+                <div style="margin-bottom: 12px;">
+                    <strong>🎯 Fake Answer - Complete</strong>
+                </div>
                 
-                const fakeResponse = `
-### 🎭 Demo Response - Federated AI Composition
-
-**⚠️ This is a simulated response for demonstration purposes.**
-
-**Query:** "${query}"
-
-**Sources Used:** ${selectedSources.map(s => s.name).join(', ')} (${selectedSources.length} data sources)
-
-**Synthesizer:** ${selectedSynthesizer.name}${fileInfo}
-
----
-
-### 📊 Analysis Summary
-
-Based on the federated query across multiple data sources, here's what we found:
-
-- **Coverage:** Successfully queried ${selectedSources.length} distributed data source(s)
-- **Processing Mode:** ${document.getElementById('factualToggle').checked ? 'Factual (search-based)' : 'Nuanced (chat-based)'}
-- **Response Quality:** High confidence synthesis
-
-### 🔍 Key Findings
-
-1. **Data Integration:** Successfully federated information from:
-   ${selectedSources.map(s => `   - ${s.name} (${s.owner})`).join('\n')}
-
-2. **Processing Pipeline:**
-   - Data retrieval from distributed sources ✅
-   - Content synthesis via ${selectedSynthesizer.name} ✅
-   - Cross-source validation and citation ✅
-
-3. **Result Validation:** All sources were accessible and provided relevant data
-
-<div class="source-citation">
-<strong>📚 Source Citations:</strong><br>
-${selectedSources.map(s => `• <code>${s.name}</code> - Last active: ${s.lastActive || 'Recently'}`).join('<br>')}
-</div>
-
-### 🚀 Next Steps
-
-In a production environment, this would return:
-- Detailed analysis based on your specific query
-- Source citations with confidence scores
-- Interactive follow-up suggestions
-- Export options (PDF, markdown, etc.)
-
-**💡 Note:** This demo showcases SyftBox's federated AI composition capabilities. Real queries would process actual data and provide substantive insights.
-                `.trim();
+                <div class="chat-metadata">
+                    <div class="metadata-item">
+                        <span class="metadata-badge">${selectedSources.length} sources</span>
+                    </div>
+                    <div class="metadata-item">
+                        <span class="metadata-badge">${selectedSynthesizer.name}</span>
+                    </div>
+                    <div class="metadata-item">
+                        <span class="metadata-badge">${processingMode}</span>
+                    </div>
+                    ${selectedFiles.length > 0 ? `<div class="metadata-item"><span class="metadata-badge">${selectedFiles.length} files</span></div>` : ''}
+                </div>
+            `;
+            
+            responseContent += `
+                <div style="margin: 16px 0;">
+                    Based on your query <em>"${query}"</em>, I've successfully analyzed information from ${selectedSources.length} federated data sources using ${selectedSynthesizer.name}.
+                </div>
                 
-                responseContent.innerHTML = renderMarkdown(fakeResponse);
-                responseSection.classList.remove('hidden');
+                <div style="margin: 12px 0;">
+                    <strong>📊 Processing Summary:</strong>
+                    <ul style="margin: 8px 0; padding-left: 20px;">
+                        <li>✅ Successfully queried ${selectedSources.length} distributed data sources</li>
+                        <li>✅ Content synthesis completed with high confidence</li>
+                        <li>✅ Cross-source validation and citation performed</li>
+                        ${selectedFiles.length > 0 ? `<li>✅ Processed ${selectedFiles.length} uploaded file(s) for context</li>` : ''}
+                    </ul>
+                </div>
                 
-                // Scroll to response
-                responseSection.scrollIntoView({ behavior: 'smooth' });
-            }, 2000);
+                <div style="margin: 12px 0;">
+                    <strong>📚 Sources Analyzed:</strong>
+                    <ul style="margin: 8px 0; padding-left: 20px;">
+                        ${selectedSources.map(s => `<li><code>${s.name}</code> (${s.owner}) - Last active: ${s.lastActive || 'Recently'}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+            
+            if (selectedFiles.length > 0) {
+                responseContent += `
+                    <div style="margin: 12px 0;">
+                        <strong>📎 Attached Files:</strong>
+                        <div class="file-attachments" style="margin-top: 8px;">
+                            ${selectedFiles.map(file => `
+                                <div class="file-attachment">
+                                    <div class="file-icon">📄</div>
+                                    <div class="file-info">
+                                        <div class="file-name">${file.name}</div>
+                                        <div class="file-size">${(file.size / 1024).toFixed(1)}KB • Processed & integrated</div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            responseContent += `
+                <div style="margin: 16px 0; padding: 12px; background: #f8fafc; border-radius: 8px; border-left: 3px solid #4A6FB3;">
+                    <strong>💡 Note:</strong> This is a demonstration of SyftBox's federated AI composition capabilities. In a production environment, this would provide detailed analysis based on your specific query with real data insights, source citations with confidence scores, and interactive follow-up suggestions.
+                </div>
+            `;
+            
+            messageDiv.innerHTML = `
+                <div class="message-avatar assistant">🤖</div>
+                <div class="message-timestamp">${timestamp}</div>
+                <div class="message-bubble assistant">
+                    ${responseContent}
+                </div>
+            `;
+            
+            console.log('Assistant response created successfully');
+            return messageDiv;
+            
+            } catch (error) {
+                console.error('Error creating assistant response:', error);
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'chat-message assistant';
+                errorDiv.innerHTML = `
+                    <div class="message-avatar assistant">🤖</div>
+                    <div class="message-timestamp">${timestamp}</div>
+                    <div class="message-bubble assistant">
+                        <div style="color: #ef4444;">
+                            <strong>⚠️ Error:</strong> Unable to generate response. Please try again.
+                        </div>
+                    </div>
+                `;
+                return errorDiv;
+            }
         }
 
         // Show code modal
         function showCodeModal() {
+            console.log('showCodeModal called');
+            console.log('selectedSources:', selectedSources);
+            console.log('selectedSynthesizer:', selectedSynthesizer);
+            
             if (selectedSources.length === 0 || !selectedSynthesizer) {
                 alert('Please select at least one source and one synthesizer to generate code');
                 return;
             }
             
-            // Generate code for both languages
-            generateCompositionCode();
-            
-            // Show the modal
-            document.getElementById('codeModal').classList.add('show');
+            try {
+                // Generate code for both languages
+                generateCompositionCode();
+                
+                // Show the modal
+                const modal = document.getElementById('codeModal');
+                console.log('codeModal element:', modal);
+                
+                if (!modal) {
+                    console.error('Modal element not found!');
+                    alert('Modal element not found. Please check the console for errors.');
+                    return;
+                }
+                
+                modal.classList.add('show');
+                console.log('Modal should now be visible');
+                console.log('Modal classes:', modal.className);
+                console.log('Modal display style:', window.getComputedStyle(modal).display);
+            } catch (error) {
+                console.error('Error in showCodeModal:', error);
+                alert('Error showing modal: ' + error.message);
+            }
         }
 
         // Close code modal
@@ -2347,7 +4692,7 @@ In a production environment, this would return:
         }
 
         // Show code tab
-        function showCodeTab(language) {
+        function showCodeTab(language, event) {
             // Remove active class from all tabs
             document.querySelectorAll('.code-tab').forEach(tab => {
                 tab.classList.remove('active');
@@ -2367,18 +4712,65 @@ In a production environment, this would return:
 
         // Generate composition code
         function generateCompositionCode() {
-            const pythonCode = generatePythonCompositionCode();
-            const javascriptCode = generateJavaScriptCompositionCode();
-            
-            document.getElementById('pythonCode').textContent = pythonCode;
-            document.getElementById('javascriptCode').textContent = javascriptCode;
+            console.log('generateCompositionCode called');
+            try {
+                const pythonCode = generatePythonCompositionCode();
+                const javascriptCode = generateJavaScriptCompositionCode();
+                
+                console.log('Python code generated:', pythonCode.substring(0, 100) + '...');
+                console.log('JavaScript code generated:', javascriptCode.substring(0, 100) + '...');
+                
+                const pythonElement = document.getElementById('pythonCode');
+                const javascriptElement = document.getElementById('javascriptCode');
+                
+                if (pythonElement && javascriptElement) {
+                    pythonElement.textContent = pythonCode;
+                    javascriptElement.textContent = javascriptCode;
+                    console.log('Code elements updated successfully');
+                } else {
+                    console.error('Code elements not found:', { pythonElement, javascriptElement });
+                }
+            } catch (error) {
+                console.error('Error in generateCompositionCode:', error);
+                throw error;
+            }
         }
 
         // Generate Python composition code
         function generatePythonCompositionCode() {
-            const query = document.getElementById('testQuery').value || 'Your query here';
-            const isFactual = document.getElementById('factualToggle').checked;
-            const mode = isFactual ? 'search' : 'chat';
+            console.log('generatePythonCompositionCode called');
+            try {
+                const query = document.getElementById('chatInput').value || 'Your query here';
+                const isFactual = document.getElementById('factualToggleMini').classList.contains('active');
+                const mode = isFactual ? 'search' : 'chat';
+                
+                console.log('Query:', query);
+                console.log('Is factual:', isFactual);
+                console.log('Mode:', mode);
+                console.log('Selected sources:', selectedSources);
+                console.log('Selected synthesizer:', selectedSynthesizer);
+            
+            // Generate the source parameters string for Python
+            const pythonSourceParams = selectedSources.map(s => {
+                if (mode === 'search') {
+                    return `"top_k": ${s.topK || 5}`;
+                } else {
+                    return `"max_tokens": ${s.maxTokens || 500}, "temperature": ${s.temperature || 0.7}`;
+                }
+            }).join(', ');
+            
+            // Generate the data sources array for Python
+            const pythonDataSources = selectedSources.map(s => `"${s.id}"`).join(', ');
+            
+            // Generate synthesizer parameters for Python
+            const synthMaxTokens = selectedSynthesizer.maxTokens || 1000;
+            const synthTemp = selectedSynthesizer.temperature || 0.7;
+            
+            // Clean query for Python template
+            const cleanQuery = query.replace(/"/g, '\\"');
+            
+            // Store mode for Python template
+            const pythonMode = mode;
             
             return `# SyftBox Federated AI Composition
 import requests
@@ -2395,20 +4787,20 @@ def query_composition(query: str) -> Dict[str, Any]:
     """
     
     # Step 1: Query all data sources in parallel
-    data_sources = [${selectedSources.map(s => '"' + s.id + '"').join(', ')}]
+    data_sources = [${pythonDataSources}]
     source_results = []
     
     for source_id in data_sources:
         try:
             response = requests.post(
-                f"{SYFT_BASE_URL}/services/{source_id}/${mode}",
+                f"{SYFT_BASE_URL}/services/{source_id}/${pythonMode}",
                 headers={
                     "Authorization": f"Bearer {API_KEY}",
                     "Content-Type": "application/json"
                 },
                 json={
                     "query": query,
-                    ${mode === 'search' ? '"top_k": 5' : '"temperature": 0.7'}
+                    ${pythonSourceParams}
                 },
                 timeout=30
             )
@@ -2460,7 +4852,8 @@ def query_composition(query: str) -> Dict[str, Any]:
                     {"role": "system", "content": "You are an expert at synthesizing information from multiple federated data sources."},
                     {"role": "user", "content": synthesis_prompt}
                 ],
-                "temperature": 0.7
+                "max_tokens": ${synthMaxTokens},
+                "temperature": ${synthTemp}
             },
             timeout=60
         )
@@ -2475,7 +4868,7 @@ def query_composition(query: str) -> Dict[str, Any]:
             "synthesizer": synthesizer_id,
             "raw_results": source_results,
             "synthesis": final_result,
-            "mode": "${mode}"
+            "mode": "${pythonMode}"
         }
         
     except requests.RequestException as e:
@@ -2486,7 +4879,7 @@ def query_composition(query: str) -> Dict[str, Any]:
 
 # Example usage
 if __name__ == "__main__":
-    query = "${query.replace(/"/g, '\\"')}"
+    query = "${cleanQuery}"
     result = query_composition(query)
     
     if "error" not in result:
@@ -2499,18 +4892,41 @@ if __name__ == "__main__":
         print(result['synthesis']['choices'][0]['message']['content'])
     else:
         print(f"Error: {result['error']}")`;
+            } catch (error) {
+                console.error('Error in generatePythonCompositionCode:', error);
+                throw error;
+            }
         }
 
         // Generate JavaScript composition code
         function generateJavaScriptCompositionCode() {
-            const query = document.getElementById('testQuery').value || 'Your query here';
-            const isFactual = document.getElementById('factualToggle').checked;
+            const query = document.getElementById('chatInput').value || 'Your query here';
+            const isFactual = document.getElementById('factualToggleMini').classList.contains('active');
             const mode = isFactual ? 'search' : 'chat';
             
             const dataSourceIds = selectedSources.map(s => "'" + s.id + "'").join(', ');
             const synthesizerId = selectedSynthesizer.id;
-            const queryParam = mode === 'search' ? 'top_k: 5' : 'temperature: 0.7';
+            
+            // Get actual parameter values
+            const sourceParams = selectedSources.map(s => {
+                if (mode === 'search') {
+                    return `top_k: ${s.topK || 5}`;
+                } else {
+                    return `max_tokens: ${s.maxTokens || 500}, temperature: ${s.temperature || 0.7}`;
+                }
+            });
+            
+            const synthParams = `max_tokens: ${selectedSynthesizer.maxTokens || 1000}, temperature: ${selectedSynthesizer.temperature || 0.7}`;
             const cleanQuery = query.replace(/"/g, '\\"');
+            
+            // Generate the source parameters string for the template
+            const sourceParamsString = selectedSources.map(s => {
+                if (mode === 'search') {
+                    return `top_k: ${s.topK || 5}`;
+                } else {
+                    return `max_tokens: ${s.maxTokens || 500}, temperature: ${s.temperature || 0.7}`;
+                }
+            }).join(', ');
             
             return `// SyftBox Federated AI Composition
 const SYFT_BASE_URL = 'https://api.syftbox.org';
@@ -2531,7 +4947,7 @@ async function queryComposition(query) {
                     },
                     body: JSON.stringify({
                         query: query,
-                        ${queryParam}
+                        ${sourceParamsString}
                     })
                 });
                 
@@ -2724,6 +5140,40 @@ runExample();`;
             }
         }
 
+        // Open in Google Colab
+        function openInColab() {
+            if (selectedSources.length === 0) {
+                alert('Please select at least one data source before opening in Google Colab');
+                return;
+            }
+
+            // Generate pipeline configuration
+            const pipelineConfig = {
+                sources: selectedSources.map(s => ({
+                    id: s.id,
+                    name: s.name,
+                    type: s.type,
+                    description: s.description
+                })),
+                synthesizer: selectedSynthesizer ? {
+                    id: selectedSynthesizer.id,
+                    name: selectedSynthesizer.name,
+                    type: selectedSynthesizer.type,
+                    description: selectedSynthesizer.description
+                } : null
+            };
+
+            // Encode the configuration
+            const configEncoded = encodeURIComponent(JSON.stringify(pipelineConfig));
+            
+            // Create Google Colab URL with parameters
+            // This would typically open a pre-configured notebook with the pipeline setup
+            const colabUrl = `https://colab.research.google.com/github/syft-hub/fedrag-demo/blob/main/compose_pipeline.ipynb?pipeline=${configEncoded}`;
+            
+            // Open in new tab
+            window.open(colabUrl, '_blank');
+        }
+
         // Generate MCP tool
         function generateMcpTool() {
             const toolName = document.getElementById('mcpToolName').value.trim();
@@ -2765,7 +5215,7 @@ runExample();`;
                 document.querySelector('#mcpModal .modal-actions').style.display = 'none';
                 
                 // Update and show success message
-                const userEmail = 'guest@syft.org'; // In real app, this would come from auth
+                const userEmail = localStorage.getItem('userEmail') || 'guest@syft.org';
                 const mcpUrl = `mcp.syftbox.net/${userEmail}/${toolName}`;
                 
                 console.log('Setting MCP URL:', mcpUrl); // Debug log
@@ -2792,6 +5242,534 @@ runExample();`;
                 closeMcpModal();
             }
         });
+        
+        // Show replacement modal for offline synthesizers
+        function showReplacementModal(offlineSynthesizerId) {
+            const offlineSynthesizer = SERVICES.find(s => s.id === offlineSynthesizerId);
+            if (!offlineSynthesizer) return;
+            
+            // Find available (online) synthesizers
+            const onlineSynthesizers = SERVICES.filter(s => 
+                s.type === 'model' && 
+                s.id !== offlineSynthesizerId && 
+                !isSourceInactive(s.lastActive)
+            );
+            
+            if (onlineSynthesizers.length === 0) {
+                alert('No alternative synthesizers are currently available.');
+                return;
+            }
+            
+            // Create modal content
+            const modalHtml = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Replace Offline Synthesizer</h3>
+                        <button class="modal-close" onclick="closeReplacementModal()">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="replacement-notice">
+                            <span class="status-offline">●</span>
+                            <div>
+                                <strong>${offlineSynthesizer.name}</strong> is currently offline (last active: ${offlineSynthesizer.lastActive}).
+                                <br>Select a replacement synthesizer below:
+                            </div>
+                        </div>
+                        
+                        <div class="replacement-options">
+                            ${onlineSynthesizers.map(synth => `
+                                <div class="replacement-option" onclick="selectReplacement('${synth.id}')">
+                                    <div class="replacement-option-header">
+                                        <span class="badge badge-model">🧠</span>
+                                        <span class="replacement-name">${synth.name}</span>
+                                        <span class="status-online">●</span>
+                                    </div>
+                                    <div class="replacement-details">
+                                        <div class="replacement-owner">${synth.owner}</div>
+                                        <div class="replacement-pricing">${synth.pricing}</div>
+                                    </div>
+                                    <div class="replacement-summary">${synth.summary}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        <div class="modal-actions">
+                            <button class="btn" onclick="closeReplacementModal()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Create and show modal
+            const modal = document.createElement('div');
+            modal.id = 'replacementModal';
+            modal.className = 'modal show';
+            modal.innerHTML = modalHtml;
+            document.body.appendChild(modal);
+            
+            // Close on backdrop click
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeReplacementModal();
+                }
+            });
+        }
+        
+        // Close replacement modal
+        function closeReplacementModal() {
+            const modal = document.getElementById('replacementModal');
+            if (modal) {
+                modal.remove();
+            }
+        }
+        
+        // Select replacement synthesizer
+        function selectReplacement(newSynthesizerId) {
+            const newSynthesizer = SERVICES.find(s => s.id === newSynthesizerId);
+            if (newSynthesizer) {
+                // Reset parameters to defaults for new synthesizer
+                newSynthesizer.maxTokens = 1000;
+                newSynthesizer.temperature = 0.7;
+                
+                selectedSynthesizer = newSynthesizer;
+                updateSelectedSynthesizerDisplay();
+                updateFlowSynthesizers();
+                updateTotalPrice();
+                updateSendButton();
+                
+                closeReplacementModal();
+            }
+        }
+
+        // Overlay management system
+        let activeOverlayType = null;
+
+        function closeAllOverlays() {
+            // Close dropdowns
+            const sourceDropdown = document.getElementById('sourceDropdown');
+            const synthesizerDropdown = document.getElementById('synthesizerDropdown');
+            if (sourceDropdown) sourceDropdown.classList.add('hidden');
+            if (synthesizerDropdown) synthesizerDropdown.classList.add('hidden');
+
+            // Close parameter overlays
+            const paramOverlays = document.querySelectorAll('.param-overlay.show');
+            paramOverlays.forEach(overlay => overlay.classList.remove('show'));
+
+            activeOverlayType = null;
+        }
+
+        function canShowOverlay(type) {
+            // If no overlay is active, allow any type
+            if (!activeOverlayType) return true;
+            
+            // If same type is active, allow (for switching between items of same type)
+            if (activeOverlayType === type) return true;
+            
+            // Otherwise, close existing and allow new type
+            closeAllOverlays();
+            return true;
+        }
+
+        // Parameter editing functions
+        function showSourceParams(sourceId, index) {
+            if (!canShowOverlay('param')) return;
+            
+            const overlay = document.getElementById(`source-params-${index}`);
+            if (overlay) {
+                // Close other parameter overlays first
+                const allParamOverlays = document.querySelectorAll('.param-overlay.show');
+                allParamOverlays.forEach(o => o.classList.remove('show'));
+                
+                overlay.classList.add('show');
+                activeOverlayType = 'param';
+            }
+        }
+
+        function showSynthesizerParams() {
+            if (!canShowOverlay('param')) return;
+            
+            const overlay = document.getElementById('synthesizer-params');
+            if (overlay) {
+                // Close other parameter overlays first
+                const allParamOverlays = document.querySelectorAll('.param-overlay.show');
+                allParamOverlays.forEach(o => o.classList.remove('show'));
+                
+                overlay.classList.add('show');
+                activeOverlayType = 'param';
+            }
+        }
+
+        function hideParams(type) {
+            const overlay = document.getElementById(`${type}-params`);
+            if (overlay) {
+                overlay.classList.remove('show');
+                // If no param overlays are active, clear the active type
+                const activeParamOverlays = document.querySelectorAll('.param-overlay.show');
+                if (activeParamOverlays.length === 0) {
+                    activeOverlayType = null;
+                }
+            }
+        }
+
+        // Conditional parameter show functions (deprecated - only used in execution layout now)
+        function showSourceParamsIfAllowed(sourceId, index) {
+            // Don't show parameter overlay if dropdown is active
+            if (activeOverlayType === 'dropdown') return;
+            showSourceParams(sourceId, index);
+        }
+
+        function showSynthesizerParamsIfAllowed() {
+            // Don't show parameter overlay if dropdown is active
+            if (activeOverlayType === 'dropdown') return;
+            showSynthesizerParams();
+        }
+
+        function getSourceParamHTML(source, index) {
+            // Check if factual mode is active to determine search vs chat parameters
+            // But if source has only one capability, show that regardless of toggle
+            const isFactualMode = document.getElementById('factualToggleMini').classList.contains('active');
+            const hasSearch = source.endpoints.includes('search');
+            const hasChat = source.endpoints.includes('chat');
+            const hasOnlySearch = hasSearch && !hasChat;
+            const hasOnlyChat = hasChat && !hasSearch;
+            
+            if (hasOnlySearch || (isFactualMode && hasSearch && !hasOnlyChat)) {
+                // Search mode - show top-k parameter
+                return `
+                    <div class="param-group">
+                        <label class="param-label">Top-K Results</label>
+                        <input type="range" class="param-slider" min="1" max="20" value="${source.topK || 5}" 
+                               oninput="updateSourceParam('${source.id}', 'topK', this.value); this.nextElementSibling.textContent = this.value">
+                        <span class="param-value">${source.topK || 5}</span>
+                    </div>
+                `;
+            } else {
+                // Chat mode - show tokens and temperature
+                return `
+                    <div class="param-group">
+                        <label class="param-label">Max Tokens</label>
+                        <input type="range" class="param-slider" min="100" max="2000" step="50" value="${source.maxTokens || 500}" 
+                               oninput="updateSourceParam('${source.id}', 'maxTokens', this.value); this.nextElementSibling.textContent = this.value">
+                        <span class="param-value">${source.maxTokens || 500}</span>
+                    </div>
+                    <div class="param-group">
+                        <label class="param-label">Temperature</label>
+                        <input type="range" class="param-slider" min="0" max="1" step="0.1" value="${source.temperature || 0.7}" 
+                               oninput="updateSourceParam('${source.id}', 'temperature', this.value); this.nextElementSibling.textContent = this.value">
+                        <span class="param-value">${source.temperature || 0.7}</span>
+                    </div>
+                `;
+            }
+        }
+
+        function getSynthesizerParamHTML() {
+            return `
+                <div class="param-group">
+                    <label class="param-label">Max Tokens</label>
+                    <input type="range" class="param-slider" min="100" max="4000" step="100" value="${selectedSynthesizer.maxTokens || 1000}" 
+                           oninput="updateSynthesizerParam('maxTokens', this.value); this.nextElementSibling.textContent = this.value">
+                    <span class="param-value">${selectedSynthesizer.maxTokens || 1000}</span>
+                </div>
+                <div class="param-group">
+                    <label class="param-label">Temperature</label>
+                    <input type="range" class="param-slider" min="0" max="1" step="0.1" value="${selectedSynthesizer.temperature || 0.7}" 
+                           oninput="updateSynthesizerParam('temperature', this.value); this.nextElementSibling.textContent = this.value">
+                    <span class="param-value">${selectedSynthesizer.temperature || 0.7}</span>
+                </div>
+            `;
+        }
+
+        function updateSourceParam(sourceId, param, value) {
+            const source = selectedSources.find(s => s.id === sourceId);
+            if (source) {
+                source[param] = parseFloat(value);
+                // You could add logic here to save to localStorage or update server
+                console.log(`Updated source ${sourceId} ${param} to ${value}`);
+            }
+        }
+
+        function updateSynthesizerParam(param, value) {
+            if (selectedSynthesizer) {
+                selectedSynthesizer[param] = parseFloat(value);
+                // You could add logic here to save to localStorage or update server
+                console.log(`Updated synthesizer ${param} to ${value}`);
+                updateTotalPrice();
+            }
+        }
+
+        // Add default parameters to sources when selected
+        function addDefaultParamsToSource(source) {
+            if (!source.topK) source.topK = 5;
+            if (!source.maxTokens) source.maxTokens = 500;
+            if (!source.temperature) source.temperature = 0.7;
+            return source;
+        }
+
+        function addDefaultParamsToSynthesizer(synthesizer) {
+            if (!synthesizer.maxTokens) synthesizer.maxTokens = 1000;
+            if (!synthesizer.temperature) synthesizer.temperature = 0.7;
+            return synthesizer;
+        }
+
+        // Parameter editor functions for execution layout
+        function openSourceParamEditor(sourceId, index) {
+            const source = selectedSources.find(s => s.id === sourceId);
+            if (!source) return;
+
+            // Create modal content
+            const isFactualMode = document.getElementById('factualToggleMini').classList.contains('active');
+            const modalContent = createSourceParamModal(source, index, isFactualMode);
+            showParamModal(modalContent, () => saveSourceParams(sourceId));
+        }
+
+        function openSynthesizerParamEditor() {
+            if (!selectedSynthesizer) return;
+
+            const modalContent = createSynthesizerParamModal(selectedSynthesizer);
+            showParamModal(modalContent, () => saveSynthesizerParams());
+        }
+
+        function createSourceParamModal(source, index, isFactualMode) {
+            // Determine what type of parameters to show based on capabilities and toggle
+            const hasSearch = source.endpoints.includes('search');
+            const hasChat = source.endpoints.includes('chat');
+            const hasOnlySearch = hasSearch && !hasChat;
+            const hasOnlyChat = hasChat && !hasSearch;
+            
+            if (hasOnlySearch || (isFactualMode && hasSearch && !hasOnlyChat)) {
+                return `
+                    <h3>Edit Source Parameters: ${source.name}</h3>
+                    <div class="param-group">
+                        <label class="param-label">Top-K Results</label>
+                        <input type="range" class="param-slider" id="modal-topK" min="1" max="20" value="${source.topK || 5}" 
+                               oninput="this.nextElementSibling.textContent = this.value">
+                        <span class="param-value">${source.topK || 5}</span>
+                        <div style="font-size: 11px; color: #6b7280; margin-top: 4px;">Number of search results to retrieve</div>
+                    </div>
+                `;
+            } else {
+                return `
+                    <h3>Edit Source Parameters: ${source.name}</h3>
+                    <div class="param-group">
+                        <label class="param-label">Max Tokens</label>
+                        <input type="range" class="param-slider" id="modal-maxTokens" min="100" max="2000" step="50" value="${source.maxTokens || 500}" 
+                               oninput="this.nextElementSibling.textContent = this.value">
+                        <span class="param-value">${source.maxTokens || 500}</span>
+                        <div style="font-size: 11px; color: #6b7280; margin-top: 4px;">Maximum tokens for response</div>
+                    </div>
+                    <div class="param-group">
+                        <label class="param-label">Temperature</label>
+                        <input type="range" class="param-slider" id="modal-temperature" min="0" max="1" step="0.1" value="${source.temperature || 0.7}" 
+                               oninput="this.nextElementSibling.textContent = this.value">
+                        <span class="param-value">${source.temperature || 0.7}</span>
+                        <div style="font-size: 11px; color: #6b7280; margin-top: 4px;">Controls randomness (0 = focused, 1 = creative)</div>
+                    </div>
+                `;
+            }
+        }
+
+        function createSynthesizerParamModal(synthesizer) {
+            return `
+                <h3>Edit Synthesizer Parameters: ${synthesizer.name}</h3>
+                <div class="param-group">
+                    <label class="param-label">Max Tokens</label>
+                    <input type="range" class="param-slider" id="modal-synth-maxTokens" min="100" max="4000" step="100" value="${synthesizer.maxTokens || 1000}" 
+                           oninput="this.nextElementSibling.textContent = this.value">
+                    <span class="param-value">${synthesizer.maxTokens || 1000}</span>
+                    <div style="font-size: 11px; color: #6b7280; margin-top: 4px;">Maximum tokens for final response</div>
+                </div>
+                <div class="param-group">
+                    <label class="param-label">Temperature</label>
+                    <input type="range" class="param-slider" id="modal-synth-temperature" min="0" max="1" step="0.1" value="${synthesizer.temperature || 0.7}" 
+                           oninput="this.nextElementSibling.textContent = this.value">
+                    <span class="param-value">${synthesizer.temperature || 0.7}</span>
+                    <div style="font-size: 11px; color: #6b7280; margin-top: 4px;">Controls creativity in synthesis</div>
+                </div>
+            `;
+        }
+
+        function showParamModal(content, onSave) {
+            // Create modal backdrop
+            const backdrop = document.createElement('div');
+            backdrop.className = 'param-modal-backdrop';
+            backdrop.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            `;
+
+            // Create modal
+            const modal = document.createElement('div');
+            modal.className = 'param-modal';
+            modal.style.cssText = `
+                background: white;
+                border-radius: 12px;
+                padding: 24px;
+                min-width: 400px;
+                max-width: 500px;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            `;
+
+            modal.innerHTML = `
+                ${content}
+                <div style="display: flex; gap: 12px; margin-top: 20px; justify-content: flex-end;">
+                    <button class="btn" onclick="closeParamModal()">Cancel</button>
+                    <button class="btn btn-primary" onclick="saveAndCloseParamModal()">Save Changes</button>
+                </div>
+            `;
+
+            backdrop.appendChild(modal);
+            document.body.appendChild(backdrop);
+
+            // Store save function globally
+            window.currentParamSaveFunction = onSave;
+
+            // Close on backdrop click
+            backdrop.addEventListener('click', (e) => {
+                if (e.target === backdrop) {
+                    closeParamModal();
+                }
+            });
+        }
+
+        function closeParamModal() {
+            const backdrop = document.querySelector('.param-modal-backdrop');
+            if (backdrop) {
+                backdrop.remove();
+            }
+            window.currentParamSaveFunction = null;
+        }
+
+        function saveAndCloseParamModal() {
+            if (window.currentParamSaveFunction) {
+                window.currentParamSaveFunction();
+            }
+            closeParamModal();
+        }
+
+        function saveSourceParams(sourceId) {
+            const source = selectedSources.find(s => s.id === sourceId);
+            if (!source) return;
+
+            // Get values from modal
+            const isFactualMode = document.getElementById('factualToggleMini').classList.contains('active');
+            const hasSearch = source.endpoints.includes('search');
+            const hasChat = source.endpoints.includes('chat');
+            const hasOnlySearch = hasSearch && !hasChat;
+            const hasOnlyChat = hasChat && !hasSearch;
+            
+            if (hasOnlySearch || (isFactualMode && hasSearch && !hasOnlyChat)) {
+                const topK = document.getElementById('modal-topK');
+                if (topK) source.topK = parseInt(topK.value);
+            } else {
+                const maxTokens = document.getElementById('modal-maxTokens');
+                const temperature = document.getElementById('modal-temperature');
+                if (maxTokens) source.maxTokens = parseInt(maxTokens.value);
+                if (temperature) source.temperature = parseFloat(temperature.value);
+            }
+
+            // Update displays
+            updateSelectedSourcesDisplay();
+            updateFlowDataSources();
+            console.log(`Saved source parameters for ${sourceId}:`, source);
+        }
+
+        function saveSynthesizerParams() {
+            if (!selectedSynthesizer) return;
+
+            // Get values from modal
+            const maxTokens = document.getElementById('modal-synth-maxTokens');
+            const temperature = document.getElementById('modal-synth-temperature');
+            
+            if (maxTokens) selectedSynthesizer.maxTokens = parseInt(maxTokens.value);
+            if (temperature) selectedSynthesizer.temperature = parseFloat(temperature.value);
+
+            // Update displays
+            updateSelectedSynthesizerDisplay();
+            updateFlowSynthesizers();
+            updateTotalPrice();
+            console.log('Saved synthesizer parameters:', selectedSynthesizer);
+        }
+
     </script>
+    
+    <!-- Payment Registration Modal -->
+    <div class="modal-overlay" id="paymentRegistrationModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Register Wallet Manager</h3>
+                <button class="modal-close" onclick="closeModal('paymentRegistrationModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <!-- Step 1: Service Selection -->
+                <div class="payment-modal-step active" id="paymentStep1">
+                    <div class="form-group">
+                        <label class="form-label">Select Wallet Manager</label>
+                        <div class="service-option" onclick="selectPaymentService('openmined')">
+                            <input type="radio" name="paymentService" value="openmined" id="openmined-radio">
+                            <div class="service-details">
+                                <div class="service-name">OpenMined Wallet Manager</div>
+                                <div class="service-url">https://payments.openmined.org</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-input" id="paymentEmail" placeholder="Your email address" readonly>
+                        <div class="form-help">This email is prefilled from your profile</div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px;">
+                        <button class="btn" onclick="closeModal('paymentRegistrationModal')">Cancel</button>
+                        <button class="btn btn-primary" onclick="proceedToPasswordStep()" id="proceedBtn" disabled>Next</button>
+                    </div>
+                </div>
+                
+                <!-- Step 2: Password Setup -->
+                <div class="payment-modal-step" id="paymentStep2">
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-input" id="paymentPassword" placeholder="Create a password">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Confirm Password</label>
+                        <input type="password" class="form-input" id="paymentPasswordConfirm" placeholder="Confirm your password">
+                        <div class="payment-error" id="passwordError">Passwords do not match</div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px;">
+                        <button class="btn" onclick="goBackToServiceSelection()">Back</button>
+                        <button class="btn btn-primary" onclick="completePaymentRegistration()">Complete Registration</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Payment Required Modal -->
+    <div class="modal-overlay" id="paymentRequiredModal" style="display: none;">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h3>Wallet Manager Required</h3>
+                <button class="modal-close" onclick="closeModal('paymentRequiredModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <p style="margin-bottom: 16px;">This service requires payment. You must register with a wallet manager to access paid services.</p>
+                <div style="display: flex; gap: 8px; justify-content: flex-end;">
+                    <button class="btn" onclick="closeModal('paymentRequiredModal')">Cancel</button>
+                    <button class="btn btn-primary" onclick="closeModal('paymentRequiredModal'); showPaymentRegistration();">Register Wallet Manager</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

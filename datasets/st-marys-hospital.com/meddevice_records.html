@@ -21,7 +21,7 @@
 
         .container {
             max-width: 1200px;
-            margin: 30px auto 0 auto;
+            margin: 0px auto 0 auto;
             padding: 0 20px;
         }
 
@@ -97,7 +97,7 @@
         }
 
         .nav-tab:hover {
-            color: #3b82f6;
+            color: #4A6FB3;
         }
 
         .nav-tab.active {
@@ -194,7 +194,7 @@
         }
 
         .breadcrumb a {
-            color: #3b82f6;
+            color: #4A6FB3;
             text-decoration: none;
         }
 
@@ -288,9 +288,9 @@
         }
 
         .tag.primary {
-            background: #3b82f6;
+            background: #4A6FB3;
             color: white;
-            border-color: #3b82f6;
+            border-color: #4A6FB3;
         }
 
         .tag.security {
@@ -405,7 +405,7 @@
         }
 
         .copy-btn {
-            background: #3b82f6;
+            background: #4A6FB3;
             color: white;
             border: none;
             padding: 6px 12px;
@@ -460,12 +460,12 @@
         }
 
         .access-tab:hover {
-            color: #3b82f6;
+            color: #4A6FB3;
         }
 
         .access-tab.active {
-            color: #3b82f6;
-            border-bottom-color: #3b82f6;
+            color: #4A6FB3;
+            border-bottom-color: #4A6FB3;
         }
 
         .access-tab-panel {
@@ -551,9 +551,9 @@
         }
 
         .btn-primary {
-            background: #3b82f6;
+            background: #4A6FB3;
             color: white;
-            border-color: #3b82f6;
+            border-color: #4A6FB3;
         }
 
         .btn-primary:hover {
@@ -626,8 +626,8 @@
         }
 
         .tab.active {
-            color: #3b82f6;
-            border-bottom-color: #3b82f6;
+            color: #4A6FB3;
+            border-bottom-color: #4A6FB3;
             background: white;
         }
 
@@ -852,11 +852,11 @@
             transition: all 0.2s;
         }
         .mcp-tab-btn:hover {
-            color: #3b82f6;
+            color: #4A6FB3;
         }
         .mcp-tab-btn.active {
-            color: #3b82f6;
-            border-bottom-color: #3b82f6;
+            color: #4A6FB3;
+            border-bottom-color: #4A6FB3;
             font-weight: 500;
         }
         .mcp-tab-content {
@@ -915,7 +915,7 @@
             position: absolute;
             top: 8px;
             right: 8px;
-            background: #3b82f6;
+            background: #4A6FB3;
             color: white;
             border: none;
             border-radius: 4px;
@@ -962,7 +962,7 @@
                         <div class="logo-icon"></div>
                         <div class="logo-text">
                             <h1>SyftBox AI Service Hub</h1>
-                            <p>The network for federated knowledge</p>
+                            <p>The network for collective intelligence</p>
                         </div>
                     </div>
                 </div>
@@ -1066,7 +1066,7 @@
                 <div class="access-tabs">
                     <div class="access-tab-list">
                         <button class="access-tab active" onclick="showAccessTab('search')">Search</button>
-                        <button class="access-tab" onclick="showAccessTab('chat')">Chat</button>
+                        <button class="access-tab" onclick="showAccessTab('rag')">RAG</button>
                         <button class="access-tab" onclick="showAccessTab('mcp')">MCP</button>
                     </div>
 
@@ -1144,9 +1144,9 @@ results = devices.search(
                         </div>
                     </div>
 
-                    <!-- Chat Tab -->
-                    <div id="chat-access" class="access-tab-panel">
-                        <h4 style="margin-bottom: 16px;">Chat API</h4>
+                    <!-- RAG Tab -->
+                    <div id="rag-access" class="access-tab-panel">
+                        <h4 style="margin-bottom: 16px;">RAG API</h4>
                         
                         <div class="api-schema">
                             <h5>API Schema</h5>
@@ -1199,7 +1199,7 @@ for chunk in devices.chat_stream([
                                     <span>cURL</span>
                                     <button class="copy-btn" onclick="copyCode(this)" data-code="curl -X POST 'https://api.syftbox.net/v1/services/med-devices/chat' &#10;  -H 'Content-Type: application/json' &#10;  -H 'Authorization: Bearer YOUR_API_KEY' &#10;  -d '{&#10;    &quot;messages&quot;: [&#10;      {&#10;        &quot;role&quot;: &quot;user&quot;,&#10;        &quot;content&quot;: &quot;What maintenance procedures are required for dialysis machines?&quot;&#10;      }&#10;    ],&#10;    &quot;temperature&quot;: 0.7,&#10;    &quot;max_tokens&quot;: 500&#10;  }'">📋</button>
                                 </div>
-                                <pre><code>curl -X POST 'https://api.syftbox.net/v1/services/med-devices/chat' \
+                                <pre><code>curl -X POST 'https://api.syftbox.net/v1/services/med-devices/rag' \
   -H 'Content-Type: application/json' \
   -H 'Authorization: Bearer YOUR_API_KEY' \
   -d '{
@@ -1367,7 +1367,7 @@ for chunk in devices.chat_stream([
                             <div class="access-tabs">
                                 <div class="access-tab-list">
                                     <button class="access-tab active" onclick="showAccessTab('search')">Search</button>
-                                    <button class="access-tab" onclick="showAccessTab('chat')">Chat</button>
+                                    <button class="access-tab" onclick="showAccessTab('rag')">RAG</button>
                                     <button class="access-tab" onclick="showAccessTab('mcp')">MCP</button>
                                 </div>
                     
@@ -1445,9 +1445,9 @@ for chunk in devices.chat_stream([
                                     </div>
                                 </div>
                     
-                                <!-- Chat Tab -->
-                                <div id="chat-access" class="access-tab-panel">
-                                    <h4 style="margin-bottom: 16px;">Chat API</h4>
+                                <!-- RAG Tab -->
+                                <div id="rag-access" class="access-tab-panel">
+                                    <h4 style="margin-bottom: 16px;">RAG API</h4>
                                     
                                     <div class="api-schema">
                                         <h5>API Schema</h5>
@@ -1500,7 +1500,7 @@ for chunk in devices.chat_stream([
                                                 <span>cURL</span>
                                                 <button class="copy-btn" onclick="copyCode(this)" data-code="curl -X POST 'https://api.syftbox.net/v1/services/med-devices/chat' &#10;  -H 'Content-Type: application/json' &#10;  -H 'Authorization: Bearer YOUR_API_KEY' &#10;  -d '{&#10;    &quot;messages&quot;: [&#10;      {&#10;        &quot;role&quot;: &quot;user&quot;,&#10;        &quot;content&quot;: &quot;What maintenance procedures are required for dialysis machines?&quot;&#10;      }&#10;    ],&#10;    &quot;temperature&quot;: 0.7,&#10;    &quot;max_tokens&quot;: 500&#10;  }'">📋</button>
                                             </div>
-                                            <pre><code>curl -X POST 'https://api.syftbox.net/v1/services/med-devices/chat' \
+                                            <pre><code>curl -X POST 'https://api.syftbox.net/v1/services/med-devices/rag' \
    -H 'Content-Type: application/json' \
    -H 'Authorization: Bearer YOUR_API_KEY' \
    -d '{

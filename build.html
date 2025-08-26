@@ -19,9 +19,31 @@
             line-height: 1.6;
         }
 
+        :root {
+            /* Button color tokens */
+            --color-gold-full: #D1800A;
+            --color-gold-light: #FEF2E2;
+            --color-orange-full: #F79763;
+            --color-orange-light: #FEECE2;
+            --color-red-full: #CC677B;
+            --color-red-light: #F5E0E5;
+            --color-violet-full: #937098;
+            --color-violet-light: #E9E1EA;
+            --color-blue-full: #DDEEF3;
+            --color-blue-light: #E1E4EF;
+            --color-teal-full: #52A8C5;
+            --color-teal-light: #DDEEF3;
+            --color-green-full: #53BEA9;
+            --color-green-light: #DEF2EE;
+            --color-lime-full: #96D195;
+            --color-lime-light: #EAF6EA;
+            --color-yellow-full: #F2D98C;
+            --color-yellow-light: #FCF7E8;
+        }
+
         .container {
             max-width: 1200px;
-            margin: 30px auto 0 auto;
+            margin: 0px auto 0 auto;
             padding: 0 20px;
         }
 
@@ -71,7 +93,7 @@
         }
 
         .nav-tab:hover {
-            color: #3b82f6;
+            color: #4A6FB3;
         }
 
         .nav-tab.active {
@@ -114,37 +136,59 @@
             gap: 16px;
         }
 
+        /* User icon - force light background */
+        .user-icon {
+            background: #f1f5f9 !important;
+            border: 1px solid #e2e8f0 !important;
+            color: #64748b !important;
+        }
+
+        .user-icon:hover {
+            background: #e2e8f0 !important;
+            color: #475569 !important;
+        }
+
         .btn {
             padding: 8px 16px;
-            border: 1px solid #d1d5db;
+            border: 1px solid var(--color-teal-full);
             border-radius: 6px;
-            background: white;
-            color: #374151;
+            background: var(--color-teal-light);
+            color: var(--color-teal-full);
             cursor: pointer;
-            font-size: 14px;
-            transition: all 0.2s;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.3s ease;
             text-decoration: none;
             display: inline-block;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            width: auto;
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
 
         .btn:hover {
-            background: #f9fafb;
-            border-color: #9ca3af;
+            background: var(--color-teal-full);
+            border-color: var(--color-teal-full);
+            color: #ffffff;
         }
 
         .btn-primary {
-            background: #3b82f6;
-            color: white;
-            border-color: #3b82f6;
+            background: linear-gradient(135deg, #7A6BB3, #4A6FB3); /* violet → blue */
+            color: #ffffff;
+            border-color: #4A6FB3;
+            box-shadow: none;
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
 
         .btn-primary:hover {
-            background: #2563eb;
+            background: linear-gradient(135deg, #6A5AA6, #3E5F9F);
+            border-color: #3E5F9F;
+            color: #ffffff;
         }
 
         .btn-sm {
             padding: 6px 12px;
             font-size: 12px;
+            border-radius: 5px;
         }
 
         /* Cards */
@@ -178,12 +222,12 @@
 
         /* Build specific styles */
         .build-container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 40px auto;
             padding: 0 20px;
         }
 
-        /* Toggle Switch Styles */
+        /* Mode Toggle Styles */
         .mode-toggle-container {
             display: flex;
             align-items: center;
@@ -203,7 +247,7 @@
         }
 
         .toggle-switch.active {
-            background: #3b82f6;
+            background: #4A6FB3;
         }
 
         .toggle-slider {
@@ -234,6 +278,374 @@
             font-weight: 600;
         }
 
+        /* Installation Grid */
+        .install-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 32px;
+            margin-bottom: 60px;
+        }
+
+        .install-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: none;
+            transition: none;
+        }
+
+        .install-card:hover {
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .card-icon.primary {
+            background: transparent;
+            color: inherit;
+        }
+
+        .card-icon.secondary {
+            background: transparent;
+            color: inherit;
+        }
+
+        .install-card .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1f2937;
+            font-family: 'Rubik', -apple-system, system-ui, sans-serif;
+        }
+
+        .card-description {
+            color: #6b7280;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        /* OS Tabs */
+        .os-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            background: #f3f4f6;
+            border-radius: 12px;
+            padding: 4px;
+        }
+
+        .os-tab {
+            flex: 1;
+            padding: 12px 16px;
+            border: none;
+            background: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            color: #6b7280;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .os-tab.active {
+            background: white;
+            color: #4A6FB3;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .os-content {
+            display: none;
+        }
+
+        .os-content.active {
+            display: block;
+        }
+
+        /* Download Buttons */
+        .download-section {
+            margin-bottom: 24px;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #7A6BB3, #4A6FB3); /* violet → blue */
+            color: #ffffff;
+            padding: 16px 24px;
+            border: 1px solid #4A6FB3;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+            text-decoration: none;
+            box-shadow: none;
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        .download-btn:hover {
+            transform: none;
+            background: linear-gradient(135deg, #6A5AA6, #3E5F9F);
+            border-color: #3E5F9F;
+            color: #ffffff;
+        }
+
+        .download-btn.secondary {
+            background: linear-gradient(135deg, #7A6BB3, #4A6FB3);
+            color: #ffffff;
+            border: 1px solid #4A6FB3;
+            box-shadow: none;
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        .download-btn.secondary:hover {
+            box-shadow: none;
+            background: linear-gradient(135deg, #6A5AA6, #3E5F9F);
+            border-color: #3E5F9F;
+            color: #ffffff;
+        }
+
+        /* Button theme helpers for provided palette */
+        .btn-gold { background: var(--color-gold-light); color: var(--color-gold-full); border-color: var(--color-gold-full); }
+        .btn-gold:hover { background: var(--color-gold-full); color: #fff; border-color: var(--color-gold-full); }
+        .btn-orange { background: var(--color-orange-light); color: var(--color-orange-full); border-color: var(--color-orange-full); }
+        .btn-orange:hover { background: var(--color-orange-full); color: #fff; border-color: var(--color-orange-full); }
+        .btn-red { background: var(--color-red-light); color: var(--color-red-full); border-color: var(--color-red-full); }
+        .btn-red:hover { background: var(--color-red-full); color: #fff; border-color: var(--color-red-full); }
+        .btn-violet { background: var(--color-violet-light); color: var(--color-violet-full); border-color: var(--color-violet-full); }
+        .btn-violet:hover { background: var(--color-violet-full); color: #fff; border-color: var(--color-violet-full); }
+        .btn-blue { background: var(--color-blue-light); color: var(--color-blue-full); border-color: var(--color-blue-full); }
+        .btn-blue:hover { background: var(--color-blue-full); color: #111827; border-color: var(--color-blue-full); }
+        .btn-teal { background: var(--color-teal-light); color: var(--color-teal-full); border-color: var(--color-teal-full); }
+        .btn-teal:hover { background: var(--color-teal-full); color: #fff; border-color: var(--color-teal-full); }
+        .btn-green { background: var(--color-green-light); color: var(--color-green-full); border-color: var(--color-green-full); }
+        .btn-green:hover { background: var(--color-green-full); color: #fff; border-color: var(--color-green-full); }
+        .btn-lime { background: var(--color-lime-light); color: var(--color-lime-full); border-color: var(--color-lime-full); }
+        .btn-lime:hover { background: var(--color-lime-full); color: #0b3010; border-color: var(--color-lime-full); }
+        .btn-yellow { background: var(--color-yellow-light); color: var(--color-yellow-full); border-color: var(--color-yellow-full); }
+        .btn-yellow:hover { background: var(--color-yellow-full); color: #7c5b00; border-color: var(--color-yellow-full); }
+
+        /* Gradient button themes (darker with white text) */
+        .btn-gradient-gold { background: linear-gradient(135deg, #D1800A, #B86C06); color: #ffffff; border-color: #B86C06; }
+        .btn-gradient-gold:hover { background: linear-gradient(135deg, #B86C06, #9E5C05); border-color: #9E5C05; }
+
+        .btn-gradient-orange { background: linear-gradient(135deg, #F79763, #E56A2D); color: #ffffff; border-color: #E56A2D; }
+        .btn-gradient-orange:hover { background: linear-gradient(135deg, #E56A2D, #C95720); border-color: #C95720; }
+
+        .btn-gradient-red { background: linear-gradient(135deg, #CC677B, #A94558); color: #ffffff; border-color: #A94558; }
+        .btn-gradient-red:hover { background: linear-gradient(135deg, #A94558, #8E3746); border-color: #8E3746; }
+
+        .btn-gradient-violet { background: linear-gradient(135deg, #937098, #6E5576); color: #ffffff; border-color: #6E5576; }
+        .btn-gradient-violet:hover { background: linear-gradient(135deg, #6E5576, #5A465F); border-color: #5A465F; }
+
+        /* Derived blue gradient from provided tones to ensure contrast */
+        .btn-gradient-blue { background: linear-gradient(135deg, #8FA4C6, #6A7EA8); color: #ffffff; border-color: #6A7EA8; }
+        .btn-gradient-blue:hover { background: linear-gradient(135deg, #6A7EA8, #56678F); border-color: #56678F; }
+
+        .btn-gradient-teal { background: linear-gradient(135deg, var(--color-teal-full), #3E90AC); color: #ffffff; border-color: #3E90AC; }
+        .btn-gradient-teal:hover { background: linear-gradient(135deg, #3E90AC, #2F7C97); border-color: #2F7C97; }
+
+        .btn-gradient-green { background: linear-gradient(135deg, #53BEA9, #3AA18E); color: #ffffff; border-color: #3AA18E; }
+        .btn-gradient-green:hover { background: linear-gradient(135deg, #3AA18E, #2F8777); border-color: #2F8777; }
+
+        .btn-gradient-lime { background: linear-gradient(135deg, #96D195, #6BB66A); color: #0b3010; border-color: #6BB66A; }
+        .btn-gradient-lime:hover { background: linear-gradient(135deg, #6BB66A, #519D51); border-color: #519D51; color: #ffffff; }
+
+        .btn-gradient-yellow { background: linear-gradient(135deg, #F2D98C, #D6B968); color: #7c5b00; border-color: #D6B968; }
+        .btn-gradient-yellow:hover { background: linear-gradient(135deg, #D6B968, #BEA055); border-color: #BEA055; color: #ffffff; }
+
+        /* Code Blocks */
+        .code-section {
+            margin-bottom: 24px;
+        }
+
+        .code-container {
+            position: relative;
+            background: #1f2937;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        .code-header {
+            background: #374151;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .code-label {
+            color: #d1d5db;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #d1d5db;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Steps Section */
+        .steps-section {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: none;
+            margin-bottom: 32px;
+        }
+
+        .steps-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 24px;
+            text-align: center;
+            font-family: 'Rubik', -apple-system, system-ui, sans-serif;
+        }
+
+        .steps-list {
+            display: grid;
+            gap: 20px;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+            border-left: 4px solid #4A6FB3;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #7A6BB3, #4A6FB3);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .step-content p {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Connection Section */
+        .connection-section {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #4A6FB3;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 16px;
+            align-items: end;
+        }
+
+        /* Status Messages */
+        .status-message {
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 16px;
+            display: none;
+            font-size: 14px;
+        }
+
+        .status-success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #86efac;
+        }
+
+        .status-error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+
+        .status-info {
+            background: #dbeafe;
+            color: #1d4ed8;
+            border: 1px solid #93c5fd;
+        }
+
         /* Service List Styles */
         .services-container {
             display: none;
@@ -247,7 +659,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 24px;
+            margin-bottom: 32px;
         }
 
         .services-title {
@@ -257,116 +669,313 @@
             font-family: 'Rubik', -apple-system, system-ui, sans-serif;
         }
 
-        .service-item {
+        .services-filters {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 24px;
+            padding: 16px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #374151;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .filter-btn {
+            padding: 6px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            background: white;
+            color: #6b7280;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .filter-btn:hover {
+            background: #f3f4f6;
+            border-color: #9ca3af;
+        }
+
+        .filter-btn.active {
+            background: #4A6FB3;
+            color: white;
+            border-color: #4A6FB3;
+        }
+
+        /* Service Cards Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .service-card {
             background: white;
             border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 16px;
-            margin-bottom: 12px;
+            border-radius: 12px;
+            padding: 20px;
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            border-color: #4A6FB3;
+            box-shadow: 0 8px 32px rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .service-card.hidden {
+            display: none;
+        }
+
+        .service-card-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            transition: all 0.2s ease;
-        }
-
-        .service-item:hover {
-            border-color: #cbd5e1;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .service-info {
-            flex: 1;
+            align-items: flex-start;
+            margin-bottom: 16px;
         }
 
         .service-name {
             font-weight: 600;
             color: #1e293b;
-            margin-bottom: 4px;
+            font-size: 14px;
+            line-height: 1.2;
+            margin: 0;
+            max-width: 200px;
+            word-break: break-word;
+        }
+
+        .service-publication-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 14px;
+        }
+
+        .publication-draft {
+            background: #fef9e7;
+            border: 1px solid #f7e6a1;
+        }
+
+        .publication-published {
+            background: #f0f9f4;
+            border: 1px solid #a7d6b8;
         }
 
         .service-description {
             font-size: 14px;
             color: #6b7280;
-            margin-bottom: 8px;
-            line-height: 1.4;
+            line-height: 1.5;
+            margin-bottom: 16px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
         }
 
-        .service-details {
-            display: flex;
-            gap: 16px;
-            align-items: center;
-            font-size: 14px;
+        .service-status-section {
+            margin-bottom: 16px;
         }
 
-        .service-status {
-            padding: 4px 8px;
-            border-radius: 12px;
+        .status-label {
             font-size: 12px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-value {
+            font-size: 14px;
             font-weight: 500;
-        }
-
-        .status-draft {
-            background: #fef3cd;
-            color: #92400e;
-        }
-
-        .status-published {
-            background: #d1fae5;
-            color: #065f46;
-        }
-
-        .status-running {
-            background: #dbeafe;
-            color: #1d4ed8;
-        }
-
-        .status-stopped {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        .service-url {
-            color: #3b82f6;
-            text-decoration: none;
-            font-family: monospace;
-            font-size: 13px;
-        }
-
-        .service-url:hover {
-            text-decoration: underline;
-        }
-
-        .url-container {
             display: flex;
             align-items: center;
             gap: 6px;
         }
 
+        .status-running {
+            color: #059669;
+        }
+
+        .status-stopped {
+            color: #dc2626;
+        }
+
+        .status-not-configured {
+            color: #6b7280;
+        }
+
+        .status-running::before {
+            content: "🟢";
+            font-size: 10px;
+        }
+
+        .status-stopped::before {
+            content: "🔴";
+            font-size: 10px;
+        }
+
+        .status-not-configured::before {
+            content: "⚙️";
+            font-size: 10px;
+        }
+
+        .service-url-section {
+            margin-bottom: 16px;
+        }
+
+        .url-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .url-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f8fafc;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
         .service-url-text {
-            color: #3b82f6;
+            color: #4A6FB3;
             font-family: monospace;
             font-size: 13px;
+            font-weight: 500;
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .url-copy-btn, .url-open-btn {
-            background: none;
-            border: 1px solid #e2e8f0;
-            border-radius: 4px;
-            padding: 2px 4px;
-            cursor: pointer;
-            font-size: 12px;
-            transition: all 0.2s;
             background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 6px 8px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: all 0.2s ease;
+            min-width: 32px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .url-copy-btn:hover, .url-open-btn:hover {
-            background: #f1f5f9;
-            border-color: #cbd5e1;
+            background: #f3f4f6;
+            border-color: #9ca3af;
+            transform: scale(1.05);
         }
 
         .service-actions {
             display: flex;
             gap: 8px;
+            margin-top: auto;
+        }
+
+        .service-actions .btn {
+            flex: 1;
+            font-size: 12px;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            background: #f1f5f9;
+            color: #374151;
+            border: 1px solid #e5e7eb;
+        }
+
+        .service-actions .btn:hover {
+            background: #e5e7eb;
+            border-color: #d1d5db;
+        }
+
+
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .service-card {
+                aspect-ratio: auto;
+                min-height: 280px;
+            }
+            
+            .service-name {
+                font-size: 13px;
+                max-width: 180px;
+            }
+
+            .services-filters {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .filter-buttons {
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .service-card {
+                padding: 16px;
+                min-height: 260px;
+            }
+            
+            .service-status-badges {
+                align-items: flex-start;
+            }
+            
+            .service-card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
         }
 
         .installation-container {
@@ -411,8 +1020,8 @@
         }
 
         .sub-tab.active {
-            color: #3b82f6;
-            border-bottom-color: #3b82f6;
+            color: #4A6FB3;
+            border-bottom-color: #4A6FB3;
         }
 
         .sub-tab:hover {
@@ -428,13 +1037,22 @@
         }
 
         .space-y-3 > * + * {
-            margin-top: 12px;
+            margin-top: 16px;
+        }
+
+        .space-y-4 > * + * {
+            margin-top: 20px;
+        }
+
+        .space-y-6 > * + * {
+            margin-top: 24px;
         }
 
         .label {
             font-weight: 600;
             color: #374151;
             margin: 0;
+            font-size: 14px;
         }
 
         .text-xs {
@@ -461,8 +1079,30 @@
             margin-bottom: 16px;
         }
 
+        .mb-6 {
+            margin-bottom: 24px;
+        }
+
         .mt-2 {
             margin-top: 8px;
+        }
+
+        .mt-4 {
+            margin-top: 16px;
+        }
+
+        .mt-6 {
+            margin-top: 24px;
+        }
+
+        .py-3 {
+            padding-top: 12px;
+            padding-bottom: 12px;
+        }
+
+        .px-4 {
+            padding-left: 16px;
+            padding-right: 16px;
         }
 
         .text-center {
@@ -550,6 +1190,181 @@
             visibility: visible;
             transform: translateY(0);
         }
+        
+        .tooltip-button {
+            width: 100%;
+            padding: 8px 12px;
+            border: none;
+            background: #f8fafc;
+            color: #334155;
+            font-size: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 4px;
+            text-align: left;
+        }
+        
+        .tooltip-button:hover {
+            background: #e2e8f0;
+        }
+        
+        .tooltip-divider {
+            height: 1px;
+            background: #e2e8f0;
+            margin: 8px 0;
+        }
+        
+        /* Payment Registration Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow: auto;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #64748b;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-close:hover {
+            color: #334155;
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        .payment-modal-step {
+            display: none;
+        }
+        
+        .payment-modal-step.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #475569;
+            margin-bottom: 8px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #1e293b;
+            background: white;
+            transition: all 0.2s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #4A6FB3;
+            box-shadow: 0 0 0 3px rgba(74, 111, 179, 0.1);
+        }
+        
+        .form-help {
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 4px;
+        }
+        
+        .service-option {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .service-option:hover {
+            border-color: #cbd5e1;
+            background: #f8fafc;
+        }
+        
+        .service-option.selected {
+            border-color: #4A6FB3;
+            background: #eff6ff;
+        }
+        
+        .service-option input[type="radio"] {
+            margin-right: 12px;
+        }
+        
+        .service-details {
+            flex: 1;
+        }
+        
+        .service-name {
+            font-weight: 500;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+        
+        .service-url {
+            font-size: 13px;
+            color: #64748b;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .payment-error {
+            color: #dc2626;
+            font-size: 13px;
+            margin-top: 8px;
+            display: none;
+        }
 
         .tooltip-section {
             margin-bottom: 8px;
@@ -596,6 +1411,31 @@
             .build-container {
                 padding: 0 16px;
             }
+            
+            .install-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            
+            .install-card {
+                padding: 24px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .install-card {
+                padding: 20px;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 12px;
+            }
         }
     </style>
 </head>
@@ -609,7 +1449,7 @@
                         <div class="logo-icon"></div>
                         <div class="logo-text">
                             <h1>SyftBox AI Service Hub</h1>
-                            <p>The network for federated knowledge</p>
+                            <p>The network for collective intelligence</p>
                         </div>
                     </div>
                 </div>
@@ -629,28 +1469,33 @@
                                 <span class="tooltip-label">Email</span>
                                 <span class="tooltip-value" id="userEmail">irina@openmined.org</span>
                             </div>
-                            <div class="tooltip-section">
+                            <div class="tooltip-section" id="balanceSection">
                                 <span class="tooltip-label">Balance</span>
-                                <span class="tooltip-balance" id="userBalance">$20</span>
+                                <span class="tooltip-balance" id="userBalance" style="color: #ef4444;">Missing</span>
                             </div>
+                            <div class="tooltip-section">
+                                <span class="tooltip-label">Wallet Manager</span>
+                                <span class="tooltip-value" id="paymentStatus">Not registered</span>
+                            </div>
+                            <div class="tooltip-divider"></div>
+                            <button class="tooltip-button" onclick="showPaymentRegistration()" id="registerPaymentBtn">
+                                🔧 Register Wallet Manager
+                            </button>
+                            <button class="tooltip-button" onclick="managePaymentService()" id="managePaymentBtn" style="display: none;">
+                                ⚙️ Manage Wallet Manager
+                            </button>
+                            <button class="tooltip-button" onclick="signIn()" id="signInBtn">
+                                🔑 Sign In / Log In
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </header>
-
+    <br>
     <!-- Build Content -->
     <div class="build-container">
-        <!-- Mode Toggle -->
-        <div class="mode-toggle-container">
-            <span class="toggle-label" id="localLabel">Local</span>
-            <div class="toggle-switch active" id="modeToggle" onclick="toggleMode()">
-                <div class="toggle-slider"></div>
-            </div>
-            <span class="toggle-label active" id="internetLabel">Internet</span>
-        </div>
-
         <!-- Services Container (Local Mode) -->
         <div class="services-container" id="servicesContainer">
             <div class="services-header">
@@ -660,78 +1505,233 @@
                 </button>
             </div>
 
-            <!-- Default VectorDB Service -->
-            <div class="service-item">
-                <div class="service-info">
-                    <div class="service-name">VectorDB Service</div>
-                    <div class="service-description">High-performance vector database for semantic search and embeddings</div>
-                    <div class="service-details">
-                        <span class="service-status status-published">Published</span>
-                        <span class="service-status status-running">Running</span>
+            <!-- Services Filters -->
+            <div class="services-filters">
+                <div class="filter-group">
+                    <div class="filter-label">Publication Status</div>
+                    <div class="filter-buttons">
+                        <button class="filter-btn" onclick="togglePublicationFilter('published')" data-filter="published">
+                            🌐 Published
+                        </button>
+                        <button class="filter-btn" onclick="togglePublicationFilter('draft')" data-filter="draft">
+                            📝 Draft
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <div class="filter-label">Runtime Status</div>
+                    <div class="filter-buttons">
+                        <button class="filter-btn" onclick="toggleStatusFilter('running')" data-filter="running">
+                            🟢 Running
+                        </button>
+                        <button class="filter-btn" onclick="toggleStatusFilter('stopped')" data-filter="stopped">
+                            🔴 Stopped
+                        </button>
+                        <button class="filter-btn" onclick="toggleStatusFilter('not-configured')" data-filter="not-configured">
+                            ⚙️ Not Configured
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="services-grid">
+                <!-- Default VectorDB Service -->
+                <div class="service-card" data-publication="published" data-status="running">
+                    <div class="service-card-header">
+                        <h3 class="service-name">VectorDB Service</h3>
+                        <div class="service-publication-badge publication-published">🌐</div>
+                    </div>
+                    
+                    <div class="service-description">
+                        High-performance vector database for semantic search and embeddings
+                    </div>
+                    
+                    <div class="service-status-section">
+                        <div class="status-label">Status</div>
+                        <div class="status-value status-running">Running</div>
+                    </div>
+                    
+                    <div class="service-url-section">
+                        <div class="url-label">URL</div>
                         <div class="url-container">
-                            <span class="service-url-text">localhost:3343</span>
-                            <button class="url-copy-btn" onclick="copyURL('http://localhost:3343')" title="Copy URL">📋</button>
-                            <button class="url-open-btn" onclick="openURL('http://localhost:3343')" title="Open in new tab">🔗</button>
+                            <span class="service-url-text">external/vectordb.html</span>
+                            <button class="url-copy-btn" onclick="copyURL('external/vectordb.html')" title="Copy URL">🔗</button>
+                            <button class="url-open-btn" onclick="openURL('external/vectordb.html')" title="Open in new tab">↗️</button>
                         </div>
                     </div>
-                </div>
-                <div class="service-actions">
-                    <button class="btn btn-sm" onclick="editService('vectordb')">✏️ Edit</button>
-                    <button class="btn btn-sm" onclick="stopService('vectordb')">⏹️ Stop</button>
-                </div>
-            </div>
-
-            <!-- Example Draft Service -->
-            <div class="service-item">
-                <div class="service-info">
-                    <div class="service-name">irina@openmined.org/legal_document_analyzer</div>
-                    <div class="service-description">AI-powered analysis of legal documents with contract review and compliance checking</div>
-                    <div class="service-details">
-                        <span class="service-status status-draft">Draft</span>
-                        <span class="service-status status-stopped">Stopped</span>
-                        <span style="color: #6b7280; font-style: italic;">Not configured</span>
+                    
+                    <div class="service-actions">
+                        <button class="btn btn-sm" onclick="editService('vectordb')">✏️ Edit</button>
+                        <button class="btn btn-sm" onclick="stopService('vectordb')">⏹️ Stop</button>
                     </div>
                 </div>
-                <div class="service-actions">
-                    <button class="btn btn-sm" onclick="editService('legal-analyzer')">✏️ Edit</button>
-                    <button class="btn btn-sm" onclick="deleteService('legal-analyzer')" style="color: #dc2626;">🗑️ Delete</button>
-                </div>
-            </div>
 
-            <!-- Additional Example Services -->
-            <div class="service-item">
-                <div class="service-info">
-                    <div class="service-name">irina@openmined.org/medical_data_processor</div>
-                    <div class="service-description">HIPAA-compliant medical data processing with patient privacy protection</div>
-                    <div class="service-details">
-                        <span class="service-status status-published">Published</span>
-                        <span class="service-status status-stopped">Stopped</span>
-                        <span style="color: #6b7280; font-style: italic;">Service offline</span>
+                <!-- Example Draft Service -->
+                <div class="service-card" data-publication="draft" data-status="not-configured">
+                    <div class="service-card-header">
+                        <h3 class="service-name">legal_document_analyzer</h3>
+                        <div class="service-publication-badge publication-draft">📝</div>
+                    </div>
+                    
+                    <div class="service-description">
+                        AI-powered analysis of legal documents with contract review and compliance checking
+                    </div>
+                    
+                    <div class="service-status-section">
+                        <div class="status-label">Status</div>
+                        <div class="status-value status-not-configured">Not Configured</div>
+                    </div>
+                    
+                    <div class="service-url-section">
+                        <div class="url-label">URL</div>
+                        <div class="url-container">
+                            <span class="service-url-text">external/service.html</span>
+                            <button class="url-copy-btn" onclick="copyURL('external/service.html')" title="Copy URL">🔗</button>
+                            <button class="url-open-btn" onclick="openURL('external/service.html')" title="Open in new tab">↗️</button>
+                        </div>
+                    </div>
+                    
+                    <div class="service-actions">
+                        <button class="btn btn-sm" onclick="editService('legal-analyzer')">✏️ Edit</button>
+                        <button class="btn btn-sm" onclick="deleteService('legal-analyzer')" style="color: #dc2626;">🗑️ Delete</button>
                     </div>
                 </div>
-                <div class="service-actions">
-                    <button class="btn btn-sm" onclick="editService('medical-processor')">✏️ Edit</button>
-                    <button class="btn btn-sm" onclick="startService('medical-processor')">▶️ Start</button>
-                </div>
-            </div>
 
-            <div class="service-item">
-                <div class="service-info">
-                    <div class="service-name">irina@openmined.org/research_synthesizer</div>
-                    <div class="service-description">Research paper synthesis and academic literature analysis with citation tracking</div>
-                    <div class="service-details">
-                        <span class="service-status status-published">Published</span>
-                        <span class="service-status status-running">Running</span>
+                <!-- Additional Example Services -->
+                <div class="service-card" data-publication="published" data-status="stopped">
+                    <div class="service-card-header">
+                        <h3 class="service-name">irina@openmined.org/medical_data_processor</h3>
+                        <div class="service-publication-badge publication-published">🌐</div>
+                    </div>
+                    
+                    <div class="service-description">
+                        HIPAA-compliant medical data processing with patient privacy protection
+                    </div>
+                    
+                    <div class="service-status-section">
+                        <div class="status-label">Status</div>
+                        <div class="status-value status-stopped">Stopped</div>
+                    </div>
+                    
+                    <div class="service-actions">
+                        <button class="btn btn-sm" onclick="editService('medical-processor')">✏️ Edit</button>
+                        <button class="btn btn-sm" onclick="startService('medical-processor')">▶️ Start</button>
+                    </div>
+                </div>
+
+                <div class="service-card" data-publication="published" data-status="running">
+                    <div class="service-card-header">
+                        <h3 class="service-name">irina@openmined.org/research_synthesizer</h3>
+                        <div class="service-publication-badge publication-published">🌐</div>
+                    </div>
+                    
+                    <div class="service-description">
+                        Research paper synthesis and academic literature analysis with citation tracking
+                    </div>
+                    
+                    <div class="service-status-section">
+                        <div class="status-label">Status</div>
+                        <div class="status-value status-running">Running</div>
+                    </div>
+                    
+                    <div class="service-url-section">
+                        <div class="url-label">URL</div>
                         <div class="url-container">
                             <span class="service-url-text">localhost:3345</span>
-                            <button class="url-copy-btn" onclick="copyURL('http://localhost:3345')" title="Copy URL">📋</button>
-                            <button class="url-open-btn" onclick="openURL('http://localhost:3345')" title="Open in new tab">🔗</button>
+                            <button class="url-copy-btn" onclick="copyURL('http://localhost:3345')" title="Copy URL">🔗</button>
+                            <button class="url-open-btn" onclick="openURL('http://localhost:3345')" title="Open in new tab">↗️</button>
                         </div>
                     </div>
+                    
+                    <div class="service-actions">
+                        <button class="btn btn-sm" onclick="editService('research-synthesizer')">✏️ Edit</button>
+                        <button class="btn btn-sm" onclick="stopService('research-synthesizer')">⏹️ Stop</button>
+                    </div>
                 </div>
-                <div class="service-actions">
-                    <button class="btn btn-sm" onclick="editService('research-synthesizer')">✏️ Edit</button>
-                    <button class="btn btn-sm" onclick="stopService('research-synthesizer')">⏹️ Stop</button>
+
+                <!-- Example additional service to show variety -->
+                <div class="service-card" data-publication="draft" data-status="not-configured">
+                    <div class="service-card-header">
+                        <h3 class="service-name">image_classifier</h3>
+                        <div class="service-publication-badge publication-draft">📝</div>
+                    </div>
+                    
+                    <div class="service-description">
+                        Computer vision service for image classification and object detection with privacy-preserving features
+                    </div>
+                    
+                    <div class="service-status-section">
+                        <div class="status-label">Status</div>
+                        <div class="status-value status-not-configured">Not Configured</div>
+                    </div>
+                    
+                    <div class="service-actions">
+                        <button class="btn btn-sm" onclick="editService('image-classifier')">✏️ Configure</button>
+                        <button class="btn btn-sm" onclick="deleteService('image-classifier')" style="color: #dc2626;">🗑️ Delete</button>
+                    </div>
+                </div>
+
+                <!-- Legal Analyzer Service -->
+                <div class="service-card" data-publication="published" data-status="running">
+                    <div class="service-card-header">
+                        <h3 class="service-name">irina@openmined.org/legal_analyzer</h3>
+                        <div class="service-publication-badge publication-published">🌐</div>
+                    </div>
+                    
+                    <div class="service-description">
+                        AI-powered legal document analysis and contract review service with privacy-preserving features
+                    </div>
+                    
+                    <div class="service-status-section">
+                        <div class="status-label">Status</div>
+                        <div class="status-value status-running">Running</div>
+                    </div>
+                    
+                    <div class="service-url-section">
+                        <div class="url-label">URL</div>
+                        <div class="url-container">
+                            <span class="service-url-text">external/service.html</span>
+                            <button class="url-copy-btn" onclick="copyURL('external/service.html')" title="Copy URL">🔗</button>
+                            <button class="url-open-btn" onclick="openURL('external/service.html')" title="Open in new tab">↗️</button>
+                        </div>
+                    </div>
+                    
+                    <div class="service-actions">
+                        <button class="btn btn-sm" onclick="editService('legal-analyzer')">✏️ Edit</button>
+                        <button class="btn btn-sm" onclick="stopService('legal-analyzer')">⏹️ Stop</button>
+                    </div>
+                </div>
+
+                <!-- Running service with long URL -->
+                <div class="service-card" data-publication="published" data-status="running">
+                    <div class="service-card-header">
+                        <h3 class="service-name">Document Processor</h3>
+                        <div class="service-publication-badge publication-published">🌐</div>
+                    </div>
+                    
+                    <div class="service-description">
+                        Advanced document processing service with OCR, text extraction, and semantic analysis capabilities
+                    </div>
+                    
+                    <div class="service-status-section">
+                        <div class="status-label">Status</div>
+                        <div class="status-value status-running">Running</div>
+                    </div>
+                    
+                    <div class="service-url-section">
+                        <div class="url-label">URL</div>
+                        <div class="url-container">
+                            <span class="service-url-text">localhost:3347/api/v1/documents</span>
+                            <button class="url-copy-btn" onclick="copyURL('http://localhost:3347/api/v1/documents')" title="Copy URL">🔗</button>
+                            <button class="url-open-btn" onclick="openURL('http://localhost:3347/api/v1/documents')" title="Open in new tab">↗️</button>
+                        </div>
+                    </div>
+                    
+                    <div class="service-actions">
+                        <button class="btn btn-sm" onclick="editService('doc-processor')">✏️ Edit</button>
+                        <button class="btn btn-sm" onclick="stopService('doc-processor')">⏹️ Stop</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -746,131 +1746,173 @@
                     <p class="text-sm" style="margin: 0;">No local running SyftBox detected. SyftBox is required to create local services.</p>
                 </div>
             </div>
-        
-        <div class="card" style="text-align: left;">
-            <div class="card-header">
-                <h4 class="card-title">📥 Install SyftBox</h4>
-            </div>
-            <div class="card-content">
-                <p class="mb-4">Download the latest SyftUI release from GitHub to get started:</p>
-                
-                <div class="form-group">
+
+            <!-- Installation Grid -->
+            <div class="install-grid">
+                <!-- Local Installation -->
+                <div class="install-card">
+                    <div class="card-header">
+                        <div class="card-icon primary">💻</div>
+                        <h3 class="card-title">Local Installation</h3>
+                    </div>
+                    <p class="card-description">Install SyftBox directly on your machine for full control and offline development</p>
+                    
                     <!-- OS Tabs -->
-                    <div class="tab-list mb-3">
-                        <button class="sub-tab active" onclick="showOSTab('macos')">macOS</button>
-                        <button class="sub-tab" onclick="showOSTab('linux')">Linux</button>
-                        <button class="sub-tab" onclick="showOSTab('windows')">Windows</button>
+                    <div class="os-tabs">
+                        <button class="os-tab active" onclick="switchOS('macos')">macOS</button>
+                        <button class="os-tab" onclick="switchOS('linux')">Linux</button>
+                        <button class="os-tab" onclick="switchOS('windows')">Windows</button>
                     </div>
 
-                    <!-- macOS Tab -->
-                    <div id="macos-install" class="os-tab-content">
-                        <div class="card">
-                            <div class="card-content space-y-3">
-                                <div>
-                                    <h6 class="label mb-2">🖥️ Desktop Installer (Recommended)</h6>
-                                    <div class="space-y-2">
-                                        <a href="https://github.com/OpenMined/SyftUI/releases/latest/download/SyftBox-aarch64-apple-darwin.dmg" target="_blank" class="btn btn-primary btn-sm" style="width: 100%;">
-                                            📥 Download for Apple Silicon (M1/M2/M3)
-                                        </a>
-                                        <a href="https://github.com/OpenMined/SyftUI/releases/latest/download/SyftBox-x86_64-apple-darwin.dmg" target="_blank" class="btn btn-sm" style="width: 100%;">
-                                            📥 Download for Intel Mac
-                                        </a>
-                                    </div>
+                    <!-- macOS Content -->
+                    <div id="macos-content" class="os-content active">
+                        <div class="download-section" style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+                            <a href="https://github.com/OpenMined/SyftUI/releases/latest/download/SyftBox-aarch64-apple-darwin.dmg" 
+                               class="download-btn" target="_blank">
+                                🍎 Download for Apple Silicon
+                            </a>
+                            <a href="https://github.com/OpenMined/SyftUI/releases/latest/download/SyftBox-x86_64-apple-darwin.dmg" 
+                               class="download-btn secondary" target="_blank">
+                                💻 Download for Intel Mac
+                            </a>
+                        </div>
+                        
+                        <div class="code-section">
+                            <div class="code-container">
+                                <div class="code-header">
+                                    <span class="code-label">Terminal</span>
+                                    <button class="copy-btn" onclick="copyCode('macos-curl')">📋 Copy</button>
                                 </div>
-                                
-                                <hr>
-                                
-                                <div>
-                                    <h6 class="label mb-2">⚡ Command Line</h6>
-                                    <div class="code-container">
-                                        <pre><code id="macos-curl-code">curl -fsSL https://syftbox.net/install.sh | sh</code></pre>
-                                        <button onclick="copyToClipboard('macos-curl-code', this)" class="copy-btn" title="Copy to clipboard">
-                                            📋
-                                        </button>
-                                    </div>
-                                    <p class="text-xs text-muted">Or build from <a href="https://github.com/OpenMined/syftbox" target="_blank" style="color: #3b82f6;">source code</a></p>
-                                </div>
+                                <pre><code id="macos-curl">curl -fsSL https://syftbox.net/install.sh | sh</code></pre>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Linux Tab -->
-                    <div id="linux-install" class="os-tab-content hidden">
-                        <div class="card">
-                            <div class="card-content space-y-3">
-                                <div>
-                                    <h6 class="label mb-2">🖥️ Desktop Installer (Recommended)</h6>
-                                    <a href="https://github.com/OpenMined/SyftUI/releases/latest/download/SyftBox-x86_64-unknown-linux-gnu.AppImage" target="_blank" class="btn btn-primary btn-sm" style="width: 100%;">
-                                        📥 Download AppImage (Universal)
-                                    </a>
-                                    <p class="text-xs text-muted mt-2">Portable AppImage that works on all Linux distributions</p>
+                    <!-- Linux Content -->
+                    <div id="linux-content" class="os-content">
+                        <div class="download-section">
+                            <a href="https://github.com/OpenMined/SyftUI/releases/latest/download/SyftBox-x86_64-unknown-linux-gnu.AppImage" 
+                               class="download-btn" target="_blank">
+                                🐧 Download AppImage
+                            </a>
+                        </div>
+                        
+                        <div class="code-section">
+                            <div class="code-container">
+                                <div class="code-header">
+                                    <span class="code-label">Terminal</span>
+                                    <button class="copy-btn" onclick="copyCode('linux-curl')">📋 Copy</button>
                                 </div>
-                                
-                                <hr>
-                                
-                                <div>
-                                    <h6 class="label mb-2">⚡ Command Line</h6>
-                                    <div class="code-container">
-                                        <pre><code id="linux-curl-code">curl -fsSL https://syftbox.net/install.sh | sh</code></pre>
-                                        <button onclick="copyToClipboard('linux-curl-code', this)" class="copy-btn" title="Copy to clipboard">
-                                            📋
-                                        </button>
-                                    </div>
-                                    <p class="text-xs text-muted">Or build from <a href="https://github.com/OpenMined/syftbox" target="_blank" style="color: #3b82f6;">source code</a></p>
-                                </div>
+                                <pre><code id="linux-curl">curl -fsSL https://syftbox.net/install.sh | sh</code></pre>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Windows Tab -->
-                    <div id="windows-install" class="os-tab-content hidden">
-                        <div class="card">
-                            <div class="card-content space-y-3">
-                                <div>
-                                    <h6 class="label mb-2">🖥️ Desktop Installer (Recommended)</h6>
-                                    <a href="https://github.com/OpenMined/SyftUI/releases/latest/download/SyftBox-x86_64-pc-windows-msvc.exe" target="_blank" class="btn btn-primary btn-sm" style="width: 100%;">
-                                        📥 Download EXE Installer
-                                    </a>
-                                    <p class="text-xs text-muted mt-2">For Windows 10/11 (64-bit)</p>
+                    <!-- Windows Content -->
+                    <div id="windows-content" class="os-content">
+                        <div class="download-section">
+                            <a href="https://github.com/OpenMined/SyftUI/releases/latest/download/SyftBox-x86_64-pc-windows-msvc.exe" 
+                               class="download-btn" target="_blank">
+                                🪟 Download EXE
+                            </a>
+                        </div>
+                        
+                        <div class="code-section">
+                            <div class="code-container">
+                                <div class="code-header">
+                                    <span class="code-label">PowerShell</span>
+                                    <button class="copy-btn" onclick="copyCode('windows-ps')">📋 Copy</button>
                                 </div>
-                                
-                                <hr>
-                                
-                                <div>
-                                    <h6 class="label mb-2">⚡ PowerShell</h6>
-                                    <div class="code-container">
-                                        <pre><code id="windows-ps-code">iwr https://syftbox.net/install.ps1 | iex</code></pre>
-                                        <button onclick="copyToClipboard('windows-ps-code', this)" class="copy-btn" title="Copy to clipboard">
-                                            📋
-                                        </button>
-                                    </div>
-                                    <p class="text-xs text-muted">Or build from <a href="https://github.com/OpenMined/syftbox" target="_blank" style="color: #3b82f6;">source code</a></p>
-                                </div>
+                                <pre><code id="windows-ps">iwr https://syftbox.net/install.ps1 | iex</code></pre>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                <div style="margin-bottom: 24px;">
-                    <h5 style="font-weight: 600; margin: 16px 0 12px 0;">After Installation</h5>
-                    <ol>
-                        <li>Launch SyftBox from your applications menu</li>
-                        <li>Create a SyftBox account or sign in with existing credentials</li>
-                        <li>Complete the initial setup wizard</li>
-                    </ol>
+
+                <!-- Remote Connection -->
+                <div class="install-card">
+                    <div class="card-header">
+                        <div class="card-icon secondary">🌐</div>
+                        <h3 class="card-title">Remote Connection</h3>
+                    </div>
+                    <p class="card-description">Connect to SyftBox running on remote machines, VMs, or cloud instances</p>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Remote Host</label>
+                        <input type="text" id="remoteHost" class="form-input" 
+                               placeholder="192.168.1.100 or vm.example.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Port</label>
+                        <input type="number" id="remotePort" class="form-input" 
+                               value="8080" min="1" max="65535">
+                    </div>
+                    
+                    <div class="form-group">
+                        <button class="btn btn-primary" onclick="testConnection()">
+                            🔍 Test Connection
+                            </button>
+                    </div>
+                    
+                    <div id="connectionStatus" class="status-message"></div>
                 </div>
+            </div>
+
+            <!-- Installation Steps -->
+            <div class="steps-section">
+                <h3 class="steps-title">🚀 Getting Started</h3>
+                <div class="steps-list">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Download & Install</h4>
+                            <p>Choose your operating system above and download the appropriate installer. Run the installer and follow the setup wizard.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Launch SyftBox</h4>
+                            <p>Open SyftUI or run SyftBox client.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Create Account</h4>
+                            <p>Sign up for a new SyftBox account or sign in with existing credentials.</p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <!-- Connection Check -->
+            <div class="connection-section">
+                <h3 class="steps-title">🔍 Verify Installation</h3>
+                <p style="text-align: center; color: #6b7280; margin-bottom: 24px;">
+                    After installation, verify that SyftBox is running and reachable.
+                </p>
                 
                 <div style="text-align: center;">
                     <button class="btn btn-primary" onclick="checkSyftBoxConnection()">
                         🔍 Check SyftBox Connection
                     </button>
                 </div>
+                
+                <div id="checkStatus" class="status-message"></div>
             </div>
         </div>
-        
-            <div style="margin-top: 24px; font-size: 14px; color: #6b7280; text-center;">
-                <p>For advanced debugging and troubleshooting, visit <code style="background-color: #e5e7eb; padding: 4px 8px; border-radius: 4px;">apps/syftbox-service-hub</code></p>
+        <!-- Mode Toggle -->
+        <div class="mode-toggle-container">
+            <span class="toggle-label" id="localLabel">Local</span>
+            <div class="toggle-switch active" id="modeToggle" onclick="toggleMode()">
+                <div class="toggle-slider"></div>
             </div>
+            <span class="toggle-label active" id="internetLabel">Internet</span>
         </div>
     </div>
 
@@ -904,8 +1946,8 @@
         function createNewService() {
             const serviceName = prompt('Enter AI Service name:');
             if (serviceName) {
-                // Get current user email from the tooltip or use default
-                const userEmail = document.getElementById('userEmail').textContent || 'irina@openmined.org';
+                // Get current user email from localStorage or use default
+                const userEmail = localStorage.getItem('userEmail') || document.getElementById('userEmail').textContent || 'irina@openmined.org';
                 const formattedName = `${userEmail}/${serviceName.toLowerCase().replace(/\s+/g, '_')}`;
                 
                 // In real implementation, this would create a new service and redirect to edit page
@@ -970,6 +2012,96 @@
             }
         }
 
+        // Switch between operating systems
+        function switchOS(os) {
+            // Update OS tabs
+            document.querySelectorAll('.os-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Show/hide OS content
+            document.querySelectorAll('.os-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`${os}-content`).classList.add('active');
+        }
+
+        // Copy code to clipboard
+        function copyCode(elementId) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const button = event.target;
+                const originalText = button.innerHTML;
+                button.innerHTML = '✅ Copied!';
+                button.style.background = 'rgba(16, 185, 129, 0.8)';
+                
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.style.background = 'rgba(255, 255, 255, 0.1)';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                alert('Failed to copy to clipboard');
+            });
+        }
+
+        // Test remote connection
+        function testConnection() {
+            const host = document.getElementById('remoteHost').value.trim();
+            const port = document.getElementById('remotePort').value.trim();
+            const statusDiv = document.getElementById('connectionStatus');
+            const connectBtn = document.getElementById('connectBtn');
+            
+            if (!host) {
+                showStatus('error', 'Please enter a host address');
+                return;
+            }
+            
+            if (!port || port < 1 || port > 65535) {
+                showStatus('error', 'Please enter a valid port number');
+                return;
+            }
+            
+            // Simulate connection test
+            showStatus('info', 'Testing connection...');
+            
+            setTimeout(() => {
+                // Simulate success/failure
+                const isSuccess = Math.random() > 0.3;
+                
+                if (isSuccess) {
+                    showStatus('success', '✅ Connection successful! SyftBox is reachable.');
+                    connectBtn.disabled = false;
+                } else {
+                    showStatus('error', '❌ Connection failed. Check the host address and port.');
+                    connectBtn.disabled = true;
+                }
+            }, 2000);
+        }
+
+        // Connect to remote SyftBox
+        function connectRemote() {
+            const host = document.getElementById('remoteHost').value.trim();
+            const port = document.getElementById('remotePort').value.trim();
+            
+            showStatus('info', 'Connecting to remote SyftBox...');
+            
+            setTimeout(() => {
+                showStatus('success', '🎉 Connected successfully! You can now access remote services.');
+                
+                // Store connection details
+                localStorage.setItem('syftbox_remote_host', host);
+                localStorage.setItem('syftbox_remote_port', port);
+            }, 1500);
+        }
+
+        // Show status messages
+        function showStatus(type, message) {
+            const statusDiv = document.getElementById('connectionStatus');
+            statusDiv.innerHTML = message;
+            statusDiv.className = `status-message status-${type}`;
+            statusDiv.style.display = 'block';
+        }
+
         // Show OS installation tab
         function showOSTab(osName) {
             // Remove active class from all tabs
@@ -1026,10 +2158,198 @@
             });
         }
 
+        // Test VM Connection
+        function testVMConnection() {
+            const url = document.getElementById('vmUrl').value.trim();
+            const port = document.getElementById('vmPort').value.trim();
+            const statusDiv = document.getElementById('vmConnectionStatus');
+            const connectBtn = document.getElementById('connectVMBtn');
+            
+            if (!url) {
+                showVMStatus('error', 'Please enter a URL or IP address');
+                return;
+            }
+            
+            if (!port || port < 1 || port > 65535) {
+                showVMStatus('error', 'Please enter a valid port number (1-65535)');
+                return;
+            }
+            
+            const button = event.target;
+            const originalText = button.innerHTML;
+            
+            // Reset connection button
+            connectBtn.disabled = true;
+            
+            // Show testing status
+            button.innerHTML = '🔍 Testing...';
+            button.disabled = true;
+            showVMStatus('info', 'Testing connection to ' + url + ':' + port + '...');
+            
+            // Simulate connection test (in real implementation, this would make an actual request)
+            setTimeout(() => {
+                // For demo purposes, simulate success/failure based on URL format
+                const isValidFormat = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(url) || 
+                                     /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(url) ||
+                                     url === 'localhost' || url === '127.0.0.1';
+                
+                const isConnected = isValidFormat && Math.random() > 0.3; // 70% success rate for valid formats
+                
+                button.innerHTML = originalText;
+                button.disabled = false;
+                
+                if (isConnected) {
+                    showVMStatus('success', '✅ Connection successful! SyftBox is reachable at ' + url + ':' + port);
+                    connectBtn.disabled = false;
+                } else if (!isValidFormat) {
+                    showVMStatus('error', '❌ Invalid URL format. Please check the address and try again.');
+                } else {
+                    showVMStatus('error', '❌ Connection failed. Possible issues:<br/>• SyftBox is not running on the target machine<br/>• Network connectivity problems<br/>• Firewall blocking the connection<br/>• Incorrect URL or port');
+                }
+            }, 2000);
+        }
+        
+        // Connect to VM
+        function connectToVM() {
+            const url = document.getElementById('vmUrl').value.trim();
+            const port = document.getElementById('vmPort').value.trim();
+            
+            if (!url || !port) {
+                showVMStatus('error', 'Please test the connection first');
+                return;
+            }
+            
+            const fullUrl = `http://${url}:${port}`;
+            
+            // Show connection attempt
+            showVMStatus('info', 'Connecting to remote SyftBox...');
+            
+            // Simulate connection (in real implementation, this would update the app config)
+            setTimeout(() => {
+                // Store VM connection details (in real app, this would be saved to config)
+                localStorage.setItem('syftbox_vm_url', url);
+                localStorage.setItem('syftbox_vm_port', port);
+                localStorage.setItem('syftbox_connection_type', 'vm');
+                
+                showVMStatus('success', '🎉 Connected to remote SyftBox! You can now access VM services.<br/><small>This connection will be remembered for future sessions.</small>');
+                
+                // In a real implementation, this would:
+                // 1. Update the app to use VM connection instead of local
+                // 2. Reload services from the VM
+                // 3. Switch to the local services view
+                
+                setTimeout(() => {
+                    if (confirm('Switch to local services view to see VM services?')) {
+                        toggleMode(); // Switch to local mode to show services
+                    }
+                }, 2000);
+            }, 1500);
+        }
+        
+        // Show VM connection status
+        function showVMStatus(type, message) {
+            const statusDiv = document.getElementById('vmConnectionStatus');
+            statusDiv.style.display = 'block';
+            statusDiv.innerHTML = message;
+            
+            // Remove previous status classes
+            statusDiv.classList.remove('vm-status-success', 'vm-status-error', 'vm-status-info');
+            
+            // Add appropriate status class
+            if (type === 'success') {
+                statusDiv.classList.add('vm-status-success');
+                statusDiv.style.backgroundColor = '#d1fae5';
+                statusDiv.style.borderColor = '#86efac';
+                statusDiv.style.color = '#065f46';
+            } else if (type === 'error') {
+                statusDiv.classList.add('vm-status-error');
+                statusDiv.style.backgroundColor = '#fee2e2';
+                statusDiv.style.borderColor = '#fca5a5';
+                statusDiv.style.color = '#991b1b';
+            } else if (type === 'info') {
+                statusDiv.classList.add('vm-status-info');
+                statusDiv.style.backgroundColor = '#dbeafe';
+                statusDiv.style.borderColor = '#93c5fd';
+                statusDiv.style.color = '#1d4ed8';
+            }
+            statusDiv.style.border = '1px solid';
+        }
+
+        // Filter functions
+        let activePublicationFilters = [];
+        let activeStatusFilters = [];
+
+        function togglePublicationFilter(filter) {
+            const button = document.querySelector(`.filter-group:first-child .filter-btn[data-filter="${filter}"]`);
+            
+            if (activePublicationFilters.includes(filter)) {
+                // Remove filter
+                activePublicationFilters = activePublicationFilters.filter(f => f !== filter);
+                button.classList.remove('active');
+            } else {
+                // Add filter
+                activePublicationFilters.push(filter);
+                button.classList.add('active');
+            }
+            
+            applyFilters();
+        }
+
+        function toggleStatusFilter(filter) {
+            const button = document.querySelector(`.filter-group:last-child .filter-btn[data-filter="${filter}"]`);
+            
+            if (activeStatusFilters.includes(filter)) {
+                // Remove filter
+                activeStatusFilters = activeStatusFilters.filter(f => f !== filter);
+                button.classList.remove('active');
+            } else {
+                // Add filter
+                activeStatusFilters.push(filter);
+                button.classList.add('active');
+            }
+            
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const serviceCards = document.querySelectorAll('.service-card');
+            
+            serviceCards.forEach(card => {
+                const cardPublication = card.getAttribute('data-publication');
+                const cardStatus = card.getAttribute('data-status');
+                
+                // Show card if no filters are active, or if it matches any active filter
+                const showByPublication = activePublicationFilters.length === 0 || activePublicationFilters.includes(cardPublication);
+                const showByStatus = activeStatusFilters.length === 0 || activeStatusFilters.includes(cardStatus);
+                
+                if (showByPublication && showByStatus) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
         // Check SyftBox connection
         function checkSyftBoxConnection() {
             const button = event.target;
             const originalText = button.innerHTML;
+            
+            // Switch to Local mode when checking connection
+            const toggle = document.getElementById('modeToggle');
+            const servicesContainer = document.getElementById('servicesContainer');
+            const installationContainer = document.getElementById('installationContainer');
+            const localLabel = document.getElementById('localLabel');
+            const internetLabel = document.getElementById('internetLabel');
+            
+            // Turn off the toggle (switch to Local mode)
+            if (toggle.classList.contains('active')) {
+                toggle.classList.remove('active');
+                servicesContainer.classList.add('active');
+                installationContainer.classList.add('hidden');
+                localLabel.classList.add('active');
+                internetLabel.classList.remove('active');
+            }
             
             // Simulate connection check
             button.innerHTML = '🔍 Checking...';
@@ -1041,7 +2361,7 @@
                 
                 if (isConnected) {
                     button.innerHTML = '✅ Connected!';
-                    button.style.background = '#10b981';
+                    button.style.background = '#53BEA9';
                     button.style.color = 'white';
                     
                     // Show success message
@@ -1070,6 +2390,403 @@
                 }
             }, 2000);
         }
+
+        // Check authentication
+        function isAuthenticated() {
+            const auth = localStorage.getItem('isAuthenticated');
+            const authTime = parseInt(localStorage.getItem('authTime') || '0');
+            const now = Date.now();
+            const hoursSinceAuth = (now - authTime) / (1000 * 60 * 60);
+            
+            return auth === 'true' && hoursSinceAuth < 24;
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication on page load
+            if (!isAuthenticated()) {
+                window.location.href = 'login.html?redirect=build.html';
+                return;
+            }
+            
+            // Update user email display
+            const authEmail = localStorage.getItem('userEmail');
+            if (authEmail) {
+                const emailElement = document.getElementById('userEmail');
+                if (emailElement) {
+                    emailElement.textContent = authEmail;
+                }
+                // Also update balance if needed
+                // Note: Balance is handled by updatePaymentStatus() - don't set it here
+            }
+            
+            // Check if user has remote connection stored
+            const remoteHost = localStorage.getItem('syftbox_remote_host');
+            if (remoteHost) {
+                document.getElementById('remoteHost').value = remoteHost;
+                document.getElementById('remotePort').value = localStorage.getItem('syftbox_remote_port') || '8080';
+            }
+        });
+    </script>
+    
+    <!-- Payment Registration Modal -->
+    <div class="modal-overlay" id="paymentRegistrationModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Register Wallet Manager</h3>
+                <button class="modal-close" onclick="closeModal('paymentRegistrationModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <!-- Step 1: Service Selection -->
+                <div class="payment-modal-step active" id="paymentStep1">
+                    <div class="form-group">
+                        <label class="form-label">Select Wallet Manager</label>
+                        <div class="service-option" onclick="selectPaymentService('openmined')">
+                            <input type="radio" name="paymentService" value="openmined" id="openmined-radio">
+                            <div class="service-details">
+                                <div class="service-name">OpenMined Wallet Manager</div>
+                                <div class="service-url">https://payments.openmined.org</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-input" id="paymentEmail" placeholder="Your email address" readonly>
+                        <div class="form-help">This email is prefilled from your profile</div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px;">
+                        <button class="btn" onclick="closeModal('paymentRegistrationModal')">Cancel</button>
+                        <button class="btn btn-primary" onclick="proceedToPasswordStep()" id="proceedBtn" disabled>Next</button>
+                    </div>
+                </div>
+                
+                <!-- Step 2: Password Setup -->
+                <div class="payment-modal-step" id="paymentStep2">
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-input" id="paymentPassword" placeholder="Create a password">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Confirm Password</label>
+                        <input type="password" class="form-input" id="paymentPasswordConfirm" placeholder="Confirm your password">
+                        <div class="payment-error" id="passwordError">Passwords do not match</div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px;">
+                        <button class="btn" onclick="goBackToServiceSelection()">Back</button>
+                        <button class="btn btn-primary" onclick="completePaymentRegistration()">Complete Registration</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Payment Required Modal -->
+    <div class="modal-overlay" id="paymentRequiredModal" style="display: none;">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h3>Wallet Manager Required</h3>
+                <button class="modal-close" onclick="closeModal('paymentRequiredModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <p style="margin-bottom: 16px;">This service requires payment. You must register with a wallet manager to access paid services.</p>
+                <div style="display: flex; gap: 8px; justify-content: flex-end;">
+                    <button class="btn" onclick="closeModal('paymentRequiredModal')">Cancel</button>
+                    <button class="btn btn-primary" onclick="closeModal('paymentRequiredModal'); showPaymentRegistration();">Register Wallet Manager</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Centralized User Account Management System
+        class UserAccountManager {
+            constructor() {
+                this.storageKey = 'userAccountData';
+                this.walletStorageKey = 'walletManagerData'; // Separate storage for wallet data
+                this.defaultAccount = {
+                    email: 'guest@syft.org',
+                    name: 'Guest',
+                    paymentService: null
+                    // Note: balance is not set by default - only when wallet manager is registered
+                };
+                this.account = this.loadAccount();
+                this.loadWalletData(); // Load wallet data separately
+            }
+            
+            loadAccount() {
+                try {
+                    const stored = localStorage.getItem(this.storageKey);
+                    if (stored) {
+                        const parsedAccount = JSON.parse(stored);
+                        return { ...this.defaultAccount, ...parsedAccount };
+                    }
+                } catch (e) {
+                    console.warn('Failed to load user account from localStorage:', e);
+                }
+                return { ...this.defaultAccount };
+            }
+            
+            loadWalletData() {
+                try {
+                    const walletData = localStorage.getItem(this.walletStorageKey);
+                    if (walletData) {
+                        const parsed = JSON.parse(walletData);
+                        this.account.paymentService = parsed.paymentService;
+                        this.account.balance = parsed.balance;
+                    }
+                } catch (e) {
+                    console.warn('Failed to load wallet data from localStorage:', e);
+                }
+            }
+            
+            saveWalletData() {
+                try {
+                    const walletData = {
+                        paymentService: this.account.paymentService,
+                        balance: this.account.balance
+                    };
+                    localStorage.setItem(this.walletStorageKey, JSON.stringify(walletData));
+                } catch (e) {
+                    console.warn('Failed to save wallet data to localStorage:', e);
+                }
+            }
+            
+            saveAccount() {
+                try {
+                    localStorage.setItem(this.storageKey, JSON.stringify(this.account));
+                } catch (e) {
+                    console.warn('Failed to save user account to localStorage:', e);
+                }
+            }
+            
+            updateAccount(updates) {
+                this.account = { ...this.account, ...updates };
+                this.saveAccount();
+                this.broadcastAccountUpdate();
+            }
+            
+            broadcastAccountUpdate() {
+                window.dispatchEvent(new CustomEvent('userAccountUpdated', { 
+                    detail: this.account 
+                }));
+            }
+            
+            getAccount() {
+                return { ...this.account };
+            }
+            
+            registerPaymentService(provider, url) {
+                this.account.paymentService = {
+                    provider,
+                    url,
+                    registeredAt: new Date().toISOString()
+                };
+                this.account.balance = '$87.20'; // Set balance when wallet manager is registered
+                
+                // Save wallet data separately (persists across user changes)
+                this.saveWalletData();
+                
+                // Also update account and broadcast
+                this.saveAccount();
+                this.broadcastAccountUpdate();
+            }
+            
+            updateAuthenticatedUser(email) {
+                // Only update email/name if different
+                if (this.account.email !== email) {
+                    this.account.email = email;
+                    this.account.name = email.split('@')[0];
+                    
+                    // Always reload wallet data (persists across users)
+                    this.loadWalletData();
+                    
+                    this.saveAccount();
+                    this.broadcastAccountUpdate();
+                }
+            }
+            
+            isLoggedIn() {
+                return this.account.email !== 'guest@syft.org';
+            }
+            
+            hasPaymentService() {
+                return this.account.paymentService !== null;
+            }
+        }
+        
+        // Global account manager instance
+        const accountManager = new UserAccountManager();
+        
+        // Set default user for build.html (authenticated user context)
+        if (accountManager.getAccount().email === 'guest@syft.org') {
+            accountManager.updateAuthenticatedUser('irina@openmined.org');
+        }
+        
+        // Legacy userAccount object for backward compatibility
+        let userAccount = accountManager.getAccount();
+        
+        // Wallet Manager Registration Functions
+        function showPaymentRegistration() {
+            document.getElementById('paymentEmail').value = userAccount.email;
+            document.getElementById('paymentRegistrationModal').style.display = 'flex';
+            resetPaymentModal();
+        }
+        
+        function selectPaymentService(service) {
+            document.getElementById('openmined-radio').checked = true;
+            document.getElementById('proceedBtn').disabled = false;
+        }
+        
+        function proceedToPasswordStep() {
+            document.getElementById('paymentStep1').classList.remove('active');
+            document.getElementById('paymentStep2').classList.add('active');
+        }
+        
+        function goBackToServiceSelection() {
+            document.getElementById('paymentStep2').classList.remove('active');
+            document.getElementById('paymentStep1').classList.add('active');
+        }
+        
+        function validatePasswords() {
+            const password = document.getElementById('paymentPassword').value;
+            const confirmPassword = document.getElementById('paymentPasswordConfirm').value;
+            const errorDiv = document.getElementById('passwordError');
+            
+            if (password && confirmPassword && password !== confirmPassword) {
+                errorDiv.style.display = 'block';
+                return false;
+            } else {
+                errorDiv.style.display = 'none';
+                return true;
+            }
+        }
+        
+        function completePaymentRegistration() {
+            const password = document.getElementById('paymentPassword').value;
+            const confirmPassword = document.getElementById('paymentPasswordConfirm').value;
+            
+            if (!password || !confirmPassword) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            if (!validatePasswords()) {
+                return;
+            }
+            
+            // Register wallet manager using account manager
+            accountManager.registerPaymentService('OpenMined Wallet Manager', 'https://payments.openmined.org');
+            
+            // Update local userAccount object for immediate UI update
+            userAccount = accountManager.getAccount();
+            
+            updatePaymentStatus();
+            closeModal('paymentRegistrationModal');
+            alert('Payment service registration completed successfully!');
+        }
+        
+        function updatePaymentStatus() {
+            // Get fresh account data
+            userAccount = accountManager.getAccount();
+            
+            const paymentStatus = document.getElementById('paymentStatus');
+            const registerBtn = document.getElementById('registerPaymentBtn');
+            const manageBtn = document.getElementById('managePaymentBtn');
+            const balanceSection = document.getElementById('balanceSection');
+            const signInBtn = document.getElementById('signInBtn');
+            const balanceElement = document.getElementById('userBalance');
+            const emailElement = document.getElementById('userEmail');
+            
+            const isLoggedIn = accountManager.isLoggedIn();
+            const hasPaymentService = accountManager.hasPaymentService();
+            
+            // Update email display
+            if (emailElement) emailElement.textContent = userAccount.email;
+            
+            // Always show balance section but update content based on wallet manager status
+            if (balanceSection) balanceSection.style.display = 'block';
+            
+            if (hasPaymentService) {
+                // Update balance display when registered
+                if (balanceElement) {
+                    balanceElement.textContent = userAccount.balance || '$87.20';
+                    balanceElement.style.color = ''; // Default color
+                }
+                
+                if (paymentStatus) {
+                    paymentStatus.textContent = 'Registered';
+                    paymentStatus.style.color = '#16a34a';
+                }
+                if (registerBtn) registerBtn.style.display = 'none';
+                if (manageBtn) manageBtn.style.display = 'block';
+            } else {
+                // Show "Missing" when not registered
+                if (balanceElement) {
+                    balanceElement.textContent = 'Missing';
+                    balanceElement.style.color = '#ef4444'; // Red color for missing
+                }
+                
+                if (paymentStatus) {
+                    paymentStatus.textContent = 'Not registered';
+                    paymentStatus.style.color = '#64748b';
+                }
+                // Show register button only when logged in (not guest)
+                if (registerBtn) registerBtn.style.display = isLoggedIn ? 'block' : 'none';
+                if (manageBtn) manageBtn.style.display = 'none';
+            }
+            
+            // Show/hide sign in button based on login status
+            if (signInBtn) {
+                signInBtn.style.display = isLoggedIn ? 'none' : 'block';
+            }
+        }
+        
+        function managePaymentService() {
+            alert(`Manage your ${userAccount.paymentService.provider} account\n\nRegistered: ${new Date(userAccount.paymentService.registeredAt).toLocaleDateString()}\nService URL: ${userAccount.paymentService.url}`);
+        }
+        
+        function resetPaymentModal() {
+            document.getElementById('paymentStep1').classList.add('active');
+            document.getElementById('paymentStep2').classList.remove('active');
+            document.getElementById('paymentPassword').value = '';
+            document.getElementById('paymentPasswordConfirm').value = '';
+            document.getElementById('passwordError').style.display = 'none';
+            document.getElementById('openmined-radio').checked = false;
+            document.getElementById('proceedBtn').disabled = true;
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+        
+        function signIn() {
+            window.location.href = 'login.html';
+        }
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Listen for account updates from other pages
+            window.addEventListener('userAccountUpdated', function(event) {
+                userAccount = event.detail;
+                updatePaymentStatus();
+            });
+            
+            // Initialize payment status
+            updatePaymentStatus();
+            
+            // Add password validation listeners
+            const passwordInput = document.getElementById('paymentPassword');
+            const confirmInput = document.getElementById('paymentPasswordConfirm');
+            
+            if (passwordInput && confirmInput) {
+                passwordInput.addEventListener('input', validatePasswords);
+                confirmInput.addEventListener('input', validatePasswords);
+            }
+        });
     </script>
 </body>
 </html>
